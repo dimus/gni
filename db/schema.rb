@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 9) do
+ActiveRecord::Schema.define(:version => 10) do
 
   create_table "access_rules", :force => true do |t|
     t.integer  "data_source_id"
@@ -55,6 +55,14 @@ ActiveRecord::Schema.define(:version => 9) do
     t.boolean  "in_gni"
     t.date     "created"
     t.date     "updated"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "organization_contacts", :force => true do |t|
+    t.integer  "organization_id"
+    t.integer  "person_id"
+    t.string   "role"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
