@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+participant_john:
   id: 1
   type: ParticipantPerson
   person_id: 1
 
-two:
+participant_nhm:
   id: 2
   type: ParticipantOrganization
   organization_id: 1

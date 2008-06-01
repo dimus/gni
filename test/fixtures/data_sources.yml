@@ -1,37 +1,37 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+bees_nhm:
   id: 1
-  title: MyString
-  description: MyString
-  rights: MyString
-  citation: MyString
-  metadata_url: MyString
+  title: Bees of GB
+  description: Name list of Great Britain Bees
+  rights: public domain
+  citation: "Kehan Harman, Bees R Us, v.234, 221022-221089, 2008"
+  metadata_url: http://nhm.org/bees/metadata
   endpoint_url: MyString
-  data_uri: MyString
-  data_uri_type: MyString
-  response_format: MyString
+  data_uri: http://nhm.org/bees/data
+  data_uri_type: REST
+  response_format: XML
   refresh_period_hours: 1
-  taxonomic_scope: MyString
-  geospation_scope_wkt: MyString
+  taxonomic_scope: Insects
+  geospation_scope_wkt: 
   in_gni: 1
   created: 2008-06-01
   updated: 2008-06-01
 
-two:
+birds_nhm:
   id: 2
-  title: MyString
-  description: MyString
-  rights: MyString
-  citation: MyString
-  metadata_url: MyString
-  endpoint_url: MyString
-  data_uri: MyString
-  data_uri_type: MyString
-  response_format: MyString
+  title: Birds of GB
+  description: List of Great Britain Birds
+  rights: top secret
+  citation: "John Harwards, Birders Journal: v.33, p. 33-342, 2007"
+  metadata_url: http://nhm.org/birds/metadata
+  endpoint_url: 
+  data_uri: http://nhm.org/birds/data
+  data_uri_type: REST
+  response_format: XML
   refresh_period_hours: 1
-  taxonomic_scope: MyString
-  geospation_scope_wkt: MyString
+  taxonomic_scope: Aves
+  geospation_scope_wkt: 
   in_gni: 1
   created: 2008-06-01
   updated: 2008-06-01

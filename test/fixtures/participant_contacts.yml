@@ -1,13 +1,19 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+john_participant_contact:
   id: 1
   participant_id: 1
   person_id: 1
-  role: MyString
+  role: system administrator
 
-two:
+jane_participant_contact:
   id: 2
   participant_id: 1
   person_id: 2
-  role: MyString
+  role: data administrator
+
+nhm_contact:
+  id: 3
+  participant_id: 2
+  person_id: 1
+  role: data holder

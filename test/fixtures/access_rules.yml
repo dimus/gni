@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+bees_nhm_can_resolve_url:
   data_source_id: 1
   access_type_id: 1
-  is_allowed: false
+  is_allowed: true
 
-two:
+bees_nhm_can_cache:
   data_source_id: 1
-  access_type_id: 1
+  access_type_id: 4
   is_allowed: false

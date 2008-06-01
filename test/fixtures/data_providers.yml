@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+bees_nhm_john:
   id: 1
   data_source_id: 1
   participant_id: 1
 
-two:
+bees_nhm_nhm:
   id: 2
   data_source_id: 1
   participant_id: 2

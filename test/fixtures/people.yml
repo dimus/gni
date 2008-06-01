@@ -1,19 +1,19 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+john:
   id: 1
-  first_name: MyString
-  last_name: MyString
-  job_title: MyString
-  email: MyString
-  telephone: MyString
-  address: MyString
+  first_name: John
+  last_name: Doe
+  job_title: System Administrator
+  email: jdoe@example.com
+  telephone: '(508)-123-3324'
+  address: 7 MBL Street, Woods Hole MA, United States 025543
 
-two:
+jane:
   id: 2
-  first_name: MyString
-  last_name: MyString
-  job_title: MyString
-  email: MyString
-  telephone: MyString
-  address: MyString
+  first_name: Jane
+  last_name: Miller
+  job_title: Programmer
+  email: jmiller@example.com
+  telephone: '+43 334 33456 ext 34'
+  address: 4 Bill Street, London, 34323

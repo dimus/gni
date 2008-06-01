@@ -1,9 +1,15 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+can_resolve_uri:
   id: 1
-  name: MyString
+  name: canResolveURI
 
-two:
+can_resolve_uri_private:
   id: 2
-  name: MyString
+  name: canResolveURIPrivate
+can_resolve_uri_public:
+  id: 3
+  name: canResolveURIPublic
+can_cache_content:
+  id: 4
+  name: canCacheContent

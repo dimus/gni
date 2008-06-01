@@ -21,23 +21,23 @@ class DataProviderRolesControllerTest < ActionController::TestCase
   end
 
   def test_should_show_data_provider_role
-    get :show, :id => data_provider_roles(:one).id
+    get :show, :id => data_provider_roles(:sys_admin_john).id
     assert_response :success
   end
 
   def test_should_get_edit
-    get :edit, :id => data_provider_roles(:one).id
+    get :edit, :id => data_provider_roles(:sys_admin_john).id
     assert_response :success
   end
 
   def test_should_update_data_provider_role
-    put :update, :id => data_provider_roles(:one).id, :data_provider_role => { }
+    put :update, :id => data_provider_roles(:sys_admin_john).id, :data_provider_role => { }
     assert_redirected_to data_provider_role_path(assigns(:data_provider_role))
   end
 
   def test_should_destroy_data_provider_role
     assert_difference('DataProviderRole.count', -1) do
-      delete :destroy, :id => data_provider_roles(:one).id
+      delete :destroy, :id => data_provider_roles(:sys_admin_john).id
     end
 
     assert_redirected_to data_provider_roles_path

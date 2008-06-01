@@ -21,23 +21,23 @@ class ParticipantContactsControllerTest < ActionController::TestCase
   end
 
   def test_should_show_participant_contact
-    get :show, :id => participant_contacts(:one).id
+    get :show, :id => participant_contacts(:john_participant_contact).id
     assert_response :success
   end
 
   def test_should_get_edit
-    get :edit, :id => participant_contacts(:one).id
+    get :edit, :id => participant_contacts(:john_participant_contact).id
     assert_response :success
   end
 
   def test_should_update_participant_contact
-    put :update, :id => participant_contacts(:one).id, :participant_contact => { }
+    put :update, :id => participant_contacts(:john_participant_contact).id, :participant_contact => { }
     assert_redirected_to participant_contact_path(assigns(:participant_contact))
   end
 
   def test_should_destroy_participant_contact
     assert_difference('ParticipantContact.count', -1) do
-      delete :destroy, :id => participant_contacts(:one).id
+      delete :destroy, :id => participant_contacts(:john_participant_contact).id
     end
 
     assert_redirected_to participant_contacts_path

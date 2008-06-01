@@ -21,23 +21,23 @@ class AccessRulesControllerTest < ActionController::TestCase
   end
 
   def test_should_show_access_rule
-    get :show, :id => access_rules(:one).id
+    get :show, :id => access_rules(:bees_nhm_can_resolve_url).id
     assert_response :success
   end
 
   def test_should_get_edit
-    get :edit, :id => access_rules(:one).id
+    get :edit, :id => access_rules(:bees_nhm_can_resolve_url).id
     assert_response :success
   end
 
   def test_should_update_access_rule
-    put :update, :id => access_rules(:one).id, :access_rule => { }
+    put :update, :id => access_rules(:bees_nhm_can_resolve_url).id, :access_rule => { }
     assert_redirected_to access_rule_path(assigns(:access_rule))
   end
 
   def test_should_destroy_access_rule
     assert_difference('AccessRule.count', -1) do
-      delete :destroy, :id => access_rules(:one).id
+      delete :destroy, :id => access_rules(:bees_nhm_can_resolve_url).id
     end
 
     assert_redirected_to access_rules_path

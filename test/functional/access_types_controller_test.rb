@@ -21,23 +21,23 @@ class AccessTypesControllerTest < ActionController::TestCase
   end
 
   def test_should_show_access_type
-    get :show, :id => access_types(:one).id
+    get :show, :id => access_types(:can_resolve_uri).id
     assert_response :success
   end
 
   def test_should_get_edit
-    get :edit, :id => access_types(:one).id
+    get :edit, :id => access_types(:can_resolve_uri).id
     assert_response :success
   end
 
   def test_should_update_access_type
-    put :update, :id => access_types(:one).id, :access_type => { }
+    put :update, :id => access_types(:can_resolve_uri).id, :access_type => { }
     assert_redirected_to access_type_path(assigns(:access_type))
   end
 
   def test_should_destroy_access_type
     assert_difference('AccessType.count', -1) do
-      delete :destroy, :id => access_types(:one).id
+      delete :destroy, :id => access_types(:can_resolve_uri).id
     end
 
     assert_redirected_to access_types_path

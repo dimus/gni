@@ -21,23 +21,23 @@ class DataProvidersControllerTest < ActionController::TestCase
   end
 
   def test_should_show_data_provider
-    get :show, :id => data_providers(:one).id
+    get :show, :id => data_providers(:bees_nhm_john).id
     assert_response :success
   end
 
   def test_should_get_edit
-    get :edit, :id => data_providers(:one).id
+    get :edit, :id => data_providers(:bees_nhm_john).id
     assert_response :success
   end
 
   def test_should_update_data_provider
-    put :update, :id => data_providers(:one).id, :data_provider => { }
+    put :update, :id => data_providers(:bees_nhm_john).id, :data_provider => { }
     assert_redirected_to data_provider_path(assigns(:data_provider))
   end
 
   def test_should_destroy_data_provider
     assert_difference('DataProvider.count', -1) do
-      delete :destroy, :id => data_providers(:one).id
+      delete :destroy, :id => data_providers(:bees_nhm_john).id
     end
 
     assert_redirected_to data_providers_path

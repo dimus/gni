@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+sys_admin_john:
   id: 1
   data_provider_id: 1
-  role: MyString
+  role: System Administrator
 
-two:
+technical_host_nhm:
   id: 2
-  data_provider_id: 1
-  role: MyString
+  data_provider_id: 2
+  role: Technical Host

@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+nhm_john:
   organization_id: 1
   person_id: 1
-  role: MyString
+  role: System Administrator
 
-two:
+nhm_jane:
   organization_id: 1
   person_id: 2
-  role: MyString
+  role: Book Keeper

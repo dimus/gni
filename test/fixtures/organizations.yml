@@ -1,25 +1,25 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
+nhm:
   id: 1
-  name: MyString
-  identifier: MyString
-  acronym: MyString
-  logo_url: MyString
-  description: MyString
-  address: MyString
-  decimal_latitude: 1.5
-  decimal_longitude: 1.5
-  related_information_url: MyString
+  name: National History Museum, London
+  identifier:  http://www.nhm.ac.uk
+  acronym: BM
+  logo_url:
+  description: NHM looks after old dead things
+  address: Cromwell Road, London, SW7 5BD
+  decimal_latitude: 51.483334
+  decimal_longitude: -0.450000
+  related_information_url:
 
-two:
+eol:
   id: 2
-  name: MyString
-  identifier: MyString
-  acronym: MyString
-  logo_url: MyString
-  description: MyString
-  address: MyString
-  decimal_latitude: 1.5
-  decimal_longitude: 1.5
-  related_information_url: MyString
+  name: Encyclopedia of Life
+  identifier: http://www.eol.org/
+  acronym: EOL
+  logo_url:
+  description: EOL serves species pages
+  address: 7 MBL Street, Woods Hole, MA 02543
+  decimal_latitude: 41.65002
+  decimal_longitude: -70.56670
+  related_information_url: http://eol.org/about

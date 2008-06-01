@@ -21,23 +21,23 @@ class OrganizationContactsControllerTest < ActionController::TestCase
   end
 
   def test_should_show_organization_contact
-    get :show, :id => organization_contacts(:one).id
+    get :show, :id => organization_contacts(:nhm_john).id
     assert_response :success
   end
 
   def test_should_get_edit
-    get :edit, :id => organization_contacts(:one).id
+    get :edit, :id => organization_contacts(:nhm_john).id
     assert_response :success
   end
 
   def test_should_update_organization_contact
-    put :update, :id => organization_contacts(:one).id, :organization_contact => { }
+    put :update, :id => organization_contacts(:nhm_john).id, :organization_contact => { }
     assert_redirected_to organization_contact_path(assigns(:organization_contact))
   end
 
   def test_should_destroy_organization_contact
     assert_difference('OrganizationContact.count', -1) do
-      delete :destroy, :id => organization_contacts(:one).id
+      delete :destroy, :id => organization_contacts(:nhm_john).id
     end
 
     assert_redirected_to organization_contacts_path
