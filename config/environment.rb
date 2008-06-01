@@ -38,7 +38,7 @@ Rails::Initializer.run do |config|
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
     :session_key => '_gna-ror_session',
-    :secret      => 'c6d220aab842439830b33b9233a6324003e524714a6307d18a3b9b56e285ea8097fdb45348e9b041e33c882a37d928baff1683a919621dab65647547ca22592c'
+    :secret      => '0d4586e4b250c1dd1926097a57ef3a3ef8c142ca6552c8a5704128338be295dc38617de2bd3bc3b55e57e4fa58f3be3553dbbf74b630de1a44042488a5dae927'
   }
 
   # Use the database for sessions instead of the cookie-based default,
