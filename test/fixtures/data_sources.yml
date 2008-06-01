@@ -11,7 +11,7 @@ one:
   data_uri: MyString
   data_uri_type: MyString
   response_format: MyString
-  refresh_perion_hours: 1
+  refresh_period_hours: 1
   taxonomic_scope: MyString
   geospation_scope_wkt: MyString
   in_gni: 1
@@ -29,7 +29,7 @@ two:
   data_uri: MyString
   data_uri_type: MyString
   response_format: MyString
-  refresh_perion_hours: 1
+  refresh_period_hours: 1
   taxonomic_scope: MyString
   geospation_scope_wkt: MyString
   in_gni: 1

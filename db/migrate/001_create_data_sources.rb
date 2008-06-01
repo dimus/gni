@@ -10,7 +10,7 @@ class CreateDataSources < ActiveRecord::Migration
       t.string :data_uri
       t.string :data_uri_type
       t.string :response_format
-      t.integer :refresh_perion_hours
+      t.integer :refresh_period_hours
       t.string :taxonomic_scope
       t.string :geospation_scope_wkt
       t.boolean :in_gni
