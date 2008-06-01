@@ -2,9 +2,9 @@ ActionController::Routing::Routes.draw do |map|
   
   map.root :controller => 'data_sources'
   
-  map.resources :access_rules, :has_many => :access_types 
+  map.resources :access_rules
 
-  map.resources :access_types 
+  map.resources :access_types, :has_many => :access_rules
 
   map.resources :participant_contacts
 
@@ -18,11 +18,11 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :participants, :has_many => :participant_contacts
   
-  map.resources :participant_people, :has_many => [:people, :participant_contacts]
+  map.resources :participant_people #, :has_many => [:people, :participant_contacts]
   
-  map.resources :participant_organisations, :has_many => [:organizations, :participant_contacts]
+  map.resources :participant_organizations #, :has_many => [:organizations, :participant_contacts]
 
-  map.resources :data_sources, :has_many => [:data_providers, :access_rules]
+  map.resources :data_sources #, :has_many => [:data_providers, :access_rules]
 
   # map.connect ':controller/:action/:id'
   # map.connect ':controller/:action/:id.:format'
