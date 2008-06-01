@@ -1,0 +1,12 @@
+<h1>Editing exit</h1>
+
+<%= error_messages_for :exit %>
+
+<% form_for(@exit) do |f| %>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @exit %> |
+<%= link_to 'Back', exits_path %>
