@@ -1,25 +1,28 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :access_rules
+  
+  map.root :controller => :data_sources
+  
+  map.resources :access_rules, :has_many => :access_types 
 
-  map.resources :access_types
-
-  map.resources :data_provider_roles
+  map.resources :access_types 
 
   map.resources :participant_contacts
 
-  map.resources :data_providers
+  map.resources :data_providers, :has_many => :data_provider_roles 
+
+  map.resources :data_provider_roles
 
   map.resources :organizations
 
   map.resources :people
 
-  map.resources :participants
+  map.resources :participants, :has_many => :participant_contacts
   
-  map.resources :participant_people
+  map.resources :participant_people, :has_many => [:people, :participant_contacts]
   
-  map.resources :participant_organisations
+  map.resources :participant_organisations, :has_many => [:organizations, :participant_contacts]
 
-  map.resources :data_sources
+  map.resources :data_sources, :has_many => :data_providers
 
   # The priority is based upon order of creation: first created -> highest priority.
 
