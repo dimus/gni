@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  data_source_id: 1
+  access_type_id: 1
+  is_allowed: false
+
+two:
+  data_source_id: 1
+  access_type_id: 1
+  is_allowed: false

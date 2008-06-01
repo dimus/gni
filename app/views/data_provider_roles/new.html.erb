@@ -1,0 +1,21 @@
+<h1>New data_provider_role</h1>
+
+<%= error_messages_for :data_provider_role %>
+
+<% form_for(@data_provider_role) do |f| %>
+  <p>
+    <b>Data provider</b><br />
+    <%= f.text_field :data_provider_id %>
+  </p>
+
+  <p>
+    <b>Role</b><br />
+    <%= f.text_field :role %>
+  </p>
+
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', data_provider_roles_path %>

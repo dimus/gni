@@ -1,0 +1,20 @@
+<h1>Listing access_types</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+
+<% for access_type in @access_types %>
+  <tr>
+    <td><%=h access_type.name %></td>
+    <td><%= link_to 'Show', access_type %></td>
+    <td><%= link_to 'Edit', edit_access_type_path(access_type) %></td>
+    <td><%= link_to 'Destroy', access_type, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New access_type', new_access_type_path %>

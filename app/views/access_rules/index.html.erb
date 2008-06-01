@@ -1,0 +1,24 @@
+<h1>Listing access_rules</h1>
+
+<table>
+  <tr>
+    <th>Data source</th>
+    <th>Access type</th>
+    <th>Is allowed</th>
+  </tr>
+
+<% for access_rule in @access_rules %>
+  <tr>
+    <td><%=h access_rule.data_source_id %></td>
+    <td><%=h access_rule.access_type_id %></td>
+    <td><%=h access_rule.is_allowed %></td>
+    <td><%= link_to 'Show', access_rule %></td>
+    <td><%= link_to 'Edit', edit_access_rule_path(access_rule) %></td>
+    <td><%= link_to 'Destroy', access_rule, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New access_rule', new_access_rule_path %>

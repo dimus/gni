@@ -1,4 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :access_rules
+
+  map.resources :access_types
+
+  map.resources :data_provider_roles
+
   map.resources :participant_contacts
 
   map.resources :data_providers
