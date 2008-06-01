@@ -13,6 +13,7 @@ class CreateDataSources < ActiveRecord::Migration
       t.integer :refresh_perion_hours
       t.string :taxonomic_scope
       t.string :geospation_scope_wkt
+      t.boolean :in_gni
       t.date :created
       t.date :updated
 

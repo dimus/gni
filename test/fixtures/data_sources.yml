@@ -1,6 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
+  id: 1
   title: MyString
   description: MyString
   rights: MyString
@@ -13,10 +14,12 @@ one:
   refresh_perion_hours: 1
   taxonomic_scope: MyString
   geospation_scope_wkt: MyString
+  in_gni: 1
   created: 2008-06-01
   updated: 2008-06-01
 
 two:
+  id: 2
   title: MyString
   description: MyString
   rights: MyString
@@ -29,5 +32,6 @@ two:
   refresh_perion_hours: 1
   taxonomic_scope: MyString
   geospation_scope_wkt: MyString
+  in_gni: 1
   created: 2008-06-01
   updated: 2008-06-01
