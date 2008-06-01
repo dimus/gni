@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
   
-  map.root :controller => :data_sources
+  map.root :controller => 'data_sources'
   
   map.resources :access_rules, :has_many => :access_types 
 
