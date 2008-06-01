@@ -1,0 +1,46 @@
+<h1>Listing data_sources</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Rights</th>
+    <th>Citation</th>
+    <th>Metadata url</th>
+    <th>Endpoint url</th>
+    <th>Data uri</th>
+    <th>Data uri type</th>
+    <th>Response format</th>
+    <th>Refresh perion hours</th>
+    <th>Taxonomic scope</th>
+    <th>Geospation scope wkt</th>
+    <th>Created</th>
+    <th>Updated</th>
+  </tr>
+
+<% for data_source in @data_sources %>
+  <tr>
+    <td><%=h data_source.title %></td>
+    <td><%=h data_source.description %></td>
+    <td><%=h data_source.rights %></td>
+    <td><%=h data_source.citation %></td>
+    <td><%=h data_source.metadata_url %></td>
+    <td><%=h data_source.endpoint_url %></td>
+    <td><%=h data_source.data_uri %></td>
+    <td><%=h data_source.data_uri_type %></td>
+    <td><%=h data_source.response_format %></td>
+    <td><%=h data_source.refresh_perion_hours %></td>
+    <td><%=h data_source.taxonomic_scope %></td>
+    <td><%=h data_source.geospation_scope_wkt %></td>
+    <td><%=h data_source.created %></td>
+    <td><%=h data_source.updated %></td>
+    <td><%= link_to 'Show', data_source %></td>
+    <td><%= link_to 'Edit', edit_data_source_path(data_source) %></td>
+    <td><%= link_to 'Destroy', data_source, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New data_source', new_data_source_path %>

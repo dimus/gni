@@ -1,0 +1,33 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: MyString
+  description: MyString
+  rights: MyString
+  citation: MyString
+  metadata_url: MyString
+  endpoint_url: MyString
+  data_uri: MyString
+  data_uri_type: MyString
+  response_format: MyString
+  refresh_perion_hours: 1
+  taxonomic_scope: MyString
+  geospation_scope_wkt: MyString
+  created: 2008-06-01
+  updated: 2008-06-01
+
+two:
+  title: MyString
+  description: MyString
+  rights: MyString
+  citation: MyString
+  metadata_url: MyString
+  endpoint_url: MyString
+  data_uri: MyString
+  data_uri_type: MyString
+  response_format: MyString
+  refresh_perion_hours: 1
+  taxonomic_scope: MyString
+  geospation_scope_wkt: MyString
+  created: 2008-06-01
+  updated: 2008-06-01
