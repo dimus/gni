@@ -1,2 +1,6 @@
 config/database.yml
 *.log
+/tmp/cashe/*
+/tmp/pids/*
+/tmp/sessions/*
+/tmp/sockets/*
