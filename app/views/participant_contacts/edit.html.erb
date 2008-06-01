@@ -1,0 +1,27 @@
+<h1>Editing participant_contact</h1>
+
+<%= error_messages_for :participant_contact %>
+
+<% form_for(@participant_contact) do |f| %>
+  <p>
+    <b>Participant</b><br />
+    <%= f.text_field :participant_id %>
+  </p>
+
+  <p>
+    <b>Person</b><br />
+    <%= f.text_field :person_id %>
+  </p>
+
+  <p>
+    <b>Role</b><br />
+    <%= f.text_field :role %>
+  </p>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @participant_contact %> |
+<%= link_to 'Back', participant_contacts_path %>

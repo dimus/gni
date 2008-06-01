@@ -1,0 +1,36 @@
+<h1>Listing organizations</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Identifier</th>
+    <th>Acronym</th>
+    <th>Logo url</th>
+    <th>Description</th>
+    <th>Address</th>
+    <th>Decimal latitude</th>
+    <th>Decimal longitude</th>
+    <th>Related information url</th>
+  </tr>
+
+<% for organization in @organizations %>
+  <tr>
+    <td><%=h organization.name %></td>
+    <td><%=h organization.identifier %></td>
+    <td><%=h organization.acronym %></td>
+    <td><%=h organization.logo_url %></td>
+    <td><%=h organization.description %></td>
+    <td><%=h organization.address %></td>
+    <td><%=h organization.decimal_latitude %></td>
+    <td><%=h organization.decimal_longitude %></td>
+    <td><%=h organization.related_information_url %></td>
+    <td><%= link_to 'Show', organization %></td>
+    <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
+    <td><%= link_to 'Destroy', organization, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New organization', new_organization_path %>

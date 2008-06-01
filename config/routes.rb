@@ -1,4 +1,18 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :participant_contacts
+
+  map.resources :data_providers
+
+  map.resources :organizations
+
+  map.resources :people
+
+  map.resources :participants
+  
+  map.resources :participant_people
+  
+  map.resources :participant_organisations
+
   map.resources :data_sources
 
   # The priority is based upon order of creation: first created -> highest priority.
