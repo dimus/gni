@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-us" />
+
+  <title>Global Names Architecture</title>
+
+  <meta name="ROBOTS" content="ALL" />
+  <meta http-equiv="imagetoolbar" content="no" />
+  <meta name="MSSmartTagsPreventParsing" content="true" />
+  <meta name="Keywords" content="__KEYWORDS__" />
+  <meta name="Description" content="__DESCRIPTION__" />
+
+  <%= stylesheet_link_tag "application.css","menu.css" %>
+
+  <%= # stylesheet_link_tag "admin.css" if page_type == 'admin' %>
+
+  <%= javascript_include_tag :defaults %>
+
+  <!-- import the DOM logic from external javascript files -->
+  <!--script type="text/javascript" src="/js/basic.js"></script-->
+
+  <!-- KLUDGE:: Win IE 5 -->
+  <!-- corrects the unsightly Flash of Unstyled Content. See http://www.bluerobot.com/web/css/fouc.asp for more info -->
+  <script type="text/javascript"></script>
+  <!-- END KLUDGE:: -->
+  <!-- <link rel="stylesheet" type="text/css" media="all" href="tree.css" />
+  <script type="text/javascript" src="tree.js"></script>    -->
+
+</head>
+
+<body id="noname1">
+  
+<div id="centerwrapper">
+  <div id="masthead">
+    <div id="logodiv">
+
+      <div id="logo_tuskit">
+      Global Names Architecture
+      </div>
+
+      <div id="logo_motto">
+      Species Names Exchange
+      </div>
+
+      <table class="layout">
+        <tr>
+          <td width="230">
+            <img src="/images/public/<%= page_type %>_logo.gif" alt="Logo name" style="width:230;height:120" />
+          </td>
+          <td style="padding-top: 10px; padding-left: 40px; background-image:url(/images/public/&lt;%= page_type %&gt;_logo_bkg2.gif); background-position:top left; background-repeat:no-repeat;" valign="top">
+            <div id="info">
+<%-
+=begin 'User:&nbsp;&nbsp;' + current_user[:login] rescue nil %>&nbsp;&nbsp;&nbsp;&nbsp;| <% if not current_user.groups.empty? -%> <% current_user.groups.each do |group| -%> <%= link_to "#{group.name.capitalize}", eval("url_" + group.name) %> | <%- end -%> <%- end -%>  <%= link_to "Logout", session_url(1), :method => :delete 
+=end
+-%>
+            </div><br clear="all" />
+          <div id="title">
+          <%= "Page title" #page_title %>
+          </div>
+          </td>
+        </tr>
+      </table>
+
+    </div><!-- end of logodiv -->
+  </div><!-- end of masthead -->
+
+  <div id="centerbox">
+
+<%-
+=begin if page_type == 'developer' -%>
+    <div id="navwrapper">    
+      <div id="tabs-container">
+        <%= tabs %>
+      </div>
+        <%= project_subtabs(get_current_project_id) %>
+    </div>
+    <%- 
+=end 
+-%>
+
+    <div id="centercontent">
+      <div id="overall">
+    
+<%-
+=begin 
+		if flash[:notice] or flash[:error] %>
+        <div id="flash">
+          <%= render_flash rescue nil %>
+        </div>
+        <%- 
+=end 
+-%>
+
+      <%= yield %>
+      
+      </div><!-- end of overall -->
+    </div><!-- end of centercontent -->
+  </div><!-- end of centerbox -->
+  
+  <div id="centerbottom">
+    <div id="centerbottominfo"><img src="/images/public/<%= page_type %>_bottomleft.gif" alt="bottomleft" width="300" height="30" /></div>
+  </div>
+  
+</div><!-- and of centerwrapper -->
+<%= #render :partial => "shared/footer" %>
+</body>
+</html>
