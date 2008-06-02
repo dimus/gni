@@ -16,8 +16,6 @@
 
   <%= stylesheet_link_tag "application.css","menu.css" %>
 
-  <%= # stylesheet_link_tag "admin.css" if page_type == 'admin' %>
-
   <%= javascript_include_tag :defaults %>
 
   <!-- import the DOM logic from external javascript files -->
@@ -38,7 +36,7 @@
   <div id="masthead">
     <div id="logodiv">
 
-      <div id="logo_tuskit">
+      <div id="logo_gna">
       Global Names Architecture
       </div>
 
@@ -49,17 +47,13 @@
       <table class="layout">
         <tr>
           <td width="230">
-            <img src="/images/public/<%= page_type %>_logo.gif" alt="Logo name" style="width:230;height:120" />
+            <img src="/images/public/developer_logo.gif" alt="Logo name" style="width:230;height:120" />
           </td>
-          <td style="padding-top: 10px; padding-left: 40px; background-image:url(/images/public/&lt;%= page_type %&gt;_logo_bkg2.gif); background-position:top left; background-repeat:no-repeat;" valign="top">
+          <td style="padding-top: 10px; padding-left: 40px; background-image:url(/images/public/developer_logo_bkg.gif); background-position:top left; background-repeat:no-repeat;" valign="top">
             <div id="info">
-<%-
-=begin 'User:&nbsp;&nbsp;' + current_user[:login] rescue nil %>&nbsp;&nbsp;&nbsp;&nbsp;| <% if not current_user.groups.empty? -%> <% current_user.groups.each do |group| -%> <%= link_to "#{group.name.capitalize}", eval("url_" + group.name) %> | <%- end -%> <%- end -%>  <%= link_to "Logout", session_url(1), :method => :delete 
-=end
--%>
             </div><br clear="all" />
           <div id="title">
-          <%= "Page title" #page_title %>
+  
           </div>
           </td>
         </tr>
@@ -70,30 +64,9 @@
 
   <div id="centerbox">
 
-<%-
-=begin if page_type == 'developer' -%>
-    <div id="navwrapper">    
-      <div id="tabs-container">
-        <%= tabs %>
-      </div>
-        <%= project_subtabs(get_current_project_id) %>
-    </div>
-    <%- 
-=end 
--%>
-
     <div id="centercontent">
       <div id="overall">
     
-<%-
-=begin 
-		if flash[:notice] or flash[:error] %>
-        <div id="flash">
-          <%= render_flash rescue nil %>
-        </div>
-        <%- 
-=end 
--%>
 
       <%= yield %>
       
@@ -102,10 +75,9 @@
   </div><!-- end of centerbox -->
   
   <div id="centerbottom">
-    <div id="centerbottominfo"><img src="/images/public/<%= page_type %>_bottomleft.gif" alt="bottomleft" width="300" height="30" /></div>
+    <div id="centerbottominfo"><img src="/images/public/developer_bottomleft.gif" alt="bottomleft" width="300" height="30" /></div>
   </div>
   
 </div><!-- and of centerwrapper -->
-<%= #render :partial => "shared/footer" %>
 </body>
 </html>

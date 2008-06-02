@@ -1,5 +1,4 @@
 class AccessRulesController < ApplicationController
-  layout application
   # GET /access_rules
   # GET /access_rules.xml
   def index
