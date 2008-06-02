@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(:version => 11) do
     t.string   "response_format"
     t.integer  "refresh_period_hours"
     t.string   "taxonomic_scope"
-    t.string   "geospation_scope_wkt"
+    t.string   "geospatial_scope_wkt"
     t.boolean  "in_gni"
     t.date     "created"
     t.date     "updated"

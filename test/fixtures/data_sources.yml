@@ -13,7 +13,7 @@ bees_nhm:
   response_format: XML
   refresh_period_hours: 1
   taxonomic_scope: Insects
-  geospation_scope_wkt: 
+  geospatial_scope_wkt: 
   in_gni: 1
   created: 2008-06-01
   updated: 2008-06-01
@@ -31,7 +31,7 @@ birds_nhm:
   response_format: XML
   refresh_period_hours: 1
   taxonomic_scope: Aves
-  geospation_scope_wkt: 
+  geospatial_scope_wkt: 
   in_gni: 1
   created: 2008-06-01
   updated: 2008-06-01
