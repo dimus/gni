@@ -1,8 +1,8 @@
 class CreateOrganizationContacts < ActiveRecord::Migration
   def self.up
     create_table :organization_contacts do |t|
-      t.integer :organization_id
-      t.integer :person_id
+      t.references :organization
+      t.references :person
       t.string :role
 
       t.timestamps

@@ -3,7 +3,7 @@
 sys_admin_john:
   id: 1
   data_provider_id: 1
-  role: System Administrator
+  role: Data Manager
 
 technical_host_nhm:
   id: 2

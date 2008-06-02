@@ -1,7 +1,7 @@
 class CreateDataProviderRoles < ActiveRecord::Migration
   def self.up
     create_table :data_provider_roles do |t|
-      t.integer :data_provider_id
+      t.references :data_provider
       t.string :role
 
       t.timestamps

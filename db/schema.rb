@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 10) do
+ActiveRecord::Schema.define(:version => 11) do
 
   create_table "access_rules", :force => true do |t|
     t.integer  "data_source_id"
@@ -90,9 +90,9 @@ ActiveRecord::Schema.define(:version => 10) do
   end
 
   create_table "participants", :force => true do |t|
-    t.string   "type"
     t.integer  "organization_id"
     t.integer  "person_id"
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

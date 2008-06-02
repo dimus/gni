@@ -1,8 +1,8 @@
 class CreateParticipantContacts < ActiveRecord::Migration
   def self.up
     create_table :participant_contacts do |t|
-      t.integer :participant_id
-      t.integer :person_id
+      t.references :participant
+      t.references :person
       t.string :role
 
       t.timestamps
