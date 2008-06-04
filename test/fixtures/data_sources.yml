@@ -9,8 +9,8 @@ bees_nhm:
   metadata_url: http://nhm.org/bees/metadata
   endpoint_url: MyString
   data_uri: http://nhm.org/bees/data
-  data_uri_type: REST
-  response_format: XML
+  uri_type_id: 1
+  response_format_id: 1
   refresh_period_hours: 1
   taxonomic_scope: Insects
   geospatial_scope_wkt: 
@@ -27,8 +27,8 @@ birds_nhm:
   metadata_url: http://nhm.org/birds/metadata
   endpoint_url: 
   data_uri: http://nhm.org/birds/data
-  data_uri_type: REST
-  response_format: XML
+  uri_type_id: 1
+  response_format_id: 1
   refresh_period_hours: 1
   taxonomic_scope: Aves
   geospatial_scope_wkt: 

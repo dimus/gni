@@ -40,12 +40,12 @@
 
   <p>
     <b>Data uri type</b><br />
-    <%= f.text_field :data_uri_type %>
+	<%= f.select( :uri_type, UriType.find(:all).map {|ut| [ ut.uri_type, ut.id ] }, { :include_blank => true }) %>
   </p>
 
   <p>
     <b>Response format</b><br />
-    <%= f.text_field :response_format %>
+    <%= f.select(:response_format, ResponseFormat.find(:all).map {|rf| [rf.response_format, rf.id]}, {:include_blank => true}) %>
   </p>
 
   <p>

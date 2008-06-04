@@ -1,7 +1,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
+  id: 1
   response_format: MyString
 
 two:
+  id: 2
   response_format: MyString
