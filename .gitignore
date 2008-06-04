@@ -1,8 +1,10 @@
 .DS_Store
 *.log
 *.sqlite3
+.project
+.cache
 config/database.yml
-/tmp/cashe/*
+/tmp/cache/*
 /tmp/pids/*
 /tmp/sessions/*
 /tmp/sockets/*

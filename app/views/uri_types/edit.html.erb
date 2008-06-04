@@ -1,0 +1,17 @@
+<h1>Editing uri_type</h1>
+
+<%= error_messages_for :uri_type %>
+
+<% form_for(@uri_type) do |f| %>
+  <p>
+    <b>Uri type</b><br />
+    <%= f.text_field :uri_type %>
+  </p>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @uri_type %> |
+<%= link_to 'Back', uri_types_path %>

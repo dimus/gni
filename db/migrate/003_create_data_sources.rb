@@ -8,8 +8,8 @@ class CreateDataSources < ActiveRecord::Migration
       t.string :metadata_url
       t.string :endpoint_url
       t.string :data_uri
-      t.string :data_uri_type
-      t.string :response_format
+      t.references :uri_type
+      t.references :response_format
       t.integer :refresh_period_hours
       t.string :taxonomic_scope
       t.string :geospatial_scope_wkt

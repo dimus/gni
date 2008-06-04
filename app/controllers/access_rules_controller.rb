@@ -5,7 +5,7 @@ class AccessRulesController < ApplicationController
     @access_rules = AccessRule.find(:all)
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.xml  { render :xml => @access_rules }
     end
   end

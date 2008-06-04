@@ -35,6 +35,28 @@ private
       {:name => "canCacheContent"},       
     ]
     
+    yield [
+      {:class => UriType},
+      {:uri_type => "urn:lsid"},
+      {:uri_type => "url"},
+      {:uri_type => "hdl"},
+      {:uri_type => "doi"}, #TODO: Add list of other uri types for example some at http://info-uri.info/
+    ]
+    
+    yield [
+      {:class => ResponseFormat},
+      {:response_format => "REST"},
+      {:response_format => "XML"},
+      {:response_format => "JSON"},
+      {:response_format => "CSV"},
+      {:response_format => "SOAP"},
+      {:response_format => "TAPIR"},
+      {:response_format => "OAI-PMH"},
+    ]
+    
+    uri_type_data = UriType.find(:all, :order => 'id')
+    response_format_data = ResponseFormat.find(:all, :order => 'id')
+    
     yield  [
       {:class => DataSource},
       {
@@ -45,8 +67,8 @@ private
         :metadata_url => "http://nhm.org/bees/metadata",
         :endpoint_url => "MyString",
         :data_uri => "http://nhm.org/bees/data",
-        :data_uri_type => "REST",
-        :response_format => "XML",
+        :uri_type_id => uri_type_data[0].id,
+        :response_format_id => response_format_data[0].id,
         :refresh_period_hours => 10,
         :taxonomic_scope => "Insects",
         :geospatial_scope_wkt => "",
@@ -62,8 +84,8 @@ private
         :metadata_url => "http://nhm.org/birds/metadata",
         :endpoint_url => "",
         :data_uri => "http://nhm.org/birds/data",
-        :data_uri_type => "REST",
-        :response_format => "XML",
+        :uri_type_id => uri_type_data[0].id,
+        :response_format_id => response_format_data[0].id,
         :refresh_period_hours => 120,
         :taxonomic_scope => "Aves",
         :geospatial_scope_wkt => "",

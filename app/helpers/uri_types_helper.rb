@@ -1,0 +1,2 @@
+module UriTypesHelper
+end

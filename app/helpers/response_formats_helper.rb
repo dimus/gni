@@ -1,0 +1,2 @@
+module ResponseFormatsHelper
+end

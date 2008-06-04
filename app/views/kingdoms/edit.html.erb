@@ -1,0 +1,17 @@
+<h1>Editing kingdom</h1>
+
+<%= error_messages_for :kingdom %>
+
+<% form_for(@kingdom) do |f| %>
+  <p>
+    <b>Name string</b><br />
+    <%= f.text_field :name_string %>
+  </p>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @kingdom %> |
+<%= link_to 'Back', kingdoms_path %>
