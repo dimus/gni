@@ -1,5 +1,5 @@
 # This file is auto-generated from the current state of the database. Instead of editing this file, 
-# please use the migrations feature of ActiveRecord to incrementally modify your database, and
+# please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your database schema. If you need
@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 11) do
+ActiveRecord::Schema.define(:version => 15) do
 
   create_table "access_rules", :force => true do |t|
     t.integer  "data_source_id"
@@ -47,14 +47,26 @@ ActiveRecord::Schema.define(:version => 11) do
     t.string   "metadata_url"
     t.string   "endpoint_url"
     t.string   "data_uri"
-    t.string   "data_uri_type"
-    t.string   "response_format"
+    t.integer  "uri_type_id"
+    t.integer  "response_format_id"
     t.integer  "refresh_period_hours"
     t.string   "taxonomic_scope"
     t.string   "geospatial_scope_wkt"
     t.boolean  "in_gni"
     t.date     "created"
     t.date     "updated"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "kingdoms", :force => true do |t|
+    t.integer  "name_string_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "name_strings", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -104,6 +116,18 @@ ActiveRecord::Schema.define(:version => 11) do
     t.string   "email"
     t.string   "telephone"
     t.string   "address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "response_formats", :force => true do |t|
+    t.string   "response_format"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "uri_types", :force => true do |t|
+    t.string   "uri_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

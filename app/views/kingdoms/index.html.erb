@@ -1,0 +1,20 @@
+<h1>Listing kingdoms</h1>
+
+<table>
+  <tr>
+    <th>Name string</th>
+  </tr>
+
+<% for kingdom in @kingdoms %>
+  <tr>
+    <td><%=h kingdom.name_string %></td>
+    <td><%= link_to 'Show', kingdom %></td>
+    <td><%= link_to 'Edit', edit_kingdom_path(kingdom) %></td>
+    <td><%= link_to 'Destroy', kingdom, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New kingdom', new_kingdom_path %>

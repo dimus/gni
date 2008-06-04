@@ -1,0 +1,20 @@
+<h1>Listing uri_types</h1>
+
+<table>
+  <tr>
+    <th>Uri type</th>
+  </tr>
+
+<% for uri_type in @uri_types %>
+  <tr>
+    <td><%=h uri_type.uri_type %></td>
+    <td><%= link_to 'Show', uri_type %></td>
+    <td><%= link_to 'Edit', edit_uri_type_path(uri_type) %></td>
+    <td><%= link_to 'Destroy', uri_type, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New uri_type', new_uri_type_path %>

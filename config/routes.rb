@@ -1,4 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :response_formats
+
+  map.resources :uri_types
+
+  map.resources :kingdoms
+
+  map.resources :name_strings
+
   
   map.root :controller => 'data_sources'
   
