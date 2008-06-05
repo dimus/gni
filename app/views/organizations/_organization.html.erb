@@ -1,0 +1,55 @@
+<% form_for(organization) do |f| %>
+  <p>
+    <b>Name</b><br />
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <b>Identifier</b><br />
+    <%= f.text_field :identifier %>
+  </p>
+
+  <p>
+    <b>Acronym</b><br />
+    <%= f.text_field :acronym %>
+  </p>
+
+  <p>
+    <b>Logo url</b><br />
+    <%= f.text_field :logo_url %>
+  </p>
+
+  <p>
+    <b>Description</b><br />
+    <%= f.text_field :description %>
+  </p>
+
+  <p>
+    <b>Address</b><br />
+    <%= f.text_field :address %>
+  </p>
+
+  <p>
+    <b>Decimal latitude</b><br />
+    <%= f.text_field :decimal_latitude %>
+  </p>
+
+  <p>
+    <b>Decimal longitude</b><br />
+    <%= f.text_field :decimal_longitude %>
+  </p>
+
+  <p>
+    <b>Related information url</b><br />
+    <%= f.text_field :related_information_url %>
+  </p>
+  
+  <p>
+    <b>Contacts</b>
+    
+  </p>
+
+  <p>
+    <%= f.submit button %>
+  </p>
+<% end %>
