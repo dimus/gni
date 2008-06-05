@@ -12,7 +12,7 @@ class AddData < ActiveRecord::Migration
       data_providers
       data_provider_roles
       data_sources
-      organization_contacts
+      organization_memberships
       organizations
       participant_contacts
       participants
@@ -126,23 +126,16 @@ private
       {
         :first_name => "John", 
         :last_name => "Doe",
-        :job_title  => "System Administrator",
         :email => "jdoe@example.com",
-        :telephone => "123 12345",
-        :address => "23 Lindsey Rd, Stony Brook, NY, 12343"
       },
       {
         :first_name => "Jane", 
         :last_name => "Miller",
-        :job_title  => "Programmer",
         :email => "jmiller@example.com",
-        :telephone => "3232 5443 123242",
-        :address => "332 Peters Lane, London, UK, 23423"        
       },
       {
         :first_name => "Sam", 
         :last_name => "Linn",
-        :job_title  => "Scientist",
         :email => "slinn@example.com",
         :telephone => "3232 5443 123242",
         :address => "23 Long Avenue, Woods Hole, MA, 34323"        
@@ -150,7 +143,6 @@ private
       {
         :first_name => "Yu", 
         :last_name => "Lee",
-        :job_title  => "Data collector",
         :email => "ylee@example.com",
         :telephone => "334322323242",
         :address => "British Museum of Natural History, London, 2212"        
@@ -219,14 +211,20 @@ private
     ]
     
     yield [
-      {:class => OrganizationContact},
+      {:class => OrganizationMembership},
       {
         :organization_id => organization_data[0].id,
         :person_id => person_data[0].id,
+        :job_title  => "System Administrator",
+        :telephone => "123 12345",
+        :address => "23 Lindsey Rd, Stony Brook, NY, 12343"
       },
       {
         :organization_id => organization_data[0].id,
         :person_id => person_data[1].id,
+        :job_title  => "Programmer",
+        :telephone => "3232 5443 123242",
+        :address => "332 Peters Lane, London, UK, 23423"        
       },
     ]
     

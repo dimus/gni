@@ -84,10 +84,14 @@ ActiveRecord::Schema.define(:version => 20080605085300) do
     t.datetime "updated_at"
   end
 
-  create_table "organization_contacts", :force => true do |t|
+  create_table "organization_memberships", :force => true do |t|
     t.integer  "organization_id"
     t.integer  "person_id"
-    t.string   "role"
+    t.string   "job_title"
+    t.string   "telephone"
+    t.string   "address"
+    t.boolean  "is_contact"
+    t.string   "contact_role"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -126,7 +130,6 @@ ActiveRecord::Schema.define(:version => 20080605085300) do
   create_table "people", :force => true do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "job_title"
     t.string   "email"
     t.string   "telephone"
     t.string   "address"
