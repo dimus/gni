@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080605005127) do
+ActiveRecord::Schema.define(:version => 20080605085300) do
 
   create_table "access_rules", :force => true do |t|
     t.integer  "data_source_id"
