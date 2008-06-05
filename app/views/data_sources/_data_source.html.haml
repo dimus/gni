@@ -1,0 +1,60 @@
+- form_for(data_source) do |f|
+%p
+  %b Title
+  %br/
+  = f.text_field :title
+%p
+  %b Description
+  %br/
+  = f.text_field :description
+%p
+  %b Rights
+  %br/
+  = f.text_field :rights
+%p
+  %b Citation
+  %br/
+  = f.text_field :citation
+%p
+  %b Metadata url
+  %br/
+  = f.text_field :metadata_url
+%p
+  %b Endpoint url
+  %br/
+  = f.text_field :endpoint_url
+%p
+  %b Data uri
+  %br/
+  = f.text_field :data_uri
+%p
+  %b Data uri type
+  %br/
+  = f.select( :uri_type, UriType.find(:all).map {|ut| [ ut.uri_type, ut.id ] }, { :include_blank => true })
+%p
+  %b Response format
+  %br/
+  = f.select(:response_format, ResponseFormat.find(:all).map {|rf| [rf.response_format, rf.id]}, {:include_blank => true})
+%p
+  %b Refresh period hours
+  %br/
+  = f.text_field :refresh_period_hours
+%p
+  %b Taxonomic scope
+  %br/
+  = f.text_field :taxonomic_scope
+%p
+  %b Geospatial scope wkt
+  %br/
+  = f.text_field :geospatial_scope_wkt
+%p
+  %b Created
+  %br/
+  = f.date_select :created
+%p
+  %b Updated
+  %br/
+  = f.date_select :updated
+%p
+  = f.submit button
+- end

@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name_string_id: 1
+  data_source_id: 1
+  response_format_id: 1
+  kingdom_id: 1
+  uri: http://other-url.com
+  uri_type_id: 1
+  created: 2008-06-04 20:51:27
+  deleted: 2008-06-04 20:51:27
+
+two:
+  name_string_id: 2
+  data_source_id: 2
+  response_format_id: 2
+  kingdom_id: 2
+  uri: http://some-url2.com
+  uri_type_id: 2
+  created: 2008-06-04 20:51:27
+  deleted: 2008-06-04 20:51:27

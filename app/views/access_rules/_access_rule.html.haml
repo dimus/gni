@@ -1,0 +1,16 @@
+- form_for(access_rule) do |f|
+%p
+  %b Data source
+  %br/
+  = f.text_field :data_source_id
+%p
+  %b Access type
+  %br/
+  = f.text_field :access_type_id
+%p
+  %b Is allowed
+  %br/
+  = f.check_box :is_allowed
+%p
+  = f.submit button
+- end

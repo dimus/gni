@@ -1,0 +1,2 @@
+module NameIndicesHelper
+end

@@ -1,0 +1,24 @@
+%h1 Names Sources
+
+= link_to 'Add', new_data_source_path
+
+%table{:class => "data bordered"}
+  %tr
+    %th.top Title
+    %th.top Description
+    %th.top Created
+    %th.top Updated
+    %th.top{:colspan => 3} Actions
+  -for data_source in @data_sources
+  %tr
+    %td= h data_source.title
+    %td= h data_source.description
+    %td= h data_source.created
+    %td= h data_source.updated
+    %td= link_to 'Show', data_source
+    %td= link_to 'Edit', edit_data_source_path(data_source)
+    %td= link_to 'Destroy', data_source, :confirm => 'Are you sure?', :method => :delete
+  - end
+
+%br/
+

@@ -1,0 +1,45 @@
+%h1= "Names Source: " + @data_source.title
+
+%p
+  %b Description:
+  =h @data_source.description
+%p
+  %b Rights:
+  =h @data_source.rights
+%p
+  %b Citation:
+  =h @data_source.citation
+%p
+  %b Metadata url:
+  =h @data_source.metadata_url
+%p
+  %b Endpoint url:
+  =h @data_source.endpoint_url
+%p
+  %b Data uri:
+  =h @data_source.data_uri
+%p
+  %b Data uri type:
+  =h @data_source.uri_type.uri_type
+%p
+  %b Response format:
+  =h @data_source.response_format.response_format
+%p
+  %b Refresh period hours:
+  =h @data_source.refresh_period_hours
+%p
+  %b Taxonomic scope:
+  =h @data_source.taxonomic_scope
+%p
+  %b Geospatial scope wkt:
+  =h @data_source.geospatial_scope_wkt
+%p
+  %b Created:
+  =h @data_source.created
+%p
+  %b Updated:
+  =h @data_source.updated
+
+= link_to 'Edit', edit_data_source_path(@data_source)
+= "|"
+= link_to 'Back', data_sources_path

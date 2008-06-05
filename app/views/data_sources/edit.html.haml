@@ -1,0 +1,9 @@
+%h1 Editing Data Source
+
+= error_messages_for :data_source
+
+= render :partial => 'data_source', :locals => {:data_source => @data_source, :button => "Update" }
+
+= link_to 'Show', @data_source
+= "|"
+= link_to 'Back', data_sources_path

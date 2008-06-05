@@ -21,23 +21,23 @@ class KingdomsControllerTest < ActionController::TestCase
   end
 
   def test_should_show_kingdom
-    get :show, :id => kingdoms(:one).id
+    get :show, :id => kingdoms(:eubacteria).id
     assert_response :success
   end
 
   def test_should_get_edit
-    get :edit, :id => kingdoms(:one).id
+    get :edit, :id => kingdoms(:eubacteria).id
     assert_response :success
   end
 
   def test_should_update_kingdom
-    put :update, :id => kingdoms(:one).id, :kingdom => { }
+    put :update, :id => kingdoms(:eubacteria).id, :kingdom => { }
     assert_redirected_to kingdom_path(assigns(:kingdom))
   end
 
   def test_should_destroy_kingdom
     assert_difference('Kingdom.count', -1) do
-      delete :destroy, :id => kingdoms(:one).id
+      delete :destroy, :id => kingdoms(:eubacteria).id
     end
 
     assert_redirected_to kingdoms_path

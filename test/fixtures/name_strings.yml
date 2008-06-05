@@ -1,7 +1,25 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  name: MyString
+eubacteria:
+  id: 1
+  name: Eubacteria
 
-two:
-  name: MyString
+animalia:
+  id: 2
+  name: Animalia
+
+archaebacteria:
+  id: 3
+  name: Archaebacteria
+
+protista:
+  id: 4
+  name: Protista
+
+fungi:
+  id: 5
+  name: Fungi
+
+plantae:
+  id: 6
+  name: Plantae

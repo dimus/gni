@@ -2,16 +2,10 @@
 
 <%= error_messages_for :access_type %>
 
-<% form_for(@access_type) do |f| %>
-  <p>
-    <b>Name</b><br />
-    <%= f.text_field :name %>
-  </p>
+<%= render :partial => 'access_type', :locals => {:access_type => @access_type, :button => "Update" }  %>
 
-  <p>
-    <%= f.submit "Update" %>
-  </p>
-<% end %>
+
+
 
 <%= link_to 'Show', @access_type %> |
 <%= link_to 'Back', access_types_path %>

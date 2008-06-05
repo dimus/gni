@@ -1,0 +1,9 @@
+%h1 Editing Access Rule
+
+= error_messages_for :access_rule
+
+= render :partial => 'access_rule', :locals => {:access_rule => @access_rule, :button => "Update" }
+
+= link_to 'Show', @access_rule 
+= "|"
+= link_to 'Back', access_rules_path 

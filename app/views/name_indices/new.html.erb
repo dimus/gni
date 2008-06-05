@@ -1,0 +1,43 @@
+<h1>New name_index</h1>
+
+<% form_for(@name_index) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name_string %><br />
+    <%= f.text_field :name_string %>
+  </p>
+  <p>
+    <%= f.label :data_source %><br />
+    <%= f.text_field :data_source %>
+  </p>
+  <p>
+    <%= f.label :response_format %><br />
+    <%= f.text_field :response_format %>
+  </p>
+  <p>
+    <%= f.label :kingdom %><br />
+    <%= f.text_field :kingdom %>
+  </p>
+  <p>
+    <%= f.label :uri %><br />
+    <%= f.text_field :uri %>
+  </p>
+  <p>
+    <%= f.label :uri_type %><br />
+    <%= f.text_field :uri_type %>
+  </p>
+  <p>
+    <%= f.label :created %><br />
+    <%= f.datetime_select :created %>
+  </p>
+  <p>
+    <%= f.label :deleted %><br />
+    <%= f.datetime_select :deleted %>
+  </p>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', name_indices_path %>

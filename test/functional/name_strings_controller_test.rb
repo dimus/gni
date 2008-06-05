@@ -21,23 +21,23 @@ class NameStringsControllerTest < ActionController::TestCase
   end
 
   def test_should_show_name_string
-    get :show, :id => name_strings(:one).id
+    get :show, :id => name_strings(:eubacteria).id
     assert_response :success
   end
 
   def test_should_get_edit
-    get :edit, :id => name_strings(:one).id
+    get :edit, :id => name_strings(:eubacteria).id
     assert_response :success
   end
 
   def test_should_update_name_string
-    put :update, :id => name_strings(:one).id, :name_string => { }
+    put :update, :id => name_strings(:eubacteria).id, :name_string => { }
     assert_redirected_to name_string_path(assigns(:name_string))
   end
 
   def test_should_destroy_name_string
     assert_difference('NameString.count', -1) do
-      delete :destroy, :id => name_strings(:one).id
+      delete :destroy, :id => name_strings(:eubacteria).id
     end
 
     assert_redirected_to name_strings_path

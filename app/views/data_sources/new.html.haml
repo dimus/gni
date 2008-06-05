@@ -1,0 +1,7 @@
+%h1 New Data Source
+
+= error_messages_for :data_source
+
+= render :partial => 'data_source', :locals => {:data_source => @data_source, :button => "Create" }
+
+= link_to 'Back', data_sources_path
