@@ -7,10 +7,10 @@ class PersonTest < ActiveSupport::TestCase
     @jane = people(:jane)
   end
   
-  def test_it_should_have_many_organization_contacts
+  def test_it_should_have_many_organization_memberships
     assert_not_nil(@john)
-    assert_not_nil(@john.organization_contacts)
-    assert_instance_of(OrganizationContact, @john.organization_contacts[0])
+    assert_not_nil(@john.organization_memberships)
+    assert_instance_of(OrganizationMembership, @john.organization_memberships[0])
   end
   
   def test_it_should_have_many_participant_contacts

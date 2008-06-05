@@ -1,2 +1,2 @@
-module OrganizationContactsHelper
+module OrganizationMembershipsHelper
 end

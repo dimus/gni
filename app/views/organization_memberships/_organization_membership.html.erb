@@ -1,0 +1,25 @@
+<% form_for(organization_membership) do |f| %>
+  <p>
+    <b>Organization</b><br />
+    <%= f.text_field :organization_id %>
+  </p>
+
+  <p>
+    <b>Person</b><br />
+    <%= f.text_field :person_id %>
+  </p>
+
+  <p>
+    <b>Role</b><br />
+    <%= f.text_field :contact_role %>
+  </p>
+  
+  <p>
+    <b>Job title</b><br />
+    <%= f.text_field :job_title %>
+  </p>
+
+  <p>
+    <%= f.submit button %>
+  </p>
+<% end %>

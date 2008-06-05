@@ -1,18 +1,23 @@
 <p>
   <b>Organization:</b>
-  <%=h @organization_contact.organization_id %>
+  <%=h @organization_membership.organization_id %>
 </p>
 
 <p>
   <b>Person:</b>
-  <%=h @organization_contact.person_id %>
+  <%=h @organization_membership.person_id %>
+</p>
+
+<p>
+  <b>Job title:</b>
+  <%=h @organization_membership.job_title %>
 </p>
 
 <p>
   <b>Role:</b>
-  <%=h @organization_contact.role %>
+  <%=h @organization_membership.contact_role %>
 </p>
 
 
-<%= link_to 'Edit', edit_organization_contact_path(@organization_contact) %> |
-<%= link_to 'Back', organization_contacts_path %>
+<%= link_to 'Edit', edit_organization_membership_path(@organization_membership) %> |
+<%= link_to 'Back', organization_memberships_path %>

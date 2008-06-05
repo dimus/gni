@@ -2,41 +2,7 @@
 
 <%= error_messages_for :person %>
 
-<% form_for(@person) do |f| %>
-  <p>
-    <b>First name</b><br />
-    <%= f.text_field :first_name %>
-  </p>
-
-  <p>
-    <b>Last name</b><br />
-    <%= f.text_field :last_name %>
-  </p>
-
-  <p>
-    <b>Job title</b><br />
-    <%= f.text_field :job_title %>
-  </p>
-
-  <p>
-    <b>Email</b><br />
-    <%= f.text_field :email %>
-  </p>
-
-  <p>
-    <b>Telephone</b><br />
-    <%= f.text_field :telephone %>
-  </p>
-
-  <p>
-    <b>Address</b><br />
-    <%= f.text_field :address %>
-  </p>
-
-  <p>
-    <%= f.submit "Update" %>
-  </p>
-<% end %>
+<%= render :partial => "person", :locals => { :person => @person, :button => "Update",  } %>
 
 <%= link_to 'Show', @person %> |
 <%= link_to 'Back', people_path %>

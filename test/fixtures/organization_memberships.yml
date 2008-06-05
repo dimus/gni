@@ -3,9 +3,17 @@
 nhm_john:
   organization_id: 1
   person_id: 1
-  role: System Administrator
+  job_title: programmer
+  telephone: '(508)-123-3322'
+  address: 7 MBL Street, Woods Hole MA, United States 025543
+  is_contact: 1
+  contact_role: System Administrator
 
 nhm_jane:
   organization_id: 1
   person_id: 2
-  role: Book Keeper
+  job_title: librarian
+  telephone: '(508)-123-3324'
+  address: 7 MBL Street, Woods Hole MA, United States 025543
+  is_contact: 1
+  contact_role: Book Keeper

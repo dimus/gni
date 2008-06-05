@@ -13,8 +13,8 @@ class OrganizationTest < ActiveSupport::TestCase
     assert_instance_of(ParticipantOrganization, @nhm.participant_organizations[0])
   end
   
-  def test_it_should_have_many_organization_contacts
-    assert_not_nil(@nhm.organization_contacts)
-    assert_instance_of(OrganizationContact, @nhm.organization_contacts[0])
+  def test_it_should_have_many_organization_memberships
+    assert_not_nil(@nhm.organization_memberships)
+    assert_instance_of(OrganizationMembership, @nhm.organization_memberships[0])
   end
 end
