@@ -1,0 +1,24 @@
+<h1>Listing organization_contacts</h1>
+
+<table>
+  <tr>
+    <th>Organization</th>
+    <th>Person</th>
+    <th>Role</th>
+  </tr>
+
+<% for organization_contact in @organization_contacts %>
+  <tr>
+    <td><%=h organization_contact.organization_id %></td>
+    <td><%=h organization_contact.person_id %></td>
+    <td><%=h organization_contact.role %></td>
+    <td><%= link_to 'Show', organization_contact %></td>
+    <td><%= link_to 'Edit', edit_organization_contact_path(organization_contact) %></td>
+    <td><%= link_to 'Destroy', organization_contact, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New organization_contact', new_organization_contact_path %>
