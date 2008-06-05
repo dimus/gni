@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(:version => 20080605085300) do
 
   create_table "organizations", :force => true do |t|
     t.string   "name"
+    t.integer  "organization_id"
     t.string   "identifier"
     t.string   "acronym"
     t.string   "logo_url"

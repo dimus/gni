@@ -2,6 +2,7 @@ class CreateOrganizations < ActiveRecord::Migration
   def self.up
     create_table :organizations do |t|
       t.string :name
+      t.references :organization
       t.string :identifier
       t.string :acronym
       t.string :logo_url

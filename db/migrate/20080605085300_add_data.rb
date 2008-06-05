@@ -241,6 +241,16 @@ private
         :role => "technical host",
       },
     ]
+    
+    yield [
+      {:class => NameString},
+      {:name => "Eubacteria"},
+      {:name => "Animalia"},
+      {:name => "Archaebacteria"},
+      {:name => "Protista"},
+      {:name => "Fungi"},
+      {:name => "Plantae"},
+    ]
   end
 
 end
