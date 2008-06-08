@@ -12,8 +12,8 @@
 ActiveRecord::Schema.define(:version => 20080605085300) do
 
   create_table "access_rules", :force => true do |t|
-    t.integer  "data_source_id"
-    t.integer  "access_type_id"
+    t.integer  "data_source_id", :limit => 11
+    t.integer  "access_type_id", :limit => 11
     t.boolean  "is_allowed"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -26,15 +26,15 @@ ActiveRecord::Schema.define(:version => 20080605085300) do
   end
 
   create_table "data_provider_roles", :force => true do |t|
-    t.integer  "data_provider_id"
+    t.integer  "data_provider_id", :limit => 11
     t.string   "role"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "data_providers", :force => true do |t|
-    t.integer  "data_source_id"
-    t.integer  "participant_id"
+    t.integer  "data_source_id", :limit => 11
+    t.integer  "participant_id", :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -47,9 +47,9 @@ ActiveRecord::Schema.define(:version => 20080605085300) do
     t.string   "metadata_url"
     t.string   "endpoint_url"
     t.string   "data_uri"
-    t.integer  "uri_type_id"
-    t.integer  "response_format_id"
-    t.integer  "refresh_period_hours"
+    t.integer  "uri_type_id",          :limit => 11
+    t.integer  "response_format_id",   :limit => 11
+    t.integer  "refresh_period_hours", :limit => 11
     t.string   "taxonomic_scope"
     t.string   "geospatial_scope_wkt"
     t.boolean  "in_gni"
@@ -60,18 +60,18 @@ ActiveRecord::Schema.define(:version => 20080605085300) do
   end
 
   create_table "kingdoms", :force => true do |t|
-    t.integer  "name_string_id"
+    t.integer  "name_string_id", :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "name_indices", :force => true do |t|
-    t.integer  "name_string_id"
-    t.integer  "data_source_id"
-    t.integer  "response_format_id"
-    t.integer  "kingdom_id"
+    t.integer  "name_string_id",     :limit => 11
+    t.integer  "data_source_id",     :limit => 11
+    t.integer  "response_format_id", :limit => 11
+    t.integer  "kingdom_id",         :limit => 11
     t.string   "uri"
-    t.integer  "uri_type_id"
+    t.integer  "uri_type_id",        :limit => 11
     t.datetime "created"
     t.datetime "deleted"
     t.datetime "created_at"
@@ -85,8 +85,8 @@ ActiveRecord::Schema.define(:version => 20080605085300) do
   end
 
   create_table "organization_memberships", :force => true do |t|
-    t.integer  "organization_id"
-    t.integer  "person_id"
+    t.integer  "organization_id", :limit => 11
+    t.integer  "person_id",       :limit => 11
     t.string   "job_title"
     t.string   "telephone"
     t.string   "address"
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(:version => 20080605085300) do
 
   create_table "organizations", :force => true do |t|
     t.string   "name"
-    t.integer  "organization_id"
+    t.integer  "organization_id",         :limit => 11
     t.string   "identifier"
     t.string   "acronym"
     t.string   "logo_url"
@@ -112,16 +112,16 @@ ActiveRecord::Schema.define(:version => 20080605085300) do
   end
 
   create_table "participant_contacts", :force => true do |t|
-    t.integer  "participant_id"
-    t.integer  "person_id"
+    t.integer  "participant_id", :limit => 11
+    t.integer  "person_id",      :limit => 11
     t.string   "role"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "participants", :force => true do |t|
-    t.integer  "organization_id"
-    t.integer  "person_id"
+    t.integer  "organization_id", :limit => 11
+    t.integer  "person_id",       :limit => 11
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
