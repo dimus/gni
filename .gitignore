@@ -4,8 +4,10 @@
 *.sqlite3
 .project
 .cache
+gna-ror.war
 config/database.yml
 /tmp/cache/*
 /tmp/pids/*
 /tmp/sessions/*
 /tmp/sockets/*
+/tmp/war
