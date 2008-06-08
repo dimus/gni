@@ -1,6 +1,6 @@
+<% jdbc = defined?(JRUBY_VERSION) ? 'jdbc' : '' %>
+<% db_name = "gna" %>
 defaults: &defaults
-  <% jdbc = defined?(JRUBY_VERSION) ? 'jdbc' : '' %>
-  <% db_name = 'gna' %>
   adapter: <%= jdbc %>mysql
   username: root
   # socket: /tmp/mysql.sock #uncomment this if you have socket problems
