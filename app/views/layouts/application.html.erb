@@ -51,6 +51,11 @@
           </td>
           <td style="padding-top: 10px; padding-left: 40px; background-image:url(/images/public/developer_logo_bkg.gif); background-position:top left; background-repeat:no-repeat;" valign="top">
             <div id="info">
+              <%- if current_user -%>
+              <strong><%= current_user[:login] %></strong><%= "&nbsp;" * 8 %><%= link_to "Logout", "/logout" %>
+              <%- else -%>
+              <%= link_to "create account", "/signup" %> or <%= link_to "log in", "/login" %>
+              <%- end -%>
             </div><br clear="all" />
           </td>
         </tr>
@@ -63,7 +68,12 @@
 
     <div id="centercontent">
       <div id="overall">
-    
+
+        <% if flash[:notice] or flash[:error] %>
+        <div id="flash">
+          <%= render_flash rescue nil %>
+        </div>
+        <%- end -%>
 
       <%= yield %>
       

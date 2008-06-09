@@ -1,12 +1,13 @@
 # This controller handles the login/logout function of the site.  
 class SessionsController < ApplicationController
-  # Be sure to include AuthenticationSystem in Application Controller instead
-  include AuthenticatedSystem
 
-  # render new.rhtml
+  # GET /session/new 
+  # GET /session/new.xml
   def new
   end
 
+  # POST /session 
+  # POST /session.xmlAdd URL + HTTP method
   def create
     logout_keeping_session!
     user = User.authenticate(params[:login], params[:password])
