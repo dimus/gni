@@ -1,0 +1,20 @@
+<h1>Listing name_author_strings</h1>
+
+<table>
+  <tr>
+    <th>Author string</th>
+  </tr>
+
+<% for name_author_string in @name_author_strings %>
+  <tr>
+    <td><%=h name_author_string.author_string %></td>
+    <td><%= link_to 'Show', name_author_string %></td>
+    <td><%= link_to 'Edit', edit_name_author_string_path(name_author_string) %></td>
+    <td><%= link_to 'Destroy', name_author_string, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New name_author_string', new_name_author_string_path %>

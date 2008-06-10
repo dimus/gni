@@ -1,0 +1,28 @@
+<h1>Editing name_composit</h1>
+
+<% form_for(@name_composit) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name_canonical %><br />
+    <%= f.text_field :name_canonical %>
+  </p>
+  <p>
+    <%= f.label :name_author_string %><br />
+    <%= f.text_field :name_author_string %>
+  </p>
+  <p>
+    <%= f.label :name_year %><br />
+    <%= f.text_field :name_year %>
+  </p>
+  <p>
+    <%= f.label :confirmed %><br />
+    <%= f.check_box :confirmed %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @name_composit %> |
+<%= link_to 'Back', name_composits_path %>
