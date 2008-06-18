@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://betula.mbl.edu" targetNamespace="http://betula.mbl.edu" elementFormDefault="qualified">
+  <xs:element name="dataroot" type="datarootType"/>
+  <xs:complexType name="datarootType" mixed="false">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="record" type="recordType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="recordType" mixed="false">
+    <xs:sequence>
+      <xs:element name="raw_taxon_name" type="xs:string"/>
+      <xs:element minOccurs="0" name="url" type="xs:string"/>
+      <xs:element minOccurs="0" name="identifier" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="url">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:pattern value="(https?|ftp|gopher|telnet|file|notes|ms-help)://+[\w\d:#@%/;$()~_?\+-=\\\.&amp;]*"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+</xs:schema>

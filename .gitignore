@@ -4,6 +4,7 @@
 .DS_Store
 .cache
 .project
+.loadpath
 gna-ror.war
 config/database.yml
 db/schema.rb

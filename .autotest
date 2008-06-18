@@ -1,0 +1,29 @@
+require 'autotest/redgreen'
+require 'autotest/rspec'
+require 'Win32/Console/ANSI' if PLATFORM =~ /win32/
+require 'autotest/snarl' if PLATFORM =~ /win32/
+if PLATFORM =~ /darwin/
+    require 'autotest/growl'
+#      module Autotest::Growl  
+#        def self.growl title, msg, img, pri=0, stick=""  
+#          system "growlnotify -n autotest --image #{img} -p #{pri} -m #{ msg.inspect} #{title} #{stick}"  
+#        end  
+#        
+#        Autotest.add_hook :ran_command do |autotest|  
+#          filtered = autotest.results.grep(/\d+\s.*examples?/)  
+#          output = filtered.empty? ? ?? : filtered.last.slice(/(\d+)\s.*examples?,\s(\d+)\s.*failures?(?:,\s(\d+)\s.*pending)?/)  
+#          if output =~ /[1-9]\sfailures?/  
+#            growl "Test Results", "#{output}", "~/Library/autotest/rails_fail.png"  
+#          elsif output =~ /pending/  
+#            growl "Test Results", "#{output}", "~/Library/autotest/rails_pending.png"  
+#          else  
+#            growl "Test Results", "#{output}", "~/Library/autotest/rails_ok.png"  
+#          end  
+#        end  
+#            
+#      end  
+#        
+#      Autotest.add_hook :initialize do |at|  
+#          %w{.svn .hg .git vendor}.each {|exception| at.add_exception(exception)}  
+#      end
+end
