@@ -1,23 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://betula.mbl.edu" targetNamespace="http://betula.mbl.edu" elementFormDefault="qualified">
+<xs:schema 
+    targetNamespace="http://betula.mbl.edu/GNIData/0.1" 
+    xmlns="http://betula.mbl.edu/GNIData/0.1" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    elementFormDefault="qualified">
+
   <xs:element name="dataroot" type="datarootType"/>
   <xs:complexType name="datarootType" mixed="false">
     <xs:sequence>
-      <xs:element minOccurs="1" maxOccurs="unbounded" name="record" type="recordType"/>
+      <xs:element maxOccurs="unbounded" name="record" type="recordType"/>
     </xs:sequence>
   </xs:complexType>
+
   <xs:complexType name="recordType" mixed="false">
+    <xs:annotation>
+      <xs:documentation>Contains raw taxon name and its access point defined either by uri or identifier.</xs:documentation>
+    </xs:annotation>
     <xs:sequence>
-      <xs:element name="raw_taxon_name" type="xs:string"/>
-      <xs:element minOccurs="0" name="url" type="xs:string"/>
-      <xs:element minOccurs="0" name="identifier" type="xs:string"/>
+      <xs:element name="raw_taxon_name"/>
+      <xs:element minOccurs="0" name="uri"/>
+      <xs:element minOccurs="0" name="identifier"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="url">
-    <xs:simpleType>
-      <xs:restriction base="xs:string">
-        <xs:pattern value="(https?|ftp|gopher|telnet|file|notes|ms-help)://+[\w\d:#@%/;$()~_?\+-=\\\.&amp;]*"/>
-      </xs:restriction>
-    </xs:simpleType>
+  
+  <xs:element name="raw_taxon_name" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        Full scientific name of a taxon (Species, Genus, Family, Kingdometc.)
+        In case if you have multiple access points, please specify one which contains uri entries to all of them.
+      </xs:documentation>
+    </xs:annotation>
   </xs:element>
+  
+  <xs:element name="uri" type="xs:anyURI">
+    <xs:annotation>
+        <xs:documentation>The URI of an access point of the name information.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <xs:element name="identifier" type="xs:string">
+    <xs:annotation>
+      <xs:documentation>
+        Unique data source identifier of the record (often id of from the database).
+        Identifier is used to be included into datasource uri templates.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
 </xs:schema>
