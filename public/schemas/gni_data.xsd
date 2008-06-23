@@ -20,7 +20,7 @@
     <xs:sequence>
       <xs:element ref="dwc:ScientificName">
         <xs:annotation>
-          <xs:documentation>Full scientific name of a taxon (Species, Genus, Family, Kingdometc.) including author/s and year/s if applied.</xs:documentation>
+          <xs:documentation>Full scientific name of a taxon (Species, Genus, Family, Kingdom etc.) including author/s and year/s if applied.</xs:documentation>
         </xs:annotation>
       </xs:element>
       

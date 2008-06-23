@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<xsd:schema
-    targetNamespace="http://betul/betula.mbl.edu/gni_data_source/0.1" 
-    xmlns="http://betul/betula.mbl.edu/gni_data_source/0.1" 
+<xs:schema
+    targetNamespace="http://betula.mbl.edu/gni_data_source/0.1" 
+    xmlns="http://betula.mbl.edu/gni_data_source/0.1" 
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
-    xmlns:dcterms="http://purl.org/dc/terms/"
-    xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
-    xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#"
     elementFormDefault="qualified">
+    
+    <xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"/>
 
     <xs:element name="data_source" type="dataSourceType"/>
 
@@ -17,8 +16,8 @@
             <xs:documentation>Data Source Root</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element name="data_url" type="dataURLType">
-            <xs:element name="metadata" type="metadataType">
+            <xs:element name="data_url" type="dataURLType"/>
+            <xs:element name="metadata" type="metadataType"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -27,14 +26,26 @@
             <xs:documentation>Contains link to the gni-compatible data in xml or zipped xml format.</xs:documentation> 
         </xs:annotation>
         <xs:simpleContent>
-            <xs:restriction basetype="xs:string"> 
-                <xs:attribute name="zipped" type="boolean" use="required">
-                <xs:attribute name="paginated" type="boolean" use="optional" default="false">
-            </xs:restriction>
+          <xs:extension base="xs:anyURI">
+            <xs:attribute name="zip_compressed" type="xs:boolean" use="required"/>
+            <xs:attribute name="paginated" type="xs:boolean" use="optional" default="false"/>
+          </xs:extension>
         </xs:simpleContent>
     </xs:complexType>
 
     <xs:complexType name="metadataType">
+      <xs:sequence>
+        <xs:element ref="dc:title">
+            <xs:annotation>
+                <xs:documentation>The name of this service possibly in different languages.</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+        <xs:element name="logo_url" type="xs:anyURI" minOccurs="0">
+            <xs:annotation>
+                <xs:documentation>A URL to a small logo of the entity.</xs:documentation>
+            </xs:annotation>
+        </xs:element>
+      </xs:sequence>      
     </xs:complexType>
 
 </xs:schema>
