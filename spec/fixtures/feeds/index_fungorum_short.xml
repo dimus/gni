@@ -1,0 +1,996 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataroot 
+  xmlns="http://betula.mbl.edu/gni_data/0.1" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:dwc="http://digir.net/schema/conceptual/darwin/2003/1.0"
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xsi:schemaLocation="http://betula.mbl.edu/gni_data/0.1 http://betula.mbl.edu/gna_schemas/gni_data.xsd">
+  <record>
+    <dwc:ScientificName>Stagonospora octomera Alcalde 1948</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306392</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stagonospora phragmiticola Hansf. 1945</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306393</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stagonospora polyspora M.T. Lucas &amp; Sousa da Câmara 1952</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306394</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stagonospora procerula Petr. 1950</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306395</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stagonospora querci Sawada 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306396</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stagonospora rosarum Bat. &amp; Silva{?} 1951</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306397</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Agaricus pileolarius Bull. 1789</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306398</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stagonospora sacchari T.T. Lo &amp; L. Ling 1950</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306399</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stemphylium iranicum Esfand. 1950</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306442</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stemphylium maritimum T.W. Johnson 1957</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306443</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stemphylium melanopus (Schwein.) S. Hughes 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306444</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stemphylium trifolii J.H. Graham 1957</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306445</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stephanospora penangensis Corner &amp; Hawker 1953</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306446</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Arthonia subastroidea subsp. orbilliferum Almq.</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306447</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Arthonia subastroidea subsp. subastroidea Anzi 1864</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306448</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Astrosporina infida</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306449</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Camarosporium tamaricis (Cooke) Grove 1937</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306467</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stictospora oleae (De Not.) Cif. 1957</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306468</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stigmatea byrsonimae Bat. &amp; Gayão 1953</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306469</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stigmatea cremasporae Hansf. 1945</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306470</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Diaporthe sarothamni var. genistae Rehm</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306471</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stigmatea lomatiae Hansf. 1954</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306472</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stigmatodothis caseariae Bat. &amp; C.A.A. Costa 1957</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306473</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stigmatodothis fici-nipponicae I. Hino &amp; Katum. 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306474</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stigmatodothis sasae (Hara) I. Hino &amp; Katum. 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306475</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stigmina phaeocarpa (Mitter) M.B. Ellis 1959</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306498</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stigmina phyllanthi M.B. Ellis 1959</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306499</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stigmina piliostigmatis M.B. Ellis 1959</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306500</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Gregorella humida (Kullh.) Lumbsch 2005</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306501</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stigmina pulvinata (Kunze) M.B. Ellis 1959</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306502</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stigmina pulviniformis (Syd.) S. Hughes 1952</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306503</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stigmina pusilla (P. Karst.) S. Hughes 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306504</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Strasseria vincae M.T. Lucas &amp; Sousa da Câmara 1954</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306535</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Strattonia tetraspora (R. Stratton) Cif. 1954</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306536</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Herteliana gagei (Sm.) J.R. Laundon 2005</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306537</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Leptonia griseorubella</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306538</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Leptoporus kymatodes</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306539</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Mollisia graminis P. Karst. 1871</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306540</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Nolanea mammosa</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306541</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Nolanea mammosa</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306542</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Phaeographis inusta var. macularis (Leight.) A.L. Sm. 1861</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306543</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Physarum nutans subsp. leucophaeum (Fr.) G. Lister 1911</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306544</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Syndiplodia hypoxyloidea (Cooke) Zambett. 1955</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306685</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Syndiplodia loculata (Mont.) Zambett. 1955</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306686</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Syndiplodia robiniae (Dearn. &amp; Barthol.) Zambett. 1955</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306687</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Synnemadiplodia fiorii (Bacc.) Zambett. 1955</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306688</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Synnemadiplodia marantae (Speg.) Zambett. 1955</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306689</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Synnemadiplodia morina (Syd. &amp; P. Syd.) Zambett. 1955</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306690</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Russula roseicolor J. Blum</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306691</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Synostomella nervicola Petr. 1950</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306692</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Synsporium furcatum Losa 1954</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306693</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Systremma globulosa (Cooke &amp; Massee) Hansf. 1956</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306694</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Systremma sambuci (Pers.) Munk 1957</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306695</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Systremma stevensonii Cif. &amp; Bat. 1957</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306696</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Taeniellopsis susplugasi Manier 1950</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306698</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Taeniolella breviuscula (Berk. &amp; M.A. Curtis) S. Hughes 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306699</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Taeniolella curvata (Peck) S. Hughes 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306700</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Hendersonia polycistis Sacc. 1884</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=449945</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Phoma concentrica Sacc. 1880</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=449946</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Phoma depressum Sacc. 1880</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=449947</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Phoma microscopica Sacc. 1880</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=449948</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Phoma notha Sacc. 1880</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=449949</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Pseudocercospora stevensii (E. Young) U. Braun &amp; Crous 2003</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=449950</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Sphaeropsis candollei Sacc. 1880</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=449951</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Uredo hypodytes Pers. 1801</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=449952</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Sphaerotheca fuliginea f. dahliae Movss. 1967</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=449953</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Thaxterogaster conicus (Hesler) Singer &amp; A.H. Sm. 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306784</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Thaxterogaster leucocephalus (Massee) Singer &amp; A.H. Sm. 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306785</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Thaxterogaster magellanicus Singer 1951</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306786</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Thaxterogaster pinguis (Zeller) Singer &amp; A.H. Sm. 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306787</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tuber gardneri Gilkey</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306788</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Thecaphora apicis Savile 1953</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306789</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Thecaphora bulbinellae P.H.B. Talbot 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306790</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Thecaphora burkartii J.C. Lindq. 1953</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306791</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Thelephora ramarioides D.A. Reid 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306800</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Thelidiomyces amylacei Cif. &amp; Tomas. 1954</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306801</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Arcyria albida var. globosa (Schwein.) Lister 1894</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306802</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Badhamia capsulifera var. papaveracea (Berk. &amp; Ravenel) Torrend 1908</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306803</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Badhamia granulifera (W. Phillips) Massee 1892</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306804</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Badhamia hyalina var. papaveracea (Berk. &amp; Ravenel) Lister 1894</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306805</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Badhamia pezizoidea (Jungh.) Buchet 1939</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306806</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Therrya cembrae (Rehm) E.K. Cash 1956</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306807</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Therrya fuckelii (Rehm) Kujala 1950</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306808</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Thielavia indica Chattop. &amp; C. Das Gupta 1957</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306809</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Thielavia renominata Paclt 1951</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306810</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Thielaviopsis neocaledoniae Dadant 1950</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306811</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Comatricha longa var. irregularis (Rex) Lister 1894</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306812</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tieghemiomyces californicus R.K. Benj. 1959</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306827</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tilachlidiopsis piptadeniae Bat. &amp; H. Maia 1955</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306828</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tilachlidiopsis scarabaei L.S. Olive 1951</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306829</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tilachlidium ramosum Kamyschko 1961</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306830</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tilachlidium setigerum Malençon 1953</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306831</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tilletia aegilopis Golovin 1952</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306832</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tilletia apludae Thirum. &amp; Mishra 1953</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306833</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Fuligo septica var. laevis (Pers.) R.E. Fr. 1912</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306834</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tomentella asterophora (Bonord.) Skovst. 1950</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306883</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tomentella bohemica Svrček 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306884</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tomentella bombycina (P. Karst.) J. Erikss. 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306885</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tomentella bourdotii Svrček 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306886</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tomentella chlorina (Massee) G. Cunn. 1952</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306887</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tomentella fatrensis Svrček 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306888</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Prototrichia bombarda (Berk. &amp; Broome) Massee 1892</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306889</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tomentella fuscella (Sacc.) S. Lundell 1954</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306890</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Sphaeria depazeiformis Auersw. 1869</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306891</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tomentella hoehnelii Skovst. 1950</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306892</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tomentella juncicola Svrček 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306893</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tomentella litschaueri Svrček 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306894</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tonduzia fuscata Bat. 1951</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306915</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Torpedospora radiata Meyers 1957</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306916</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Torrubiella arachnophila (J.R. Johnst.) Mains 1950</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306917</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Torrubiella cordyceps Dingley 1953</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306918</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Callopisma cinnabarinum var. opacum Müll. Arg. 1881</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306919</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Torula ambrosiae (Peck) S. Hughes 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306920</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Torula bergeri Langeron 1949</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306921</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trametes drummondii (Klotzsch) Ryvarden 1976</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306958</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trametes drummondii G. Cunn. 1950</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306959</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trametes ferrea (Berk.) G. Cunn. 1950</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306960</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Placodium cinnabarinum var. opacum (Müll. Arg.) B. de Lesd. 1914</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306961</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trametes foedata (Berk.) G. Cunn. 1950</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306962</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Sphaeria nidulans Auersw. 1869</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306963</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trametes leonina (Klotzsch) Pat. 1952</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306964</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trametes meleagris (Berk.) Imazeki 1943</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306965</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cantharellus infundibuliformis var. lutescens (Quél.) Corner 1966</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353321</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cantharellus odoratus var. albus (A. Kawam.) Corner 1966</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353322</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cantharellus subcibarius var. sordidus Corner 1966</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353323</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cephalosporium acremonium var. cereum Sukapure &amp; Thirum. 1966</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353324</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cephalosporium acremonium var. funiculosum Sukapure &amp; Thirum. 1966</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353325</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Colletotrichum gloeosporioides f. alatae R.D. Singh, Prasad &amp; R.L. Mathur 1966</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353385</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Colletotrichum graminicola f.sp. zeae Messiaen, Lafon &amp; Molot 1959</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353386</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Colletotrichum vitis var. majus Bat. &amp; J.L. Bezerra 1962</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353387</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Glomopsis lonicerae Peck ex C.J. Gould 1945</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353388</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Coltricia montagnei var. greenei (Berk.) Imazeki &amp; Kobayasi 1966</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353389</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Conidiobolus megalotocus var. indicus Sriniv. &amp; Thirum. 1963</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353390</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Conidioxyphium costaricense var. minus Bat. &amp; J.A. Lima 1960</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353391</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Coriolellus vaporarius f. holoporus (Pers.) Domański 1965</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353400</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Coriolus pubescens var. grayi (Cooke &amp; Ellis) Bondartsev 1963</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353401</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cortinarius bulliardii f. decorata Rob. Henry 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353402</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cortinarius claricolor var. tenuipes Hongo 1969</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353403</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cortinarius flexipes f. sertipes (Kühner) Kühner 1961</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353404</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cortinarius hinnuleus var. subulatus Rob. Henry 1969</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353405</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Psora testacea var. argillicola B. de Lesd. 1922</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353406</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cortinarius miniatopus var. konradii M.M. Moser 1965</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353407</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cortinarius porphyropus f. minor Nespiak 1960</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353408</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cortinarius uliginosus var. luteus Gabriel &amp; Lamoure 1965</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353409</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Psora testacea var. testacea Hoffm. 1794</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353410</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cortinellus edodes f. sterilis Iwade 1944</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353411</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cotylidia aurantiaca var. alba D.A. Reid 1965</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353412</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Craterellus cinereus var. multiplex (A.H. Sm.) A.H. Sm. 1968</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353413</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Craterellus cornucopioides var. roseus R. Heim 1960</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353414</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Puccinia vilis Arthur</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=151574</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Ramaria coralloides Holmsk. 1790</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=151575</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Rhizopogon violaceus Cooke &amp; Massee 1892</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=151576</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Sphaeria subconica Cooke &amp; Peck</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=151577</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cladochytrium graminis Büsgen 1887</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=151578</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Endophyllum sedi (DC.) Lév.</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=151579</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Asourcecularia wrightii (Berk. &amp; M.A. Curtis) Farl.</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=151580</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Metschnikowia vanudenii Gim.-Jurado, Kurtzman &amp; Spenc.-Mart. 2003</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=489014</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Sclerophyton insularum A.W. Archer 2003</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=489015</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Sclerophyton hillii A.W. Archer 2003</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=489016</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Igneocumulus yuccae A.W. Ramaley 2003</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=489017</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Phyllosticta sultanii Abbas, B. Sutton &amp; Ghaffar 2003</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=489018</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Alpakesiopsis ghaffarii Abbas, B. Sutton &amp; Al. Abbas 2003</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=489019</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trichia papillata Adamonytė 2003</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=489020</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Uromyces pentaceae D.K. Agarwal 2003</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=489021</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cylindrocarpon destructans var. crassum (Wollenw.) C. Booth 1966</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353429</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Lepiota oregonensis var. oregonensis H.V. Sm. 1979</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353430</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cylindrosporium concentricum var. macrosporum Bat. &amp; Peres 1964</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353431</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Dactylosporium occultum var. ellipticum Cif. &amp; Vegni 1963</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353432</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Dangeardia sporapiculata var. minor Geitler 1965</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353433</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Dasyscyphus emerici var. nothofagi Dennis 1961</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353434</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Dentinum repandum var. album (Quél.) K.A. Harrison 1961</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353435</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Hendersonia pulchella f. buplesource Negru 1965</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353514</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Hendersonia sarmentorum var. catalpae Sandu 1961</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353515</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Henningsomyces minimus var. venezuelae D.A. Reid 1961</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353516</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Henningsomyces puber var. americanus D.A. Reid 1964</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353517</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Heterochaete lividofusca var. sanguinea Rick 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353518</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Lepiota oregonensis var. macrospora Atri, Saini &amp; Kaur{?} 2000</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353519</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Heterochaete sanctae-catharinae var. delicatula Rick 1933</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353520</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trematosphaeria daphnes Petr. 1953</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306981</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trematosphaeria indigoferae E. Müll. &amp; S. Ahmad 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306982</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trematosphaeria jasmini Chona, Munjal &amp; J.N. Kapoor 1957</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306983</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trematosphaeria paronychiae Gucevič 1959</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306984</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trematosphaeria phaeospora (E. Müll.) L. Holm 1957</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306985</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trematosphaeria striata (Niessl) L. Holm 1957</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306986</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Inocybe mutata (Peck) Massee 1904</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306987</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trichasterina cheirodendri Hansf. 1955</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307011</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trichasterina microspila (Syd.) Hansf. 1954</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307012</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trichasterina polyalthiae Hansf. 1955</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307013</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trichobelonium leucorrhodinum (Mont.) Seaver 1951</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307014</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trichocicinnus ugandensis Bat. &amp; H. Maia 1957</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307015</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Pertusaria globulifera var. henricii</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307016</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trichocladia atraphaxis Golovin 1950</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307017</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trichocladia golovinii Domashova 1959</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307018</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trichosporon anesourcenolyticum Yonez. &amp; Aoki 1957</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307112</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trichosporon behrendii Lodder &amp; Kreger 1952</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307113</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trichosporon diddensiae Phaff, Mrak &amp; O.B. Williams 1952</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307114</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trichosporon hellenicum Verona &amp; Picci 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307115</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trichosporon intermedium Florenz. 1950</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307116</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trichosporon merulioides Kobay.{?} 1953</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307118</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Trichosporon neofermentans Kobay.{?} 1953</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307119</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tubaria praestans (Romagn.) M.M. Moser 1978</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307166</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tubaria pseudoripartites Singer 1952</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307167</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tubaria umbonata S. Lundell 1953</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307168</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tuber harknessii Gilkey 1954</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307169</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tuber linsdalei Gilkey 1954</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307170</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tuber texense Heimsch{?} 1959</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307171</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tubercularia abutilonis Katsura 1951</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307172</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tubercularia fraserae Hansf. 1957</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307173</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tympanis hydrangeae J.W. Groves 1952</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307237</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tympanis magnoliae J.W. Groves 1952</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307238</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tympanis malicola J.W. Groves 1952</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307239</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tympanis piceae J.W. Groves 1952</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307240</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tympanis piceina J.W. Groves 1952</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307241</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tympanis prunicola J.W. Groves 1952</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307242</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Tympanis pseudotsugae J.W. Groves 1952</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307243</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Peziza abietina Pers. 1794</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=180299</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Sphaeropsis cerasifolia McAlpine 1902</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=180301</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Spicaria violacea Petch 1932</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=180302</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Ascochyta negundinis Bres. 1926</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=180303</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Diaporthe catalpae Ellis &amp; Everh.</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=180304</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cylindrosporium ficariae Berk. 1837</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=180305</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cantharellus alboroseus Heinem. 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=294064</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cantharellus caucasicus Nahutzr. 1953</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=294065</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cantharellus cornucopioides (L.) Fr. 1821</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=294066</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cantharellus croceifolius Heinem. 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=294067</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cantharellus densifolius Heinem. 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=294069</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cantharellus goossensiae (Beeli) Heinem. 1958</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=294070</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Russula granulata Peck 1899</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=186198</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Scleroderma bovista Fr. 1829</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=186199</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Sphaerella ophiopogonis Sacc.</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=186200</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Sphaeria fascicularis Wallr.</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=186201</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Cercospora depazeoides subsp. sambucina Ellis &amp; Kellerm.</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=186203</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Achroomyces carpineus Grove 1922</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=186204</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Parmelia incolorata var. incolorata</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=186205</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Hydnum flexuosum Pers. 1804</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=439955</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Hydnum glossoides (Pers.) Duby 1830</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=439956</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Calicium trabinellum var. trabinellum Ach. 1803</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=439957</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Hydnum laxum (Pers.) Duby 1830</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=439958</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Hydnum luteopallidum Schwein. 1832</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=439959</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Hydnum membranaceum var. stenodon Pers. 1825</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=439960</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Hydnum molariforme (Pers.) Duby 1830</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=439961</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Hydnum mucidum var. viticola Schwein. ex Fr. 1828</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=439962</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Hydnum ochroleucum var. subtile (Fr.) Pers. 1825</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=439963</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Hydnum pendulum (Alb. &amp; Schwein.) Fr. 1821</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=439964</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Thelephora crinitum Fr. 1830</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=375274</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Rhizocarpon bolanderi var. bolanderi (Tuck.) Herre</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=375275</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Dimerosporium echites Allesch.</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=375276</dc:source>
+  </record>
+</dataroot>
