@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<data_source 
+<root 
 xmlns="http://betula.mbl.edu/gni_data_source/0.1" 
 xmlns:dc="http://purl.org/dc/elements/1.1/" 
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://betula.mbl.edu/gni_data_source/0.1 http://betula.mbl.edu/gna_schemas/gni_data_source.xsd">
   
-  <data_url zip_compressed="false" paginated="false">index_fungorum_short.xml</data_url>
+  <dataURL zipCompressed="false">index_fungorum_short.xml</dataURL>
   <metadata>
     <dc:title xml:lang="en">Index Fungorum</dc:title>
-    <logo_url>http://www.indexfungorum.org/IMAGES/LogoIF.gif</logo_url>
+    <logoURL>http://www.indexfungorum.org/IMAGES/LogoIF.gif</logoURL>
   </metadata>
-</data_source>
+</root>

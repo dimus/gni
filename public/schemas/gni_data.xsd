@@ -5,10 +5,12 @@
   <xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"/>
   <xs:import namespace="http://digir.net/schema/conceptual/darwin/2003/1.0" schemaLocation="http://www.digir.net/schema/conceptual/darwin/2003/1.0/darwin2.xsd"/>
   
-  <xs:element name="dataroot" type="datarootType"/>
-  <xs:complexType name="datarootType" mixed="false">
+  <xs:element name="root" type="rootType"/>
+  <xs:complexType name="rootType" mixed="false">
     <xs:sequence>
-      <xs:element maxOccurs="unbounded" name="record" type="recordType"/>
+      <xs:element name="previousPageURL" type="xs:anyURI" minOccurs="0"/>
+      <xs:element name="nextPageURL" type="xs:anyURI" minOccurs="0"/>
+      <xs:element name="record" type="recordType" minOccurs="1" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
   
