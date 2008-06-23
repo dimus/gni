@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema
+    targetNamespace="http://betul/betula.mbl.edu/gni_data_source/0.1" 
+    xmlns="http://betul/betula.mbl.edu/gni_data_source/0.1" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+    xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+    xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#"
+    elementFormDefault="qualified">
+
+    <xs:element name="data_source" type="dataSourceType"/>
+
+    <xs:complexType name="dataSourceType">
+        <xs:annotation>
+            <xs:documentation>Data Source Root</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="data_url" type="dataURLType">
+            <xs:element name="metadata" type="metadataType">
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="dataURLType">
+        <xs:annotation>
+            <xs:documentation>Contains link to the gni-compatible data in xml or zipped xml format.</xs:documentation> 
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:restriction basetype="xs:string"> 
+                <xs:attribute name="zipped" type="boolean" use="required">
+                <xs:attribute name="paginated" type="boolean" use="optional" default="false">
+            </xs:restriction>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="metadataType">
+    </xs:complexType>
+
+</xs:schema>
