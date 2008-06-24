@@ -14,7 +14,7 @@
     <dwc:ScientificName>Stagonospora procerula Petr. 1950</dwc:ScientificName>
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306395</dc:source>
   </record>
-  <record>
+  <record<name />
     <dwc:ScientificName>Stagonospora rosarum Bat. &amp; Silva{?} 1951</dwc:ScientificName>
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306397</dc:source>
   </record>
