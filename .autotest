@@ -13,9 +13,9 @@ if PLATFORM =~ /darwin/
       images_root =  "~/.autotest_images/rails/"
       results = [autotest.results].flatten.join("\n")
       output = results.slice(/(\d+)\s+examples?,\s*(\d+)\s+failures?(,\s*(\d+)\s+pending)?/) 
-      if !output
-        growl "FAIL:", "EXCEPTION:", images_root + "rails_fail.png" 
-      elsif output  =~ /[1-9]\sfailures?/
+      #if !output
+      #  growl "FAIL:", "EXCEPTION:", images_root + "rails_fail.png" 
+      if output  =~ /[1-9]\sfailures?/
         growl "FAIL:", "#{output}", images_root + "rails_fail.png" 
       elsif output  =~ /[1-9]\spending?/
         growl "PENDING:", "#{output}", images_root + "rails_pending.png"  
