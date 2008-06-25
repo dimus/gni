@@ -5,9 +5,10 @@ xmlns:dc="http://purl.org/dc/elements/1.1/"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://betula.mbl.edu/gni_data_source/0.1 http://betula.mbl.edu/gna_schemas/gni_data_source.xsd">
   
-  <dataURL zipCompressed="false">index_fungorum_short.xml</dataURL>
+  <dataURL zipCompressed="true">url_to_data.xml</dataURL>
   <metadata>
     <dc:title xml:lang="en">Index Fungorum</dc:title>
+    <dc:description xml:lang="en">Index Fungorum is a community resource currently co-ordinated and supported by the following partnership: CABI Bioscience, CBS and Landcare Research</dc:description>
     <logoURL>http://www.indexfungorum.org/IMAGES/LogoIF.gif</logoURL>
   </metadata>
 </root>

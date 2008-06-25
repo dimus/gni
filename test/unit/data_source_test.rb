@@ -14,4 +14,5 @@ class DataSourceTest < ActiveSupport::TestCase
     assert_not_nil(@data_source.access_rules)
     assert_instance_of(AccessRule, @data_source.access_rules[0])
   end
+
 end

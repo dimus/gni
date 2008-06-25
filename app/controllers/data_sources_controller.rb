@@ -1,3 +1,5 @@
+require 'gna_xml'
+
 class DataSourcesController < ApplicationController
   # GET /data_sources
   # GET /data_sources.xml
@@ -25,7 +27,7 @@ class DataSourcesController < ApplicationController
   # GET /data_sources/new.xml
   def new
     @data_source = DataSource.new
-
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @data_source }
@@ -40,8 +42,12 @@ class DataSourcesController < ApplicationController
   # POST /data_sources
   # POST /data_sources.xml
   def create
+    if params[:commit] == "Get data from url"
+      params[:datasource] = GNA_XML::data_source_xml(params[:data_source][:metadata_url])
+    end
+    
     @data_source = DataSource.new(params[:data_source])
-
+        
     respond_to do |format|
       if @data_source.save
         flash[:notice] = 'DataSource was successfully created.'

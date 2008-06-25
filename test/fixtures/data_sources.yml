@@ -11,7 +11,7 @@ bees_nhm:
   data_uri: http://nhm.org/bees/data
   uri_type_id: 1
   response_format_id: 1
-  refresh_period_hours: 1
+  refresh_period_days: 14
   taxonomic_scope: Insects
   geospatial_scope_wkt: 
   in_gni: 1
@@ -29,7 +29,7 @@ birds_nhm:
   data_uri: http://nhm.org/birds/data
   uri_type_id: 1
   response_format_id: 1
-  refresh_period_hours: 1
+  refresh_period_days: 14
   taxonomic_scope: Aves
   geospatial_scope_wkt: 
   in_gni: 1
