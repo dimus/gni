@@ -1,0 +1,24 @@
+<h1>Editing data_source_contributor</h1>
+
+<% form_for(@data_source_contributor) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :data_source %><br />
+    <%= f.text_field :data_source %>
+  </p>
+  <p>
+    <%= f.label :user %><br />
+    <%= f.text_field :user %>
+  </p>
+  <p>
+    <%= f.label :data_source_admin %><br />
+    <%= f.check_box :data_source_admin %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @data_source_contributor %> |
+<%= link_to 'Back', data_source_contributors_path %>

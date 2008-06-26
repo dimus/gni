@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :data_source_contributors
+
   map.resources :name_composits
 
   map.resources :name_years

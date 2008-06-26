@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+aaron_birds:
+  data_source: birds_nhm
+  user: aaron
+  data_source_admin: false
+
+quentin_birds:
+  data_source: birds_nhm
+  user: quentin
+  data_source_admin: false
