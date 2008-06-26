@@ -42,15 +42,17 @@ class DataSourcesController < ApplicationController
   # POST /data_sources
   # POST /data_sources.xml
   def create
+    created_msg = "DataSource was successfully created."
     #if metadata_url exists get data from url
     if params[:data_source][:metadata_url]
       params[:data_source] = GNA_XML::data_source_xml(params[:data_source][:metadata_url])
+      created_msg = created_msg[0...-1] + " using remote xml."
     end
     
     @data_source = DataSource.new(params[:data_source])
     respond_to do |format|
       if @data_source.save
-        flash[:notice] = 'DataSource was successfully created.'
+        flash[:notice] = created_msg
         format.html { redirect_to(@data_source) }
         format.xml  { render :xml => @data_source, :status => :created, :location => @data_source }
       else

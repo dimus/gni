@@ -30,4 +30,7 @@ describe "/data_sources/index.html.haml" do
     render "/data_sources/index.html.haml"
     response.should_not have_tag("a", "Add")
   end
+  
+  it "data sources should be editable/deletable only by owner and administrator"
+  
 end

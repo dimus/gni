@@ -55,4 +55,11 @@ describe DataSourcesController do
     
   end
   
+  describe ".edit" do
+    it "should be accessible only by admin and the author"
+  end
+  
+  describe ".delete" do
+    it "should be accessible only by admin and the author"
+  end
 end
