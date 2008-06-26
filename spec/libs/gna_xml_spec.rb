@@ -18,7 +18,7 @@ describe GNA_XML do
     it 'result should have metadata_url, data_url, title' do
        @res[:metadata_url].should == @data_source_xml
        @res[:title].should == "Index Fungorum"
-       @res[:data_url].should == "url_to_data.xml"
+       @res[:data_url].should == "http://example.com/url_to_data.xml"
        @res[:data_zip_compressed].should == true
     end
     

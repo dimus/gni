@@ -19,7 +19,7 @@ module GNA_XML
     elsif zipped == "false"
       ds[:data_zip_compressed] = false
     else
-      throw (printf("wrong data for zip_compressed attribute: '%s'", zipped))
+      throw(printf("wrong data for zip_compressed attribute: '%s'", zipped))
     end
     ds
   end
