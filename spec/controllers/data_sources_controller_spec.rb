@@ -1,11 +1,13 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe DataSourcesController do
+  fixtures :users
   
   describe ".create" do
     
     before(:each) do
       @metdata_url_params = {:metadata_url => File.dirname(__FILE__) + "/../fixtures/feeds/index_fungorum_data_source.xml"}
+      @request.session[:user] = users(:aaron)
     end
     
     it 'should create data_source from supplied data if metadta_url is nil' do
@@ -45,8 +47,6 @@ describe DataSourcesController do
         response.should be_success
       end.should_not change(DataSource, :count)
     end
-    
-
 
     def create_data_source(options = {}) 
       post :create, :data_source => { :title => 'Index Fungorum', :description => 'Description',

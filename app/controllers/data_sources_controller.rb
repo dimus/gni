@@ -49,12 +49,14 @@ class DataSourcesController < ApplicationController
       created_msg = created_msg[0...-1] + " using remote xml."
     end
     
+    #TODO Make adding DataSourceController less failproof
     @data_source = DataSource.new(params[:data_source])
     respond_to do |format|
-      if @data_source.save
-        flash[:notice] = created_msg
-        format.html { redirect_to(@data_source) }
-        format.xml  { render :xml => @data_source, :status => :created, :location => @data_source }
+      if @data_source.save  
+          DataSourceContributor.create({:data_source => @data_source, :user => current_user}) if current_user
+          flash[:notice] = created_msg
+          format.html { redirect_to(@data_source) }
+          format.xml  { render :xml => @data_source, :status => :created, :location => @data_source }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @data_source.errors, :status => :unprocessable_entity }

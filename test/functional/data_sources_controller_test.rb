@@ -14,7 +14,8 @@ class DataSourcesControllerTest < ActionController::TestCase
 
   def test_should_create_data_source
     assert_difference('DataSource.count') do
-      post :create, :data_source => { }
+      post :create, :data_source => {:title => 'Index Fungorum', :description => 'Description',
+      :data_url => 'http://example.com/data_url.xml', :data_zip_compressed => false, :metadata_url => nil, :logo_url => 'http://example.com/images/logo.png'}
     end
 
     assert_redirected_to data_source_path(assigns(:data_source))

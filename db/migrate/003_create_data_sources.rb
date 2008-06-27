@@ -22,9 +22,12 @@ class CreateDataSources < ActiveRecord::Migration
 
       t.timestamps
     end
+    
+    add_index :data_sources, [:data_url], :name => "index_data_sources_1", :unique => true
   end
 
   def self.down
+    remove_index :data_sources, :name => :index_data_sources_1
     drop_table :data_sources
   end
 end

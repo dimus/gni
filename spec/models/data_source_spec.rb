@@ -44,6 +44,13 @@ describe DataSource do
     end
   end
   
+  it "should have unique data_url" do
+    lambda do
+      create_data_source
+      create_data_source
+    end.should raise_error
+  end
+  
 
 protected
   def create_data_source(options = {})
