@@ -37,6 +37,10 @@ class DataSourcesController < ApplicationController
   # GET /data_sources/1/edit
   def edit
     @data_source = DataSource.find(params[:id])
+    if !(admin? || @data_source.contributor?(current_user))
+      flash[:notice] = 'Not a contributor for this source'
+      redirect_to data_sources_url
+    end  
   end
 
   # POST /data_sources

@@ -6,16 +6,18 @@
 
 %table{:class => "data bordered"}
   %tr
+    %th.top Logo
     %th.top Title
     %th.top Description
-    %th.top{:colspan => 3} Actions
+    %th.top{:colspan => 2} Actions
   -for data_source in @data_sources
   %tr
-    %td= h data_source.title
+    %td
+      %img{:src => data_source.logo_url}
+    %td= link_to_data_source(data_source)
     %td= h data_source.description
-    %td= link_to 'Show', data_source
-    %td= link_to 'Edit', edit_data_source_path(data_source)
-    %td= link_to 'Destroy', data_source, :confirm => 'Are you sure?', :method => :delete
+    %td= link_to_edit(data_source)
+    %td= link_to_delete(data_source)
   - end
 
 %br/

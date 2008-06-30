@@ -34,6 +34,10 @@ module AuthenticatedSystem
     def authorized?(action=nil, resource=nil, *args)
       logged_in?
     end
+    
+    def admin?(action=nil, resource=nil, *args)
+      logged_in? && current_user.admin?
+    end
 
     # Filter method to enforce a login requirement.
     #

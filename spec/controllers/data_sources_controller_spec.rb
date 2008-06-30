@@ -56,10 +56,29 @@ describe DataSourcesController do
   end
   
   describe ".edit" do
-    it "should be accessible only by admin and the author"
+    before(:each) do
+      @admin = mock(User)
+      @admin.stub!(:id).and_return(50)
+      @admin.stub!(:admin?).and_return(true)
+      @contributor = mock(User)
+      @contributor.stub!(:id).and_return(98)
+      @reader = mock(User)
+      @reader.stub!(:id).and_return(100)
+      @data_source = mock(DataSource)
+      @data_source.stub!(:id).and_return(200)
+      @data_source.stub!(:contributor).and_return(@contributor)
+    end
+    
+    it "should be accessible by admin" do
+      session[:user_id] = @admin.id
+      assigns[:data_source] = [@data_source]
+      get 'edit'
+    end
+    
+    
   end
   
   describe ".delete" do
-    it "should be accessible only by admin and the author"
+    it "should be accessible only by contributors and admin"
   end
 end

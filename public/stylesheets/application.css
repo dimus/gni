@@ -44,6 +44,11 @@ body {
     color: #333;
     }
 
+/* link placeholder if/when a link should be disabled */
+.disabled_link {
+	color: #aaa;
+}
+
   hr {
     border: none;
     border-bottom: 1px solid #7D8692;
