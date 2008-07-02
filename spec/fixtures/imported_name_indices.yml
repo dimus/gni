@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name_string: 
+  data_source: 
+  response_format: 
+  kingdom: 
+  uri: MyString
+  uri_type: 
+
+two:
+  name_string: 
+  data_source: 
+  response_format: 
+  kingdom: 
+  uri: MyString
+  uri_type: 
