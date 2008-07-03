@@ -51,9 +51,26 @@ def prepare_record(c, record):
         c.execute("insert into name_strings (name) values ('%s')" % record["raw_name"])
         c.execute("select last_insert_id()")
         name_string_id = c.fetchone()
-    return (125, name_string_id[0], record["uri"])    
+    return ( name_string_id[0], record["uri"].strip())    
 
-def processNode(c, reader, current_var, record):
+def insert_records(c, imported_data):
+    c.execute("select name_string_id from name_indices where data_source_id = %s" % options.source_id)
+    old_ids = set(map(lambda x: x[0], c.fetchall()))
+    new_ids = set(imported_data.keys())
+    to_delete = old_ids.difference(new_ids)
+    to_insert = new_ids.difference(old_ids)
+    to_check = old_ids.intersection(new_ids)
+    if len(to_delete):
+        delete_ids = ",".join(map(lambda x: str(x), to_delete))
+        c.execute("delete from name_indices where data_source_id = %s and name_string_id in (%s)" % (options.source_id, delete_ids))
+    if len(to_insert):
+        inserts = []
+        for i in to_insert:
+            inserts.append("(%s , %s, '%s')" % (options.source_id, i, MySQLdb.escape_string(imported_data[i][0])))
+        c.execute("insert into name_indices (data_source_id, name_string_id, uri) values %s" % ",".join(inserts))
+    print len(to_delete), len(to_insert), len(to_check)
+
+def processNode(c, reader, current_var, record, imported_data):
     if reader.NodeType() == 1:
         if reader.Name() == "dwc:ScientificName":
             current_var = "raw_name"    
@@ -61,7 +78,8 @@ def processNode(c, reader, current_var, record):
             current_var = "uri"
     elif reader.NodeType() == 15:
         if reader.Name() == "record":
-            prepare_record(c, record)
+            res = (prepare_record(c, record))
+            imported_data[res[0]] = res[1:]
             record = RECORD_TEMPLATE
     elif reader.NodeType() == 3 and current_var:
         record[current_var] = reader.Value()
@@ -76,18 +94,19 @@ def streamFile(filename):
         return
     db_connection = connectDb()
     c = db_connection.cursor()
-     
+    imported_data = {}
     current_var = None
     record = RECORD_TEMPLATE      
     ret = reader.Read()
 
     while ret == 1:
-        current_var, record = processNode(c, reader, current_var, record)
+        current_var, record = processNode(c, reader, current_var, record, imported_data)
         ret = reader.Read()
 
     if ret != 0:
         print "%s : failed to parse" % (filename)
-
+        sys.exit(0)
+    insert_records(c, imported_data)
     db_connection.commit()
 
 #f = 'http://betula.mbl.edu/index_fungorum_test/data.xml'

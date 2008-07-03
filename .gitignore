@@ -1,6 +1,7 @@
 *.log
 *.sqlite3
 *.swp
+*.xml
 .DS_Store
 .cache
 .project
