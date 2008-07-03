@@ -1,22 +1,48 @@
 #!/usr/bin/env python
+import os
 import sys
 from urllib import urlopen
 import libxml2
 import MySQLdb
+import yaml
+from optparse import OptionParser
 
-RECORD_TEMPLATE = {"data_source_id": 123}
+opts = OptionParser()
+opts.add_option("-e", "--environment", dest="environment", default="development",
+                  help="Specifies the environment of the system (development|test|producton).")
+
+opts.add_option("-d", "--data-url", dest="data_url",
+                  help="Specifies url which contains data for harvesting.")
+
+opts.add_option("-s", "--source-id", dest="source_id",
+                  help="Identifier of the data_source in GNA database.")
+
+(options, args) = opts.parse_args()
+
+if not (options.data_url and options.source_id and type(int(options.source_id)) == type(1)):
+    raise Exception("DATA_URL and SOURCE_ID has to be entered")
+
+RECORD_TEMPLATE = {"data_source_id": options.source_id}
+    
 
 def connectDb():
+
+    db_data = os.popen('erb ' + sys.path[0] + '/../config/database.yml').read()
+    db_conf =  yaml.load(db_data)[options.environment]
+    if not db_conf.has_key('socket'):
+        db_conf['socket'] = "/tmp/mysql.sock"
+
     try:
-        conn = MySQLdb.connect (host = "localhost",
-            user = "dimus",
-            passwd = "primus62",
-            unix_socket = "/tmp/mysql.sock",
-            db = "gna_dev")
+        conn = MySQLdb.connect (
+            host = db_conf['host'],
+            user = db_conf['username'],
+            passwd = db_conf['password'],
+            unix_socket = db_conf['socket'],
+            db = db_conf['database'])
     except MySQLdb.Error, e:
         print "Error %d: %s" % (e.args[0], e.args[1])
         sys.exit (1)
-    return conn.cursor()
+    return conn
 
 def prepare_record(c, record):
     c.execute("select id from name_strings where name = '%s'" % record["raw_name"])
@@ -26,6 +52,7 @@ def prepare_record(c, record):
         c.execute("select last_insert_id()")
         name_string_id = c.fetchone()
     return (125, name_string_id[0], record["uri"])    
+
 def processNode(c, reader, current_var, record):
     if reader.NodeType() == 1:
         if reader.Name() == "dwc:ScientificName":
@@ -34,7 +61,7 @@ def processNode(c, reader, current_var, record):
             current_var = "uri"
     elif reader.NodeType() == 15:
         if reader.Name() == "record":
-            print prepare_record(c, record)
+            prepare_record(c, record)
             record = RECORD_TEMPLATE
     elif reader.NodeType() == 3 and current_var:
         record[current_var] = reader.Value()
@@ -47,11 +74,13 @@ def streamFile(filename):
     except:
         print "cannot open %s" % (filename)
         return
-    c = connectDb()
+    db_connection = connectDb()
+    c = db_connection.cursor()
      
     current_var = None
     record = RECORD_TEMPLATE      
     ret = reader.Read()
+
     while ret == 1:
         current_var, record = processNode(c, reader, current_var, record)
         ret = reader.Read()
@@ -59,7 +88,9 @@ def streamFile(filename):
     if ret != 0:
         print "%s : failed to parse" % (filename)
 
-f = 'http://betula.mbl.edu/index_fungorum_test/data.xml'
-f = sys.path[0] + '/../spec/fixtures/feeds/index_fungorum_short.xml'
+    db_connection.commit()
 
-streamFile(f)
+#f = 'http://betula.mbl.edu/index_fungorum_test/data.xml'
+#f = sys.path[0] + '/../spec/fixtures/feeds/index_fungorum_short.xml'
+
+streamFile(options.data_url)
