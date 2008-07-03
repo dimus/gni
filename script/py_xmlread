@@ -1,0 +1,57 @@
+#!/usr/bin/env python
+import sys
+from urllib import urlopen
+import libxml2
+import MySQLdb
+
+RECORD_TEMPLATE = {"data_source_id": 123}
+
+def connect():
+    try:
+        conn = MySQLdb.connect (host = "localhost",
+            user = "testuser",
+            passwd = "testpass",
+            db = "test")
+    except MySQLdb.Error, e:
+        print "Error %d: %s" % (e.args[0], e.args[1])
+        sys.exit (1)
+    return conn.cursor()
+
+def save_record(record)
+    
+def processNode(reader, current_var, record):
+    if reader.NodeType() == 1:
+        if reader.Name() == "dwc:ScientificName":
+            current_var = "raw_name"    
+        elif reader.Name() == "dc:source":
+            current_var = "uri"
+    elif reader.NodeType() == 15:
+        if reader.Name() == "record":
+            save_record(record)
+            record = RECORD_TEMPLATE
+    elif reader.NodeType() == 3 and current_var:
+        record[current_var] = reader.Value
+        current_var = None
+    return (current_var, record)
+    
+def streamFile(filename):
+    try:
+        reader = libxml2.newTextReaderFilename(filename)
+    except:
+        print "cannot open %s" % (filename)
+        return
+     
+    current_var = None
+    record = RECORD_TEMPLATE      
+    ret = reader.Read()
+    while ret == 1:
+        current_var, record = processNode(reader, current_var, record)
+        ret = reader.Read()
+
+    if ret != 0:
+        print "%s : failed to parse" % (filename)
+
+f = sys.path[0] + '/../spec/fixtures/feeds/index_fungorum_short.xml'
+f = 'http://betula.mbl.edu/index_fungorum_test/data.xml'
+
+streamFile(f)
