@@ -5,6 +5,8 @@ from urllib import urlopen
 import libxml2
 import MySQLdb
 import yaml
+import marshal
+import sha
 from optparse import OptionParser
 
 opts = OptionParser()
@@ -68,7 +70,43 @@ def insert_records(c, imported_data):
         for i in to_insert:
             inserts.append("(%s , %s, '%s')" % (options.source_id, i, MySQLdb.escape_string(imported_data[i][0])))
         c.execute("insert into name_indices (data_source_id, name_string_id, uri) values %s" % ",".join(inserts))
-    print len(to_delete), len(to_insert), len(to_check)
+    
+    update_records(c, to_check, imported_data)
+    
+    print "deleted: " + str(len(to_delete)), "inserted: " + str(len(to_insert)), "checked for updates: " + str(len(to_check))
+
+def update_records(c, to_check, imported_data):
+    to_check = list(to_check)
+    to_check.sort()
+    slice_size = min_slice = 128
+    max_slice = len(to_check)/20
+    while len(to_check):
+        slice = to_check[0:slice_size]
+        print slice_size
+        lookup_ids = []
+        new_data = []
+        for i in slice:
+            new_data.append((imported_data[i][0],))
+            lookup_ids.append(i)
+
+
+        c.execute("select uri from name_indices where data_source_id = %s and name_string_id in (%s)" % (options.source_id,  ",".join(map(lambda x: str(x),lookup_ids))))
+        if sha.new(marshal.dumps(c.fetchall())).digest() == sha.new(marshal.dumps(tuple(new_data))).digest():
+            to_check = to_check[slice_size:]
+            if slice_size * 2 < max_slice:
+                slice_size *= 2
+        elif slice_size > min_slice:
+            slice_size /= 2
+        else:
+            for i in slice:
+                new_data = imported_data[i][0]
+                c.execute("select uri from name_indices where data_source_id = %s and name_string_id = %s", (options.source_id, i))
+                res = c.fetchone()
+                if new_data != res[0][0]:
+                    c.execute("update name_indices set uri = %s where data_source_id = %s and name_string_id = %s", (new_data, options.source_id, i))
+            to_check = to_check[slice_size:]
+    print "done"
+    
 
 def processNode(c, reader, current_var, record, imported_data):
     if reader.NodeType() == 1:
