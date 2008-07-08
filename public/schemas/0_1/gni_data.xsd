@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<xs:schema xmlns="http://betula.mbl.edu/gni_data/0.1" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dwc="http://digir.net/schema/conceptual/darwin/2003/1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" targetNamespace="http://betula.mbl.edu/gni_data/0.1" elementFormDefault="qualified">
+<xs:schema 
+    targetNamespace="http://gnapartnership.org/gni_data/2008/0.1"
+    xmlns="http://gnapartnership.org/gni_data/2008/0.1"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns:dwc="http://digir.net/schema/conceptual/darwin/2003/1.0" 
+    xmlns:dc="http://purl.org/dc/elements/1.1/" 
+    elementFormDefault="qualified">
   
   <xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"/>
   <xs:import namespace="http://digir.net/schema/conceptual/darwin/2003/1.0" schemaLocation="http://www.digir.net/schema/conceptual/darwin/2003/1.0/darwin2.xsd"/>

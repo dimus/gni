@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <xs:schema
-    targetNamespace="http://betula.mbl.edu/gni_data_source/0.1" 
-    xmlns="http://betula.mbl.edu/gni_data_source/0.1" 
+    targetNamespace="http://gnapartnership.org/gni_data_source/2008/0.1" 
+    xmlns="http://gnapartnership.org/gni_data_source/2008/0.1"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
     elementFormDefault="qualified">
