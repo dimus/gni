@@ -21,7 +21,7 @@ module DataSourcesHelper
   
   def link_to_delete(data_source)
     if data_source.contributor?(current_user)
-      return link_tor('Delete', data_source, :confirm => 'Are you sure?', :method => :delete)
+      return link_to('Delete', data_source, :confirm => 'Are you sure?', :method => :delete)
     else
       return '<span class="disabled_link">Delete</span>'
     end

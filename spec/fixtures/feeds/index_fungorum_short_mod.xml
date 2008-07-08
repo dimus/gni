@@ -5,16 +5,23 @@
   xmlns:dwc="http://digir.net/schema/conceptual/darwin/2003/1.0"
   xmlns:dc="http://purl.org/dc/elements/1.1/" 
   xsi:schemaLocation="http://betula.mbl.edu/gni_data/0.1 http://betula.mbl.edu/gna_schemas/gni_data.xsd">
-  
   <record>
     <dwc:ScientificName>Stagonospora octomera Alcalde 1948</dwc:ScientificName>
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306392</dc:source>
   </record>
   <record>
+    <dwc:ScientificName>Stagonospora phragmiticola Hansf. 1945</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306393</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stagonospora polyspora M.T. Lucas &amp; Sousa da Câmara 1952</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306394</dc:source>
+  </record>
+  <record>
     <dwc:ScientificName>Stagonospora procerula Petr. 1950</dwc:ScientificName>
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306395</dc:source>
   </record>
-  <record<name />
+  <record>
     <dwc:ScientificName>Stagonospora rosarum Bat. &amp; Silva{?} 1951</dwc:ScientificName>
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306397</dc:source>
   </record>
@@ -63,6 +70,14 @@
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306467</dc:source>
   </record>
   <record>
+    <dwc:ScientificName>Stictospora oleae (De Not.) Cif. 1957</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306468</dc:source>
+  </record>
+  <record>
+    <dwc:ScientificName>Stigmatea byrsonimae Bat. &amp; Gayão 1953</dwc:ScientificName>
+    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306469</dc:source>
+  </record>
+  <record>
     <dwc:ScientificName>Stigmatea cremasporae Hansf. 1945</dwc:ScientificName>
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306470</dc:source>
   </record>
@@ -87,19 +102,11 @@
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306475</dc:source>
   </record>
   <record>
-    <dwc:ScientificName>Stictospora oleae (De Not.) Cif. 1957</dwc:ScientificName>
-    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306468</dc:source>
-  </record>
-  <record>
-    <dwc:ScientificName>Stigmatea byrsonimae Bat. &amp; Gayão 1953</dwc:ScientificName>
-    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306469</dc:source>
-  </record>
-  <record>
     <dwc:ScientificName>Stigmina phaeocarpa (Mitter) M.B. Ellis 1959</dwc:ScientificName>
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306498</dc:source>
   </record>
   <record>
-    <dwc:ScientificName>Stigmina phyllanthi M.B. Ellis 1956</dwc:ScientificName>
+    <dwc:ScientificName>Stigmina phyllanthi M.B. Ellis 1959</dwc:ScientificName>
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306499</dc:source>
   </record>
   <record>
@@ -113,14 +120,6 @@
   <record>
     <dwc:ScientificName>Stigmina pulvinata (Kunze) M.B. Ellis 1959</dwc:ScientificName>
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306502</dc:source>
-  </record>
-  <record>
-    <dwc:ScientificName>Stagonospora phragmiticola Hansf. 1945</dwc:ScientificName>
-    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306393</dc:source>
-  </record>
-  <record>
-    <dwc:ScientificName>Stagonospora polyspora M.T. Lucas &amp; Sousa da Câmara 1952</dwc:ScientificName>
-    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=306394</dc:source>
   </record>
   <record>
     <dwc:ScientificName>Stigmina pulviniformis (Syd.) S. Hughes 1952</dwc:ScientificName>
@@ -623,7 +622,7 @@
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=151579</dc:source>
   </record>
   <record>
-    <dwc:ScientificName>Auricularia wrightii (Berk. &amp; M.A. Curtis) Farl.</dwc:ScientificName>
+    <dwc:ScientificName>Asourcecularia wrightii (Berk. &amp; M.A. Curtis) Farl.</dwc:ScientificName>
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=151580</dc:source>
   </record>
   <record>
@@ -687,7 +686,7 @@
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353435</dc:source>
   </record>
   <record>
-    <dwc:ScientificName>Hendersonia pulchella f. bupleuri Negru 1965</dwc:ScientificName>
+    <dwc:ScientificName>Hendersonia pulchella f. buplesource Negru 1965</dwc:ScientificName>
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=353514</dc:source>
   </record>
   <record>
@@ -775,7 +774,7 @@
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307018</dc:source>
   </record>
   <record>
-    <dwc:ScientificName>Trichosporon aneurinolyticum Yonez. &amp; Aoki 1957</dwc:ScientificName>
+    <dwc:ScientificName>Trichosporon anesourcenolyticum Yonez. &amp; Aoki 1957</dwc:ScientificName>
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=307112</dc:source>
   </record>
   <record>
@@ -903,10 +902,6 @@
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=294067</dc:source>
   </record>
   <record>
-    <dwc:ScientificName>Cantharellus cyanoxanthus R. Heim ex Heinem. 1958</dwc:ScientificName>
-    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=294068</dc:source>
-  </record>
-  <record>
     <dwc:ScientificName>Cantharellus densifolius Heinem. 1958</dwc:ScientificName>
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=294069</dc:source>
   </record>
@@ -929,10 +924,6 @@
   <record>
     <dwc:ScientificName>Sphaeria fascicularis Wallr.</dwc:ScientificName>
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=186201</dc:source>
-  </record>
-  <record>
-    <dwc:ScientificName>Woroninella vulcanica Racib.</dwc:ScientificName>
-    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=186202</dc:source>
   </record>
   <record>
     <dwc:ScientificName>Cercospora depazeoides subsp. sambucina Ellis &amp; Kellerm.</dwc:ScientificName>
@@ -963,7 +954,7 @@
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=439958</dc:source>
   </record>
   <record>
-    <dwc:ScientificName>Hydnum luteopallidum Schwein. 1832</dwc:ScientificName>
+    <dwc:ScientificName>Hydnum luteopallidum</dwc:ScientificName>
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=439959</dc:source>
   </record>
   <record>
@@ -985,10 +976,6 @@
   <record>
     <dwc:ScientificName>Hydnum pendulum (Alb. &amp; Schwein.) Fr. 1821</dwc:ScientificName>
     <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=439964</dc:source>
-  </record>
-  <record>
-    <dwc:ScientificName>Thelephora crinitum Fr. 1830</dwc:ScientificName>
-    <dc:source>http://www.indexfungorum.org/Names/NamesRecord.asp?RecordID=375274</dc:source>
   </record>
   <record>
     <dwc:ScientificName>Rhizocarpon bolanderi var. bolanderi (Tuck.) Herre</dwc:ScientificName>

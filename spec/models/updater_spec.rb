@@ -1,11 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe ImportedNameIndex do
+describe Updater do
   before(:each) do
-    @imported_name_index = ImportedNameIndex.new
+    @updater = Updater.new
   end
 
   it "should be valid" do
-    @imported_name_index.should be_valid
+    @updater.should be_valid
   end
 end

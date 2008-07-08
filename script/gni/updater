@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+import os
+import sys
+import MySQLdb
+from optparse import OptionParser
+
+opts = OptionParser()
+
+opts.add_option("-e", "--environment", dest="environment", default="development",
+                  help="Specifies the environment of the system (development|test|producton).")
+
+(options, args) = opts.parse_args()
+
+def connectDb():
+
+    db_data = os.popen('erb ' + sys.path[0] + '/../config/database.yml').read()
+    db_conf =  yaml.load(db_data)[options.environment]
+    if not db_conf.has_key('socket'):
+        db_conf['socket'] = "/tmp/mysql.sock"
+
+    try:
+        conn = MySQLdb.connect (
+            host = db_conf['host'],
+            user = db_conf['username'],
+            passwd = db_conf['password'],
+            unix_socket = db_conf['socket'],
+            db = db_conf['database'])
+    except MySQLdb.Error, e:
+        print "Error %d: %s" % (e.args[0], e.args[1])
+        sys.exit (1)
+    return conn
+
+def schedule
+    
+end
