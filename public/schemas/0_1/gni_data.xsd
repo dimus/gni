@@ -25,30 +25,29 @@
       <xs:documentation>Contains raw taxon name and its access point defined either by uri or identifier.</xs:documentation>
     </xs:annotation>
     
-    <xs:sequence>
-      <xs:element ref="dwc:ScientificName">
-        <xs:annotation>
-          <xs:documentation>Full scientific name of a taxon (Species, Genus, Family, Kingdom etc.) including author/s and year/s if applied.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      
-      <xs:choice>
-        
-        <xs:element minOccurs="0" ref="dc:source">
-          <xs:annotation>
-            <xs:documentation>The URI of an access point of the name information.</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        
-        <xs:element minOccurs="0" ref="dc:identifier">
-          <xs:annotation>
-            <xs:documentation>Unique data source identifier of the record (often id from the data source database). Identifier is used to be included into data source uri templates.</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-      
-      </xs:choice>
+    <xs:element ref="dwc:ScientificName">
+      <xs:annotation>
+        <xs:documentation>Full scientific name of a taxon (Species, Genus, Family, Kingdom etc.) including author/s and year/s if applied.</xs:documentation>
+      </xs:annotation>
+    </xs:element>
     
-    </xs:sequence>
+    <xs:element minOccurs="0" ref="dc:source">
+      <xs:annotation>
+        <xs:documentation>The URI of an access point of the name information.</xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    
+    <xs:element minOccurs="0" ref="dc:identifier">
+      <xs:annotation>
+        <xs:documentation>Unique data source identifier of the record (often id from the data source database). Identifier is used to be included into data source uri templates.</xs:documentation>
+      </xs:annotation>
+    </xs:element>
+
+    <xs:element minOccurs="0" ref="dwc:GlobalUniqueIdentifier">
+      <xs:annotation>
+        <xs:documentation>Global unique data source identifier of the record (often LSID).</xs:documentation>
+      </xs:annotation>
+    </xs:element>
   
   </xs:complexType>
 </xs:schema>

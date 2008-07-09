@@ -53,7 +53,26 @@ def prepare_record(c, record):
         c.execute("insert into name_strings (name) values ('%s')" % record["raw_name"])
         c.execute("select last_insert_id()")
         name_string_id = c.fetchone()
-    return ( name_string_id[0], record["uri"].strip())    
+    return ( name_string_id[0], record)    
+
+def mysql_escape(data, name_string_id):
+    for key in data.keys():
+      if data[key]:
+        data[key] = MySQLdb.escape_string(str(data[key]))
+      else:
+        data[key] = ""
+    data['data_source_id'] = options.source_id
+    data['name_string_id'] = name_string_id
+    for key in ['uri','local_id','global_id']:
+      if data.has_key(key) and data[key] != "":
+        pass
+        data[key] = "'" + data[key] + "'"
+      else:
+        data[key] = 'null'
+    print data
+    return data
+
+
 
 def insert_records(c, imported_data):
     c.execute("select name_string_id from name_indices where data_source_id = %s" % options.source_id)
@@ -68,14 +87,16 @@ def insert_records(c, imported_data):
     if len(to_insert):
         inserts = []
         for i in to_insert:
-            inserts.append("(%s , %s, '%s')" % (options.source_id, i, MySQLdb.escape_string(imported_data[i][0])))
-        c.execute("insert into name_indices (data_source_id, name_string_id, uri) values %s" % ",".join(inserts))
+            data = mysql_escape(imported_data[i], i)
+            inserts.append("(%(data_source_id)s , %(name_string_id)s, %(uri)s, %(local_id)s, %(global_id)s)" % data)
+        c.execute("insert into name_indices (data_source_id, name_string_id, uri, local_id, global_id) values %s" % ",".join(inserts))
     
     update_records(c, to_check, imported_data)
     
     print "deleted: " + str(len(to_delete)), "inserted: " + str(len(to_insert)), "checked for updates: " + str(len(to_check))
 
 def update_records(c, to_check, imported_data):
+    return
     to_check = list(to_check)
     to_check.sort()
     slice_size = min_slice = 128
@@ -86,11 +107,16 @@ def update_records(c, to_check, imported_data):
         lookup_ids = []
         new_data = []
         for i in slice:
-            new_data.append((imported_data[i][0],))
+            d = imported_dataa[i]
+            local_id = global_id = uri = ''
+            if d['uri']: uri = d['uri']
+            if d['local_id']: local_id = d['local_id']
+            if d['global_id']: global_id = d['global_id']  
+            new_data.append((uri, local_id, global_id))
             lookup_ids.append(i)
 
 
-        c.execute("select uri from name_indices where data_source_id = %s and name_string_id in (%s)" % (options.source_id,  ",".join(map(lambda x: str(x),lookup_ids))))
+        c.execute("select uri, local_id, global_id from name_indices where data_source_id = %s and name_string_id in (%s)" % (options.source_id,  ",".join(map(lambda x: str(x),lookup_ids))))
         if sha.new(marshal.dumps(c.fetchall())).digest() == sha.new(marshal.dumps(tuple(new_data))).digest():
             to_check = to_check[slice_size:]
             if slice_size * 2 < max_slice:
@@ -99,28 +125,33 @@ def update_records(c, to_check, imported_data):
             slice_size /= 2
         else:
             for i in slice:
-                new_data = imported_data[i][0]
-                c.execute("select uri from name_indices where data_source_id = %s and name_string_id = %s", (options.source_id, i))
+                new_data = imported_data[i]
+                c.execute("select uri, local_id, global_id from name_indices where data_source_id = %s and name_string_id = %s", (options.source_id, i))
                 res = c.fetchone()
                 if new_data != res[0][0]:
-                    c.execute("update name_indices set uri = %s where data_source_id = %s and name_string_id = %s", (new_data, options.source_id, i))
+                    data = mysql_escape(new_data, i)
+                    c.execute("update name_indices set uri = %(uri)s, global_id = %(global_id)s, local_id = %(local_id)s where data_source_id = %(data_source_id)s and name_string_id = %(name_string_id)s" % data)
             to_check = to_check[slice_size:]
     print "done"
     
 
 def processNode(c, reader, current_var, record, imported_data):
-    if reader.NodeType() == 1:
+    if reader.NodeType() == 1:  #start of a tag
         if reader.Name() == "dwc:ScientificName":
             current_var = "raw_name"    
         elif reader.Name() == "dc:source":
             current_var = "uri"
-    elif reader.NodeType() == 15:
+        elif reader.Name() == "dc:identifier":
+            current_var = "local_id"
+        elif reader.Name() == "dwc:GlobalUniqueIdentifier":
+            current_var = "global_id"
+    elif reader.NodeType() == 15: #end of a tag
         if reader.Name() == "record":
             res = (prepare_record(c, record))
-            imported_data[res[0]] = res[1:]
+            imported_data[res[0]] = res[1]
             record = RECORD_TEMPLATE
-    elif reader.NodeType() == 3 and current_var:
-        record[current_var] = reader.Value()
+    elif reader.NodeType() == 3 and current_var: #text node
+        record[current_var] = reader.Value().strip()
         current_var = None
     return (current_var, record)
     

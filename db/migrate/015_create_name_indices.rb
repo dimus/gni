@@ -7,6 +7,8 @@ class CreateNameIndices < ActiveRecord::Migration
       t.references :kingdom
       t.string :uri
       t.references :uri_type
+      t.string :local_id
+      t.string :global_id
       t.datetime :created
       t.datetime :deleted
 
