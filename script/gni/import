@@ -69,7 +69,7 @@ class Importer: #{{{1
 
   def __init__(self): #{{{2
     self.db = DbImporter()
-    self.duplicates = []
+    self.duplicated = []
     self.deleted = []
     self.inserted = []
     self.changed = []
@@ -94,29 +94,69 @@ class Importer: #{{{1
     self._old_ids = set(map(lambda x: x[0], c.fetchall()))
     self._new_ids = set(self.imported_data.keys())
 
-  def get_deleted(self):
+  def get_deleted(self): #{{{2
     try: 
       self.deleted = self._old_ids.difference(self._new_ids)
     except:
       print "run parse command first"
   
-  def get_inserted(self):
+  def get_inserted(self): #{{{2
     try:
       self.inserted = self._new_ids.difference(self._old_ids)
     except:
       print "run parse command first"
   
-  def get_changed(self):
-    to_check = self._old_ids.intersection(self._new_ids)
+  def get_changed(self): #{{{2
+    to_check = list(self._old_ids.intersection(self._new_ids))
+    to_check.sort()
+    slice_size = min_slice = 128
+    max_slice = len(to_check)/20
+    while len(to_check):
+        c = self.db.cursor
+        slice = to_check[0:slice_size]
+        print slice_size
+        lookup_ids = []
+        new_data = []
+        for i in slice:
+            d = self.imported_data[i]
+            local_id = global_id = uri = ''
+            if d.has_key('uri'): uri = d['uri']
+            if d.has_key('local_id'): local_id = d['local_id']
+            if d.has_key('global_id'): global_id = d['global_id']  
+            new_data.append((uri, local_id, global_id))
+            lookup_ids.append(i)
 
-    pass
+        c.execute("select uri, local_id, global_id from name_indices where data_source_id = %s and name_string_id in (%s)" % (options.source_id,  ",".join(map(lambda x: str(x),lookup_ids))))
+        if sha.new(marshal.dumps(c.fetchall())).digest() == sha.new(marshal.dumps(tuple(new_data))).digest():
+            to_check = to_check[slice_size:]
+            if slice_size * 2 < max_slice:
+                slice_size *= 2
+        elif slice_size > min_slice:
+            slice_size /= 2
+        else:
+            for i in slice:
+                new_data = self.imported_data[i]
+                c.execute("select uri, local_id, global_id from name_indices where data_source_id = %s and name_string_id = %s", (options.source_id, i))
+                res = c.fetchone()
+                for key in ('uri', 'local_id', 'global_id'):
+                  if not new_data.has_key(key): new_data[key] = 'null'
+                if (new_data['uri'], new_data['local_id'], new_data['global_id']) != res[0]:
+                    self.changed.append(i)
+                    pp.pprint((new_data['uri'], new_data['local_id'], new_data['global_id']))
+                    pp.pprint(res)
+                    data = self.db.escape_data(new_data)
+                    data['data_source_id'] = options.source_id
+                    data['name_string_id'] = i
+                    c.execute("update name_indices set uri = %(uri)s, global_id = %(global_id)s, local_id = %(local_id)s where data_source_id = %(data_source_id)s and name_string_id = %(name_string_id)s", data)
+            to_check = to_check[slice_size:]
+    print "done"
 
-  def db_delete(self):
+  def db_delete(self): #{{{2
     if self.deleted:
       delete_ids = ",".join(map(lambda x: str(x), self.deleted))
-      self.db.cursor.execute("delete from name_indices where data_source_id = %s and name_string_id in (%s)", (options.source_id, delete_ids))
+      self.db.cursor.execute("delete from name_indices where data_source_id = %s and name_string_id in (%s)" % (options.source_id, delete_ids))
 
-  def db_insert(self):
+  def db_insert(self): #{{{2
     if self.inserted:
       inserts = []
       for i in self.inserted:
@@ -126,12 +166,17 @@ class Importer: #{{{1
         inserts.append("(%(data_source_id)s , %(name_string_id)s, %(uri)s, %(local_id)s, %(global_id)s, now(), now())" % data)
       self.db.cursor.execute("insert into name_indices (data_source_id, name_string_id, uri, local_id, global_id, created_at, updated_at) values %s" % ",".join(inserts))
  
-  def db_update(self):
+  def db_update(self): #{{{2
     pass
 
-  def db_store_statistics(self):
+  def db_store_statistics(self): #{{{2
+    print "Deleted: %s, Inserted: %s, Changed: %s, Duplicated: %s" % (len(self.deleted), len(self.inserted), len(self.changed), len(self.duplicated))
     pass
+  
+  def db_commit(self): #{{{2
+    self.db.conn.commit()
 
+  #private functions #{{{2
   def _process_node(self):
     if self.reader.NodeType() == 1: #start of a tag
         if self.reader.Name() == "dwc:ScientificName":
@@ -161,11 +206,13 @@ class Importer: #{{{1
           c.execute("insert into name_strings (name, created_at, updated_at) values (%(raw_name)s, now(), now())", self._record)
           c.execute("select last_insert_id()")
           name_string_id = c.fetchone()
+          c.execute("select count(*) from name_strings")
+          print c.fetchone()[0]
       return (name_string_id[0])    
     
   def _append_imported_data(self, name_string_id):
     if self.imported_data.has_key(name_string_id):
-      self.duplicates.append(name_string_id)
+      self.duplicated.append(name_string_id)
     self.imported_data[name_string_id] = self._record.copy()
 
   def _reset_record(self):
@@ -182,4 +229,4 @@ if (i.deleted or i.inserted or i.changed):
   i.db_insert()
   i.db_update()
   i.db_store_statistics()
-
+i.db_commit()
