@@ -94,22 +94,60 @@ class Importer: #{{{1
     self._old_ids = set(map(lambda x: x[0], c.fetchall()))
     self._new_ids = set(self.imported_data.keys())
 
-  def get_deleted(self):
+  def get_deleted(self): #{{{2
     try: 
       self.deleted = self._old_ids.difference(self._new_ids)
     except:
       print "run parse command first"
   
-  def get_inserted(self):
+  def get_inserted(self): #{{{2
     try:
       self.inserted = self._new_ids.difference(self._old_ids)
     except:
       print "run parse command first"
   
   def get_changed(self):
+    #prepare data for checking updates
     to_check = self._old_ids.intersection(self._new_ids)
+    to_check = list(to_check)
+    to_check.sort()
+    
 
-    pass
+    slice_size = min_slice = 128
+    max_slice = len(to_check)/20
+    while len(to_check):
+        slice = to_check[0:slice_size]
+        print slice_size
+        lookup_ids = []
+        new_data = []
+        for i in slice:
+            d = self.imported_data[i]
+            local_id = global_id = uri = ''
+            if d['uri']: uri = d['uri']
+            if d['local_id']: local_id = d['local_id']
+            if d['global_id']: global_id = d['global_id']  
+            new_data.append((uri, local_id, global_id))
+            lookup_ids.append(i)
+
+
+        c.execute("select uri, local_id, global_id from name_indices where data_source_id = %s and name_string_id in (%s)" % (options.source_id,  ",".join(map(lambda x: str(x),lookup_ids))))
+        if sha.new(marshal.dumps(c.fetchall())).digest() == sha.new(marshal.dumps(tuple(new_data))).digest():
+            to_check = to_check[slice_size:]
+            if slice_size * 2 < max_slice:
+                slice_size *= 2
+        elif slice_size > min_slice:
+            slice_size /= 2
+        else:
+            for i in slice:
+                new_data = self.imported_data[i]
+                c.execute("select uri, local_id, global_id from name_indices where data_source_id = %s and name_string_id = %s", (options.source_id, i))
+                res = c.fetchone()
+                if new_data != res[0][0]:
+                    data = mysql_escape(new_data, i)
+                    c.execute("update name_indices set uri = %(uri)s, global_id = %(global_id)s, local_id = %(local_id)s where data_source_id = %(data_source_id)s and name_string_id = %(name_string_id)s" % data)
+            to_check = to_check[slice_size:]
+    print "done"
+
 
   def db_delete(self):
     if self.deleted:
