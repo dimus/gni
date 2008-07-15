@@ -107,26 +107,31 @@ class Importer: #{{{1
       print "run parse command first"
   
   def get_changed(self): #{{{2
-    to_check = list(self._old_ids.intersection(self._new_ids))
+    c = self.db.cursor
+    #prepare data for checking updates
+    to_check = self._old_ids.intersection(self._new_ids)
+    to_check = list(to_check)
     to_check.sort()
+    
+
     slice_size = min_slice = 128
     max_slice = len(to_check)/20
     while len(to_check):
-        c = self.db.cursor
         slice = to_check[0:slice_size]
         print slice_size
         lookup_ids = []
         new_data = []
         for i in slice:
             d = self.imported_data[i]
-            local_id = global_id = uri = ''
+            local_id = global_id = uri = None
             if d.has_key('uri'): uri = d['uri']
             if d.has_key('local_id'): local_id = d['local_id']
             if d.has_key('global_id'): global_id = d['global_id']  
             new_data.append((uri, local_id, global_id))
             lookup_ids.append(i)
-
-        c.execute("select uri, local_id, global_id from name_indices where data_source_id = %s and name_string_id in (%s)" % (options.source_id,  ",".join(map(lambda x: str(x),lookup_ids))))
+        c.execute("select uri, local_id, global_id from name_indices where data_source_id = %s and name_string_id in (%s) order by name_string_id" % (options.source_id,  ",".join(map(lambda x: str(x),lookup_ids))))
+        #print sha.new(marshal.dumps(tuple(new_data))).digest()
+        #print sha.new(marshal.dumps(c.fetchall())).digest()
         if sha.new(marshal.dumps(c.fetchall())).digest() == sha.new(marshal.dumps(tuple(new_data))).digest():
             to_check = to_check[slice_size:]
             if slice_size * 2 < max_slice:
@@ -139,17 +144,16 @@ class Importer: #{{{1
                 c.execute("select uri, local_id, global_id from name_indices where data_source_id = %s and name_string_id = %s", (options.source_id, i))
                 res = c.fetchone()
                 for key in ('uri', 'local_id', 'global_id'):
-                  if not new_data.has_key(key): new_data[key] = 'null'
-                if (new_data['uri'], new_data['local_id'], new_data['global_id']) != res[0]:
+                  if not new_data.has_key(key): new_data[key] = None
+                if tuple([new_data['uri'], new_data['local_id'], new_data['global_id']]) != res:
+                    #pp.pprint(tuple([new_data['uri'], new_data['local_id'], new_data['global_id']]))
+                    #pp.pprint(res)
                     self.changed.append(i)
-                    pp.pprint((new_data['uri'], new_data['local_id'], new_data['global_id']))
-                    pp.pprint(res)
                     data = self.db.escape_data(new_data)
                     data['data_source_id'] = options.source_id
                     data['name_string_id'] = i
-                    c.execute("update name_indices set uri = %(uri)s, global_id = %(global_id)s, local_id = %(local_id)s where data_source_id = %(data_source_id)s and name_string_id = %(name_string_id)s", data)
+                    c.execute("update name_indices set uri = %(uri)s, global_id = %(global_id)s, local_id = %(local_id)s where data_source_id = %(data_source_id)s and name_string_id = %(name_string_id)s" % data)
             to_check = to_check[slice_size:]
-    print "done"
 
   def db_delete(self): #{{{2
     if self.deleted:
@@ -207,7 +211,7 @@ class Importer: #{{{1
           c.execute("select last_insert_id()")
           name_string_id = c.fetchone()
           c.execute("select count(*) from name_strings")
-          print c.fetchone()[0]
+          #print c.fetchone()[0]
       return (name_string_id[0])    
     
   def _append_imported_data(self, name_string_id):
