@@ -8,6 +8,8 @@ import yaml
 import marshal
 import sha
 from optparse import OptionParser
+
+import cProfile
     
 import pprint
 pp = pprint.PrettyPrinter(indent=2)
@@ -74,6 +76,7 @@ class Importer: #{{{1
     self.inserted = []
     self.changed = []
     self.imported_data = {}
+    self.counter = 0
 
     self.reader = libxml2.newTextReaderFilename(options.source)
     
@@ -195,6 +198,9 @@ class Importer: #{{{1
             self._current_tag = None
     elif self.reader.NodeType() == 15: #end of a tag
         if self.reader.Name() == "record":
+            self.counter += 1
+            if self.counter % 10000 == 0:
+              print self.counter
             name_string_id = self._prepare_record()
             self._append_imported_data(name_string_id)
             self._record = self._reset_record()
@@ -203,15 +209,12 @@ class Importer: #{{{1
         self._current_tag = None
 
   def _prepare_record(self):
-      c = self.db.cursor
-      c.execute("select id from name_strings where name = %(raw_name)s", self._record)
-      name_string_id = c.fetchone()
+      self.db.cursor.execute("select id from name_strings where name = %s", self._record['raw_name'])
+      name_string_id = self.db.cursor.fetchone()
       if not name_string_id:
-          c.execute("insert into name_strings (name, created_at, updated_at) values (%(raw_name)s, now(), now())", self._record)
-          c.execute("select last_insert_id()")
-          name_string_id = c.fetchone()
-          c.execute("select count(*) from name_strings")
-          #print c.fetchone()[0]
+          self.db.cursor.execute("insert into name_strings (name, created_at, updated_at) values (%s, now(), now())", self._record['raw_name'])
+          self.db.cursor.execute("select last_insert_id()")
+          name_string_id = self.db.cursor.fetchone()
       return (name_string_id[0])    
     
   def _append_imported_data(self, name_string_id):
@@ -224,7 +227,8 @@ class Importer: #{{{1
 
 #script part {{{1
 i = Importer()
-i.parse()
+cProfile.run('i.parse()')
+print "parsing is done"
 i.get_deleted()
 i.get_inserted()
 i.get_changed()
