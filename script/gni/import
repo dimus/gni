@@ -152,10 +152,6 @@ class Importer: #{{{1
                     #pp.pprint(tuple([new_data['uri'], new_data['local_id'], new_data['global_id']]))
                     #pp.pprint(res)
                     self.changed.append(i)
-                    data = self.db.escape_data(new_data)
-                    data['data_source_id'] = options.source_id
-                    data['name_string_id'] = i
-                    c.execute("update name_indices set uri = %(uri)s, global_id = %(global_id)s, local_id = %(local_id)s where data_source_id = %(data_source_id)s and name_string_id = %(name_string_id)s" % data)
             to_check = to_check[slice_size:]
 
   def db_delete(self): #{{{2
@@ -174,16 +170,35 @@ class Importer: #{{{1
       self.db.cursor.execute("insert into name_indices (data_source_id, name_string_id, uri, local_id, global_id, created_at, updated_at) values %s" % ",".join(inserts))
  
   def db_update(self): #{{{2
-    pass
+      c = self.db.cursor
+      for i in self.changed:
+          new_data = self.imported_data[i]
+          data = self.db.escape_data(new_data)
+          data['data_source_id'] = options.source_id
+          data['name_string_id'] = i
+          c.execute("update name_indices set uri = %(uri)s, global_id = %(global_id)s, local_id = %(local_id)s where data_source_id = %(data_source_id)s and name_string_id = %(name_string_id)s" % data)
 
   def db_store_statistics(self): #{{{2
+    #c.execute("delete from import_details where created_at 
+    self._import_stats(self.deleted, 'delete')
+    self._import_stats(self.inserted, 'insert')
+    self._import_stats(self.changed, 'update')
+    self._import_stats(self.duplicated, 'dedupe')
     print "Deleted: %s, Inserted: %s, Changed: %s, Duplicated: %s" % (len(self.deleted), len(self.inserted), len(self.changed), len(self.duplicated))
-    pass
   
   def db_commit(self): #{{{2
     self.db.conn.commit()
 
   #private functions #{{{2
+  def _import_stats(self, data, name):
+      c = self.db.cursor
+      if len(data):
+          c.execute("insert into imports (data_source_id, action, created_at, updated_at) values (%s, %s, now(), now())", (options.source_id, name))
+          c.execute("select last_insert_id()")
+          imports_id = c.fetchone()[0]
+          for i in data:
+              c.execute("insert into import_details (import_id, name_string_id, created_at, updated_at) values (%s, %s, now(), now())", (imports_id, i))
+
   def _process_node(self):
     if self.reader.NodeType() == 1: #start of a tag
         if self.reader.Name() == "dwc:ScientificName":
