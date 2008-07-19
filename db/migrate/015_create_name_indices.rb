@@ -5,8 +5,7 @@ class CreateNameIndices < ActiveRecord::Migration
       t.references :data_source
       t.references :response_format
       t.references :kingdom
-      t.string :uri
-      t.references :uri_type
+      t.string :url
       t.string :local_id
       t.string :global_id
       t.datetime :created
@@ -15,7 +14,7 @@ class CreateNameIndices < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :name_indices, [:data_source_id, :name_string_id], :name => "idx_name_indices_1", :unique => true
+    add_index :name_indices, [:data_source_id, :name_string_id], :name => "idx_name_indices_1", :unique => false
   end
 
   def self.down
