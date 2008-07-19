@@ -1,11 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe Updater do
+describe DataSourceImport do
   before(:each) do
-    @updater = Updater.new
+    @data_source_import = DataSourceImport.new
   end
 
   it "should be valid" do
-    @updater.should be_valid
+    @data_source_import.should be_valid
   end
 end

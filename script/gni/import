@@ -198,8 +198,10 @@ class Importer: #{{{1
           c.execute("insert into imports (data_source_id, action, created_at, updated_at) values (%s, %s, now(), now())", (options.source_id, name))
           c.execute("select last_insert_id()")
           imports_id = c.fetchone()[0]
+          inserts = []
           for i in data:
-              c.execute("insert into import_details (import_id, name_string_id, created_at, updated_at) values (%s, %s, now(), now())", (imports_id, i))
+              inserts.append("(%s, %s, now(), now())" % (imports_id, i))
+          c.execute("insert into import_details (import_id, name_string_id, created_at, updated_at) values %s" % ",".join(inserts))
 
   def _process_node(self):
     if self.reader.NodeType() == 1: #start of a tag
@@ -237,16 +239,25 @@ class Importer: #{{{1
       return (name_string_id[0])    
     
   def _append_imported_data(self, name_string_id):
-    if self.imported_data.has_key(name_string_id):
-      self.duplicated.append(name_string_id)
-    self.imported_data[name_string_id] = self._record.copy()
+    if not self._is_duplicate(name_string_id):
+        self.imported_data[name_string_id] = self._record.copy()
+
+  def _is_duplicate(self, name_string_id):
+      duplicate = False
+      if self.imported_data.has_key(name_string_id):
+          for s in ('local_id', 'uri', 'global_id'):
+              if self._record.has_key(s) and self.imported_data.has_key(s) and self._record[s] == self.imported_data[s]: 
+                  duplicate = True
+                  break
+      return duplicate
 
   def _reset_record(self):
     return {'data_source_id': options.source_id}
 
 #script part {{{1
 i = Importer()
-cProfile.run('i.parse()')
+#cProfile.run('i.parse()')
+i.parse()
 print "parsing is done"
 i.get_deleted()
 i.get_inserted()

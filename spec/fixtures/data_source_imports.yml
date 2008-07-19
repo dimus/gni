@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+bees_nhm_del:
+  data_source: bees_nhm
+  action: delete
+
+bees_nhm_ins:
+  data_source: bees_nhm 
+  action: insert
