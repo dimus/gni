@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  import: 
+  name_string: 
+
+two:
+  import: 
+  name_string: 
