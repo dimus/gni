@@ -7,6 +7,7 @@ import MySQLdb
 import yaml
 import marshal
 import sha
+import time
 from optparse import OptionParser
 
 import cProfile
@@ -77,6 +78,7 @@ class Importer: #{{{1
     self.changed = []
     self.imported_data = {}
     self.counter = 0
+    self.time = time.time()
 
     self.reader = libxml2.newTextReaderFilename(options.source)
     
@@ -200,7 +202,9 @@ class Importer: #{{{1
         if self.reader.Name() == "record":
             self.counter += 1
             if self.counter % 10000 == 0:
-              print self.counter
+              new_time = time.time()
+              print self.counter, "%2dsec" % (new_time - self.time)
+              self.time = new_time
             name_string_id = self._prepare_record()
             self._append_imported_data(name_string_id)
             self._record = self._reset_record()

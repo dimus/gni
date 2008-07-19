@@ -1,9 +1,9 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  data_source: 
+  data_source: bees_nhm 
   status: MyString
 
 two:
-  data_source: 
+  data_source: birds_nhm 
   status: MyString
