@@ -6,6 +6,7 @@ class CreateDataSources < ActiveRecord::Migration
       t.string :logo_url
       t.string :data_url
       t.boolean :data_zip_compressed
+      t.string :data_hash
       t.integer :refresh_period_days, :default => 14
       t.string :metadata_url
       # t.string :rights

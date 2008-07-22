@@ -3,6 +3,7 @@ class DataSource < ActiveRecord::Base
   has_many :access_rules
   has_many :data_source_imports
   has_many :name_indecies
+  has_many :import_schedulers
   has_many :data_source_contributors
   has_many :users, :through  =>  :data_source_contributors
   belongs_to :uri_type

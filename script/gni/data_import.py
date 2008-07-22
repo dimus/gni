@@ -42,16 +42,12 @@ class DbImporter: #{{{1
     if not db_conf.has_key('socket'):
         db_conf['socket'] = "/tmp/mysql.sock"
 
-    try:
-        conn = MySQLdb.connect (
-            host = db_conf['host'],
-            user = db_conf['username'],
-            passwd = db_conf['password'],
-            unix_socket = db_conf['socket'],
-            db = db_conf['database'])
-    except MySQLdb.Error, e:
-        print "Error %d: %s" % (e.args[0], e.args[1])
-        sys.exit (1)
+    conn = MySQLdb.connect (
+        host = db_conf['host'],
+        user = db_conf['username'],
+        passwd = db_conf['password'],
+        unix_socket = db_conf['socket'],
+        db = db_conf['database'])
     return conn
 
 
@@ -79,8 +75,7 @@ class Importer: #{{{1
       self._process_node()
       ret = self.reader.Read()
     if ret != 0:
-        print "%s : failed to parse" % (filename)
-        sys.exit(0)
+        raise RuntimeError("%s : failed to parse" % (filename))
 
     c = self.db.cursor
     c.execute("select name_string_id from name_indices where data_source_id = %s" % self.data_source_id)
@@ -174,7 +169,7 @@ class Importer: #{{{1
     self._import_stats(self.inserted, 'insert')
     self._import_stats(self.changed, 'update')
     self._import_stats(self.duplicated, 'dedupe')
-    print "Deleted: %s, Inserted: %s, Changed: %s, Duplicated: %s" % (len(self.deleted), len(self.inserted), len(self.changed), len(self.duplicated))
+    return "Deleted: %s, Inserted: %s, Changed: %s, Duplicated: %s" % (len(self.deleted), len(self.inserted), len(self.changed), len(self.duplicated))
   
   def db_commit(self): #{{{2
     self.db.conn.commit()
@@ -273,5 +268,5 @@ if __name__ == '__main__': #script part {{{1
         i.db_delete()
         i.db_insert()
         i.db_update()
-        i.db_store_statistics()
+        print i.db_store_statistics()
     i.db_commit()

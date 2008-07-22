@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-one:
-  data_source: 
-  status: MyString
+bees_nhm_done:
+  data_source: bees_nhm 
+  status: done
   message: MyString
 
-two:
-  data_source: 
-  status: MyString
+bees_nhm_waiting:
+  data_source: bees_nhm
+  status: waiting
   message: MyString
