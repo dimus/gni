@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   include Authentication::ByCookieToken
   
   has_many :data_source_contributors
+  has_many :data_sources, :through => :data_source_contributors
 
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40

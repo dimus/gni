@@ -5,6 +5,11 @@ class DataSourcesController < ApplicationController
   # GET /data_sources.xml
   def index
     @data_sources = DataSource.find(:all)
+    
+    if current_user
+      @user = User.find(current_user.id)
+      @user_data_sources = @user.data_sources 
+    end
 
     respond_to do |format|
       format.html # index.html.erb

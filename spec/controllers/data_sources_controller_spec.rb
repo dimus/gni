@@ -2,6 +2,32 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe DataSourcesController do
   fixtures :users
+
+  describe ".index with login" do
+
+    before do
+      @ds1 = mock_model(DataSource)
+      @ds2 = mock_model(DataSource)
+      @ds3 = mock_model(DataSource)
+      @user_data_sources = [@ds1, @ds2]
+      DataSource.stub!(:fine).and_return([@ds1, @ds2, @ds3])
+      @user = mock_model(User, :data_sources => @user_data_sources)
+      controller.should_receive(:current_user).at_least(1).times.and_return(@user)
+      User.should_receive(:find).and_return(@user)
+    end
+  
+    it "should have list of user's data_sources" do
+      @user.should_receive(:data_sources)
+      get "index"
+    end
+
+    it "should render" do
+      get "index"
+      response.should be_success
+    end
+    
+  
+  end
   
   describe ".create" do
     

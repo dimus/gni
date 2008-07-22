@@ -31,6 +31,18 @@
       </xs:annotation>
     </xs:element>
     
+    <xs:element minOccurs="0" ref="dwc:Kingdom">
+      <xs:annotation>
+        <xs:documentation>The kingdom to which the scientific name belongs.</xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    
+    <xs:element minOccurs="0" ref="rank">
+      <xs:annotation>
+        <xs:documentation>Taxonomic rank which the scientific name represents (Species, Genus, Family, Kingdom).</xs:documentation>
+      </xs:annotation>
+    </xs:element>
+    
     <xs:element minOccurs="0" ref="dc:source">
       <xs:annotation>
         <xs:documentation>The URI of an access point of the name information.</xs:documentation>

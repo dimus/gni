@@ -28,6 +28,10 @@ body {
  h5 {font-size:1em;}
  h6 {font-size:0.9em;}
 
+ h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+  font-size: 0.8em;
+ }
+
  form {
   margin: 0;
   padding: 0;
@@ -161,6 +165,24 @@ body {
 }
 #footer p {
 	margin: 0 0 4px 0;
+}
+
+
+/*** DATA LAYOUT ***/
+
+#data_layout {
+}
+
+#data_clear_layout {
+  clear:both
+}
+
+#data_left_column {
+  float: left;
+}
+
+#data_right_column {
+  float: right;
 }
 
 

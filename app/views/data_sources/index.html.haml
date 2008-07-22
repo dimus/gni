@@ -1,24 +1,47 @@
-%h1 Names Sources
+%h1 Sources of Scientific Names
 
-- if logged_in?
-= link_to 'Add', new_data_source_path
-- end
 
-%table{:class => "data bordered"}
-  %tr
-    %th.top Logo
-    %th.top Title
-    %th.top Description
-    %th.top{:colspan => 2} Actions
-  -for data_source in @data_sources
-  %tr
-    %td
-      %img{:src => data_source.logo_url}
-    %td= link_to_data_source(data_source)
-    %td= h data_source.description
-    %td= link_to_edit(data_source)
-    %td= link_to_delete(data_source)
-  - end
+#data_layout
+  #data_left_column
+    %table{:class => "data bordered"}
+      %tr
+        %th.top Logo
+        %th.top Title
+        %th.top Description
+      -for data_source in @data_sources
+      %tr
+        %td
+          %img{:src => data_source.logo_url}
+        %td= link_to_data_source(data_source)
+        %td= h data_source.description
+      - end
+  #data_right_column
+    - if logged_in?
+    
+    %h3 
+      Your Data Sources
+      = link_to '(add new source)', new_data_source_path
 
-%br/
+    - if @user_data_sources.size > 0
+    %table{:class => "data bordered", :style => "width: 30em"}
+      %tr
+        %th.top Logo
+        %th.top Title
+        %th.top Description
+        %th.top{:colspan => 2} Actions
+      -for data_source in @user_data_sources
+      %tr
+        %td
+          %img{:src => data_source.logo_url}
+        %td= link_to_data_source(data_source)
+        %td= h data_source.description
+        %td= link_to_edit(data_source)
+        %td= link_to_delete(data_source)
+      - end
+    
+
+    -end
+    - end
+#data_clear_layout
+  %br/
 

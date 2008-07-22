@@ -3,13 +3,14 @@ class CreateNameIndices < ActiveRecord::Migration
     create_table :name_indices do |t|
       t.references :name_string
       t.references :data_source
-      t.references :response_format
-      t.references :kingdom
-      t.string :url
-      t.string :local_id
-      t.string :global_id
-      t.datetime :created
-      t.datetime :deleted
+      t.string :records_hash
+      #t.references :response_format
+      #t.references :kingdom
+      #t.string :url
+      #t.string :local_id
+      #t.string :global_id
+      #t.datetime :created
+      #t.datetime :deleted
 
       t.timestamps
     end
