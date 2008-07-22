@@ -1,0 +1,71 @@
+#!/usr/bin/env python
+import os
+import os.path
+import sys
+import data_import as di
+
+from optparse import OptionParser
+
+PID_PATH =  os.path.normpath(os.path.dirname(__file__) + "/../../tmp/pids/update_imports.pid")
+TIMEOUT = 3600
+
+def get_running(): #{{{1
+    if os.path.exists(PID_PATH):
+        return True
+    return False
+
+def set_running(make_running = True): #{{{1
+    if make_running:
+        f = open(PID_PATH, 'w')
+        f.close()
+    else:
+        os.remove(PID_PATH)
+
+class Updater:
+    def __init__(self, environment):
+        self.environment = environment
+        self.db = di.DbImporter(environment)
+    
+    def get_data_source_id(self):
+        self.db.cursor.execute("select data_source_id from import_schedulers where status = 'waiting' order by created_at limit 1")
+        res =  self.db.cursor.fetchone()
+        if res:
+            res = res[0]
+        return res
+    
+    def get_data_url(self, data_source_id):
+        self.db.cursor.execute("select data_url from data_sources where data_source_is = %s", data_source_id)
+        res = self.db.cursor.fetchone()
+        if res
+            res = res[0]
+        return res
+
+    def process_updates(self):
+        data_source_id = 0
+        while 1 == 1:
+            data_source_id = self.get_data_source_id()
+            if data_source_id:
+                self._process_data()
+
+        
+        
+if __name__ == '__main__': #{{{1
+    opts = OptionParser()
+
+    opts.add_option("-e", "--environment", dest="environment", default="development",
+                      help="Specifies the environment of the system (development|test|producton).")
+
+    (options, args) = opts.parse_args()
+
+    if not get_running():
+        try:
+            set_running(True)
+            u = Updater(options.environment)
+            u.get_data_source_id()
+        except Exception, e:
+            set_running(False)
+            print 'reraising...'
+            raise
+
+        else:
+          set_running(False)

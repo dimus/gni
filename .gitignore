@@ -2,6 +2,7 @@
 *.sqlite3
 *.swp
 *.xml
+*.pyc
 .DS_Store
 .cache
 .project
