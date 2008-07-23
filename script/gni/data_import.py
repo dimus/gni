@@ -26,7 +26,7 @@ class DbImporter: #{{{1
           data[key] = "'" + MySQLdb.escape_string(str(data[key])) + "'"
       else:
         data[key] = 'null'
-      for key in ('url','local_id','global_id'):
+      for key in ('url','local_id','global_id', 'kingdom', 'rank'):
         if not data.has_key(key):
           data[key] = 'null'
     return data
@@ -55,13 +55,13 @@ class Importer: #{{{1
 
   def __init__(self, source, data_source_id, environment): #{{{2
     self.db = DbImporter(environment)
-    self.duplicated = []
     self.deleted = []
     self.inserted = []
     self.changed = []
     self.imported_data = {}
     self.counter = 0
     self.time = time.time()
+    self.kingdoms = self._prepare_kingdoms()
 
     self.reader = libxml2.newTextReaderFilename(source)
     self.data_source_id = data_source_id
@@ -77,6 +77,7 @@ class Importer: #{{{1
     if ret != 0:
         raise RuntimeError("%s : failed to parse" % (filename))
 
+    self._add_hash_to_imports()
     c = self.db.cursor
     c.execute("select name_string_id from name_indices where data_source_id = %s" % self.data_source_id)
     self._old_ids = set(map(lambda x: x[0], c.fetchall()))
@@ -110,17 +111,13 @@ class Importer: #{{{1
         lookup_ids = []
         new_data = []
         for i in slice:
-            d = self.imported_data[i]
-            local_id = global_id = url = None
-            if d.has_key('url'): url = d['url']
-            if d.has_key('local_id'): local_id = d['local_id']
-            if d.has_key('global_id'): global_id = d['global_id']  
-            new_data.append((url, local_id, global_id))
+            h = self.imported_data[i]['hash']
+            new_data.append(h)
             lookup_ids.append(i)
-        c.execute("select url, local_id, global_id from name_indices where data_source_id = %s and name_string_id in (%s) order by name_string_id" % (self.data_source_id,  ",".join(map(lambda x: str(x),lookup_ids))))
+        c.execute("select records_hash from name_indices where data_source_id = %s and name_string_id in (%s) order by name_string_id" % (self.data_source_id,  ",".join(map(lambda x: str(x),lookup_ids))))
         #print sha.new(marshal.dumps(tuple(new_data))).digest()
         #print sha.new(marshal.dumps(c.fetchall())).digest()
-        if sha.new(marshal.dumps(c.fetchall())).digest() == sha.new(marshal.dumps(tuple(new_data))).digest():
+        if sha.new(marshal.dumps(c.fetchall())).hexdigest() == sha.new(marshal.dumps(tuple(new_data))).hexdigest():
             to_check = to_check[slice_size:]
             if slice_size * 2 < max_slice:
                 slice_size *= 2
@@ -128,13 +125,11 @@ class Importer: #{{{1
             slice_size /= 2
         else:
             for i in slice:
-                new_data = self.imported_data[i]
-                c.execute("select url, local_id, global_id from name_indices where data_source_id = %s and name_string_id = %s", (self.data_source_id, i))
+                new_data = (self.imported_data[i]['hash'],)
+                c.execute("select records_hash from name_indices where data_source_id = %s and name_string_id = %s", (self.data_source_id, i))
                 res = c.fetchone()
-                for key in ('url', 'local_id', 'global_id'):
-                  if not new_data.has_key(key): new_data[key] = None
-                if tuple([new_data['url'], new_data['local_id'], new_data['global_id']]) != res:
-                    #pp.pprint(tuple([new_data['url'], new_data['local_id'], new_data['global_id']]))
+                if new_data != res:
+                    #pp.pprint(new_data)
                     #pp.pprint(res)
                     self.changed.append(i)
             to_check = to_check[slice_size:]
@@ -142,39 +137,88 @@ class Importer: #{{{1
   def db_delete(self): #{{{2
     if self.deleted:
       delete_ids = ",".join(map(lambda x: str(x), self.deleted))
-      self.db.cursor.execute("delete from name_indices where data_source_id = %s and name_string_id in (%s)" % (self.data_source_id, delete_ids))
+      self.db.cursor.execute("select id from name_indices where data_source_id = %s and name_string_id in (%s)" % (self.data_source_id, delete_ids))
+      delete_ids = map(lambda x: x[0], self.db.cursor.fetchall())
+      delete_ids = ",".join(map(lambda x: str(x), delete_ids))
+      self.db.cursor.execute("delete from name_index_records where name_index_id in (%s)" % delete_ids)
+      self.db.cursor.execute("delete from name_indices where id in (%s)" % delete_ids)
 
   def db_insert(self): #{{{2
-    if self.inserted:
-      inserts = []
-      for i in self.inserted:
-        data = self.db.escape_data(self.imported_data[i])
-        data['name_string_id'] = i
-        data['data_source_id'] = self.data_source_id
-        inserts.append("(%(data_source_id)s , %(name_string_id)s, %(url)s, %(local_id)s, %(global_id)s, now(), now())" % data)
-      self.db.cursor.execute("insert into name_indices (data_source_id, name_string_id, url, local_id, global_id, created_at, updated_at) values %s" % ",".join(inserts))
+      c = self.db.cursor
+      if self.inserted:
+          inserts = []
+          for i in self.inserted:
+              #data = self.db.escape_data(self.imported_data[i])
+              data = {}
+              data['name_string_id'] = i
+              data['data_source_id'] = self.data_source_id
+              data['records_hash'] = self.imported_data[i]['hash'] 
+              inserts.append("(%(data_source_id)s, %(name_string_id)s, '%(records_hash)s' , now(), now())" % data)
+          c.execute("insert into name_indices (data_source_id, name_string_id, records_hash, created_at, updated_at) values %s" % ",".join(map(lambda x: str(x),inserts)))
+          c.execute("select id, name_string_id from name_indices where data_source_id = %s and name_string_id in (%s)" % (self.data_source_id, ",".join(map(lambda x: str(x), self.inserted))) )
+          res = c.fetchall()
+          records = []
+          for i in res:
+              name_index_id = i[0]
+              name_string_id = i[1]
+              for d in self.imported_data[name_string_id]['data']:
+                  data = self.db.escape_data(d)
+                  data['name_index_id'] = name_index_id
+                  records.append("(%(name_index_id)s, %(url)s, %(local_id)s, %(global_id)s, %(kingdom)s, %(rank)s)" % data)
+          c.execute("insert into name_index_records (name_index_id, url, local_id, global_id, kingdom_id, rank) values %s" % ",".join(records)) 
+              
  
   def db_update(self): #{{{2
       c = self.db.cursor
-      for i in self.changed:
-          new_data = self.imported_data[i]
-          data = self.db.escape_data(new_data)
-          data['data_source_id'] = self.data_source_id
-          data['name_string_id'] = i
-          c.execute("update name_indices set url = %(url)s, global_id = %(global_id)s, local_id = %(local_id)s where data_source_id = %(data_source_id)s and name_string_id = %(name_string_id)s" % data)
+      if self.changed:
+          c.execute("select id, name_string_id from name_indices where  name_string_id in (%s)" % ",".join(map(lambda x: str(x), self.changed)))
+          res = c.fetchall()
+          updates = map(lambda x: str(x[0]), res)
+          c.execute("delete from name_index_records where name_index_id in (%s)" % ",".join(updates))
+          for i in res:
+              hash = self.imported_data[i[1]]['hash']
+              name_string_id = i[1]
+              name_index_id = i[0]
+              c.execute("update name_indices set records_hash = %s where data_source_id = %s and name_string_id = %s", (hash, name_string_id, self.data_source_id))
+              records = []
+              for d in self.imported_data[i[1]]['data']:
+                  data = self.db.escape_data(d)
+                  data['name_index_id'] = name_index_id
+                  records.append("(%(name_index_id)s, %(url)s, %(local_id)s, %(global_id)s, %(kingdom)s, %(rank)s)" % data)
+              c.execute("insert into name_index_records (name_index_id, url, local_id, global_id, kingdom_id, rank) values %s" % ",".join(records)) 
 
   def db_store_statistics(self): #{{{2
     #c.execute("delete from import_details where created_at 
     self._import_stats(self.deleted, 'delete')
     self._import_stats(self.inserted, 'insert')
     self._import_stats(self.changed, 'update')
-    self._import_stats(self.duplicated, 'dedupe')
-    return "Deleted: %s, Inserted: %s, Changed: %s, Duplicated: %s" % (len(self.deleted), len(self.inserted), len(self.changed), len(self.duplicated))
+    return "Deleted: %s, Inserted: %s, Changed: %s" % (len(self.deleted), len(self.inserted), len(self.changed))
   
   def db_commit(self): #{{{2
     self.db.conn.commit()
 
   #private functions #{{{2
+  def _prepare_kingdoms(self):
+      c = self.db.cursor
+      c.execute("select n.id, n.name from kingdoms k join name_strings n on n.id = k.name_string_id")
+      res = c.fetchall()
+      kingdoms = {}
+      for i in res:
+        kingdoms[i[1].lower()] = i[0]
+      return kingdoms
+
+  def _add_hash_to_imports(self):
+      imp =  self.imported_data
+      for key in imp.keys():
+          hashes = []
+          for d in imp[key]['data']:
+              data_keys = d.keys()
+              data_keys.sort()
+              data_array = map(lambda x: d[x], data_keys)
+              hashes.append(sha.new(marshal.dumps(data_array)).hexdigest())
+          hashes.sort()
+          imp[key]['hash']=sha.new(marshal.dumps(hashes)).hexdigest()
+
   def _import_stats(self, data, name): #{{{2
       c = self.db.cursor
       if len(data):
@@ -190,6 +234,10 @@ class Importer: #{{{1
     if self.reader.NodeType() == 1: #start of a tag
         if self.reader.Name() == "dwc:ScientificName":
             self._current_tag = "raw_name"    
+        elif self.reader.Name() == "dwc:Kingdom":
+            self._current_tag = "kingdom"
+        elif self.reader.Name() == "rank":
+            self._current_tag = "rank"
         elif self.reader.Name() == "dc:source":
             self._current_tag = "url"
         elif self.reader.Name() == "dc:identifier":
@@ -222,20 +270,13 @@ class Importer: #{{{1
       return (name_string_id[0])    
     
   def _append_imported_data(self, name_string_id): #{{{2
-    if not self._is_duplicate(name_string_id):
-        self.imported_data[name_string_id] = self._record.copy()
-
-  def _is_duplicate(self, name_string_id): #{{{2
-      duplicate = False
-      if self.imported_data.has_key(name_string_id):
-          for s in ('local_id', 'url', 'global_id'):
-              if self._record.has_key(s):
-                  pp.pprint(self._record)
-                  pp.pprint(self.imported_data[name_string_id])
-                  if self.imported_data[name_string_id].has_key(s) and self._record[s] == self.imported_data[name_string_id][s]: 
-                      duplicate = True
-                      break
-      return duplicate
+    if not self.imported_data.has_key(name_string_id):
+        self.imported_data[name_string_id] = {'data': [], 'hash': None}
+    try:
+      self._record['kingdom'] = self.kingdoms[self._record['kingdom'].lower()]
+    except KeyError:
+      pass
+    self.imported_data[name_string_id]['data'].append(self._record.copy())
 
   def _reset_record(self): #{{{2
     return {'data_source_id': self.data_source_id}
@@ -261,6 +302,8 @@ if __name__ == '__main__': #script part {{{1
 #cProfile.run('i.parse()')
     i.parse()
     print "parsing is done"
+    #pp.pprint(i.imported_data)
+    #sys.exit()
     i.get_deleted()
     i.get_inserted()
     i.get_changed()

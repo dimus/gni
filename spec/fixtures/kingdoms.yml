@@ -1,0 +1,20 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+eubacteria:
+  name_string: eubacteria
+
+archaebacteria:
+  name_string: archaebacteria
+
+protista:
+  name_string: protista
+
+fungi:
+  name_string: fungi
+
+plantae:
+  name_string: plantae
+
+animalia:
+  name_string: animalia
+

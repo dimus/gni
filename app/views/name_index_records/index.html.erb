@@ -1,0 +1,30 @@
+<h1>Listing name_index_records</h1>
+
+<table>
+  <tr>
+    <th>Name index</th>
+    <th>Kingdom</th>
+    <th>Rank</th>
+    <th>Local</th>
+    <th>Global</th>
+    <th>Url</th>
+  </tr>
+
+<% for name_index_record in @name_index_records %>
+  <tr>
+    <td><%=h name_index_record.name_index %></td>
+    <td><%=h name_index_record.kingdom %></td>
+    <td><%=h name_index_record.rank %></td>
+    <td><%=h name_index_record.local_id %></td>
+    <td><%=h name_index_record.global_id %></td>
+    <td><%=h name_index_record.url %></td>
+    <td><%= link_to 'Show', name_index_record %></td>
+    <td><%= link_to 'Edit', edit_name_index_record_path(name_index_record) %></td>
+    <td><%= link_to 'Destroy', name_index_record, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New name_index_record', new_name_index_record_path %>
