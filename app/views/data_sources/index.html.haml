@@ -1,4 +1,4 @@
-%h1 Sources of Scientific Names
+%h1 Scientific Names Repositories
 
 
 #data_layout
@@ -10,8 +10,7 @@
         %th.top Description
       -for data_source in @data_sources
       %tr
-        %td
-          %img{:src => data_source.logo_url}
+        %td= logo(data_source.logo_url)
         %td= link_to_data_source(data_source)
         %td= h data_source.description
       - end
@@ -19,7 +18,7 @@
     - if logged_in?
     
     %h3 
-      Your Data Sources
+      Your Repositories
       = link_to '(add new source)', new_data_source_path
 
     - if @user_data_sources.size > 0
@@ -31,8 +30,7 @@
         %th.top{:colspan => 2} Actions
       -for data_source in @user_data_sources
       %tr
-        %td
-          %img{:src => data_source.logo_url}
+        %td= logo(data_source.logo_url)
         %td= link_to_data_source(data_source)
         %td= h data_source.description
         %td= link_to_edit(data_source)

@@ -39,6 +39,11 @@ body {
 
  img { border: none; }
 
+ img.logo {
+   width: 46px;
+   height: 20px;
+ }  
+
   a {
     color: #c00;
     text-decoration: none;

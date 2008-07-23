@@ -4,6 +4,13 @@
 
 = render :partial => 'data_source', :locals => {:data_source => @data_source, :button => "Update" }
 
+- form_for(@import_scheduler) do |f|
+= f.hidden_field :data_source_id,  :value => @data_source.id
+= f.hidden_field :status, :value => 'waiting'
+= f.hidden_field :message, :value => 'Added to the cue'
+= f.submit "Import data"
+-end
+
 = link_to 'Show', @data_source
 = "|"
 = link_to 'Back', data_sources_path

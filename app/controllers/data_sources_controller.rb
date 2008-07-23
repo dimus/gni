@@ -9,6 +9,7 @@ class DataSourcesController < ApplicationController
     if current_user
       @user = User.find(current_user.id)
       @user_data_sources = @user.data_sources 
+      #@active_schedulers = ImportScheduler.find(:all, :conditions => ["data_source_id in (?) and status != 'updated'", @data_soucres.map {|ds| ds.id}.join("'")]
     end
 
     respond_to do |format|
@@ -42,6 +43,7 @@ class DataSourcesController < ApplicationController
   # GET /data_sources/1/edit
   def edit
     @data_source = DataSource.find(params[:id])
+    @import_scheduler = ImportScheduler.find(:first, :conditions => ["data_source_id = ? and status != 'updated'", @data_source.id]) || ImportScheduler.new
     if !(admin? || @data_source.contributor?(current_user))
       flash[:notice] = 'Not a contributor for this source'
       redirect_to data_sources_url

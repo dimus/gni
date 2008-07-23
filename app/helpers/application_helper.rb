@@ -16,4 +16,9 @@ module ApplicationHelper
 
     output.join("<br/>\n")
   end
+
+  def logo(logo_url)
+    logo_url ||= "/images/public/empty_logo.png"
+    "<img src=\"#{logo_url}\" class=\"logo\">"
+  end
 end

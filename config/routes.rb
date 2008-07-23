@@ -47,7 +47,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :organizations, :has_many => [:participant_organizations, :organization_memberships]
      
   map.resources :people, :has_many => [:participant_people, :participant_contacts, :organization_memberships]
-
+  
+  map.resources :import_schedulers
   # map.connect ':controller/:action/:id'
   # map.connect ':controller/:action/:id.:format'
 end

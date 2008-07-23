@@ -7,6 +7,8 @@ class CreateImportSchedulers < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    execute "alter table import_schedulers change column status status set('waiting', 'processing', 'failed', 'updated')"
   end
 
   def self.down

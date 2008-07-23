@@ -112,11 +112,11 @@ class Importer: #{{{1
         new_data = []
         for i in slice:
             h = self.imported_data[i]['hash']
-            new_data.append(h)
+            new_data.append((h,))
             lookup_ids.append(i)
         c.execute("select records_hash from name_indices where data_source_id = %s and name_string_id in (%s) order by name_string_id" % (self.data_source_id,  ",".join(map(lambda x: str(x),lookup_ids))))
-        #print sha.new(marshal.dumps(tuple(new_data))).digest()
-        #print sha.new(marshal.dumps(c.fetchall())).digest()
+        #print sha.new(marshal.dumps(tuple(new_data))).hexdigest()
+        #print sha.new(marshal.dumps(c.fetchall())).hexdigest()
         if sha.new(marshal.dumps(c.fetchall())).hexdigest() == sha.new(marshal.dumps(tuple(new_data))).hexdigest():
             to_check = to_check[slice_size:]
             if slice_size * 2 < max_slice:
@@ -131,8 +131,10 @@ class Importer: #{{{1
                 if new_data != res:
                     #pp.pprint(new_data)
                     #pp.pprint(res)
+                    #pp.pprint(i)
                     self.changed.append(i)
             to_check = to_check[slice_size:]
+          
 
   def db_delete(self): #{{{2
     if self.deleted:
@@ -176,10 +178,10 @@ class Importer: #{{{1
           updates = map(lambda x: str(x[0]), res)
           c.execute("delete from name_index_records where name_index_id in (%s)" % ",".join(updates))
           for i in res:
-              hash = self.imported_data[i[1]]['hash']
               name_string_id = i[1]
               name_index_id = i[0]
-              c.execute("update name_indices set records_hash = %s where data_source_id = %s and name_string_id = %s", (hash, name_string_id, self.data_source_id))
+              hash = self.imported_data[name_string_id]['hash']
+              c.execute("update name_indices set records_hash = %s where data_source_id = %s and name_string_id = %s", (hash, self.data_source_id, name_string_id))
               records = []
               for d in self.imported_data[i[1]]['data']:
                   data = self.db.escape_data(d)
