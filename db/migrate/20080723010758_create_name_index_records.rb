@@ -11,7 +11,7 @@ class CreateNameIndexRecords < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :name_index_records, :name_index, :name => 'idx_name_index_records_1'
+    add_index :name_index_records, :name_index_id, :name => 'idx_name_index_records_1'
   end
 
   def self.down

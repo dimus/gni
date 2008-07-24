@@ -9,10 +9,10 @@ from optparse import OptionParser
 PID_PATH =  os.path.normpath(os.path.dirname(__file__) + "/../../tmp/pids/update_imports.pid")
 TIMEOUT = 3600
 
-WAITING = 'waiting'
-PROCESSING = 'processing'
-FAILED = 'failed'
-UPDATED = 'updated'
+WAITING = 1
+PROCESSING = 2
+FAILED = 3
+UPDATED = 4
 
 
 def get_running(): #{{{1
@@ -73,7 +73,7 @@ class Updater: #{{{1
             if (i.deleted or i.inserted or i.changed):
                 self._change_status(PROCESSING, "Deleting removed records.")
                 i.db_delete()
-                self._change_status(PROCESSING, "Inserting removed records.")
+                self._change_status(PROCESSING, "Inserting new records.")
                 i.db_insert()
                 self._change_status(PROCESSING, "Updating records.")
                 i.db_update()
