@@ -72,7 +72,8 @@ class Importer: #{{{1
   def parse(self): #{{{2
     ret = self.reader.Read()
     while ret == 1:
-      self._process_node()
+      for i in self._process_node():
+          yield i
       ret = self.reader.Read()
     if ret != 0:
         raise RuntimeError("%s : failed to parse" % (filename))
@@ -253,7 +254,7 @@ class Importer: #{{{1
             self.counter += 1
             if self.counter % 10000 == 0:
               new_time = time.time()
-              print self.counter, "%2dsec" % (new_time - self.time)
+              yield "Processing %sth record. Speed: %2d records per second." % (self.counter,10000/(new_time - self.time))
               self.time = new_time
             name_string_id = self._prepare_record()
             self._append_imported_data(name_string_id)
@@ -302,7 +303,8 @@ if __name__ == '__main__': #script part {{{1
 
     i = Importer(options.source, options.source_id, options.environment)
 #cProfile.run('i.parse()')
-    i.parse()
+    for i in i.parse():
+      print i
     print "parsing is done"
     #pp.pprint(i.imported_data)
     #sys.exit()
