@@ -17,8 +17,9 @@ class ImportSchedulersController < ApplicationController
           system("/Users/dimus/code/gna-ror/script/gni/update_imports")
         end
         flash[:notice] = "Your data are scheduled for update"
-        format.html { redirect_to data_sources_url }
+        format.html { redirect_to edit_data_source_url(@import_scheduler.data_source_id) }
       end
     end
   end
+
 end
