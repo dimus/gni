@@ -43,7 +43,9 @@ class DataSourcesController < ApplicationController
   # GET /data_sources/1/edit
   def edit
     @data_source = DataSource.find(params[:id])
-    @import_scheduler = ImportScheduler.find(:first, :conditions => ["data_source_id = ? and status != 'updated'", @data_source.id]) || ImportScheduler.new
+
+    @last_import_scheduler = ImportScheduler.find(:first,:conditions => ["data_source_id = ?", @data_source.id], :order => "created_at desc") 
+    @import_scheduler = ImportScheduler.new
     if !(admin? || @data_source.contributor?(current_user))
       flash[:notice] = 'Not a contributor for this source'
       redirect_to data_sources_url
