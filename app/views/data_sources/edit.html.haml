@@ -1,8 +1,10 @@
 %h1 Editing Data Source
 
 = error_messages_for :data_source
+- last_import_scheduler_id = @last_import_scheduler.id rescue 0
+- scheduler_status = @last_import_scheduler.message rescue "nothing yet"
 
-#data_source_import_status{:import_scheduler_id => @last_import_scheduler.id}
+#data_source_import_status{:import_scheduler_id => last_import_scheduler_id}= scheduler_status
 
 = render :partial => 'data_source', :locals => {:data_source => @data_source, :button => "Update" }
 
