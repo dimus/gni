@@ -32,23 +32,8 @@ $(function() {
             var message = data.message;
             $('#data_source_import_status').text(message);
           })
+      } else {
+        $('#data_source_import_status').text("No imports had been scheduled yet.");
       }
   });
-      /*function(n){
-        
-        $(this).everyTime(1000, function() { $(this).text('here')})
-        //if (import_scheduler_id) {
-          $(this).everyTime("5s", function() {
-              $.getJSON('/import_schedulers/' + import_scheduler_id,
-                {},
-                function(data){
-                  var html = "</p>\n<p>" + data.message + "</p>\n";
-                  $('#data_source_import_status').html(html);
-              }
-          );
-          });
-        };
-      };
-    );*/
-
 });
