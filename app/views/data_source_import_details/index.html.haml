@@ -1,0 +1,6 @@
+%h1== Last #{@data_source_import.name.capitalize}s for '#{@data_source.title}'
+= will_paginate @data
+- @data.each do |record|
+= record.name_string.name
+%br/
+- end

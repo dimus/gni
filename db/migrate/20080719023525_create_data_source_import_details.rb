@@ -6,6 +6,8 @@ class CreateDataSourceImportDetails < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :data_source_import_details, [:data_source_import_id, :name_string_id], :name => 'idx_data_source_import_details_1'
   end
 
   def self.down

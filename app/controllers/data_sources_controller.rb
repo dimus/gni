@@ -44,9 +44,9 @@ class DataSourcesController < ApplicationController
   def edit
     @data_source = DataSource.find(params[:id])
 
-    @deleted = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and action='delete'", @data_source.id], :order => 'updated_at desc') 
-    @inserted = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and action='insert'", @data_source.id], :order => 'updated_at desc')
-    @updated = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and action='update'", @data_source.id], :order => 'updated_at desc')
+    @deleted = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and name='delete'", @data_source.id], :order => 'updated_at desc') 
+    @inserted = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and name='insert'", @data_source.id], :order => 'updated_at desc')
+    @updated = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and name='update'", @data_source.id], :order => 'updated_at desc')
 
     @deleted_size = @deleted.data_source_import_details.size rescue 0
     @inserted_size = @inserted.data_source_import_details.size rescue 0 

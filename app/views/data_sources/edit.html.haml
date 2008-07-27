@@ -8,10 +8,9 @@
 
 %h3 Changes introduced by the last update
 %p
-  //= @inserted ? link_to "Inserted: #{@insertedi_size}", data_source_import_data_source_import_details_url(@inserted) : "Inserted: 0"
-  //=  @deleted ? link_to "Deleted: #{@deleted_size}", data_source_import_data_source_import_details_url(@deleted) : "Deleted: 0"
-  , Updated:
-  = @updated
+  = (link_to "Inserted: #{@inserted_size}, ", data_source_import_data_source_import_details_url(@inserted, :page => 1)) rescue "Inserted: 0, "
+  = (link_to "Deleted: #{@deleted_size}, ", data_source_import_data_source_import_details_url(@deleted)) rescue  "Deleted: 0, "
+  = (link_to "Updated: #{@updated_size}", data_source_import_data_source_import_details_url(@updated)) rescue "Updated: 0"
   
 
 
