@@ -7,14 +7,11 @@
 #data_source_import_status{:import_scheduler_id => last_import_scheduler_id}= scheduler_status
 
 %h3 Changes introduced by the last update
-
-%table
-  %tr
-    %th Inserted
-  %tr
-    %th Deleted
-  %tr
-    %th Changed
+%p
+  //= @inserted ? link_to "Inserted: #{@insertedi_size}", data_source_import_data_source_import_details_url(@inserted) : "Inserted: 0"
+  //=  @deleted ? link_to "Deleted: #{@deleted_size}", data_source_import_data_source_import_details_url(@deleted) : "Deleted: 0"
+  , Updated:
+  = @updated
   
 
 

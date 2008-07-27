@@ -225,7 +225,7 @@ class Importer: #{{{1
   def _import_stats(self, data, name): #{{{2
       c = self.db.cursor
       if len(data):
-          c.execute("insert into data_source_imports (data_source_id, action, created_at, updated_at) values (%s, %s, now(), now())", (self.data_source_id, name))
+          c.execute("insert into data_source_imports (data_source_id, name, created_at, updated_at) values (%s, %s, now(), now())", (self.data_source_id, name))
           c.execute("select last_insert_id()")
           imports_id = c.fetchone()[0]
           inserts = []
