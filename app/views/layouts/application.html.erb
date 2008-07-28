@@ -30,7 +30,7 @@
 
 </head>
 
-<body id="noname1">
+<body id="gna">
   
 <div id="centerwrapper">
   <div id="masthead">
@@ -51,11 +51,6 @@
           </td>
           <td style="padding-top: 10px; padding-left: 40px; background-position:top left; background-repeat:no-repeat;" valign="top">
             <div id="info">
-              <%- if current_user -%>
-              <strong><%= current_user[:login] %></strong><%= "&nbsp;" * 8 %><%= link_to "Logout", "/logout" %>
-              <%- else -%>
-              <%= link_to "create account", "/signup" %> or <%= link_to "log in", "/login" %>
-              <%- end -%>
             </div><br clear="all" />
           </td>
         </tr>
@@ -87,5 +82,25 @@
   
 </div><!-- and of centerwrapper -->
 <%= render :partial => "shared/footer" %>
+<div id = "top-menu">
+  <div id = "top-menu-left">
+    <ul>
+      <li>Names</li>
+      <li>Contributors</li>
+    </ul>
+  </div>
+  <div id = "top-menu-right">
+    <ul>
+    <%- if current_user -%>
+    <li><%= current_user[:login] %><%= "&nbsp;" * 8 %></li>
+    <li><%= link_to "Logout", "/logout" %></li>
+    <%- else -%>
+    <li><%= link_to "Sign up", "/signup" %></li>
+    <li><%= link_to "Sign in", "/login" %></li>
+    <%- end -%>
+    </ul>
+  </div>
+  <div id = "top-menu-end"/>
+</div>
 </body>
 </html>

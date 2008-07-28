@@ -4,11 +4,11 @@ class CreateDataSources < ActiveRecord::Migration
       t.string :title
       t.string :description
       t.string :logo_url
+      t.string :web_page_url
       t.string :data_url
-      t.boolean :data_zip_compressed
-      t.string :data_hash
-      t.integer :refresh_period_days, :default => 14
       t.string :metadata_url
+      t.boolean :data_zip_compressed
+      t.integer :refresh_period_days, :default => 14
       # t.string :rights
       # t.string :citation
       # t.string :endpoint_url

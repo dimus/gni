@@ -1,16 +1,9 @@
 class CreateNameIndices < ActiveRecord::Migration
   def self.up
     create_table :name_indices do |t|
-      t.references :name_string
+      t.references :name_string 
       t.references :data_source
-      t.string :records_hash
-      #t.references :response_format
-      #t.references :kingdom
-      #t.string :url
-      #t.string :local_id
-      #t.string :global_id
-      #t.datetime :created
-      #t.datetime :deleted
+      t.string :records_hash #sha hash of the data from all name_index_records 
 
       t.timestamps
     end
