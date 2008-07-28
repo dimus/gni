@@ -64,7 +64,7 @@ body {
   }
   
   input[type="text"], input[type="password"] {
-    border: 2px solid #B5CF89;
+    border: 2px solid #45704D;
     padding: 0.2em;
     font-family: Tahoma, sans-serif;
     font-size: 1em;
@@ -73,7 +73,7 @@ body {
 textarea {
     width: 40em;
     height: 12em;
-    border: 3px solid #ccc;
+    border: 3px solid #45704D;
     padding: 5px;
     font-family: Tahoma, sans-serif;
     font-size: 1em;
@@ -89,6 +89,13 @@ textarea.small {
 /*
 * =FORMATTED DIFS
 */
+
+.help_info {
+    color: #999;
+    margin: 0;
+    padding: 0;
+}
+
 .info-div {
 	border: 1px solid #2e9410;
 	background-color: #cbe4c3;

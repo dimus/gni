@@ -1,20 +1,21 @@
-<h1>Listing name_strings</h1>
-
+<h1>Scientific Names</h1>
+<div class="help_info"><%= NameString.count %> names so far</div>
+<%- form_for(:name_string, :url => {:action => 'index'}, :html => {:method => 'get'}) do |f| -%>
+  <%= f.text_field :name %>
+  <%= f.submit 'Search' %>
+<%- end -%>
+<br />
+<%- if @name_strings -%>
+<%= will_paginate @name_strings %>
 <table>
-  <tr>
-    <th>Name</th>
-  </tr>
-
 <% for name_string in @name_strings %>
   <tr>
     <td><%=h name_string.name %></td>
-    <td><%= link_to 'Show', name_string %></td>
-    <td><%= link_to 'Edit', edit_name_string_path(name_string) %></td>
-    <td><%= link_to 'Destroy', name_string, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New name_string', new_name_string_path %>
+<%= will_paginate @name_strings %>
+<%- end -%>
