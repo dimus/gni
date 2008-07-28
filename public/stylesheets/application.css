@@ -64,10 +64,28 @@ body {
   }
   
   input[type="text"], input[type="password"] {
-    border: 1px solid #444;
+    border: 2px solid #B5CF89;
     padding: 0.2em;
+    font-family: Tahoma, sans-serif;
+    font-size: 1em;
   }
 
+textarea {
+    width: 40em;
+    height: 12em;
+    border: 3px solid #ccc;
+    padding: 5px;
+    font-family: Tahoma, sans-serif;
+    font-size: 1em;
+}
+
+textarea.medium {
+  height: 6em;
+}
+
+textarea.small {
+  height: 3em;
+}
 /*
 * =FORMATTED DIFS
 */

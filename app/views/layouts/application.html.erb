@@ -92,11 +92,11 @@
   <div id = "top-menu-right">
     <ul>
     <%- if current_user -%>
-    <li><%= current_user[:login] %><%= "&nbsp;" * 8 %></li>
+    <li>User: <%= current_user[:login] %><%= "&nbsp;" * 8 %></li>
     <li><%= link_to "Logout", "/logout" %></li>
     <%- else -%>
     <li><%= link_to "Sign up", "/signup" %></li>
-    <li><%= link_to "Sign in", "/login" %></li>
+    <li><%= link_to "Log in", "/login" %></li>
     <%- end -%>
     </ul>
   </div>

@@ -3,7 +3,7 @@
 %p
   %b Data Source URL
   %br/
-  = f.text_field :metadata_url
+  = f.text_field :metadata_url, :size => "70"
 %p
   = f.submit button, :value => 'Get data from url'
 
@@ -13,11 +13,11 @@
   %p
     %b Title
     %br/
-    = f.text_field :title
+    = f.text_field :title, :size => "50"
   %p
     %b Description
     %br/
-    = f.text_field :description
+    = f.text_area :description, :class => "medium"
   %p
     %b Logo URL
     %br/
