@@ -10,7 +10,7 @@
 <p><label for="remember_me">Remember me:</label>
 <%= check_box_tag 'remember_me', '1', @remember_me %></p>
 
-<p><%= link_to 'I forgot my password', forgotten_password %></p>
+<p><%= link_to 'I forgot my password', forgotten_password_url %></p>
 
 <p><%= submit_tag 'Log in' %></p>
 <% end -%>

@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.register '/register', :controller => 'users', :action => 'create'
   map.signup '/signup', :controller => 'users', :action => 'new'
-  map.forgotten_password '/forgotten_password', :controller => 'users', :action => 'new_password'
+  map.forgotten_password '/forgotten_password', :controller => 'users', :action => 'forgotten_password'
 
   map.resources :users
 
@@ -53,6 +53,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :import_schedulers
 
   map.resources :data_source_imports, :has_many => [:data_source_import_details]
-  # map.connect ':controller/:action/:id'
-  # map.connect ':controller/:action/:id.:format'
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action/:id.:format'
 end
