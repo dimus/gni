@@ -65,12 +65,14 @@ class DataSourcesController < ApplicationController
   def create
     created_msg = "DataSource was successfully created."
     #if metadata_url exists get data from url
-    if params[:data_source][:metadata_url]
-      params[:data_source] = GNA_XML::data_source_xml(params[:data_source][:metadata_url])
-      created_msg = created_msg[0...-1] + " using remote xml."
+    begin
+      if params[:data_source][:metadata_url]
+        params[:data_source] = GNA_XML::data_source_xml(params[:data_source][:metadata_url])
+        created_msg = created_msg[0...-1] + " using remote xml."
+      end
+    rescue OpenURI::HTTPError
     end
     
-    #TODO Make adding DataSourceController less failproof
     @data_source = DataSource.new(params[:data_source])
     respond_to do |format|
       if @data_source.save  

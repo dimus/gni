@@ -4,7 +4,7 @@ class CreateDataSources < ActiveRecord::Migration
       t.string :title
       t.string :description
       t.string :logo_url
-      t.string :web_page_url
+      t.string :web_site_url
       t.string :data_url
       t.string :metadata_url
       t.boolean :data_zip_compressed

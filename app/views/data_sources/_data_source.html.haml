@@ -13,59 +13,36 @@
   %p
     %b Title
     %br/
-    = f.text_field :title, :size => "50"
+    = f.text_field :title, :size => "70"
   %p
     %b Description
     %br/
     = f.text_area :description, :class => "medium"
+  .help_info
+    Enter here some information about your data source
+  %p
+    %b Website URL
+    = f.text_field :web_site_url, :size => "70"
+  .help_info
+    Url to the website of the data source
   %p
     %b Logo URL
     %br/
-    = f.text_field :logo_url
-  / %p
-  /   %b Rights
-  /   %br/
-  /   = f.text_field :rights
-  / %p
-  /   %b Citation
-  /   %br/
-  /   = f.text_field :citation
-  / %p
-  /   %b Endpoint url
-  /   %br/
-  /   = f.text_field :endpoint_url
-  / %p
-  /   %b Data uri
-  /   %br/
-  /   = f.text_field :data_uri
-  / %p
-  /   %b Data uri type
-  /   %br/
-  /   = f.select( :uri_type, UriType.find(:all).map {|ut| [ ut.uri_type, ut.id ] }, { :include_blank => true })
-  / %p
-  /   %b Response format
-  /   %br/
-  /   = f.select(:response_format, ResponseFormat.find(:all).map {|rf| [rf.response_format, rf.id]}, {:include_blank => true})
+    = f.text_field :logo_url, :size => "70"
+  .help_info
+    If you have a url to your logo please enter it here. Logo will be displayed in format of 46 px by 20 px 
+  %p
+    %b Data URL
+    %br/
+    = f.text_field :data_url, :size => "70"
+  .help_info
+    URL to the xml file where with names. This file should follow a 
+    = link_to 'specific shema.', '/help/data_schema.html.haml'
+    
   %p
     %b Refresh period (days)
     %br/
     = f.text_field :refresh_period_days
-  / %p
-  /   %b Taxonomic scope
-  /   %br/
-  /   = f.text_field :taxonomic_scope
-  / %p
-  /   %b Geospatial scope wkt
-  /   %br/
-  /   = f.text_field :geospatial_scope_wkt
-  / %p
-  /   %b Created
-  /   %br/
-  /   = f.date_select :created
-  / %p
-  /   %b Updated
-  /   %br/
-  /   = f.date_select :updated
   
   %p
   = f.submit button

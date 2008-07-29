@@ -20,8 +20,8 @@ module ApplicationHelper
   def data_source_logo(data_source)
     logo_url = data_source.logo_url || "/images/public/empty_logo.png" rescue "/images/public/empty_logo.png"
     result = "<img src=\"#{logo_url}\" class=\"logo\">"
-    if data_source.web_page_url && data_source.web_page_url.strip != ""
-      result = "<a href=\"#{data_source.web_page_url}\">" + result + "</a>"
+    if data_source.web_site_url && data_source.web_site_url.strip != ""
+      result = "<a href=\"#{data_source.web_site_url}\">" + result + "</a>"
     end
     result
   end

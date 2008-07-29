@@ -1,4 +1,6 @@
-%h1= "Names Source: " + @data_source.title
+%h1
+  = data_source_logo(@data_source) 
+  = "Names Source: " + @data_source.title
 
 %p
   %b Description:
