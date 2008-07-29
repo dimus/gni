@@ -35,4 +35,18 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  def new_password
+    @user = User.new
+  end
+
+  def update
+    @user = User.find_by_email(params[:user][:email])
+    @user.password = _generate_password
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        format.html { redirect_to(root_url)}
+      end
+    end
+  end
 end

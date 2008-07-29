@@ -1,10 +1,10 @@
 class ForgottenPassword < ActionMailer::Base
 
-  def new_password(user)
+  def send_new_password(user, password)
     recipients user.email
     subject "New password from GNA"
     from "noreply@gnapartnership.org"
-    body :recipient => user.full_name
+    body :recipient => user.login, :password => password
   end
   
 
