@@ -70,7 +70,7 @@ class DataSourcesController < ApplicationController
         params[:data_source] = GNA_XML::data_source_xml(params[:data_source][:metadata_url])
         created_msg = created_msg[0...-1] + " using remote xml."
       end
-    rescue OpenURI::HTTPError
+    rescue 
     end
     
     @data_source = DataSource.new(params[:data_source])

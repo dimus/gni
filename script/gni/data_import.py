@@ -135,7 +135,21 @@ class Importer: #{{{1
                     #pp.pprint(i)
                     self.changed.append(i)
             to_check = to_check[slice_size:]
-          
+
+  def find_overlaps(self):  #{{{2
+      c = self.db.cursor
+      c.execute("delete from data_source_overlaps where data_source_id_1 = %s or data_source_id_2 = %s", (self.data_source_id, self.data_source_id))
+      c.execute("select id from data_sources where id != %s", self.data_source_id)
+      data_sources = map(lambda x: x[0], c.fetchall())
+      data_sources.sort
+      overlap_data = []
+      for i in data_sources:
+          c.execute("select name_string_id from name_indices where data_source_id = %s", i)
+          other_data_source_name_ids = set(map(lambda x: x[0], c.fetchall()))
+          print "DATA!!!!!!!!!!!!!!!!!!!!", len(other_data_source_name_ids), len(self._new_ids)
+          intersect_size = len(self._new_ids.intersection(other_data_source_name_ids))
+          overlap_data.append("(%s, %s, %s)" % (self.data_source_id, i, intersect_size/(len(self._new_ids)) * 100))
+      c.execute("insert into data_source_overlaps (data_source_id_1, data_source_id_2, strict_overlap) values %s" % ",".join(overlap_data))
 
   def db_delete(self): #{{{2
     if self.deleted:
@@ -316,4 +330,5 @@ if __name__ == '__main__': #script part {{{1
         i.db_insert()
         i.db_update()
         print i.db_store_statistics()
+        i.find_overlaps()
     i.db_commit()

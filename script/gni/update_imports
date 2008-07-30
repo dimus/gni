@@ -79,6 +79,7 @@ class Updater: #{{{1
                 i.db_update()
                 statistics = i.db_store_statistics()
                 self._change_status(PROCESSING, statistics)
+            i.find_overlaps()
             i.db_commit()
             self._change_status(UPDATED, "Successfull update: %s" % statistics)
 
