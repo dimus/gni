@@ -1,0 +1,24 @@
+<h1>Listing data_source_overlaps</h1>
+
+<table>
+  <tr>
+    <th>Data source</th>
+    <th>Data source</th>
+    <th>Strict overlap</th>
+  </tr>
+
+<% for data_source_overlaps in @data_source_overlaps %>
+  <tr>
+    <td><%=h data_source_overlaps.data_source %></td>
+    <td><%=h data_source_overlaps.data_source %></td>
+    <td><%=h data_source_overlaps.strict_overlap %></td>
+    <td><%= link_to 'Show', data_source_overlaps %></td>
+    <td><%= link_to 'Edit', edit_data_source_overlaps_path(data_source_overlaps) %></td>
+    <td><%= link_to 'Destroy', data_source_overlaps, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New data_source_overlaps', new_data_source_overlaps_path %>
