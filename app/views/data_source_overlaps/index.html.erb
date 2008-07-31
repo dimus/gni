@@ -1,24 +1,21 @@
-<h1>Listing data_source_overlaps</h1>
+<h1>Names overlap for resource "<%= @data_source.title %>"</h1>
 
-<table>
+<table class="data bordered">
   <tr>
-    <th>Data source</th>
-    <th>Data source</th>
-    <th>Strict overlap</th>
+    <th class="top">Data source</th>
+    <th class="top">Overlap</th>
+    <th class="top">Overlap %</th>
   </tr>
 
-<% for data_source_overlaps in @data_source_overlaps %>
+<% for overlap in @data_source_overlaps %>
+  <%- overlap_data_source_id = overlap.data_source_id_1 == @data_source_id ? overlap.data_source_id_1 : overlap.data_source_id_2 %>
   <tr>
-    <td><%=h data_source_overlaps.data_source %></td>
-    <td><%=h data_source_overlaps.data_source %></td>
-    <td><%=h data_source_overlaps.strict_overlap %></td>
-    <td><%= link_to 'Show', data_source_overlaps %></td>
-    <td><%= link_to 'Edit', edit_data_source_overlaps_path(data_source_overlaps) %></td>
-    <td><%= link_to 'Destroy', data_source_overlaps, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%=h DataSource.find(overlap_data_source_id).title %></td>
+    <td><%=h overlap.strict_overlap %></td>
+    <th><%=h overlap.percentage %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New data_source_overlaps', new_data_source_overlaps_path %>
