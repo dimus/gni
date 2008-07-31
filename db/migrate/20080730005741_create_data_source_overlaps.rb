@@ -3,7 +3,7 @@ class CreateDataSourceOverlaps < ActiveRecord::Migration
     create_table :data_source_overlaps do |t|
       t.integer :data_source_id_1, :null => false
       t.integer :data_source_id_2, :null => false
-      t.float :strict_overlap
+      t.integer :strict_overlap
 
       t.timestamps
     end

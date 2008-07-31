@@ -146,9 +146,8 @@ class Importer: #{{{1
       for i in data_sources:
           c.execute("select name_string_id from name_indices where data_source_id = %s", i)
           other_data_source_name_ids = set(map(lambda x: x[0], c.fetchall()))
-          print "DATA!!!!!!!!!!!!!!!!!!!!", len(other_data_source_name_ids), len(self._new_ids)
           intersect_size = len(self._new_ids.intersection(other_data_source_name_ids))
-          overlap_data.append("(%s, %s, %s)" % (self.data_source_id, i, intersect_size/(len(self._new_ids)) * 100))
+          overlap_data.append("(%s, %s, %s)" % (self.data_source_id, i, intersect_size))
       c.execute("insert into data_source_overlaps (data_source_id_1, data_source_id_2, strict_overlap) values %s" % ",".join(overlap_data))
 
   def db_delete(self): #{{{2
@@ -330,5 +329,5 @@ if __name__ == '__main__': #script part {{{1
         i.db_insert()
         i.db_update()
         print i.db_store_statistics()
-        i.find_overlaps()
+    i.find_overlaps()
     i.db_commit()
