@@ -1,0 +1,20 @@
+%h1
+  Index of Scientific Names
+  
+.help_info
+  == (#{NameString.count} total) 
+  Index of names provided by all Name Repositories
+.boxed.centered
+  - form_for(:name_string, :url => {:action => 'index'}, :html => {:method => 'get'}) do |f|
+    = f.text_field :search_term 
+    = f.submit 'Search' 
+%br/
+- if @name_strings
+  = will_paginate @name_strings 
+  %table
+    - for name_string in @name_strings
+      %tr
+        %td
+          =h name_string.name
+  %br/
+  = will_paginate @name_strings 

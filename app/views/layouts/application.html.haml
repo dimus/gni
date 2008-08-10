@@ -1,0 +1,71 @@
+!!!
+%html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
+  %head
+    %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }/
+    %meta{ :content => "en-us", "http-equiv" => "Content-Language" }/
+    %title
+      Global Names Architecture
+    %meta{ :name => "ROBOTS", :content => "ALL" }/
+    %meta{ :content => "no", "http-equiv" => "imagetoolbar" }/
+    %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }/
+    %meta{ :name => "Keywords", :content => "__KEYWORDS__" }/
+    %meta{ :name => "Description", :content => "__DESCRIPTION__" }/
+    = stylesheet_link_tag "application.css","menu.css" 
+    
+    = javascript_include_tag "jquery", "jquery.timers", "application" 
+    /
+      KLUDGE:: Win IE 5
+    /
+      corrects the unsightly Flash of Unstyled Content. See http://www.bluerobot.com/web/css/fouc.asp for more info
+    %script{ :type => "text/javascript" }
+    /
+      END KLUDGE::
+  %body#gna
+    #centerwrapper
+      #masthead
+        #logodiv
+          #logo_gna
+            Global Names Architecture
+          #logo_motto
+            Species Names Exchange
+          %table.layout
+            %tr
+              %td{ :width => "230" }
+                %img{ :src => "/images/public/developer_logo.gif", :alt => "Logo name", :style => "width:230;height:120" }/
+              %td{ :valign => "top", :style => "padding-top: 10px; padding-left: 40px; background-position:top left; background-repeat:no-repeat;" }
+                #info
+                %br{ :clear => "all" }/
+      #centerbox
+        #centercontent
+          #overall
+            - if flash[:notice] or flash[:error]
+              #flash
+                = render_flash rescue nil 
+            
+            = yield
+      #centerbottom
+        #centerbottominfo
+          %img{ :src => "/images/public/developer_bottomleft.gif", :height => "30", :alt => "bottomleft", :width => "300" }/
+    = render :partial => "shared/footer" 
+    #top-menu
+      #top-menu-left
+        %ul
+          %li
+            = link_to 'Index', name_strings_url 
+          %li
+            = link_to 'Repositories', root_url 
+      #top-menu-right
+        %ul
+          - if current_user 
+            %li
+              User: 
+              = current_user[:login]
+              = "&nbsp;" * 8
+            %li
+              = link_to "Logout", "/logout"
+          - else
+            %li
+              = link_to "Sign up", "/signup"
+            %li
+              = link_to "Log in", "/login"
+      #top-menu-end/

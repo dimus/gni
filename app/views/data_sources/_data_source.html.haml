@@ -1,50 +1,49 @@
 - form_for(data_source) do |f|
-%p Enter your meta data url to get data for your source.  
-%p
-  %b Data Source URL
-  %br/
-  = f.text_field :metadata_url, :size => "70"
-%p
-  = f.submit button, :value => 'Get data from url'
+  %p Enter your meta data url to get data for your source.  
+  %p
+    %b Data Source URL
+    %br/
+    = f.text_field :metadata_url, :size => "70"
+  %p
+    = f.submit button, :value => 'Get data from url'
 
-%p Or enter data by hand and generate xml file.
-.subsection
+  %p Or enter data by hand and generate xml file.
+  .subsection
 
-  %p
-    %b Title
-    %br/
-    = f.text_field :title, :size => "70"
-  %p
-    %b Description
-    %br/
-    = f.text_area :description, :class => "medium"
-  .help_info
-    Enter here some information about your data source
-  %p
-    %b Website URL
-    %br/
-    = f.text_field :web_site_url, :size => "70"
-  .help_info
-    Url to the website of the data source
-  %p
-    %b Logo URL
-    %br/
-    = f.text_field :logo_url, :size => "70"
-  .help_info
-    If you have a url to your logo please enter it here. Logo will be displayed in format of 46 px by 20 px 
-  %p
-    %b Data URL
-    %br/
-    = f.text_field :data_url, :size => "70"
-  .help_info
-    URL to the xml file where with names. This file should follow a 
-    = link_to 'specific shema.', '/help/data_schema.html.haml'
+    %p
+      %b Title
+      %br/
+      = f.text_field :title, :size => "70"
+    %p
+      %b Description
+      %br/
+      = f.text_area :description, :class => "medium"
+    .help_info
+      Enter here some information about your data source
+    %p
+      %b Website URL
+      %br/
+      = f.text_field :web_site_url, :size => "70"
+    .help_info
+      Url to the website of the data source
+    %p
+      %b Logo URL
+      %br/
+      = f.text_field :logo_url, :size => "70"
+    .help_info
+      If you have a url to your logo please enter it here. Logo will be displayed in format of 46 px by 20 px 
+    %p
+      %b Data URL
+      %br/
+      = f.text_field :data_url, :size => "70"
+    .help_info
+      URL to the xml file where with names. This file should follow a 
+      = link_to 'specific shema.', '/help/data_schema.html.haml'
+      
+    %p
+      %b Refresh period (days)
+      %br/
+      = f.text_field :refresh_period_days
     
-  %p
-    %b Refresh period (days)
-    %br/
-    = f.text_field :refresh_period_days
-  
-  %p
-  = f.submit button
-- end
+    %p
+    = f.submit button

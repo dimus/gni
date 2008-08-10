@@ -22,7 +22,16 @@ class DataSourcesController < ApplicationController
   # GET /data_sources/1.xml
   def show
     @data_source = DataSource.find(params[:id])
+    @deleted = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and name='delete'", @data_source.id], :order => 'updated_at desc') 
+    @inserted = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and name='insert'", @data_source.id], :order => 'updated_at desc')
+    @updated = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and name='update'", @data_source.id], :order => 'updated_at desc')
 
+    @deleted_size = @deleted.data_source_import_details.size rescue 0
+    @inserted_size = @inserted.data_source_import_details.size rescue 0 
+    @updated_size = @updated.data_source_import_details.size rescue 0
+    @last_import_scheduler = ImportScheduler.find(:first,:conditions => ["data_source_id = ?", @data_source.id], :order => "created_at desc") 
+    @import_scheduler = ImportScheduler.new
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @data_source }
@@ -44,16 +53,6 @@ class DataSourcesController < ApplicationController
   def edit
     @data_source = DataSource.find(params[:id])
 
-    @deleted = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and name='delete'", @data_source.id], :order => 'updated_at desc') 
-    @inserted = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and name='insert'", @data_source.id], :order => 'updated_at desc')
-    @updated = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and name='update'", @data_source.id], :order => 'updated_at desc')
-
-    @deleted_size = @deleted.data_source_import_details.size rescue 0
-    @inserted_size = @inserted.data_source_import_details.size rescue 0 
-    @updated_size = @updated.data_source_import_details.size rescue 0
-
-    @last_import_scheduler = ImportScheduler.find(:first,:conditions => ["data_source_id = ?", @data_source.id], :order => "created_at desc") 
-    @import_scheduler = ImportScheduler.new
     if !(admin? || @data_source.contributor?(current_user))
       flash[:notice] = 'Not a contributor for this source'
       redirect_to data_sources_url

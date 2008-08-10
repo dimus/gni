@@ -1,27 +1,9 @@
 %h1 Editing Data Source
 
 = error_messages_for :data_source
-- last_import_scheduler_id = @last_import_scheduler.id rescue 0
-- scheduler_status = @last_import_scheduler.message rescue "nothing yet"
-
-#data_source_import_status{:import_scheduler_id => last_import_scheduler_id}= scheduler_status
-
-%h3 Changes introduced by the last update
-%p
-  = (link_to "Inserted: #{@inserted_size}, ", data_source_import_data_source_import_details_url(@inserted, :page => 1)) rescue "Inserted: 0, "
-  = (link_to "Deleted: #{@deleted_size}, ", data_source_import_data_source_import_details_url(@deleted)) rescue  "Deleted: 0, "
-  = (link_to "Updated: #{@updated_size}", data_source_import_data_source_import_details_url(@updated)) rescue "Updated: 0"
-  
-
 
 = render :partial => 'data_source', :locals => {:data_source => @data_source, :button => "Update" }
 
-- form_for(@import_scheduler, :action => 'post') do |f|
-= f.hidden_field :data_source_id,  :value => @data_source.id
-= f.hidden_field :status, :value => ImportScheduler::WAITING
-= f.hidden_field :message, :value => 'Added to the cue'
-= f.submit "Import data"
--end
 
 = link_to 'Show', @data_source
 = "|"
