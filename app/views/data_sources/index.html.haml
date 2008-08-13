@@ -1,8 +1,8 @@
-%h1 Scientific Names Repositories
 
 
 #data_layout
   #data_left_column
+    %h1 Scientific Names Repositories
     %table{:class => "data bordered"}
       %tr
         %th.top Logo
@@ -16,7 +16,7 @@
   #data_right_column
     - if logged_in?
     
-      %h3 
+      %h1 
         Your Repositories
         = link_to '(add new source)', new_data_source_path
 
