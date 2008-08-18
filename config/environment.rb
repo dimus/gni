@@ -58,4 +58,5 @@ Rails::Initializer.run do |config|
   # config.active_record.default_timezone = :utc
 end  
 
-APP_VERSION = "v. 0.1"
+APP_VERSION = "0.1"
+SCHEMA_VERSION = "0.1"

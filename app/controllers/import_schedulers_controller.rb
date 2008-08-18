@@ -14,10 +14,13 @@ class ImportSchedulersController < ApplicationController
       @import_scheduler.status = params[:import_scheduler][:status].to_i
       if @import_scheduler.save
         spawn do
-          system("/Users/dimus/code/gna-ror/script/gni/update_imports")
+          dir = File.dirname(__FILE__) + "/../../script/gni/update_imports"
+          puts 'ddfsfsfsdfs'
+          puts dir
+          system(dir)
         end
         flash[:notice] = "Your data are scheduled for update"
-        format.html { redirect_to edit_data_source_url(@import_scheduler.data_source_id) }
+        format.html { redirect_to data_source_url(@import_scheduler.data_source_id) }
       end
     end
   end

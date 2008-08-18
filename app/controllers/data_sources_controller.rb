@@ -1,6 +1,7 @@
 require 'gna_xml'
 
 class DataSourcesController < ApplicationController
+  before_filter :prepare_params, :only => [:create, :update]
   # GET /data_sources
   # GET /data_sources.xml
   def index
@@ -112,6 +113,13 @@ class DataSourcesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(data_sources_url) }
       format.xml  { head :ok }
+    end
+  end
+  
+protected
+  def prepare_params
+    %w(metadata_url data_url logo_url web_site_url).each do |p|
+      params[:data_source][p] = '' if params[:data_source][p] == "http://"
     end
   end
 end

@@ -1,7 +1,7 @@
-%h1 Publish your Names Collection here.
+%h1 New Repository 
 
 = error_messages_for :data_source
+= link_to 'Back to All Repositories', data_sources_path
 
 = render :partial => 'data_source', :locals => {:data_source => @data_source, :button => "Create" }
 
-= link_to 'Back', data_sources_path

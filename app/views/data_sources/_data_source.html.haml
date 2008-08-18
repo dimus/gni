@@ -1,49 +1,64 @@
 - form_for(data_source) do |f|
-  %p Enter your meta data url to get data for your source.  
   %p
-    %b Data Source URL
+    %b Title
     %br/
-    = f.text_field :metadata_url, :size => "70"
-  %p
-    = f.submit button, :value => 'Get data from url'
+    = f.text_field :title, :size => "70"
+  .help_info
+    Name of your Repository
 
-  %p Or enter data by hand and generate xml file.
-  .subsection
-
+  %fieldset.subsection
+    %legend.subsection Harvesting
     %p
-      %b Title
+      %b Metadata XML
       %br/
-      = f.text_field :title, :size => "70"
+      = f.text_field :metadata_url, :size => "70",  :value => data_source.metadata_url || "http://" 
+      = f.submit button, :value => 'Get data from url'
+    .help_info
+      URL to Metadata XML file. 
+      %br/
+      Please follow 
+      = link_to "example", "/schemas/" + SCHEMA_VERSION.gsub('.', '_') + "/examples/gni_data_example.xml" 
+      and 
+      = link_to "schema", "/schemas/" + SCHEMA_VERSION.gsub('.', '_') + "/gni_data.xsd"
+        
+    %p
+      %b Names Data XML
+      %br/
+      = f.text_field :data_url, :size => "70", :value => data_source.data_url || "http://"
+    .help_info
+      URL to the xml file with list of names from your Repository. 
+      %br/
+      Please follow 
+      = link_to "example", "/schemas/" + SCHEMA_VERSION.gsub('.', '_') + "/examples/gni_data_source_example.xml" 
+      and 
+      = link_to "schema", "/schemas/" + SCHEMA_VERSION.gsub('.', '_') + "/gni_data_source.xsd"
+    %p
+      %b Refresh period (days)
+      %br/
+      = f.text_field :refresh_period_days
+    .help_info
+      How often to harvest your data?
+
+  %fieldset.subsection
+    %legend.subsection Details
     %p
       %b Description
       %br/
       = f.text_area :description, :class => "medium"
     .help_info
-      Enter here some information about your data source
+      Information about your Repository
     %p
       %b Website URL
       %br/
-      = f.text_field :web_site_url, :size => "70"
+      = f.text_field :web_site_url, :size => "70", :value => data_source.web_site_url || "http://"
     .help_info
-      Url to the website of the data source
+      URL to the website of your Repository
     %p
       %b Logo URL
       %br/
-      = f.text_field :logo_url, :size => "70"
+      = f.text_field :logo_url, :size => "70", :value => data_source.logo_url || "http://"
     .help_info
       If you have a url to your logo please enter it here. Logo will be displayed in format of 46 px by 20 px 
-    %p
-      %b Data URL
-      %br/
-      = f.text_field :data_url, :size => "70"
-    .help_info
-      URL to the xml file where with names. This file should follow a 
-      = link_to 'specific shema.', '/help/data_schema.html.haml'
-      
-    %p
-      %b Refresh period (days)
-      %br/
-      = f.text_field :refresh_period_days
     
-    %p
-    = f.submit button
+  %p
+  = f.submit button
