@@ -7,6 +7,9 @@
 !_light_green = #cbe4c3
 !_red = #600
 !_light_red = #e99
+!_link_red = #742
+
+!_page_width = 69em
 
 body
   :background-image url(/images/public/developer_bkg.gif)
@@ -61,11 +64,12 @@ img
 
 
 a
-  :color = !_red
+  :color = !_link_red
   :text-decoration none
 
   &:hover
-    :color = !_grey
+    :color = !_link_red
+    :text-decoration underline
 
   &.btn_like
     :margin 0
@@ -158,6 +162,18 @@ textarea
 
 /* Divs
 
+#import_in_progress, #import_finished
+  :display none
+
+.name_string 
+  :color black
+  :padding-left 1em
+
+.name_string_hover, .name_string_click 
+  :background-color = !_light_green 
+  :cursor pointer
+
+
 .boxed
   :border = 1px solid (!_light_green - #222)
   :background-color = !_light_green
@@ -166,6 +182,24 @@ textarea
   :margin-bottom 1em
   :padding 1em
 
+.boxed-small
+  :border = 1px solid (!_light_green - #222)
+  :background-color = !_light_green
+  :margin 0em
+  :margin-bottom .3em
+  :padding 0.3em
+
+.vcentered
+  :vertical-align middle
+
+.spinner
+  :background-image url(/images/public/spinner.gif)
+  :background-position left center
+  :background-repeat no-repeat
+  :padding 1em
+  :padding-left 3em
+  :vertical-align middle
+  :border = 1px solid !_grey
 
 .centered
   :text-align center
@@ -204,7 +238,8 @@ textarea
   :background-image url(/images/public/developer_left_side.gif)
   :background-repeat repeat-y
   :background-position left top
-  :margin 0 15px 0 24px
+  :margin 0 auto
+  :width = !_page_width
 
 
 #masthead
@@ -269,14 +304,16 @@ textarea
 
 
 #footer
-  :font-size 0.65em
-  :padding 8px 0 30px 0
-  :margin 0 20px 0 30px
+  :padding 8px 0 0 0
+  :margin 0 auto
   :font-style italic
   :color white
+  :width = !_page_width
 
   p
-    :margin 0 0 4px 0
+    :padding 0
+    :margin 0
+    :font-size 0.7em
 
 #data_layout
 
@@ -285,10 +322,13 @@ textarea
 
 #data_left_column
   :float left
+  :border =  1px solid !_light_green
+  
 
 
 #data_right_column
   :float right
+  :border = 1px solid !_light_green
 
 
 #top-menu

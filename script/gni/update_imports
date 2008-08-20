@@ -15,7 +15,7 @@ FAILED = 3
 UPDATED = 4
 
 
-def get_running(): #{{{1
+def is_running(): #{{{1
     if os.path.exists(PID_PATH):
         return True
     return False
@@ -100,7 +100,7 @@ if __name__ == '__main__': #{{{1
 
     (options, args) = opts.parse_args()
 
-    if not get_running():
+    if not is_running():
         try:
             set_running(True)
             u = Updater(options.environment)

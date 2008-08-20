@@ -63,7 +63,7 @@ class DataSourcesController < ApplicationController
   # POST /data_sources
   # POST /data_sources.xml
   def create
-    created_msg = "DataSource was successfully created."
+    created_msg = "Repository was successfully created."
     #if metadata_url exists get data from url
     begin
       if params[:data_source][:metadata_url]
@@ -94,7 +94,7 @@ class DataSourcesController < ApplicationController
 
     respond_to do |format|
       if @data_source.update_attributes(params[:data_source])
-        flash[:notice] = 'DataSource was successfully updated.'
+        flash[:notice] = 'Repository was successfully updated.'
         format.html { redirect_to(@data_source) }
         format.xml  { head :ok }
       else

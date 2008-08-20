@@ -12,11 +12,10 @@ class ImportSchedulersController < ApplicationController
     @import_scheduler = ImportScheduler.new(params[:import_scheduler])
     respond_to do |format|
       @import_scheduler.status = params[:import_scheduler][:status].to_i
+      
       if @import_scheduler.save
         spawn do
-          dir = File.dirname(__FILE__) + "/../../script/gni/update_imports"
-          puts 'ddfsfsfsdfs'
-          puts dir
+          dir = File.dirname(__FILE__) + "/../../script/gni/update_imports -e " + ENV['RAILS_ENV'] 
           system(dir)
         end
         flash[:notice] = "Your data are scheduled for update"

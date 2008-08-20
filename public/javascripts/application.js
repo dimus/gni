@@ -22,18 +22,36 @@ $(function() {
   // Set info/error messages dissapear after 5 seconds
   $("div#flash").animate({opacity: 1.0}, 5000).hide("slow");
 
+  //modifies 
+  $("div.name_string").hover(
+    function () {
+       $(this).addClass("name_string_hover");
+       //$(this).append($("<span> ***</span>"));
+    }, 
+    function () {
+       $(this).removeClass("name_string_hover");
+       //$(this).find("span:last").remove();
+    }).click(
+    function() {
+      $("div.name_string").each(function(){
+        $(this).removeClass("name_string_click");
+      });
+      $(this).addClass("name_string_click");
+    }
+    );
+
   // Show how import status is changing for data_source import
   
-  $('#data_source_import_status').everyTime(15000, function() {
+  $('#import_in_progress').everyTime(15000, function() {
       var import_scheduler_id = $(this).attr('import_scheduler_id');
       if (import_scheduler_id > 0){
         $.getJSON('/import_schedulers/' + import_scheduler_id, {},
           function(data) {
             var message = data.message;
-            $('#data_source_import_status').text(message);
+            $('#import_in_progress').text(message);
           })
       } else {
-        $('#data_source_import_status').text("No imports had been scheduled yet.");
+        $('#import_in_progress').text("No imports had been scheduled yet.");
       }
   });
 });

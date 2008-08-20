@@ -45,10 +45,11 @@ img {
     height: 20px; }
 
 a {
-  color: #660000;
+  color: #774422;
   text-decoration: none; }
   a:hover {
-    color: #818181; }
+    color: #774422;
+    text-decoration: underline; }
   a.btn_like {
     margin: 0;
     margin-top: 0.5em;
@@ -122,6 +123,17 @@ textarea {
     height: 3em; }
 
 /* Divs */
+#import_in_progress, #import_finished {
+  display: none; }
+
+.name_string {
+  color: black;
+  padding-left: 1em; }
+
+.name_string_hover, .name_string_click {
+  background-color: #cbe4c3;
+  cursor: pointer; }
+
 .boxed {
   border: 1px solid #a9c2a1;
   background-color: #cbe4c3;
@@ -129,6 +141,25 @@ textarea {
   margin-top: 1em;
   margin-bottom: 1em;
   padding: 1em; }
+
+.boxed-small {
+  border: 1px solid #a9c2a1;
+  background-color: #cbe4c3;
+  margin: 0em;
+  margin-bottom: .3em;
+  padding: 0.3em; }
+
+.vcentered {
+  vertical-align: middle; }
+
+.spinner {
+  background-image: url(/images/public/spinner.gif);
+  background-position: left center;
+  background-repeat: no-repeat;
+  padding: 1em;
+  padding-left: 3em;
+  vertical-align: middle;
+  border: 1px solid #818181; }
 
 .centered {
   text-align: center;
@@ -162,7 +193,8 @@ textarea {
   background-image: url(/images/public/developer_left_side.gif);
   background-repeat: repeat-y;
   background-position: left top;
-  margin: 0 15px 0 24px; }
+  margin: 0 auto;
+  width: 69em; }
 
 #masthead {
   background-image: url(/images/public/developer_masthead_bg.gif);
@@ -216,23 +248,27 @@ textarea {
   background-position: right top; }
 
 #footer {
-  font-size: 0.65em;
-  padding: 8px 0 30px 0;
-  margin: 0 20px 0 30px;
+  padding: 8px 0 0 0;
+  margin: 0 auto;
   font-style: italic;
-  color: white; }
+  color: white;
+  width: 69em; }
   #footer p {
-    margin: 0 0 4px 0; }
+    padding: 0;
+    margin: 0;
+    font-size: 0.7em; }
 
 
 #data_clear_layout {
   clear: both; }
 
 #data_left_column {
-  float: left; }
+  float: left;
+  border: 1px solid #cbe4c3; }
 
 #data_right_column {
-  float: right; }
+  float: right;
+  border: 1px solid #cbe4c3; }
 
 #top-menu {
   position: fixed;

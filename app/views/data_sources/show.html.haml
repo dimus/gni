@@ -1,21 +1,33 @@
-%h1
-  = data_source_logo(@data_source) 
-  = "Names Source: " + @data_source.title
+%table
+  %tr
+    %td.vcentered{:width => "50px"}
+      = data_source_logo(@data_source) 
+    %td.vcentered
+      %h1
+        = "Repository: " + @data_source.title
+    %td.vcentered
+      -if @data_source.contributor?(current_user)
+        = link_to 'Edit Repository', edit_data_source_path(@data_source)
+        = "|"
+      = link_to 'All Repositories', data_sources_path
+
 
 - last_import_scheduler_id = @last_import_scheduler.id rescue 0
 - scheduler_status = @last_import_scheduler.message rescue "nothing yet"
 
-#data_source_import_status{:import_scheduler_id => last_import_scheduler_id}= scheduler_status
+#import_in_progress{:import_scheduler_id => last_import_scheduler_id}
+  .spinner
+    = scheduler_status
 
-%h3 Changes introduced by the last update
-%p
-  = (link_to "Inserted: #{@inserted_size}, ", data_source_import_data_source_import_details_url(@inserted, :page => 1)) rescue "Inserted: 0, "
-  = (link_to "Deleted: #{@deleted_size}, ", data_source_import_data_source_import_details_url(@deleted)) rescue  "Deleted: 0, "
-  = (link_to "Updated: #{@updated_size}", data_source_import_data_source_import_details_url(@updated)) rescue "Updated: 0"
-  
+#import_finished
+  %h3 Changes introduced by the last update
+  %p
+    = (link_to "Inserted: #{@inserted_size}, ", data_source_import_data_source_import_details_url(@inserted, :page => 1)) rescue "Inserted: 0, "
+    = (link_to "Deleted: #{@deleted_size}, ", data_source_import_data_source_import_details_url(@deleted)) rescue  "Deleted: 0, "
+    = (link_to "Updated: #{@updated_size}", data_source_import_data_source_import_details_url(@updated)) rescue "Updated: 0"
 
 %p
-  = link_to 'Repositories Overlap',data_source_data_source_overlaps_url(@data_source)
+  = link_to 'Overlap with other repositories',data_source_data_source_overlaps_url(@data_source)
 
 %p
   %b Description:
@@ -35,7 +47,3 @@
   = f.hidden_field :message, :value => 'Added to the cue'
   = f.submit "Import data"
 
--if @data_source.contributor?(current_user)
-  = link_to 'Edit', edit_data_source_path(@data_source)
-  = "|"
-= link_to 'Back', data_sources_path

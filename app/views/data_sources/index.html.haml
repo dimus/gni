@@ -20,18 +20,14 @@
         Your Repositories
         = link_to '(add new repository)', new_data_source_path
 
-      - if @user_data_sources.size > 0
-        %table{:class => "data bordered", :style => "width: 30em"}
-          %tr
-            %th.top Logo
-            %th.top Title
-            %th.top{:colspan => 2} Actions
-          -for data_source in @user_data_sources
+      - @user_data_sources.each do |data_source|
+        .boxed-small
+          %table{:style => "margin:0;padding:0;"}
             %tr
-              %td= data_source_logo(data_source)
-              %td= link_to h(data_source.title), data_source
-              %td= link_to('Edit', edit_data_source_path(data_source))
-              %td= link_to('Delete', data_source, :confirm => 'Are you sure?', :method => :delete)
+              %td{:width => "50px"}
+                = data_source_logo(data_source)
+              %td
+                = link_to h(data_source.title), data_source
 
 #data_clear_layout
   %br/
