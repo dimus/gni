@@ -20,7 +20,9 @@ $(function() {
   $("table.data tbody tr:nth-child(even)").addClass("even");
 
   // Set info/error messages dissapear after 5 seconds
-  $("div#flash").animate({opacity: 1.0}, 5000).hide("slow");
+  //$("div#flash").fadeIn("slow").animate({opacity: 1.0}, 10000).fadeOut("slow");
+  $("div#flash").hide("fast").fadeIn("slow").animate({opacity: 1.0}, 10000).hide("slow");
+
 
   //modifies 
   $("div.name_string").hover(

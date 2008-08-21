@@ -1,4 +1,4 @@
-!!!
+!!! Strict
 %html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
   %head
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }/
@@ -24,6 +24,25 @@
     #centerwrapper
       #masthead
         #logodiv
+          #top-menu
+            #top-menu-left
+              %ul
+                %li
+                  = link_to 'Index', name_strings_url 
+                %li
+                  = link_to 'Repositories', root_url 
+            #top-menu-right
+              %ul
+                - if current_user 
+                  %li
+                    %span
+                      User: 
+                      = current_user[:login]
+                  %li
+                    = link_to "Logout", "/logout"
+                - else
+                  %li
+                    = link_to "Log in", "/login"
           #logo_gna
             Global Names Architecture
           #logo_motto
@@ -47,23 +66,3 @@
         #centerbottominfo
           %img{ :src => "/images/public/developer_bottomleft.gif", :height => "30", :alt => "bottomleft", :width => "300" }/
     = render :partial => "shared/footer" 
-    #top-menu
-      #top-menu-left
-        %ul
-          %li
-            = link_to 'Index', name_strings_url 
-          %li
-            = link_to 'Repositories', root_url 
-      #top-menu-right
-        %ul
-          - if current_user 
-            %li
-              User: 
-              = current_user[:login]
-              = "&nbsp;" * 8
-            %li
-              = link_to "Logout", "/logout"
-          - else
-            %li
-              = link_to "Log in", "/login"
-      #top-menu-end/

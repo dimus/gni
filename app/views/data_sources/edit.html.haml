@@ -1,4 +1,4 @@
-%h1== Edit Repository '#{@data_source.title}'
+%h1== Edit Repository #{add_quotes(@data_source.title)}
 = link_to 'Show Repository', @data_source
 = "|"
 = link_to 'All Repositories', data_sources_path

@@ -1,6 +1,9 @@
 - form_for(data_source) do |f|
   %p
-    %b Title
+    %b 
+      Title
+      %span.required
+        *
     %br/
     = f.text_field :title, :size => "70"
   .help_info
@@ -22,7 +25,10 @@
       = link_to "schema", "/schemas/" + SCHEMA_VERSION.gsub('.', '_') + "/gni_data.xsd"
         
     %p
-      %b Names Data XML
+      %b
+        Names Data XML
+        %span.required
+          *
       %br/
       = f.text_field :data_url, :size => "70", :value => data_source.data_url || "http://"
     .help_info

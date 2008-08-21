@@ -24,4 +24,8 @@ module ApplicationHelper
     result = "<a href=\"#{data_source_url(data_source.id)}\">" + result + "</a>"
     result
   end
+
+  def add_quotes(a_string)
+    "&ldquo;" + a_string + "&rdquo;"
+  end
 end
