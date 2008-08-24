@@ -8,12 +8,18 @@ class DataSource < ActiveRecord::Base
   has_many :users, :through  =>  :data_source_contributors
   belongs_to :uri_type
   belongs_to :response_format
+
+  URL_RE = /^https?:\/\/|^\s*$/
   
-  validates_presence_of :title, :message => "can't be blank"
-  validates_presence_of :data_url, :message => "can't be blank"
-  validates_format_of :data_url, :with => /^https?:\/\//, :message => "is invalid"
+  validates_presence_of :title, :message => "is required"
+  validates_presence_of :data_url, :message => "^Names Data URL is required"
+  validates_format_of :data_url, :with => URL_RE, :message => "^Names Data URL should be a URL"
+  validates_format_of :metadata_url, :with => URL_RE, :message => "^Metata URL should be a URL"
+  validates_format_of :logo_url, :with => URL_RE, :message => "^Logo URL should be a URL"
+  validates_format_of :web_site_url, :with => URL_RE, :message => "^Website URL should be a URL"
   
   def contributor?(a_user)
     !!self.users.include?(a_user)
   end
+
 end

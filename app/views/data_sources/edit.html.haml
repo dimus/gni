@@ -3,7 +3,7 @@
 = "|"
 = link_to 'All Repositories', data_sources_path
 
-= error_messages_for :data_source
+= error_messages_for :data_source, :object_name => 'repository'
 
 = render :partial => 'data_source', :locals => {:data_source => @data_source, :button => "Update" }
 
