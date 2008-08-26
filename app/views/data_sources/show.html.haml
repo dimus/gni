@@ -15,34 +15,45 @@
   %fieldset.subsection
     %legend Self-Harvesting
     - last_import_scheduler_id = @last_import_scheduler.id rescue 0
-    - scheduler_status = @last_import_scheduler.message rescue "nothing yet"
-
-    #import_in_progress{:import_scheduler_id => last_import_scheduler_id}
+    - scheduler_status = @last_import_scheduler.message rescue "Preparing..."
+    
+    - if @current_status == ImportScheduler::WAITING || @current_status == ImportScheduler::PROCESSING
       .spinner
-        = scheduler_status
+        #import_in_progress{:import_scheduler_id => last_import_scheduler_id}
+          = scheduler_status
+    - if @current_status == ImportScheduler::FAILED || @current_status == ImportScheduler::UPDATED
+      #import_finished
+        - if @current_status == ImportScheduler::UPDATED
+          %h4 Last Import Succeeded
+          %p
+            = (link_to "Inserted: #{@inserted_size}, ", data_source_import_data_source_import_details_url(@inserted, :page => 1)) rescue "Inserted: 0, "
+            = (link_to "Deleted: #{@deleted_size}, ", data_source_import_data_source_import_details_url(@deleted)) rescue  "Deleted: 0, "
+            = (link_to "Updated: #{@updated_size}", data_source_import_data_source_import_details_url(@updated)) rescue "Updated: 0"
+        - else
+          %h4 Last Import Failed
 
-    #import_finished
-      %h3 Changes introduced by the last update
-      %p
-        = (link_to "Inserted: #{@inserted_size}, ", data_source_import_data_source_import_details_url(@inserted, :page => 1)) rescue "Inserted: 0, "
-        = (link_to "Deleted: #{@deleted_size}, ", data_source_import_data_source_import_details_url(@deleted)) rescue  "Deleted: 0, "
-        = (link_to "Updated: #{@updated_size}", data_source_import_data_source_import_details_url(@updated)) rescue "Updated: 0"
-
-
-    - form_for(@import_scheduler, :action => 'post') do |f|
-      = f.hidden_field :data_source_id,  :value => @data_source.id
-      = f.hidden_field :status, :value => ImportScheduler::WAITING
-      = f.hidden_field :message, :value => 'Data are scheduled for import'
-      = f.submit "Import data", :class => "submit_em", :id => "submit_import_data"
+    - if (@current_status != ImportScheduler::WAITING && @current_status != ImportScheduler::PROCESSING)
+      - form_for(@import_scheduler, :action => 'post') do |f|
+        = f.hidden_field :data_source_id,  :value => @data_source.id
+        = f.hidden_field :status, :value => ImportScheduler::WAITING
+        = f.hidden_field :message, :value => 'Data are added to import que'
+        = f.submit "Import data", :class => "submit_em", :id => "submit_import_data"
 
 %fieldset.subsection
   %legend Statistics
-  %p
-    = link_to 'Overlap with other repositories',data_source_data_source_overlaps_url(@data_source)
-  %p
-    Potential Duplicates (placeholder)
-  %p
-    Globally uniqe names (placeholder)
+  - if @current_status == ImportScheduler::NO_IMPORTS
+    %p
+      No data yet, do import first
+  - elsif @current_status != ImportScheduler::UPDATED
+    %p
+      Data are not updated yet
+  - else
+    %p
+      = link_to 'Overlap with other repositories',data_source_data_source_overlaps_url(@data_source)
+    %p
+      Potential Duplicates (placeholder)
+    %p
+      Globally uniqe names (placeholder)
 
 %fieldset.subsection
   %legend Information

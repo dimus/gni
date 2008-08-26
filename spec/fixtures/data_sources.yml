@@ -1,7 +1,6 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 bees_nhm:
-  id: 1
   title: Bees of GB
   description: Name list of Great Britain Bees
   # rights: public domain
@@ -19,7 +18,6 @@ bees_nhm:
   # updated: 2008-06-01
 
 birds_nhm:
-  id: 2
   title: Birds of GB
   description: List of Great Britain Birds
   # rights: top secret

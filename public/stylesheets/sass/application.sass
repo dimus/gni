@@ -11,6 +11,11 @@
 !_light_brown = #efd7b5
 
 !_page_width = 69em
+!_name_column_left_width = 25em
+
+html
+  :margin 0
+  :padding 0
 
 body
   :background-image url(/images/public/developer_bkg.gif)
@@ -22,7 +27,7 @@ body
     :size 1em
   :margin 20px 0 0 0
   :padding 0
-  :min-width 770px
+  :min-width !_page_width
 
 h1, h2, h3, h4, h5, h6
   :text-shadow = 0.2em 0.2em 0.2em !_very_light_grey
@@ -31,6 +36,9 @@ h1, h2, h3, h4, h5, h6
     :bottom 0.5em
   a
     :font-size 0.8em
+
+h4, h5, h6
+  :color = !_green
 
 h1
   :font-size 1.6em
@@ -163,19 +171,41 @@ textarea
 
 /* Divs
 
-#import_in_progress, #import_finished
-  :display none
+#import_in_progress
+
+#import_finished
 
 .name_string 
   :color black
   :padding-left 1em
+  :width = !_name_column_left_width
 
 .name_string_click 
   :background-color = !_light_green
+  :width = !_name_column_left_width
 
 .name_string_hover
   :background-color = !_very_light_grey
   :cursor pointer
+  :width = !_name_column_left_width
+
+#name_column_left
+  :float left
+  :width = !_name_column_left_width
+
+#name_column_right
+  :float left
+  :width = 40em
+  :text_align left
+  :padding 1em
+
+.name_column_right_inactive
+  :border-left 30px solid white
+  :border-top 3px solid white
+
+.name_column_right_active
+  :border-left = 30px solid !_light_green
+  :border-top = 3px solid !_light_green
 
 .boxed
   :border = 1px solid (!_light_green - #222)
@@ -203,7 +233,7 @@ textarea
   :padding 1em
   :padding-left 3em
   :vertical-align middle
-  :border = 1px solid !_grey
+  //:border = 1px solid !_grey
 
 .centered
   :text-align center
@@ -285,6 +315,7 @@ textarea
   :padding .4em 0px 0px 12px
 
 #centerbottom
+  :clear both
   :background-image url(/images/public/developer_bottom.gif)
   :background-repeat repeat-x
 
@@ -295,6 +326,7 @@ textarea
   :height 30px
 
 #footer
+  :clear both
   :padding 8px 0 0 0
   :margin 0 auto
   :font-style italic
@@ -307,6 +339,7 @@ textarea
     :font-size 0.7em
 
 #data_layout
+  :background-color = !_green
 
 #data_clear_layout
   :clear both

@@ -23,6 +23,7 @@ class DataSourcesController < ApplicationController
   # GET /data_sources/1.xml
   def show
     @data_source = DataSource.find(params[:id])
+    @current_status = ImportScheduler.current_status(@data_source)
     @deleted = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and name='delete'", @data_source.id], :order => 'updated_at desc') 
     @inserted = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and name='insert'", @data_source.id], :order => 'updated_at desc')
     @updated = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and name='update'", @data_source.id], :order => 'updated_at desc')

@@ -24,7 +24,7 @@ $(function() {
   $("div#flash").show(1500);
 
   $("#submit_import_data").confirm({
-    msg:'<span style="background-color:#cbe4c3;padding:0.3em>Do you want to reimport ALL data?</span> ',
+    msg:'<span style="background-color:#cbe4c3;padding:0.3em>Import and delete older data?</span> ',
     timeout:5000, 
     buttons: {
       wrapper:"<button></button>",
@@ -49,6 +49,9 @@ $(function() {
       });
       $(this).removeClass("name_string_hover");
       $(this).addClass("name_string_click");
+      $("#name_column_right").removeClass("name_column_right_inactive");
+      $("#name_column_right").addClass("name_column_right_active");
+      var name_string_id = $(this).attr('name_string_id');
     }
     );
 

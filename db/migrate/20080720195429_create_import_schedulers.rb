@@ -2,13 +2,13 @@ class CreateImportSchedulers < ActiveRecord::Migration
   def self.up
     create_table :import_schedulers do |t|
       t.references :data_source
-      t.string :status
+      t.integer :status
       t.string :message
 
       t.timestamps
     end
 
-    execute "alter table import_schedulers change column status status set('waiting', 'processing', 'failed', 'updated')"
+    #execute "alter table import_schedulers change column status status set('waiting', 'processing', 'failed', 'updated')"
   end
 
   def self.down
