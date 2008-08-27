@@ -1,0 +1,23 @@
+%h1 
+  Names Overlap for Repository 
+  = in_quotes(@data_source.title)
+.help_info== #{in_quotes(@data_source.title)} names total: #{@data_source.name_indices.size}
+
+%table.data.bordered
+  %tr
+    %th.top Data source
+    %th.top # of Names
+    %th.top Overlap
+    %th.top Overlap %
+
+  - for overlap in @data_source_overlaps
+    - overlap_data_source_id = overlap.data_source_id_1 == @data_source.id ? overlap.data_source_id_2 : overlap.data_source_id_1
+    - other_data_source = DataSource.find(overlap_data_source_id)
+    %tr
+      %td= other_data_source.title
+      %td= other_data_source.name_indices.size
+      %td= overlap.strict_overlap
+      %th= overlap.percentage
+
+%br/
+

@@ -4,7 +4,7 @@
       = data_source_logo(@data_source) 
     %td.vcentered
       %h1
-        = "Repository " + add_quotes(@data_source.title)
+        = "Repository " + in_quotes(@data_source.title)
     %td.vcentered
       -if @data_source.contributor?(current_user)
         = link_to 'Edit', edit_data_source_path(@data_source)

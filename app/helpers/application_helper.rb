@@ -25,7 +25,7 @@ module ApplicationHelper
     result
   end
 
-  def add_quotes(a_string)
+  def in_quotes(a_string)
     "&ldquo;" + a_string + "&rdquo;"
   end
 end

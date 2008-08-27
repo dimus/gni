@@ -24,7 +24,7 @@ $(function() {
   $("div#flash").show(1500);
 
   $("#submit_import_data").confirm({
-    msg:'<span style="background-color:#cbe4c3;padding:0.3em>Import and delete older data?</span> ',
+    msg:'<span style="background-color:#cbe4c3;padding:0.3em>Import new and delete old data?</span> ',
     timeout:5000, 
     buttons: {
       wrapper:"<button></button>",
@@ -62,9 +62,13 @@ $(function() {
       if (import_scheduler_id > 0){
         $.getJSON('/import_schedulers/' + import_scheduler_id, {},
           function(data) {
-            var message = data.message;
-            $('#import_in_progress').text(message);
-          })
+              if (data.status == "4"){
+                $(this).parent().removeClass("spinner");
+              }
+              var message = data.message;
+              $('#import_in_progress').text(message);
+            }
+          )
       } else {
         $('#import_in_progress').text("No imports had been scheduled yet.");
       }
