@@ -24,7 +24,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :kingdoms
 
   map.resources :name_strings
-
   
   map.root :controller => 'data_sources'
   
@@ -32,7 +31,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :access_types, :has_many => :access_rules
 
-  map.resources :data_sources, :has_many => [:data_providers, :access_rules, :data_source_overlaps]
+  map.resources :data_sources, :has_many => [:data_providers, :access_rules, :data_source_overlaps, :name_indices]
 
   map.resources :participant_contacts
 

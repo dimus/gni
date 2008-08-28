@@ -1,0 +1,14 @@
+%h1== #{@page_title} of #{in_quotes(@data_source.title)}
+.help_info= @help_info
+%br/
+- if @name_strings
+  #data_layout 
+    #name_column_left 
+      = will_paginate @name_strings 
+      - for name_string in @name_strings
+        .name_string{:name_string_id => name_string.id}= h name_string.name
+      %br/
+      = will_paginate @name_strings
+    #name_column_right.name_column_right_inactive
+      text area
+  #data_clear_layout    

@@ -1,6 +1,7 @@
 *.log
 *.sqlite3
 *.swp
+*.swo
 *.sql
 *.xml
 *.pyc
