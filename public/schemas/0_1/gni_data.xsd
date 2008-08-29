@@ -60,6 +60,12 @@
         <xs:documentation>Global unique data source identifier of the record (often LSID).</xs:documentation>
       </xs:annotation>
     </xs:element>
+
+    <xs:element minOccurs="0" ref="lastRecordChange">
+      <xs:annotation>
+        <xs:documentation>Date and time when any information related to the record had been changed in Database.</xs:documentation>
+      </xs:annotation>
+    </xs:element>
   
   </xs:complexType>
 </xs:schema>

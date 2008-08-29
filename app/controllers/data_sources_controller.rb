@@ -5,7 +5,11 @@ class DataSourcesController < ApplicationController
   # GET /data_sources
   # GET /data_sources.xml
   def index
-    @data_sources = DataSource.find(:all)
+    if params.key? :name_string_id
+      @data_sources = DataSource.find_by_sql("select ds.* from data_sources ds join name_indices ni on ds.id = ni.data_source_id where ni.name_string_id = #{params[:name_string_id]}")
+    else
+      @data_sources = DataSource.find(:all)
+    end
     
     if current_user
       @user = User.find(current_user.id)
@@ -16,6 +20,7 @@ class DataSourcesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @data_sources }
+      format.json { render :json => @data_sources }
     end
   end
 
