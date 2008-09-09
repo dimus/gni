@@ -3,9 +3,9 @@
 animalia_bees:
   name_string: animalia
   data_source: bees_nhm
-  records_hash: 
+  records_hash: 12354
 
 bombus_bees:
   name_string: bombus_fervidus
   data_source: bees_nhm
-  records_hash: 
+  records_hash: 12432

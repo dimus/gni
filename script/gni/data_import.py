@@ -248,11 +248,11 @@ class Importer: #{{{1
 
   def _process_node(self): #{{{2
     if self.reader.NodeType() == 1: #start of a tag
-        if self.reader.Name() == "dwc:ScientificName":
+        if self.reader.Name() == "Simple":
             self._current_tag = "raw_name"    
         elif self.reader.Name() == "dwc:Kingdom":
             self._current_tag = "kingdom"
-        elif self.reader.Name() == "rank":
+        elif self.reader.Name() == "Rank":
             self._current_tag = "rank"
         elif self.reader.Name() == "dc:source":
             self._current_tag = "url"
@@ -263,7 +263,7 @@ class Importer: #{{{1
         else:
             self._current_tag = None
     elif self.reader.NodeType() == 15: #end of a tag
-        if self.reader.Name() == "record":
+        if self.reader.Name() == "TaxonName":
             self.counter += 1
             if self.counter % 10000 == 0:
               new_time = time.time()
