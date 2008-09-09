@@ -316,8 +316,8 @@ if __name__ == '__main__': #script part {{{1
 
     i = Importer(options.source, options.source_id, options.environment)
 #cProfile.run('i.parse()')
-    for i in i.parse():
-      print i
+    for ii in i.parse():
+      print ii
     print "parsing is done"
     #pp.pprint(i.imported_data)
     #sys.exit()
