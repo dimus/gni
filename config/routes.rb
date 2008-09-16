@@ -23,7 +23,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :kingdoms
 
-  map.resources :name_strings
+  map.resources :name_strings, :has_many => [:data_sources]
   
   map.root :controller => 'data_sources'
   

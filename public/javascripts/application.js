@@ -49,9 +49,20 @@ $(function() {
       });
       $(this).removeClass("name_string_hover");
       $(this).addClass("name_string_click");
+      $("#name_column_right").height($("#name_column_left").height());
       $("#name_column_right").removeClass("name_column_right_inactive");
       $("#name_column_right").addClass("name_column_right_active");
       var name_string_id = $(this).attr('name_string_id');
+      $.getJSON('/name_strings/' + name_string_id + '/data_sources.json', {},
+        function(data) {
+          var i;
+          var repositories = "<h3>Repositories</h4>";
+          for (i=0; i < data.length; i++) {
+            repositories  += "<div><a href='/data_sources/" + data[i].id + "'>" + data[i].title  + "</a></div>\n";
+          }
+          $('#name_column_right').html(repositories);
+        }
+      )
     }
     );
 
