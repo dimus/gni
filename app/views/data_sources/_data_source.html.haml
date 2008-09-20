@@ -1,20 +1,22 @@
 - form_for(data_source) do |f|
-  %p
-    %b 
-      Title
-      %span.required
-        *
-    %br/
-    = f.text_field :title, :size => "70"
-    .help_info
-      Name of your Repository
+  .form_field
+    %p
+      %b 
+        Title
+        %span.required
+          *
+      %br/
+      = f.text_field :title, :size => "70"
+      .help_info
+        Name of your Repository
 
   %fieldset.subsection
     %legend.subsection Harvesting
-    %p
+    .form_field
       %b Metadata URL
       %br/
-      = f.text_field :metadata_url, :size => "70",  :value => data_source.metadata_url 
+      = f.text_field :metadata_url, :size => "70",  :value => data_source.metadata_url, :class => "valid_url" 
+      %span.valid_url_message
       .help_info
         URL to Metadata XML file. 
         %br/
@@ -23,13 +25,15 @@
         and 
         = link_to "schema", "/schemas/" + SCHEMA_VERSION.gsub('.', '_') + "/gni_data_source.xsd"
         
-    %p
+    .form_field
       %b
         Names Data URL
         %span.required
           *
       %br/
-      = f.text_field :data_url, :size => "70", :value => data_source.data_url
+      = f.text_field :data_url, :size => "70", :value => data_source.data_url, :class => "valid_url"
+      %span.valid_url_message
+
       .help_info
         URL to the xml file with list of names from your Repository. 
         %br/
@@ -37,7 +41,8 @@
         = link_to "example", "/schemas/" + SCHEMA_VERSION.gsub('.', '_') + "/examples/gni_data_example.xml" 
         and 
         = link_to "schema", "/schemas/" + SCHEMA_VERSION.gsub('.', '_') + "/gni_data.xsd"
-    %p
+    
+    .form_field
       %b Refresh period (days)
       %br/
       = f.text_field :refresh_period_days
@@ -46,19 +51,19 @@
 
   %fieldset.subsection
     %legend.subsection Details
-    %p
+    .form_field
       %b Description
       %br/
       = f.text_area :description, :class => "medium"
       .help_info
         Information about your Repository
-    %p
+    .form_field
       %b Website URL
       %br/
       = f.text_field :web_site_url, :size => "70", :value => data_source.web_site_url
       .help_info
         URL to the website of your Repository
-    %p
+    .form_field
       %b Logo URL
       %br/
       = f.text_field :logo_url, :size => "70", :value => data_source.logo_url

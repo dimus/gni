@@ -121,7 +121,7 @@ class DataSourcesController < ApplicationController
       format.xml  { head :ok }
     end
   end
-  
+
 protected
   def prepare_params
     %w(metadata_url data_url logo_url web_site_url).each do |p|

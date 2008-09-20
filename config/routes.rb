@@ -29,6 +29,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :access_rules
 
+  map.resources :url_check
+
   map.resources :access_types, :has_many => :access_rules
 
   map.resources :data_sources, :has_many => [:data_providers, :access_rules, :data_source_overlaps, :name_indices]

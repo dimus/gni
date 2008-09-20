@@ -11,7 +11,7 @@ body {
   font-size: 1em;
   margin: 20px 0 0 0;
   padding: 0;
-  min-width: !_page_width; }
+  min-width: 69em; }
 
 h1, h2, h3, h4, h5, h6 {
   text-shadow: 0.2em 0.2em 0.2em #e9e9e9;
@@ -223,6 +223,17 @@ textarea {
   margin: 1em 0em 1em 0;
   width: 50em;
   padding: 1em; }
+
+.form_field {
+  margin: 1em 0 em 1em 0;
+  padding: .5em; }
+
+.valid_url {
+  color: black; }
+
+span.valid_url_message {
+  color: #660000;
+  padding-left: 1em; }
 
 #centerwrapper {
   background-image: url(/images/public/developer_left_side.gif);

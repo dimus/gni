@@ -84,4 +84,13 @@ $(function() {
         $('#import_in_progress').text("No imports had been scheduled yet.");
       }
   });
+
+  $('.valid_url').bind('blur', function(event) {
+    var bound_element = $(this);
+    $.getJSON('/url_check', {url: $(this).attr('value')},
+      function(data) {
+        bound_element.siblings().filter('[class=valid_url_message]').text(data.message);
+      }
+    );
+  });
 });
