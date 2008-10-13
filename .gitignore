@@ -17,3 +17,4 @@ tmp/pids/*
 tmp/sessions/*
 tmp/sockets/*
 tmp/war
+lib/name_parser/names.txt

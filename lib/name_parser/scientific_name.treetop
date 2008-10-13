@@ -5,11 +5,19 @@ grammar ScientificName
       def value
         a.value + " " + c.value
       end
+      
+      def canonical
+        a.canonical
+      end
     }
     /
     space a:name_part space b:authors space {
       def value
         a.value + " " + b.value
+      end
+      
+      def canonical
+        a.canonical
       end
     }
     / 
@@ -65,7 +73,7 @@ grammar ScientificName
   end
   
   rule author
-    [^0-9()]+ {
+    space [A-Z] [^0-9()]+ {
       def value
         text_value.strip.gsub(/\s+/," ")
       end
@@ -73,9 +81,13 @@ grammar ScientificName
   end
   
   rule name_part
-    space a:species_name space sel:selector space b:name_part {
+    space a:species_name space sel:selector space b:latin_word {
       def value
         sel.apply(a, b)
+      end
+      
+      def canonical
+        sel.canonical(a,b)
       end
     }
     /
@@ -89,6 +101,9 @@ grammar ScientificName
       def apply(a,b)
         a.value + " " + text_value + " " + b.value
       end
+      def canonical(a,b)
+        a.value + " " + b.value
+      end
     }
   end
   
@@ -96,6 +111,9 @@ grammar ScientificName
     space a:cap_latin_word space b:latin_word space {
       def value
         a.value + " " + b.value 
+      end
+      def canonical
+        value
       end
     }
   end
@@ -111,6 +129,10 @@ grammar ScientificName
   rule cap_latin_word
     space [A-Z] [a-z]+ space {
       def value
+        text_value.strip
+      end
+      
+      def canonical
         text_value.strip
       end
     }
