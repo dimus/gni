@@ -1,0 +1,122 @@
+grammar ScientificName
+  
+  rule scientific_name
+    space a:name_part space c:authors_year space {
+      def value
+        a.value + " " + c.value
+      end
+    }
+    /
+    space a:name_part space b:authors space {
+      def value
+        a.value + " " + b.value
+      end
+    }
+    / 
+    name_part
+  end
+  
+  rule authors_year
+    space a:authors space b:year space c:authors_year space {
+      def value
+        a.value + " " + b.value + c.value
+      end
+    }
+    /
+    space a:authors space b:year space {
+      def value 
+        a.value + " " + b.value.to_s
+      end
+    }
+  end
+  
+  rule year
+    [0-9]+ {
+      def value
+        text_value.to_i
+      end
+    }
+  end
+  
+  rule authors
+    a:prev_author space b:authors {
+      def value
+        a.value + " " + b.value
+      end
+    }
+    /
+    a:author space b:authors {
+      def value
+        a.value + " " + b.value
+      end
+    }
+    /
+    prev_author
+    /
+    author
+  end
+  
+  rule prev_author
+    '(' a:author ')' {
+      def value
+        '(' + a.value + ')'
+      end
+    }
+  end
+  
+  rule author
+    [^0-9()]+ {
+      def value
+        text_value.strip.gsub(/\s+/," ")
+      end
+    }
+  end
+  
+  rule name_part
+    space a:species_name space sel:selector space b:name_part {
+      def value
+        sel.apply(a, b)
+      end
+    }
+    /
+    species_name
+    / 
+    cap_latin_word
+  end
+  
+  rule selector
+    ("f." / "var.") {
+      def apply(a,b)
+        a.value + " " + text_value + " " + b.value
+      end
+    }
+  end
+  
+  rule species_name
+    space a:cap_latin_word space b:latin_word space {
+      def value
+        a.value + " " + b.value 
+      end
+    }
+  end
+
+  rule latin_word
+    space [a-z]+ space {
+      def value 
+        text_value.strip
+      end
+    }
+  end
+  
+  rule cap_latin_word
+    space [A-Z] [a-z]+ space {
+      def value
+        text_value.strip
+      end
+    }
+  end
+  
+  rule space
+    [ ]*
+  end
+end
