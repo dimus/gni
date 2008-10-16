@@ -9,6 +9,10 @@ grammar ScientificName
       def canonical
         a.canonical
       end
+      
+      def details
+        a.details.merge(b.details)
+      end
     }
     /
     space a:name_part space b:authors space {
@@ -18,6 +22,10 @@ grammar ScientificName
       
       def canonical
         a.canonical
+      end
+      
+      def details
+        a.details.merge(b.details)
       end
     }
     / 
@@ -29,11 +37,17 @@ grammar ScientificName
       def value
         a.value + " " + b.value + c.value
       end
+      def details
+        {:authors => "not implemented"}
+      end
     }
     /
     space a:authors space b:year space {
       def value 
         a.value + " " + b.value.to_s
+      end
+      def details
+        {:authors => a.value, :year => b.value.to_s}
       end
     }
   end
@@ -51,11 +65,17 @@ grammar ScientificName
       def value
         a.value + " " + b.value
       end
+      def details
+        {:authors => value}
+      end
     }
     /
     a:author space b:authors {
       def value
         a.value + " " + b.value
+      end
+      def details
+        {:authors => value}
       end
     }
     /
@@ -69,25 +89,48 @@ grammar ScientificName
       def value
         '(' + a.value + ')'
       end
+      def details
+        {:prev_author => value}
+      end
     }
   end
   
   rule author
-    space [A-Z] [^0-9()]+ {
+    space ("Ö"/"Á"/"Ø"/"Š"/"Č"/[A-Z]/"de"/"van"/"anon") [^0-9()]+ {
       def value
         text_value.strip.gsub(/\s+/," ")
+      end
+      def details
+        {:author => value}
       end
     }
   end
   
   rule name_part
-    space a:species_name space sel:selector space b:latin_word {
+    space a:species_name space b:subspecies_names {
       def value
-        sel.apply(a, b)
+        a.value + b.value
+      end
+      def canonical
+        a.canonical + b.canonical
+      end
+      
+      def details
+        a.details.merge(b.details)
+      end
+    }
+    /
+    space a:species_name space b:latin_word {
+      def value
+        a.value + " " + b.value
       end
       
       def canonical
-        sel.canonical(a,b)
+        value
+      end
+      
+      def details
+        a.details.merge({:subspecies => {:type => "n/a", :value =>b.value}})
       end
     }
     /
@@ -96,13 +139,54 @@ grammar ScientificName
     cap_latin_word
   end
   
-  rule selector
-    ("f." / "var.") {
-      def apply(a,b)
-        a.value + " " + text_value + " " + b.value
+  rule subspecies_names
+    a:subspecies_name space b:subspecies_names {
+      def value
+        a.value + b.value
       end
-      def canonical(a,b)
-        a.value + " " + b.value
+      
+      def canonical
+        a.canonical + b.canonical
+      end
+      
+      def details
+        c = a.details[:subspecies] + b.details_subspecies
+        a.details.merge({:subspecies => c})
+      end
+    }
+    /
+    subspecies_name
+  end
+  
+  rule subspecies_name
+    sel:selector space a:latin_word {
+      def value 
+        sel.apply(a)
+      end
+      def canonical
+        sel.canonical(a)
+      end
+      def details
+        sel.details(a)
+      end
+      def details_subspecies
+        details[:subspecies]
+      end
+    }        
+  end
+  
+  rule selector
+    ("f.sp." / "f." / "ssp."/ "mut." / "ser." / "var."/ "[var.]" / "subsp." / "subf." / "race" / "α" 
+    / "β"/ "γ" / "δ" / "a." / "b." / "c." / "d." / "e." / "g." / "k.")
+    {
+      def apply(a)
+        " " + text_value + " " + a.value
+      end
+      def canonical(a)
+        " " + a.value
+      end
+      def details(a)
+        {:subspecies => [{:type => text_value, :value => a.value}]}
       end
     }
   end
@@ -115,11 +199,15 @@ grammar ScientificName
       def canonical
         value
       end
+      
+      def details
+        {:genus => a.value, :species => b.value}
+      end
     }
   end
 
   rule latin_word
-    space [a-z]+ space {
+    space [a-z\-ë]+ space {
       def value 
         text_value.strip
       end
@@ -127,13 +215,17 @@ grammar ScientificName
   end
   
   rule cap_latin_word
-    space [A-Z] [a-z]+ space {
+    space [A-Z] [a-z\-ë]+ space {
       def value
         text_value.strip
       end
       
-      def canonical
+      def canonical 
         text_value.strip
+      end
+      
+      def details 
+        {:uninomial => value}
       end
     }
   end
