@@ -31,7 +31,7 @@ describe ScientificName do
     parse('Pseudocercospora').should_not be_nil
     value('Pseudocercospora').should == 'Pseudocercospora'
     canonical('Pseudocercospora').should == 'Pseudocercospora'
-    details('Pseudocercospora').should == {:uninomial=>"Pseudocercospora"}
+    details('Pseudocercospora').should == {:uninomial=>"Pseudocercospora", :name_type=>"Uninomial"}
   end
   
   it 'should parse canonical' do
@@ -72,7 +72,15 @@ describe ScientificName do
   it "should parse name with several subspecies names" do
     parse("Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972").should_not be_nil
     value("Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972").should == "Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972"
-    details("Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972").should == {:species=>"scrobiculatum", :authors=>"(Banker) D. Hall & D.E. Stuntz", :year=>"1972", :genus=>"Hydnellum", :subspecies=>[{:type=>"var.", :value=>"zonatum"}, {:type=>"f.", :value =>"parvum"}]}
+    details("Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972").should == { 
+      :species=>"scrobiculatum", 
+      :authors=>"(Banker) D. Hall & D.E. Stuntz", 
+      :year=>"1972", 
+      :genus=>"Hydnellum", 
+      :subspecies=>[
+          {:type=>"var.", :value=>"zonatum"}, 
+          {:type=>"f.", :value =>"parvum"}]
+      }
   end
   
   it "should parse name without a year but with authors" do 

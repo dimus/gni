@@ -96,7 +96,7 @@ grammar ScientificName
   end
   
   rule author
-    space ("Ö"/"Á"/"Ø"/"Š"/"Č"/[A-Z]/"de"/"van"/"anon") [^0-9()]+ {
+    space (/"Å"/"Ö"/"Á"/"Ø"/"Š"/"Č"/[A-Z]/"de"/"van"/"anon") [^0-9()]+ {
       def value
         text_value.strip.gsub(/\s+/," ")
       end
@@ -225,7 +225,7 @@ grammar ScientificName
       end
       
       def details 
-        {:uninomial => value}
+        {:name_type => "Uninomial", :uninomial => value}
       end
     }
   end
