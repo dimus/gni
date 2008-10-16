@@ -1,9 +1,9 @@
 grammar ScientificName
   
   rule scientific_name
-    space a:name_part space c:authors_year space {
+    space a:name_part space b:authors_year space {
       def value
-        a.value + " " + c.value
+        a.value + " " + b.value
       end
       
       def canonical

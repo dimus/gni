@@ -9,7 +9,6 @@ Treetop.load('scientific_name')
 describe ScientificName do
   before(:all) do
     @parser = ScientificNameParser.new 
-    @name = "Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003"
   end
   
   def parse(input)
@@ -68,6 +67,7 @@ describe ScientificName do
   
   it "should not parse utf-8 chars in name part" do
     parse("Trematosphaeria phaesüpora").should be_nil
+    parse("Tremütosphaeria phaesapora").should be_nil
   end
   
 end
