@@ -41,6 +41,17 @@ describe ScientificName do
     details('Pseudocercospora dendrobii').should == {:species=>"dendrobii", :genus=>"Pseudocercospora"}
   end
   
+  it 'should parse subgenus' do
+    parse("Doriteuthis (Amerigo) pealeii Author 1999").should_not be_nil
+    value("Doriteuthis(Amerigo    ) pealeii Author 1999").should == "Doriteuthis (Amerigo) pealeii Author 1999"
+    canonical("Doriteuthis(Amerigo    ) pealeii Author 1999").should == "Doriteuthis pealeii"
+    details("Doriteuthis(Amerigo    ) pealeii Author 1999").should == {:subgenus=>"Amerigo", :authors=>{:year=>"1999", :names=>["Author"]}, :species=>"pealeii", :genus=>"Doriteuthis"}
+  end
+  
+  it 'should parse species author for complex subspecies authorships' do
+    #parse("Aus bus (Linn.) var cus (Smith) Jones").should_not be_nil
+  end
+  
   it 'should parse several authors' do
     parse("Pseudocercospora dendrobii U. Braun & Crous").should_not be_nil
     value("Pseudocercospora dendrobii U. Braun & Crous").should == "Pseudocercospora dendrobii U. Braun & Crous"
@@ -55,26 +66,45 @@ describe ScientificName do
     parse("Pseudocercospora dendrobii U. Braun & Crous 2003").should_not be_nil
     value("Pseudocercospora dendrobii U. Braun & Crous 2003").should == "Pseudocercospora dendrobii U. Braun & Crous 2003"
     canonical("Pseudocercospora dendrobii U. Braun & Crous").should == "Pseudocercospora dendrobii"
+    details("Pseudocercospora dendrobii U. Braun & Crous 2003").should == {
+        :authors=>{:names=>["U. Braun","Crous"], :year => "2003"},
+        :species=>"dendrobii", 
+        :genus=>"Pseudocercospora"}
   end  
   
   it 'should parse scientific name' do
     parse("Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003").should_not be_nil
     value("Pseudocercospora dendrobii(H.C.     Burnett)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii (H.C. Burnett) U. Braun & Crous 2003"
     canonical("Pseudocercospora dendrobii(H.C.     Burnett)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii"
-    # details("Pseudocercospora dendrobii(H.C.     Burnett)U. Braun & Crous     2003").should == {:species=>"dendrobii", :authors=>"(H.C. Burnett) U. Braun & Crous", :year=>"2003", :genus=>"Pseudocercospora"}
+    details("Pseudocercospora dendrobii(H.C.     Burnett)U. Braun & Crous     2003").should == {
+    :authors=>{:year=>"2003",   
+      :names=>["U. Braun", "Crous"]
+    }, 
+    :species=>"dendrobii", 
+    :genus=>"Pseudocercospora", 
+    :orig_authors=>[{:names=>["H.C. Burnett"]}]}
   end
   
   it 'should parse several authors with several years' do
     parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003").should_not be_nil
     value("Pseudocercospora dendrobii(H.C.     Burnett1883)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003"
     canonical("Pseudocercospora dendrobii(H.C.     Burnett 1883)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii"
-    # details("Pseudocercospora dendrobii(H.C.     Burnett 1883)U. Braun & Crous     2003").should == {:species=>"dendrobii", :authors=>"(H.C. Burnett) U. Braun & Crous", :year=>"2003", :genus=>"Pseudocercospora"}
+    details("Pseudocercospora dendrobii(H.C.     Burnett 1883)U. Braun & Crous     2003").should == {
+      :authors=>{
+        :year=>"2003", 
+        :names=>["U. Braun", "Crous"]
+      }, 
+      :species=>"dendrobii", 
+      :genus=>"Pseudocercospora", 
+      :orig_authors=>[{:year=>"1883", :names=>["H.C. Burnett"]}]}
   end
 
   it 'should parse serveral authors groups with several years' do
     parse("Pseudocercospora dendrobii (H.C. Burnett 1883) (Leight.) (Movss. 1967) U. Braun & Crous 2003").should_not be_nil
     value("Pseudocercospora dendrobii(H.C.     Burnett1883)(Leight.)(Movss. 1967)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii (H.C. Burnett 1883) (Leight.) (Movss. 1967) U. Braun & Crous 2003"
     canonical("Pseudocercospora dendrobii(H.C.     Burnett 1883)(Leight.)(Movss. 1967)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii"
+    details("Pseudocercospora dendrobii(H.C.     Burnett 1883)(Leight.)(Movss. 1967)U. Braun & Crous     2003").should == {:authors=>{:year=>"2003", :names=>["U. Braun", "Crous"]}, :species=>"dendrobii", :genus=>"Pseudocercospora", :orig_authors=>[{:year=>"1883", :names=>["H.C. Burnett"]}, {:names=>["Leight."]}, {:year=>"1967", :names=>["Movss."]}]}
+
   end
 
     
@@ -82,7 +112,7 @@ describe ScientificName do
     parse("Trematosphaeria phaeospora (E. Müll.) L. Holm 1957").should_not be_nil
     value("Trematosphaeria         phaeospora (  E.      Müll.       )L.       Holm     1957").should == "Trematosphaeria phaeospora (E. Müll.) L. Holm 1957"
     canonical("Trematosphaeria phaeospora(E. Müll.) L.       Holm 1957").should == "Trematosphaeria phaeospora"
-    # details("Trematosphaeria phaeospora(E. Müll.) L.       Holm 1957 ").should == {:species=>"phaeospora", :authors=>"(E. M\303\274ll.) L. Holm", :year=>"1957", :genus=>"Trematosphaeria"}
+    details("Trematosphaeria phaeospora(E. Müll.) L.       Holm 1957 ").should ==  {:authors=>{:year=>"1957", :names=>["L. Holm"]}, :species=>"phaeospora", :genus=>"Trematosphaeria", :orig_authors=>[{:names=>["E. M\303\274ll."]}]}
   end
   
   it "should parse name with f." do
@@ -90,7 +120,7 @@ describe ScientificName do
     parse("Sphaerotheca fuliginea f. dahliae Movss. 1967").should_not be_nil
     value("   Sphaerotheca    fuliginea     f.    dahliae    Movss.   1967    ").should == "Sphaerotheca fuliginea f. dahliae Movss. 1967"
     canonical("Sphaerotheca fuliginea f. dahliae Movss. 1967").should == "Sphaerotheca fuliginea dahliae"
-    # details("Sphaerotheca fuliginea f. dahliae Movss. 1967").should == {:species=>"fuliginea", :authors=>["Movss."], :year=>"1967", :genus=>"Sphaerotheca", :subspecies=>[{:type=>"f.", :value=>"dahliae"}]}
+    details("Sphaerotheca fuliginea f. dahliae Movss. 1967").should ==  {:subspecies=>[{:type=>"f.", :value=>"dahliae"}], :authors=>{:year=>"1967", :names=>["Movss."]}, :species=>"fuliginea", :genus=>"Sphaerotheca"}
   end
   
   it "should parse name with var." do
@@ -102,15 +132,7 @@ describe ScientificName do
   it "should parse name with several subspecies names" do
     parse("Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972").should_not be_nil
     value("Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972").should == "Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972"
-    # details("Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972").should == { 
-    #   :species=>"scrobiculatum", 
-    #   :authors=>"(Banker) D. Hall & D.E. Stuntz", 
-    #   :year=>"1972", 
-    #   :genus=>"Hydnellum", 
-    #   :subspecies=>[
-    #       {:type=>"var.", :value=>"zonatum"}, 
-    #       {:type=>"f.", :value =>"parvum"}]
-    #   }
+    details("Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972").should == {:subspecies=>[{:type=>"var.", :value=>"zonatum"}, {:type=>"f.", :value=>"parvum"}], :authors=>{:year=>"1972", :names=>["D. Hall", "D.E. Stuntz"]}, :species=>"scrobiculatum", :genus=>"Hydnellum", :orig_authors=>[{:names=>["Banker"]}]}
   end
   
   it "should parse name without a year but with authors" do 
@@ -124,7 +146,7 @@ describe ScientificName do
     parse(name).should_not be_nil
     value(name).should == "Hydnellum scrobiculatum zonatum (Banker) D. Hall & D.E. Stuntz 1972"
     canonical(name).should == "Hydnellum scrobiculatum zonatum"
-    # details(name).should == {:species=>"scrobiculatum", :authors=>"(Banker) D. Hall & D.E. Stuntz", :year=>"1972", :genus=>"Hydnellum", :subspecies=>{:type=>"n/a", :value=>"zonatum"}}
+    details(name).should == {:subspecies=>{:type=>"n/a", :value=>"zonatum"}, :authors=>{:year=>"1972", :names=>["D. Hall", "D.E. Stuntz"]}, :species=>"scrobiculatum", :genus=>"Hydnellum", :orig_authors=>[{:names=>["Banker"]}]}
   end
   
   it "should not parse utf-8 chars in name part" do
