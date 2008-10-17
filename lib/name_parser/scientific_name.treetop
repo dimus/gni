@@ -1,21 +1,19 @@
 grammar ScientificName
   
   rule scientific_name
-    space a:name_part space b:authors_year space {
+    space a:name_part space b:original_authors_groups space c:authors_names_full space {
       def value
-        a.value + " " + b.value
+        a.value + " " + b.value + " " + c.value
       end
-      
       def canonical
         a.canonical
       end
-      
       def details
-        a.details.merge(b.details)
+        a.details.merge(b.details).merge(c.details)
       end
     }
     /
-    space a:name_part space b:authors space {
+    space a:name_part space b:authors_names_full space {
       def value
         a.value + " " + b.value
       end
@@ -32,77 +30,78 @@ grammar ScientificName
     name_part
   end
   
-  rule authors_year
-    space a:authors space b:year space c:authors_year space {
+  rule original_authors_groups 
+    a:original_authors_names_full space b:original_authors_groups {
       def value
-        a.value + " " + b.value + c.value
+        a.value + " " + b.value
       end
       def details
-        {:authors => "not implemented"}
+        {}
       end
     }
     /
-    space a:authors space b:year space {
+    original_authors_names_full
+  end
+
+  rule original_authors_names_full
+    "(" space a:authors_names_full space ")" {
+      def value
+        "(" + a.value + ")"
+      end
+      def details
+        {}
+      end
+    } 
+  end
+
+  rule authors_names_full
+    a:authors_names space b:year {
       def value 
-        a.value + " " + b.value.to_s
-      end
-      def details
-        {:authors => a.value, :year => b.value.to_s}
-      end
-    }
-  end
-  
-  rule year
-    [0-9]+ {
-      def value
-        text_value.to_i
-      end
-    }
-  end
-  
-  rule authors
-    a:prev_author space b:authors {
-      def value
         a.value + " " + b.value
       end
       def details
-        a.details + [{:authors => value}]
+        {}
       end
     }
     /
-    a:author space b:authors {
-      def value
-        a.value + " " + b.value
-      end
-      def details
-        c = a.details[:authors] + [value]
-        a.details.merge({:authors => c})
-      end
-    }
-    /
-    prev_author
-    /
-    author
+    authors_names
   end
   
-  rule prev_author
-    '(' a:author ')' {
+    
+  rule authors_names
+    a:author_name space sep:name_separator space b:authors_names {
       def value
-        '(' + a.value + ')'
+        sep.apply(a,b)
       end
+      
       def details
-        {:prev_authors => [value]}
+        sep.details(a,b)
+      end
+    }
+    /
+    author_name
+  end
+  
+  rule name_separator
+    ("&"/",") {
+      def apply(a,b)
+        a.value + " " + text_value + " " + b.value
+      end
+      def details(a,b)
+        #names = a.details[:authors][:names] + b.details[:authors][:names][-1]
+        #a.details.merge({:authors => [{:names=>names}]})
+        {}
       end
     }
   end
   
-  rule author
-    space ("Å"/"Ö"/"Á"/"Ø"/"Š"/"Č"/[A-Z]/"de"/"van"/"anon") [^0-9()]+ {
+  rule author_name
+    space ("Å"/"Ö"/"Á"/"Ø"/"Š"/"Č"/"É"/[A-Z]/"du"/"de"/"van"/"anon") [^0-9()&,]+ {
       def value
         text_value.strip.gsub(/\s+/," ")
       end
       def details
-        {:authors => [value]}
+        {:authors => [{:names => [value]}]}
       end
     }
   end
@@ -177,7 +176,7 @@ grammar ScientificName
   end
   
   rule selector
-    ("f.sp." / "f." / "ssp."/ "mut." / "ser." / "var."/ "[var.]" / "subsp." / "subf." / "race" / "α" 
+    ("f.sp." / "f." / "ssp."/ "mut." / "ser." / "var."/"subvar."/ "[var.]" / "subsp." / "subf." / "race" / "α" 
     / "β"/ "γ" / "δ" / "a." / "b." / "c." / "d." / "e." / "g." / "k.")
     {
       def apply(a)
@@ -227,6 +226,17 @@ grammar ScientificName
       
       def details 
         {:name_type => "Uninomial", :uninomial => value}
+      end
+    }
+  end
+  
+  rule year
+    [0-9\?]+ {
+      def value
+        text_value.strip
+      end
+      def details
+        {:year => value}
       end
     }
   end
