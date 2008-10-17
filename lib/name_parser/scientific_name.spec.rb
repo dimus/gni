@@ -60,7 +60,7 @@ describe ScientificName do
     parse("Sphaerotheca fuliginea f. dahliae Movss. 1967").should_not be_nil
     value("   Sphaerotheca    fuliginea     f.    dahliae    Movss.   1967    ").should == "Sphaerotheca fuliginea f. dahliae Movss. 1967"
     canonical("Sphaerotheca fuliginea f. dahliae Movss. 1967").should == "Sphaerotheca fuliginea dahliae"
-    details("Sphaerotheca fuliginea f. dahliae Movss. 1967").should == {:species=>"fuliginea", :authors=>"Movss.", :year=>"1967", :genus=>"Sphaerotheca", :subspecies=>[{:type=>"f.", :value=>"dahliae"}]}
+    details("Sphaerotheca fuliginea f. dahliae Movss. 1967").should == {:species=>"fuliginea", :authors=>["Movss."], :year=>"1967", :genus=>"Sphaerotheca", :subspecies=>[{:type=>"f.", :value=>"dahliae"}]}
   end
   
   it "should parse name with var." do
