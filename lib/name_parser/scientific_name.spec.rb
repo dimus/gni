@@ -41,15 +41,16 @@ describe ScientificName do
     details('Pseudocercospora dendrobii').should == {:species=>"dendrobii", :genus=>"Pseudocercospora"}
   end
   
-  it 'should parse subgenus' do
+  it 'should parse subgenus ZOOLOGICAL' do
     parse("Doriteuthis (Amerigo) pealeii Author 1999").should_not be_nil
     value("Doriteuthis(Amerigo    ) pealeii Author 1999").should == "Doriteuthis (Amerigo) pealeii Author 1999"
     canonical("Doriteuthis(Amerigo    ) pealeii Author 1999").should == "Doriteuthis pealeii"
     details("Doriteuthis(Amerigo    ) pealeii Author 1999").should == {:subgenus=>"Amerigo", :authors=>{:year=>"1999", :names=>["Author"]}, :species=>"pealeii", :genus=>"Doriteuthis"}
   end
   
-  it 'should parse species author for complex subspecies authorships' do
-    #parse("Aus bus (Linn.) var cus (Smith) Jones").should_not be_nil
+  it 'should parse species autonym for complex subspecies authorships' do
+    #parse("Aus bus Linn. var. bus").should_not be_nil
+    # aus genus, bus species, Linn. author, var. rank, but infraspecific epithet 
   end
   
   it 'should parse several authors' do
@@ -83,7 +84,10 @@ describe ScientificName do
     :species=>"dendrobii", 
     :genus=>"Pseudocercospora", 
     :orig_authors=>[{:names=>["H.C. Burnett"]}]}
+  
+    parse("Stagonospora polyspora M.T. Lucas & Sousa da Câmara 1952").should_not be_nil
   end
+  
   
   it 'should parse several authors with several years' do
     parse("Pseudocercospora dendrobii (H.C. Burnett 1883) U. Braun & Crous 2003").should_not be_nil
@@ -99,7 +103,7 @@ describe ScientificName do
       :orig_authors=>[{:year=>"1883", :names=>["H.C. Burnett"]}]}
   end
 
-  it 'should parse serveral authors groups with several years' do
+  it 'should parse serveral authors groups with several years NOT BOTANICAL' do
     parse("Pseudocercospora dendrobii (H.C. Burnett 1883) (Leight.) (Movss. 1967) U. Braun & Crous 2003").should_not be_nil
     value("Pseudocercospora dendrobii(H.C.     Burnett1883)(Leight.)(Movss. 1967)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii (H.C. Burnett 1883) (Leight.) (Movss. 1967) U. Braun & Crous 2003"
     canonical("Pseudocercospora dendrobii(H.C.     Burnett 1883)(Leight.)(Movss. 1967)U. Braun & Crous     2003").should == "Pseudocercospora dendrobii"
@@ -135,13 +139,60 @@ describe ScientificName do
     details("Hydnellum scrobiculatum var. zonatum f. parvum (Banker) D. Hall & D.E. Stuntz 1972").should == {:subspecies=>[{:type=>"var.", :value=>"zonatum"}, {:type=>"f.", :value=>"parvum"}], :authors=>{:year=>"1972", :names=>["D. Hall", "D.E. Stuntz"]}, :species=>"scrobiculatum", :genus=>"Hydnellum", :orig_authors=>[{:names=>["Banker"]}]}
   end
   
+  it "should parse status" do
+    #it is always latin abbrev often 2 words
+    parse("Arthopyrenia hyalospora (Nyl.) R.C. Harris comb. nov.").should_not be_nil
+    value("Arthopyrenia hyalospora (Nyl.) R.C. Harris comb. nov.").should == "Arthopyrenia hyalospora (Nyl.) R.C. Harris comb. nov."
+    canonical("Arthopyrenia hyalospora (Nyl.) R.C. Harris comb. nov.").should == "Arthopyrenia hyalospora"
+    details("Arthopyrenia hyalospora (Nyl.) R.C. Harris comb. nov.").should == {:status=>"comb. nov.", :orig_authors=>[{:names=>["Nyl."]}], :species=>"hyalospora", :authors=>{:names=>["R.C. Harris"]}, :genus=>"Arthopyrenia"}
+  end
+  
   it "should parse name without a year but with authors" do 
     parse("Arthopyrenia hyalospora (Nyl.) R.C. Harris").should_not be_nil
     value("Arthopyrenia hyalospora(Nyl.)R.C.     Harris").should == "Arthopyrenia hyalospora (Nyl.) R.C. Harris"
     canonical("Arthopyrenia hyalospora (Nyl.) R.C. Harris").should == "Arthopyrenia hyalospora"
   end
+  
+  it "should parse revised names" do
+    #invalidly published
+    parse("Arthopyrenia hyalospora (Nyl. ex Banker) R.C. Harris").should_not be_nil
+    value("Arthopyrenia hyalospora (Nyl. ex Banker) R.C. Harris").should == "Arthopyrenia hyalospora (Nyl. ex Banker) R.C. Harris"
+    canonical("Arthopyrenia hyalospora (Nyl. ex Banker) R.C. Harris").should == "Arthopyrenia hyalospora"
+    details("Arthopyrenia hyalospora (Nyl. ex Banker) R.C. Harris").should == {:original_revised_name_authors=>{:revised_authors=>{:names=>["Nyl."]}, :authors=>{:names=>["Banker"]}}, :authors=>{:names=>["R.C. Harris"]}, :species=>"hyalospora", :genus=>"Arthopyrenia"}
+    
+    parse("Arthopyrenia hyalospora Nyl. ex Banker").should_not be_nil
+        
+  end
+  
+  it "should parse multiplication sign" do
+    #parse("Arthopyrenia x hyalospora (Nyl.) R.C. Harris").should_not be_nil
+    #details("Arthopyrenia x hyalospora (Nyl.) R.C. Harris").should == {}
+    #Arthopyrenia X hyalospora(Nyl. ex Banker) R.C. Harris
+    #X Arthopyrenia (Nyl. ex Banker) R.C. Harris
+    #x Arthopyrenia hyalospora (Nyl. ex Banker) R.C. Harris
+  end
+  
+  it "should parse hybrid formula" do
+    parse("Arthopyrenia hyalospora x Hydnellum scrobiculatum").should_not be_nil
+    value("Arthopyrenia hyalospora X Hydnellum scrobiculatum").should == "Arthopyrenia hyalospora x Hydnellum scrobiculatum"
+    canonical("Arthopyrenia hyalospora x Hydnellum scrobiculatum").should == "Arthopyrenia hyalospora x Hydnellum scrobiculatum"
+    details("Arthopyrenia hyalospora x Hydnellum scrobiculatum").should == {:hybrid=>{:scientific_name1=>{:species=>"hyalospora", :genus=>"Arthopyrenia"}, :scientific_name2=>{:species=>"scrobiculatum", :genus=>"Hydnellum"}}}
+    
+    parse("Arthopyrenia hyalospora (Banker) D. Hall x Hydnellum scrobiculatum D.E. Stuntz").should_not be_nil
+    value("Arthopyrenia hyalospora (Banker) D. Hall X Hydnellum scrobiculatum D.E. Stuntz").should == "Arthopyrenia hyalospora (Banker) D. Hall x Hydnellum scrobiculatum D.E. Stuntz"
+    canonical("Arthopyrenia hyalospora (Banker) D. Hall X Hydnellum scrobiculatum D.E. Stuntz").should == "Arthopyrenia hyalospora x Hydnellum scrobiculatum"
+    
+    parse("Arthopyrenia hyalospora x").should_not be_nil
+    value("Arthopyrenia hyalospora X").should == "Arthopyrenia hyalospora x ?"  
+    canonical("Arthopyrenia hyalospora x").should == "Arthopyrenia hyalospora x ?"
+    details("Arthopyrenia hyalospora x").should == {:hybrid=>{:scientific_name1=>{:species=>"hyalospora", :genus=>"Arthopyrenia"}, :scientific_name2=>"?"}}  
+    parse("Arthopyrenia hyalospora x ?").should_not be_nil
+    details("Arthopyrenia hyalospora x ?").should == {:hybrid=>{:scientific_name1=>{:species=>"hyalospora", :genus=>"Arthopyrenia"}, :scientific_name2=>"?"}}
+  end
 
-  it "should parse name with subspecies without rank selector" do
+  
+
+  it "should parse name with subspecies without rank selector NOT BOTANICAL" do
     name = "Hydnellum scrobiculatum zonatum (Banker) D. Hall & D.E. Stuntz 1972"
     parse(name).should_not be_nil
     value(name).should == "Hydnellum scrobiculatum zonatum (Banker) D. Hall & D.E. Stuntz 1972"

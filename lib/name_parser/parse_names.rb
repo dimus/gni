@@ -7,7 +7,6 @@ Treetop.load('scientific_name')
 
 parser = ScientificNameParser.new
 
-fw = File.open('unparsed.txt','w')
 
 count = 0
 count2 = 0
@@ -18,7 +17,6 @@ IO.foreach('names.txt') do |n|
   n.strip!
   unless parser.parse n
     puts n
-    fw.write(n + "\n")
     count += 1
   end    
 end
