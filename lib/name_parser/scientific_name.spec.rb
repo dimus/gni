@@ -85,7 +85,14 @@ describe ScientificName do
     :genus=>"Pseudocercospora", 
     :orig_authors=>[{:names=>["H.C. Burnett"]}]}
   
-    parse("Stagonospora polyspora M.T. Lucas & Sousa da Câmara 1952").should_not be_nil
+    parse("Stagonospora polyspora M.T. Lucas & Sousa da Câmara 1934").should_not be_nil
+    value("Stagonospora polyspora M.T. Lucas & Sousa da Câmara 1934").should == "Stagonospora polyspora M.T. Lucas & Sousa da Câmara 1934"
+    details("Stagonospora polyspora M.T. Lucas & Sousa da Câmara 1934").should == {:authors=>{:year=>"1934", :names=>["M.T. Lucas", "Sousa da C\303\242mara"]}, :species=>"polyspora", :genus=>"Stagonospora"}
+    
+    parse("Cladoniicola staurospora Diederich, van den Boom & Aptroot 2001").should_not be_nil
+    parse("Yarrowia lipolytica var. lipolytica (Wick., Kurtzman & E.A. Herrm.) Van der Walt & Arx 1981").should_not be_nil
+    parse("Physalospora rubiginosa (Fr.) anon.").should_not be_nil
+    parse("Saccharomyces drosophilae anon.").should_not be_nil
   end
   
   
@@ -153,7 +160,7 @@ describe ScientificName do
     canonical("Arthopyrenia hyalospora (Nyl.) R.C. Harris").should == "Arthopyrenia hyalospora"
   end
   
-  it "should parse revised names" do
+  it "should parse revised (ex) names" do
     #invalidly published
     parse("Arthopyrenia hyalospora (Nyl. ex Banker) R.C. Harris").should_not be_nil
     value("Arthopyrenia hyalospora (Nyl. ex Banker) R.C. Harris").should == "Arthopyrenia hyalospora (Nyl. ex Banker) R.C. Harris"
@@ -161,7 +168,12 @@ describe ScientificName do
     details("Arthopyrenia hyalospora (Nyl. ex Banker) R.C. Harris").should == {:original_revised_name_authors=>{:revised_authors=>{:names=>["Nyl."]}, :authors=>{:names=>["Banker"]}}, :authors=>{:names=>["R.C. Harris"]}, :species=>"hyalospora", :genus=>"Arthopyrenia"}
     
     parse("Arthopyrenia hyalospora Nyl. ex Banker").should_not be_nil
-        
+    
+    parse("Glomopsis lonicerae Peck ex C.J. Gould 1945").should_not be_nil
+    details("Glomopsis lonicerae Peck ex C.J. Gould 1945").should == {:revised_name_authors=>{:authors=>{:year=>"1945", :names=>["C.J. Gould"]}, :revised_authors=>{:names=>["Peck"]}}, :species=>"lonicerae", :genus=>"Glomopsis"}
+  
+    parse("Acanthobasidium delicatum (Wakef.) Oberw. ex Jülich 1979").should_not be_nil
+  
   end
   
   it "should parse multiplication sign" do
@@ -173,9 +185,9 @@ describe ScientificName do
   end
   
   it "should parse hybrid formula" do
-    parse("Arthopyrenia hyalospora x Hydnellum scrobiculatum").should_not be_nil
+    parse("Arthopyrenia hyalospora X Hydnellum scrobiculatum").should_not be_nil
     value("Arthopyrenia hyalospora X Hydnellum scrobiculatum").should == "Arthopyrenia hyalospora x Hydnellum scrobiculatum"
-    canonical("Arthopyrenia hyalospora x Hydnellum scrobiculatum").should == "Arthopyrenia hyalospora x Hydnellum scrobiculatum"
+    canonical("Arthopyrenia hyalospora X Hydnellum scrobiculatum").should == "Arthopyrenia hyalospora x Hydnellum scrobiculatum"
     details("Arthopyrenia hyalospora x Hydnellum scrobiculatum").should == {:hybrid=>{:scientific_name1=>{:species=>"hyalospora", :genus=>"Arthopyrenia"}, :scientific_name2=>{:species=>"scrobiculatum", :genus=>"Hydnellum"}}}
     
     parse("Arthopyrenia hyalospora (Banker) D. Hall x Hydnellum scrobiculatum D.E. Stuntz").should_not be_nil
@@ -201,8 +213,8 @@ describe ScientificName do
   end
   
   it "should not parse utf-8 chars in name part" do
-    parse("Trematosphaeria phaesüpora").should be_nil
-    parse("Tremütosphaeria phaesapora").should be_nil
+    parse("Érematosphaeria phaespora").should be_nil
+    parse("Trematosphaeria phaeáapora").should be_nil
   end
   
 end
