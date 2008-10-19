@@ -27,25 +27,28 @@ describe ScientificName do
     parse(input).details
   end
   
-  it 'should parse taxon' do
-    parse('Pseudocercospora').should_not be_nil
-    value('Pseudocercospora').should == 'Pseudocercospora'
-    canonical('Pseudocercospora').should == 'Pseudocercospora'
-    details('Pseudocercospora').should == {:uninomial=>"Pseudocercospora", :name_type=>"Uninomial"}
+  it 'should parse uninomial' do
+    sn = 'Pseudocercospora'
+    parse(sn).should_not be_nil
+    value(sn).should == 'Pseudocercospora'
+    canonical(sn).should == 'Pseudocercospora'
+    details(sn).should == {:uninomial=>"Pseudocercospora", :name_type=>"Uninomial"}
   end
   
   it 'should parse canonical' do
-    parse('Pseudocercospora dendrobii').should_not be_nil
-    value('   Pseudocercospora        dendrobii  ').should == 'Pseudocercospora dendrobii'
-    canonical("   Pseudocercospora        dendrobii  ").should == 'Pseudocercospora dendrobii'
-    details('Pseudocercospora dendrobii').should == {:species=>"dendrobii", :genus=>"Pseudocercospora"}
+    sn = 'Pseudocercospora dendrobii'
+    parse(sn).should_not be_nil
+    value(sn).should == 'Pseudocercospora dendrobii'
+    canonical(sn).should == 'Pseudocercospora dendrobii'
+    details(sn).should == {:species=>"dendrobii", :genus=>"Pseudocercospora"}
   end
   
   it 'should parse subgenus ZOOLOGICAL' do
-    parse("Doriteuthis (Amerigo) pealeii Author 1999").should_not be_nil
-    value("Doriteuthis(Amerigo    ) pealeii Author 1999").should == "Doriteuthis (Amerigo) pealeii Author 1999"
-    canonical("Doriteuthis(Amerigo    ) pealeii Author 1999").should == "Doriteuthis pealeii"
-    details("Doriteuthis(Amerigo    ) pealeii Author 1999").should == {:subgenus=>"Amerigo", :authors=>{:year=>"1999", :names=>["Author"]}, :species=>"pealeii", :genus=>"Doriteuthis"}
+    sn = "Doriteuthis (Amerigo) pealeii Author 1999"
+    parse(sn).should_not be_nil
+    value(sn).should == "Doriteuthis (Amerigo) pealeii Author 1999"
+    canonical(sn).should == "Doriteuthis pealeii"
+    details(sn).should == {:subgenus=>"Amerigo", :authors=>{:year=>"1999", :names=>["Author"]}, :species=>"pealeii", :genus=>"Doriteuthis"}
   end
   
   it 'should parse species autonym for complex subspecies authorships' do
@@ -54,20 +57,22 @@ describe ScientificName do
   end
   
   it 'should parse several authors' do
-    parse("Pseudocercospora dendrobii U. Braun & Crous").should_not be_nil
-    value("Pseudocercospora dendrobii U. Braun & Crous").should == "Pseudocercospora dendrobii U. Braun & Crous"
-    canonical("Pseudocercospora dendrobii U. Braun & Crous").should == "Pseudocercospora dendrobii"
-    details("Pseudocercospora dendrobii U. Braun & Crous").should == {
+    sn = "Pseudocercospora dendrobii U. Braun & Crous"
+    parse(sn).should_not be_nil
+    value(sn).should == "Pseudocercospora dendrobii U. Braun & Crous"
+    canonical(sn).should == "Pseudocercospora dendrobii"
+    details(sn).should == {
         :authors=>{:names=>["U. Braun","Crous"]},
         :species=>"dendrobii", 
         :genus=>"Pseudocercospora"}
   end
 
   it 'should parse several authors with a year' do
-    parse("Pseudocercospora dendrobii U. Braun & Crous 2003").should_not be_nil
-    value("Pseudocercospora dendrobii U. Braun & Crous 2003").should == "Pseudocercospora dendrobii U. Braun & Crous 2003"
-    canonical("Pseudocercospora dendrobii U. Braun & Crous").should == "Pseudocercospora dendrobii"
-    details("Pseudocercospora dendrobii U. Braun & Crous 2003").should == {
+    sn = "Pseudocercospora dendrobii U. Braun & Crous 2003"
+    parse(sn).should_not be_nil
+    value(sn).should == "Pseudocercospora dendrobii U. Braun & Crous 2003"
+    canonical(sn).should == "Pseudocercospora dendrobii"
+    details(sn).should == {
         :authors=>{:names=>["U. Braun","Crous"], :year => "2003"},
         :species=>"dendrobii", 
         :genus=>"Pseudocercospora"}
@@ -92,7 +97,6 @@ describe ScientificName do
     parse("Cladoniicola staurospora Diederich, van den Boom & Aptroot 2001").should_not be_nil
     parse("Yarrowia lipolytica var. lipolytica (Wick., Kurtzman & E.A. Herrm.) Van der Walt & Arx 1981").should_not be_nil
     parse("Physalospora rubiginosa (Fr.) anon.").should_not be_nil
-    parse("Saccharomyces drosophilae anon.").should_not be_nil
   end
   
   
@@ -184,7 +188,7 @@ describe ScientificName do
     #x Arthopyrenia hyalospora (Nyl. ex Banker) R.C. Harris
   end
   
-  it "should parse hybrid formula" do
+  it "should parse hybrid combination" do
     parse("Arthopyrenia hyalospora X Hydnellum scrobiculatum").should_not be_nil
     value("Arthopyrenia hyalospora X Hydnellum scrobiculatum").should == "Arthopyrenia hyalospora x Hydnellum scrobiculatum"
     canonical("Arthopyrenia hyalospora X Hydnellum scrobiculatum").should == "Arthopyrenia hyalospora x Hydnellum scrobiculatum"
@@ -215,6 +219,10 @@ describe ScientificName do
   it "should not parse utf-8 chars in name part" do
     parse("Érematosphaeria phaespora").should be_nil
     parse("Trematosphaeria phaeáapora").should be_nil
+  end
+  
+  it "should not have this problems, but it has them" do
+    parse("Saccharomyces drosophilae anon.").should be_nil
   end
   
 end

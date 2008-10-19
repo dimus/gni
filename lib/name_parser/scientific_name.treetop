@@ -227,15 +227,15 @@ grammar ScientificName
   end
   
   rule author_word
-    ("anon."/"f."/"bis"/"arg."/"da"/"der"/"den"/"de"/"du"/"van"/"et al."/"{?}") {
+    ("anon."/"f."/"bis"/"arg."/"da"/"der"/"den"/"de"/"du"/"van"/"et al.\{\?\}"/"et al.") {
       def value
         text_value.strip
       end
       def details
         {:authors => {:names => [value]}}
       end
-    } 
-    /
+    }
+    / 
     ("Å"/"Ö"/"Á"/"Ø"/"Ô"/"Š"/"Č"/"É"/"Ž"/[A-Z]) [^0-9()\s&,]+ {
       def value
         text_value.gsub(/\s+/, " ").strip
