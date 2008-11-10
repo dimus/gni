@@ -11,20 +11,7 @@
         Name of your Repository
 
   %fieldset.subsection
-    %legend.subsection Harvesting
-    .form_field
-      %b Metadata URL
-      %br/
-      = f.text_field :metadata_url, :size => "70",  :value => data_source.metadata_url, :class => "valid_url" 
-      %span.valid_url_message
-      .help_info
-        URL to Metadata XML file. 
-        %br/
-        Please follow 
-        = link_to "example", "/schemas/" + SCHEMA_VERSION.gsub('.', '_') + "/examples/gni_data_source_example.xml" 
-        and 
-        = link_to "schema", "/schemas/" + SCHEMA_VERSION.gsub('.', '_') + "/gni_data_source.xsd"
-        
+    %legend.subsection Harvesting        
     .form_field
       %b
         Names Data URL

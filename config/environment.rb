@@ -56,6 +56,13 @@ Rails::Initializer.run do |config|
 
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
+
+  config.gem 'hpricot'
+  config.gem 'haml'
+  config.gem 'mislav-will_paginate', :version => '>= 2.3.2', :lib => 'will_paginate', :source => 'http://gems.github.com/'
+  #config.gem 'dimus-biodiversity', :version => '>= 0.0.8', :lib => 'biodiversity', :source => 'http://gems.github.com/'
+  
+
 end  
 
 APP_VERSION = "0.1"
