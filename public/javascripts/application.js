@@ -53,18 +53,24 @@ $(function() {
       $("#name_column_right").removeClass("name_column_right_inactive");
       $("#name_column_right").addClass("name_column_right_active");
       var name_string_id = $(this).attr('name_string_id');
-      $.getJSON('/name_strings/' + name_string_id + '/data_sources.json', {},
-        function(data) {
-          var i;
-          var repositories = "<h3>Repositories</h4>";
-          for (i=0; i < data.length; i++) {
-            repositories  += "<div><a href='/data_sources/" + data[i].id + "'>" + data[i].title  + "</a></div>\n";
-          }
-          $('#name_column_right').html(repositories);
-        }
-      )
+			$.get('/name_strings/details/'+ name_string_id, {},
+				function(data) {
+					$('#name_column_right').html(data);
+				}
+			);
+			
+			// $.getJSON('/name_strings/' + name_string_id + '/data_sources.json', {},
+      //   function(data) {
+      //     var i;
+      //     var repositories = "<h3>Repositories</h4>";
+      //     for (i=0; i < data.length; i++) {
+      //       repositories  += "<div><a href='/data_sources/" + data[i].id + "'>" + data[i].title  + "</a></div>\n";
+      //     }
+      //     $('#name_column_right').html(repositories);
+      //   }
+      // )
     }
-    );
+   );
 
   // Show how import status is changing for data_source import
   
@@ -74,8 +80,8 @@ $(function() {
         $.getJSON('/import_schedulers/' + import_scheduler_id, {},
           function(data) {
               if (data.status == "4"){
-                $(this).parent().removeClass("spinner");
-              }
+              	document.location = document.location
+							}
               var message = data.message;
               $('#import_in_progress').text(message);
             }

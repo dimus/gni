@@ -1,4 +1,6 @@
 class NameStringsController < ApplicationController
+  layout "application", :except => :details
+  
   # GET /name_strings
   # GET /name_strings.xml
   def index
@@ -22,6 +24,14 @@ class NameStringsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @name_string }
+    end
+  end
+  
+  # GET /name_string/details/1
+  def details
+    @name_string = NameString.find(params[:id])
+    respond_to do |format|
+      format.html #details.html.haml
     end
   end
 
