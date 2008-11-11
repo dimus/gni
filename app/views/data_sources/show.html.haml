@@ -8,6 +8,7 @@
     %td.vcentered
       -if @data_source.contributor?(current_user)
         = link_to 'Edit', edit_data_source_path(@data_source)
+        = link_to 'Delete', data_source_url(@data_source), :method => :delete, :confirm => "Do you really want to delete this repository?"
 
 %div= link_to 'All Repositories', data_sources_path
 

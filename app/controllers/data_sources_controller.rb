@@ -70,15 +70,6 @@ class DataSourcesController < ApplicationController
   # POST /data_sources.xml
   def create
     created_msg = "Repository was successfully created."
-    #if metadata_url exists get data from url
-    begin
-      if params[:data_source][:metadata_url]
-        params[:data_source] = GNA_XML::data_source_xml(params[:data_source][:metadata_url])
-        created_msg = created_msg[0...-1] + " using remote xml."
-      end
-    rescue 
-    end
-    
     @data_source = DataSource.new(params[:data_source])
     respond_to do |format|
       if @data_source.save  
@@ -124,7 +115,7 @@ class DataSourcesController < ApplicationController
 
 protected
   def prepare_params
-    %w(metadata_url data_url logo_url web_site_url).each do |p|
+    %w(data_url logo_url web_site_url).each do |p|
       params[:data_source][p] = '' if params[:data_source][p] == "http://"
     end
   end
