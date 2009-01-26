@@ -1,1 +1,29 @@
 %h3= @name_string.name 
+
+
+- @data_sources_data.each do |data|
+  %table
+    %tr
+      %td
+        =data_source_logo data[:data_source]
+      %td
+        =data[:data_source].title
+      %td
+        - unless data[:data_source].web_site_url.blank?
+          =link_to 'link', data[:data_source].web_site_url
+        - else
+          &nbsp;
+  %h5 Records
+  %table
+    %tr
+      %th Indexed on
+      %th Url
+      %th GUID
+    - data[:records].each do |record|
+      %tr
+        %td
+          =record.created_at
+        %td
+          =record.url.blank? ? '&nbsp;' : link_to('link', record.url)
+        %td
+          =record.global_id.blank? ? '&nbsp;' : record.global_id

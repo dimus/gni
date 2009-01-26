@@ -14,7 +14,7 @@ import cProfile
     
 import pprint
 pp = pprint.PrettyPrinter(indent=2)
-
+packet_size = 100
 
 
 class DbImporter: #{{{1
@@ -161,29 +161,52 @@ class Importer: #{{{1
 
   def db_insert(self): #{{{2
       c = self.db.cursor
+      c.execute('select max(id) from name_indices')
+      res = c.fetchall()
+      if res[0][0]:
+          last_id = res[0][0]
+      else:
+          last_id = 0 
       if self.inserted:
           inserts = []
+          count = 0
           for i in self.inserted:
+              count += 1
               #data = self.db.escape_data(self.imported_data[i])
               data = {}
               data['name_string_id'] = i
               data['data_source_id'] = self.data_source_id
               data['records_hash'] = self.imported_data[i]['hash'] 
               inserts.append("(%(data_source_id)s, %(name_string_id)s, '%(records_hash)s' , now(), now())" % data)
-          c.execute("insert into name_indices (data_source_id, name_string_id, records_hash, created_at, updated_at) values %s" % ",".join(map(lambda x: str(x),inserts)))
-          c.execute("select id, name_string_id from name_indices where data_source_id = %s and name_string_id in (%s)" % (self.data_source_id, ",".join(map(lambda x: str(x), self.inserted))) )
+              if len(inserts) == packet_size:
+                c.execute("insert into name_indices (data_source_id, name_string_id, records_hash, created_at, updated_at) values %s" % ",".join(map(lambda x: str(x),inserts)))
+                print(':mysql: inserted ' + str(count))
+                inserts=[]
+          if inserts:
+              c.execute("insert into name_indices (data_source_id, name_string_id, records_hash, created_at, updated_at) values %s" % ",".join(map(lambda x: str(x),inserts)))
+          
+          print("select id, name_string_id from name_indices where data_source_id = %s and id > %s" % (self.data_source_id, last_id) )
+          c.execute("select id, name_string_id from name_indices where data_source_id = %s and id > %s" % (self.data_source_id, last_id) )
+          print(':mysql: name_indices inserts are done')
           res = c.fetchall()
           records = []
+          count = 0
           for i in res:
+              count += 1
               name_index_id = i[0]
               name_string_id = i[1]
               for d in self.imported_data[name_string_id]['data']:
                   data = self.db.escape_data(d)
                   data['name_index_id'] = name_index_id
-                  records.append("(%(name_index_id)s, %(url)s, %(local_id)s, %(global_id)s, %(kingdom)s, %(rank)s)" % data)
-          c.execute("insert into name_index_records (name_index_id, url, local_id, global_id, kingdom_id, rank) values %s" % ",".join(records)) 
+                  records.append("(%(name_index_id)s, %(url)s, %(local_id)s, %(global_id)s, %(kingdom)s, %(rank)s, now(), now())" % data)
+              if len(records) == packet_size:
+                  c.execute("insert into name_index_records (name_index_id, url, local_id, global_id, kingdom_id, rank, created_at, updated_at) values %s" % ",".join(records)) 
+                  print(':mysql: records ' + str(count))
+                  records=[]
+          if records:
+              c.execute("insert into name_index_records (name_index_id, url, local_id, global_id, kingdom_id, rank, created_at, updated_at) values %s" % ",".join(records)) 
+          print(':mysql: name_index_records inserts are done')
               
- 
   def db_update(self): #{{{2
       c = self.db.cursor
       if self.changed:
