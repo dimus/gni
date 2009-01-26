@@ -30,6 +30,7 @@ class NameStringsController < ApplicationController
   # GET /name_string/details/1
   def details
     @name_string = NameString.find(params[:id])
+    @data_sources_data = @name_string.name_indices.map {|ni| {:data_source => ni.data_source, :records => (NameIndexRecord.find_all_by_name_index_id(ni.id))}}
     respond_to do |format|
       format.html #details.html.haml
     end
