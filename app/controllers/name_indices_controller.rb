@@ -46,5 +46,22 @@ class NameIndicesController < ApplicationController
       format.xml  { render :xml => @name_index }
     end
   end
+  
+  # POST /name_indices.xml
+  # def create
+  #   @name_index = NameIndex.new(params[:name_index])
+  #   success = @name_index && @name_index.save
+  #   if success && @name_index.errors.empty?
+  #     respond_to do |format|
+  #       format.xml { render :xml => @name_index.to_xml}
+  #     end
+  #   else
+  #     respond_to do |format|
+  #       format.xml { render :xml => @name_index.errors, :status => :unprocessable_entity }
+  #     end
+  #   end
+  # end
+  #  
+  
 
 end

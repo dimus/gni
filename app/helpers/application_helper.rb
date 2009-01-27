@@ -16,6 +16,26 @@ module ApplicationHelper
 
     output.join("<br/>\n")
   end
+  
+  def format_guid(guid)
+    lsid = /^urn:lsid:.*$/
+    guid = lsid.match(guid) ? link_to(guid, 'http://lsid.tdwg.org/summary/' + guid) : guid
+  end
+  
+  def format_date(date,format='%m/%d/%y')
+    date.strftime(format)
+  end
+  
+  def dates_interval(date1, date2)
+    raise ArgumentError, "#{format_date(date1)} is bigger than #{format_date(date2)}" if date1 > date2
+    date_string = format_date(date1) + " - "
+    if date1.year == date2.year
+      date_string += format_date(date2, '%m/%d')
+    else
+      date_string += format_date(date2)
+    end
+    date_string
+  end
 
   def data_source_logo(data_source)
     default_logo = "/images/public/empty_logo.png"

@@ -5,7 +5,7 @@ from urllib import urlopen
 import libxml2
 import MySQLdb
 import yaml
-import marshal
+import cjson
 import sha
 import time
 from optparse import OptionParser
@@ -14,7 +14,7 @@ import cProfile
     
 import pprint
 pp = pprint.PrettyPrinter(indent=2)
-packet_size = 100
+packet_size = 5000
 
 
 class DbImporter: #{{{1
@@ -34,7 +34,8 @@ class DbImporter: #{{{1
   def __init__(self, environment): #{{{2
     self.environment = environment
     self.conn = self._connect()
-    self.cursor = self.conn.cursor() 
+    self.cursor = self.conn.cursor()
+    
 
   def _connect(self):
     db_data = os.popen('erb ' + sys.path[0] + '/../../config/database.yml').read()
@@ -48,6 +49,7 @@ class DbImporter: #{{{1
         passwd = db_conf['password'],
         unix_socket = db_conf['socket'],
         db = db_conf['database'])
+        
     return conn
 
 
@@ -116,9 +118,8 @@ class Importer: #{{{1
             new_data.append((h,))
             lookup_ids.append(i)
         c.execute("select records_hash from name_indices where data_source_id = %s and name_string_id in (%s) order by name_string_id" % (self.data_source_id,  ",".join(map(lambda x: str(x),lookup_ids))))
-        #print sha.new(marshal.dumps(tuple(new_data))).hexdigest()
-        #print sha.new(marshal.dumps(c.fetchall())).hexdigest()
-        if sha.new(marshal.dumps(c.fetchall())).hexdigest() == sha.new(marshal.dumps(tuple(new_data))).hexdigest():
+
+        if sha.new(cjson.encode(c.fetchall())).hexdigest() == sha.new(cjson.encode(tuple(new_data))).hexdigest():
             to_check = to_check[slice_size:]
             if slice_size * 2 < max_slice:
                 slice_size *= 2
@@ -178,7 +179,7 @@ class Importer: #{{{1
               data['data_source_id'] = self.data_source_id
               data['records_hash'] = self.imported_data[i]['hash'] 
               inserts.append("(%(data_source_id)s, %(name_string_id)s, '%(records_hash)s' , now(), now())" % data)
-              if len(inserts) == packet_size:
+              if len(inserts) >= packet_size:
                 c.execute("insert into name_indices (data_source_id, name_string_id, records_hash, created_at, updated_at) values %s" % ",".join(map(lambda x: str(x),inserts)))
                 print(':mysql: inserted ' + str(count))
                 inserts=[]
@@ -199,14 +200,13 @@ class Importer: #{{{1
                   data = self.db.escape_data(d)
                   data['name_index_id'] = name_index_id
                   records.append("(%(name_index_id)s, %(url)s, %(local_id)s, %(global_id)s, %(kingdom)s, %(rank)s, now(), now())" % data)
-              if len(records) == packet_size:
-                  c.execute("insert into name_index_records (name_index_id, url, local_id, global_id, kingdom_id, rank, created_at, updated_at) values %s" % ",".join(records)) 
-                  print(':mysql: records ' + str(count))
-                  records=[]
+                  if len(records) >= packet_size:
+                      c.execute("insert into name_index_records (name_index_id, url, local_id, global_id, kingdom_id, rank, created_at, updated_at) values %s" % ",".join(records)) 
+                      print(':mysql: records ' + str(count))
+                      records=[]
           if records:
               c.execute("insert into name_index_records (name_index_id, url, local_id, global_id, kingdom_id, rank, created_at, updated_at) values %s" % ",".join(records)) 
           print(':mysql: name_index_records inserts are done')
-              
   def db_update(self): #{{{2
       c = self.db.cursor
       if self.changed:
@@ -254,9 +254,11 @@ class Importer: #{{{1
               data_keys = d.keys()
               data_keys.sort()
               data_array = map(lambda x: d[x], data_keys)
-              hashes.append(sha.new(marshal.dumps(data_array)).hexdigest())
+              print cjson.encode(data_keys)
+              print cjson.encode(data_array)
+              hashes.append(sha.new(cjson.encode(data_array)).hexdigest())
           hashes.sort()
-          imp[key]['hash']=sha.new(marshal.dumps(hashes)).hexdigest()
+          imp[key]['hash']=sha.new(cjson.encode(hashes)).hexdigest()
 
   def _import_stats(self, data, name): #{{{2
       c = self.db.cursor
@@ -271,6 +273,11 @@ class Importer: #{{{1
 
   def _process_node(self): #{{{2
     if self.reader.NodeType() == 1: #start of a tag
+        # try:
+        #     ["Simple", "dwc:Kingdom", "Rank", "url", "dc:identifier", "dwc:GlobalUniqueIdentifier"].index(self.reader.Name())
+        #     self._current_tag = self.reader.Name()
+        # except ValueError, e:
+        self._current_tag = None
         if self.reader.Name() == "Simple":
             self._current_tag = "raw_name"    
         elif self.reader.Name() == "dwc:Kingdom":
@@ -290,8 +297,7 @@ class Importer: #{{{1
             self.counter += 1
             if self.counter % 10000 == 0:
               new_time = time.time()
-              yield "Processing %sth record. Speed: %2d records per second." % (self.counter,10000/(new_time - self.time))
-              self.time = new_time
+              yield "Processing %sth record. Average Speed: %2d records per second." % (self.counter,self.counter/(new_time - self.time))
             name_string_id = self._prepare_record()
             self._append_imported_data(name_string_id)
             self._record = self._reset_record()

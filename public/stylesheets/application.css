@@ -529,7 +529,8 @@ table {
       text-align: right;
       padding-right: 0.5em; }
       table.data th.top {
-        text-align: left; }
+        text-align: left;
+        white-space: nowrap; }
   table.valign_top {
     vertical-align: top; }
     table.valign_top td {
