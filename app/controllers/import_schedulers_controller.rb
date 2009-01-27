@@ -17,7 +17,6 @@ class ImportSchedulersController < ApplicationController
         if @import_scheduler.save
           spawn do
             dir = File.dirname(__FILE__) + "/../../script/gni/update_imports -e " + ENV['RAILS_ENV'] 
-            system('echo started ' + dir)
             system(dir)
           end
           flash[:notice] = "Your data are scheduled for update"

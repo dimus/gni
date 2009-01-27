@@ -12,7 +12,7 @@
       = f.submit 'Search Mine'
     %br/
     - %w(A B C D E F G H I J K L M N O P Q R S T U V W X Y Z).each do |char|
-      = link_to char, 'name_string[search_term]' => char
+      = link_to char, 'name_string[search_term]' => char + '*'
 
 %br/
 - if @name_strings
