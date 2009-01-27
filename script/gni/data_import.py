@@ -26,7 +26,7 @@ class DbImporter: #{{{1
           data[key] = "'" + MySQLdb.escape_string(str(data[key])) + "'"
       else:
         data[key] = 'null'
-      for key in ('url','local_id','global_id', 'kingdom', 'rank'):
+      for key in ('dc:source','dc:identifier','dwc:GlobalUniqueIdentifier', 'dwc:Kingdom', 'Rank'):
         if not data.has_key(key):
           data[key] = 'null'
     return data
@@ -199,7 +199,7 @@ class Importer: #{{{1
               for d in self.imported_data[name_string_id]['data']:
                   data = self.db.escape_data(d)
                   data['name_index_id'] = name_index_id
-                  records.append("(%(name_index_id)s, %(url)s, %(local_id)s, %(global_id)s, %(kingdom)s, %(rank)s, now(), now())" % data)
+                  records.append("(%(name_index_id)s, %(dc:source)s, %(dc:identifier)s, %(dwc:GlobalUniqueIdentifier)s, %(dwc:Kingdom)s, %(Rank)s, now(), now())" % data)
                   if len(records) >= packet_size:
                       c.execute("insert into name_index_records (name_index_id, url, local_id, global_id, kingdom_id, rank, created_at, updated_at) values %s" % ",".join(records)) 
                       print(':mysql: records ' + str(count))
@@ -223,7 +223,7 @@ class Importer: #{{{1
               for d in self.imported_data[i[1]]['data']:
                   data = self.db.escape_data(d)
                   data['name_index_id'] = name_index_id
-                  records.append("(%(name_index_id)s, %(url)s, %(local_id)s, %(global_id)s, %(kingdom)s, %(rank)s)" % data)
+                  records.append("(%(name_index_id)s, %(dc:source)s, %(dc:identifier)s, %(dwc:GlobalUniqueIdentifier)s, %(dwc:Kingdom)s, %(Rank)s)" % data)
               c.execute("insert into name_index_records (name_index_id, url, local_id, global_id, kingdom_id, rank) values %s" % ",".join(records)) 
 
   def db_store_statistics(self): #{{{2
@@ -273,25 +273,25 @@ class Importer: #{{{1
 
   def _process_node(self): #{{{2
     if self.reader.NodeType() == 1: #start of a tag
-        # try:
-        #     ["Simple", "dwc:Kingdom", "Rank", "url", "dc:identifier", "dwc:GlobalUniqueIdentifier"].index(self.reader.Name())
-        #     self._current_tag = self.reader.Name()
-        # except ValueError, e:
-        self._current_tag = None
-        if self.reader.Name() == "Simple":
-            self._current_tag = "raw_name"    
-        elif self.reader.Name() == "dwc:Kingdom":
-            self._current_tag = "kingdom"
-        elif self.reader.Name() == "Rank":
-            self._current_tag = "rank"
-        elif self.reader.Name() == "dc:source":
-            self._current_tag = "url"
-        elif self.reader.Name() == "dc:identifier":
-            self._current_tag = "local_id"
-        elif self.reader.Name() == "dwc:GlobalUniqueIdentifier":
-            self._current_tag = "global_id"
-        else:
+        try:
+            ["Simple", "dwc:Kingdom", "Rank", "dc:source", "dc:identifier", "dwc:GlobalUniqueIdentifier"].index(self.reader.Name())
+            self._current_tag = self.reader.Name()
+        except ValueError, e:
             self._current_tag = None
+        # if self.reader.Name() == "Simple":
+        #     self._current_tag = "raw_name"    
+        # elif self.reader.Name() == "dwc:Kingdom":
+        #     self._current_tag = "kingdom"
+        # elif self.reader.Name() == "Rank":
+        #     self._current_tag = "rank"
+        # elif self.reader.Name() == "dc:source":
+        #     self._current_tag = "url"
+        # elif self.reader.Name() == "dc:identifier":
+        #     self._current_tag = "local_id"
+        # elif self.reader.Name() == "dwc:GlobalUniqueIdentifier":
+        #     self._current_tag = "global_id"
+        # else:
+        #     self._current_tag = None
     elif self.reader.NodeType() == 15: #end of a tag
         if self.reader.Name() == "TaxonName":
             self.counter += 1
@@ -306,10 +306,10 @@ class Importer: #{{{1
         self._current_tag = None
 
   def _prepare_record(self): #{{{2
-      self.db.cursor.execute("select id from name_strings where name = %s", self._record['raw_name'])
+      self.db.cursor.execute("select id from name_strings where name = %s", self._record['Simple'])
       name_string_id = self.db.cursor.fetchone()
       if not name_string_id:
-          self.db.cursor.execute("insert into name_strings (name, created_at, updated_at) values (%s, now(), now())", self._record['raw_name'])
+          self.db.cursor.execute("insert into name_strings (name, created_at, updated_at) values (%s, now(), now())", self._record['Simple'])
           self.db.cursor.execute("select last_insert_id()")
           name_string_id = self.db.cursor.fetchone()
       return (name_string_id[0])    
@@ -318,7 +318,7 @@ class Importer: #{{{1
     if not self.imported_data.has_key(name_string_id):
         self.imported_data[name_string_id] = {'data': [], 'hash': None}
     try:
-      self._record['kingdom'] = self.kingdoms[self._record['kingdom'].lower()]
+      self._record['dwc:Kingdom'] = self.kingdoms[self._record['dwc:Kingdom'].lower()]
     except KeyError:
       pass
     self.imported_data[name_string_id]['data'].append(self._record.copy())
