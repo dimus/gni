@@ -1,4 +1,6 @@
 module Spawn
+  RAILS_1_x = (::Rails::VERSION::MAJOR == 1) unless defined?(RAILS_1_x)
+  RAILS_2_2 = (::Rails::VERSION::MAJOR > 2 || (::Rails::VERSION::MAJOR == 2 && ::Rails::VERSION::MINOR >= 2)) unless defined?(RAILS_2_2)
 
   # default to forking (unless windows or jruby)
   @@method = (RUBY_PLATFORM =~ /(win32|java)/) ? :thread : :fork
@@ -41,7 +43,8 @@ module Spawn
     if options[:method] == :yield || @@method == :yield
       yield
     elsif options[:method] == :thread || (options[:method] == nil && @@method == :thread)
-      if ActiveRecord::Base.allow_concurrency
+      # for versions before 2.2, check for allow_concurrency
+      if RAILS_2_2 || ActiveRecord::Base.allow_concurrency
         thread_it(options) { yield }
       else
         @@logger.error("spawn(:method=>:thread) only allowed when allow_concurrency=true")
@@ -104,8 +107,12 @@ module Spawn
       ensure
         begin
           # to be safe, catch errors on closing the connnections too
-          ActiveRecord::Base.connection.disconnect!
-          ActiveRecord::Base.remove_connection
+          if RAILS_2_2
+            ActiveRecord::Base.connection_handler.clear_all_connections!
+          else
+            ActiveRecord::Base.connection.disconnect!
+            ActiveRecord::Base.remove_connection
+          end
         ensure
           @@logger.info "spawn> child[#{Process.pid}] took #{Time.now - start} sec"
           # this form of exit doesn't call at_exit handlers
