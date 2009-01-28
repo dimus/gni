@@ -7,14 +7,13 @@
     %th.top Is allowed
     %th.top{:colspan => 3} Actions
   - for access_rule in @access_rules
-  %tr
-    %td= h access_rule.data_source.title
-    %td= h access_rule.access_type.name
-    %td= h access_rule.is_allowed
-    %td= link_to 'Show', access_rule
-    %td= link_to 'Edit', edit_access_rule_path(access_rule)
-    %td= link_to 'Destroy', access_rule, :confirm => 'Are you sure?', :method => :delete
-  - end
+    %tr
+      %td= h access_rule.data_source.title
+      %td= h access_rule.access_type.name
+      %td= h access_rule.is_allowed
+      %td= link_to 'Show', access_rule
+      %td= link_to 'Edit', edit_access_rule_path(access_rule)
+      %td= link_to 'Destroy', access_rule, :confirm => 'Are you sure?', :method => :delete
 
 %br/
 

@@ -1,43 +1,35 @@
-<p>
-  <b>Name string:</b>
-  <%=h @name_index.name_string %>
-</p>
+%p
+  %b Name string:
+  =h @name_index.name_string
 
-<p>
-  <b>Data source:</b>
-  <%=h @name_index.data_source %>
-</p>
+%p
+  %bData source:
+  =h @name_index.data_source 
 
-<p>
-  <b>Respond format:</b>
-  <%=h @name_index.response_format %>
-</p>
+%p
+  %bRespond format:
+  =h @name_index.response_format
 
-<p>
-  <b>Kingdom:</b>
-  <%=h @name_index.kingdom %>
-</p>
+%p
+  %b Kingdom:
+  =h @name_index.kingdom
 
-<p>
-  <b>Uri:</b>
-  <%=h @name_index.uri %>
-</p>
+%p
+  %b Uri:
+  =h @name_index.uri
 
-<p>
-  <b>Uri type:</b>
-  <%=h @name_index.uri_type %>
-</p>
+%p
+  %b Uri type:
+  =h @name_index.uri_type
 
-<p>
-  <b>Created:</b>
-  <%=h @name_index.created %>
-</p>
+%p
+  %b Created:
+  =h @name_index.created 
 
-<p>
-  <b>Deleted:</b>
-  <%=h @name_index.deleted %>
-</p>
+%p
+  %b Deleted:
+  =h @name_index.deleted
 
-
-<%= link_to 'Edit', edit_name_index_path(@name_index) %> |
-<%= link_to 'Back', name_indices_path %>
+= link_to 'Edit', edit_name_index_path(@name_index) 
+|
+= link_to 'Back', name_indices_path
