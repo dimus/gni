@@ -154,7 +154,8 @@ textarea {
 
 #name_column_left {
   float: left;
-  width: 25em; }
+  border-right: 3px solid #cbe4c3;
+  z-index: +1; }
 
 #name_column_right {
   float: left;
@@ -162,13 +163,7 @@ textarea {
   text_align: left;
   padding: 1em; }
 
-.name_column_right_inactive {
-  border-left: 30px solid white;
-  border-top: 3px solid white; }
 
-.name_column_right_active {
-  border-left: 30px solid #cbe4c3;
-  border-top: 3px solid #cbe4c3; }
 
 .boxed {
   border: 1px solid #a9c2a1;

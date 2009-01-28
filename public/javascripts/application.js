@@ -49,7 +49,7 @@ $(function() {
       });
       $(this).removeClass("name_string_hover");
       $(this).addClass("name_string_click");
-      $("#name_column_right").height($("#name_column_left").height());
+      //$("#name_column_right").height($("#name_column_left").height());
       $("#name_column_right").removeClass("name_column_right_inactive");
       $("#name_column_right").addClass("name_column_right_active");
       var name_string_id = $(this).attr('name_string_id');
@@ -99,4 +99,7 @@ $(function() {
       }
     );
   });
+
+  // Fix the size of the window according to the length of name_string detail table
+
 });
