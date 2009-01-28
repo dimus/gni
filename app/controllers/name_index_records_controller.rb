@@ -43,43 +43,48 @@ class NameIndexRecordsController < ApplicationController
 
   # POST /name_index_records.xml
   def create
-    @data_source = DataSource.find_by_title(params[:name_index_record][:data_source_title])
-    
-    @name_string = NameString.find_by_name(params[:name_index_record][:name_string])
-    kingdom_id = params[:name_index_record][:kingdom] ? Kindgom.find_by_name(params[:name_index_record][:kingdom]) : nil
-    params[:name_index_record].merge!({:kingdom_id => kingdom_id}) if kingdom_id
-    unless @name_string
-      @name_string = NameString.create(:name => params[:name_index_record][:name_string])
-    end
-    a = Set.new(['kingdom_id', 'local_id', 'global_id', 'url', 'rank'])
-    b = Set.new(params[:name_index_record].keys)
-    keys = a.intersection(b).to_a.sort
-    
-    pp a
-    pp b
-    pp keys
-    
-    hash_data = keys.map {|k| params[:name_index_record][k]}
-    
-    pp hash_data
-    puts hash_data.to_json
-    
-    hash = Digest::SHA1.hexdigest(hash_data.to_json)
-    
-    puts hash
-    
-    @name_index = NameIndex.create(:name_string_id => @name_string.id, :data_source_id => @data_source.id, :records_hash => hash)
-    
-    [:name_string, :data_source_title].each {|s| params[:name_index_record].delete(s)}
-    @name_index_record = NameIndexRecord.new(params[:name_index_record].merge({:name_index_id => @name_index.id}))
-
+    #puts params[:TaxonName]
     respond_to do |format|
-      if @name_index_record.save
-        format.xml  { render :xml => @name_index_record, :status => :created, :location => @name_index_record }
-      else
-        format.xml  { render :xml => @name_index_record.errors, :status => :unprocessable_entity }
-      end
+        format.xml  { render :xml => params.to_xml}
     end
+
+    #@data_source = DataSource.find_by_title(params[:name_index_record][:data_source_title])
+    #
+    #@name_string = NameString.find_by_name(params[:name_index_record][:name_string])
+    #kingdom_id = params[:name_index_record][:kingdom] ? Kindgom.find_by_name(params[:name_index_record][:kingdom]) : nil
+    #params[:name_index_record].merge!({:kingdom_id => kingdom_id}) if kingdom_id
+    #unless @name_string
+    #  @name_string = NameString.create(:name => params[:name_index_record][:name_string])
+    #end
+    #a = Set.new(['kingdom_id', 'local_id', 'global_id', 'url', 'rank'])
+    #b = Set.new(params[:name_index_record].keys)
+    #keys = a.intersection(b).to_a.sort
+    #
+    #pp a
+    #pp b
+    #pp keys
+    #
+    #hash_data = keys.map {|k| params[:name_index_record][k]}
+    #
+    #pp hash_data
+    #puts hash_data.to_json
+    #
+    #hash = Digest::SHA1.hexdigest(hash_data.to_json)
+    #
+    #puts hash
+    #
+    #@name_index = NameIndex.create(:name_string_id => @name_string.id, :data_source_id => @data_source.id, :records_hash => hash)
+    #
+    #[:name_string, :data_source_title].each {|s| params[:name_index_record].delete(s)}
+    #@name_index_record = NameIndexRecord.new(params[:name_index_record].merge({:name_index_id => @name_index.id}))
+
+    #respond_to do |format|
+    #  if @name_index_record.save
+    #    format.xml  { render :xml => @name_index_record, :status => :created, :location => @name_index_record }
+    #  else
+    #    format.xml  { render :xml => @name_index_record.errors, :status => :unprocessable_entity }
+    #  end
+    #end
   end
 
   # PUT /name_index_records/1

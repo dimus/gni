@@ -3,6 +3,7 @@ require 'hpricot'
 require 'open-uri'
 
 module GNA_XML
+  #parsing metadata xml file (deprecated)
   def self.data_source_xml(data_source_url)
     ds = {}
     doc = Hpricot.XML(open(data_source_url))
@@ -23,6 +24,8 @@ module GNA_XML
     end
     ds
   end
+
+  
 end
 
 
