@@ -1,5 +1,5 @@
 curl -H "Content-Type: application/xml" \
--i -u user:password --digest -X POST -d \
+-i -X POST -d \
 '<?xml version="1.0" encoding="UTF-8"?>
 <DataSet
   xmlns="http://gnapartnership.org/schemas/tcs/1.01"
@@ -9,9 +9,15 @@ curl -H "Content-Type: application/xml" \
   xmlns:gn="http://gnapartnership.org/schemas/0_1"
 > xsi:schemaLocation="http://gnapartnership.org/schemas/tcs/1.01 http://gnapartnership.org/gna_tcs/tcs_gni_v_0_1.xsd">
   <MetaData>
-    <Simple>ITIS</Simple>
+    <Simple>ITIS small</Simple>
   </MetaData>
   <TaxonNames>
+    <TaxonName id="66664" nomenclaturalCode="Indeterminate">
+      <Simple>Euchemotrema cheatumi (R. W. Fullington, 1974)</Simple>
+      <ProviderSpecificData>
+        <dc:identifier>77514</dc:identifier>
+      </ProviderSpecificData>
+    </TaxonName>
     <TaxonName id="66665" nomenclaturalCode="Indeterminate">
       <Simple>Euchemotrema fasciatum (Pilsbry, 1940)</Simple>
       <ProviderSpecificData>

@@ -118,7 +118,6 @@ class Importer: #{{{1
             new_data.append((h,))
             lookup_ids.append(i)
         c.execute("select records_hash from name_indices where data_source_id = %s and name_string_id in (%s) order by name_string_id" % (self.data_source_id,  ",".join(map(lambda x: str(x),lookup_ids))))
-
         if sha.new(cjson.encode(c.fetchall())).hexdigest() == sha.new(cjson.encode(tuple(new_data))).hexdigest():
             to_check = to_check[slice_size:]
             if slice_size * 2 < max_slice:
@@ -193,7 +192,7 @@ class Importer: #{{{1
           res = c.fetchall()
           records = []
           count = 0
-          insert_query = "insert into name_index_records (name_index_id, url, local_id, global_id, kingdom_id, rank, created_at, updated_at) values %s"
+          insert_query = "insert into name_index_records (name_index_id, hash, url, local_id, global_id, kingdom_id, rank, created_at, updated_at) values %s"
           for i in res:
               count += 1
               name_index_id = i[0]
@@ -201,7 +200,7 @@ class Importer: #{{{1
               for d in self.imported_data[name_string_id]['data']:
                   data = self.db.escape_data(d)
                   data['name_index_id'] = name_index_id
-                  records.append("(%(name_index_id)s, %(source)s, %(identifier)s, %(GlobalUniqueIdentifier)s, %(Kingdom)s, %(Rank)s, now(), now())" % data)
+                  records.append("(%(name_index_id)s, %(hash)s, %(source)s, %(identifier)s, %(GlobalUniqueIdentifier)s, %(Kingdom)s, %(Rank)s, now(), now())" % data)
                   if len(records) >= packet_size:
                       c.execute(insert_query % ",".join(records)) 
                       print(':mysql: records ' + str(count))
@@ -251,17 +250,21 @@ class Importer: #{{{1
   def _add_hash_to_imports(self):
       imp =  self.imported_data
       for key in imp.keys():
-          hashes = []
+          hashes = [] 
           for d in imp[key]['data']:
               data_keys = d.keys()
-              data_keys.remove('data_source_id')
               data_keys.sort()
               data_array = map(lambda x: d[x], data_keys)
-              print cjson.encode(data_keys)
-              print cjson.encode(data_array)
-              hashes.append(sha.new(cjson.encode(data_array)).hexdigest())
+              normalized_data = cjson.encode(data_array).replace(' ','')
+              print normalized_data
+              normalized_data = sha.new(normalized_data).hexdigest()
+              print normalized_data
+              d['hash'] = normalized_data
+              hashes.append(normalized_data)
           hashes.sort()
-          imp[key]['hash']=sha.new(cjson.encode(hashes)).hexdigest()
+          record_hashes = sha.new(''.join(hashes)).hexdigest()
+          print record_hashes
+          imp[key]['hash']= record_hashes
 
   def _import_stats(self, data, name): #{{{2
       c = self.db.cursor

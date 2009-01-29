@@ -1,6 +1,3 @@
-require 'json'
-require 'digest/sha1'
-
 class NameIndexRecordsController < ApplicationController
   # GET /name_index_records
   # GET /name_index_records.xml
@@ -43,9 +40,9 @@ class NameIndexRecordsController < ApplicationController
 
   # POST /name_index_records.xml
   def create
-    #puts params[:TaxonName]
+    res = GNA_XML::from_tcs(params)
     respond_to do |format|
-        format.xml  { render :xml => params.to_xml}
+        format.xml  { render :xml => res.to_xml}
     end
 
     #@data_source = DataSource.find_by_title(params[:name_index_record][:data_source_title])
