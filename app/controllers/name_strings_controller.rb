@@ -1,5 +1,5 @@
 class NameStringsController < ApplicationController
-  layout "application", :except => :details
+  layout "application", :except => :show
   
   # GET /name_strings
   # GET /name_strings.xml
@@ -30,20 +30,11 @@ class NameStringsController < ApplicationController
   # GET /name_strings/1.xml
   def show
     @name_string = NameString.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @name_string }
-    end
-  end
-  
-  # GET /name_string/details/1
-  def details
-    @name_string = NameString.find(params[:id])
     @data_sources_data = @name_string.name_indices.map {|ni| {:data_source => ni.data_source, :records => (NameIndexRecord.find_all_by_name_index_id(ni.id))}}
     respond_to do |format|
       format.html #details.html.haml
+      format.xml 
     end
   end
-
+  
 end

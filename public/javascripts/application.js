@@ -53,7 +53,7 @@ $(function() {
       $("#name_column_right").removeClass("name_column_right_inactive");
       $("#name_column_right").addClass("name_column_right_active");
       var name_string_id = $(this).attr('name_string_id');
-			$.get('/name_strings/details/'+ name_string_id, {},
+			$.get('/name_strings/'+ name_string_id, {},
 				function(data) {
 					$('#name_column_right').html(data);
 				}

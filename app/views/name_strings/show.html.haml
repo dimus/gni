@@ -1,1 +1,23 @@
 %h3= @name_string.name 
+
+-if !@data_sources_data.empty?
+  %table#js_name_string_details.data.bordered
+    %tr
+      %th.top Logo
+      %th.top Data Source
+      %th.top Indexed on
+      %th.top URL
+      %th.top GUID
+    - @data_sources_data.each do |data|
+      - data[:records].each do |record|
+        %tr
+          %td
+            =data_source_logo data[:data_source]
+          %td
+            =data[:data_source].title
+          %td
+            = format_date record.created_at
+          %td
+            =record.url.blank? ? '&nbsp;' : link_to('link', record.url)
+          %td
+            =record.global_id.blank? ? '&nbsp;' : format_guid(record.global_id)

@@ -192,7 +192,7 @@ class Importer: #{{{1
           res = c.fetchall()
           records = []
           count = 0
-          insert_query = "insert into name_index_records (name_index_id, hash, url, local_id, global_id, kingdom_id, rank, created_at, updated_at) values %s"
+          insert_query = "insert into name_index_records (name_index_id, record_hash, url, local_id, global_id, kingdom_id, rank, created_at, updated_at) values %s"
           for i in res:
               count += 1
               name_index_id = i[0]
