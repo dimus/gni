@@ -12,17 +12,16 @@ class NameStringsController < ApplicationController
     else
       @name_strings = NameString.paginate_by_sql(["select * from name_strings where name like ?", params[:name_string][:search_term]], :page => page, :per_page => per_page) || nil rescue nil 
     end
+    result = {}
+    result[:page_number] = page
+    result[:name_strings_total] = @name_strings.total_entries
+    result[:total_pages] = result[:name_strings_total]/per_page.to_i
+    result[:per_page] = per_page
+    result[:data] = @name_strings
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  do
-        result = {}
-        result[:page_number] = page
-        result[:name_strings_total] = @name_strings.total_entries
-        result[:total_pages] = result[:name_strings_total]/per_page.to_i
-        result[:per_page] = per_page
-        result[:data] = @name_strings
-        render :xml => result
-      end
+      format.xml {render :xml => result}
+      format.json {render :json => result}
     end
   end
 
@@ -31,9 +30,11 @@ class NameStringsController < ApplicationController
   def show
     @name_string = NameString.find(params[:id])
     @data_sources_data = @name_string.name_indices.map {|ni| {:data_source => ni.data_source, :records => (NameIndexRecord.find_all_by_name_index_id(ni.id))}}
+    data =  {:data => @data_sources_data, :name_string => @name_string}
     respond_to do |format|
       format.html #details.html.haml
-      format.xml 
+      format.xml {render :xml => data}
+      format.json {render :json => data}
     end
   end
   
