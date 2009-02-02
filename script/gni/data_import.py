@@ -181,14 +181,14 @@ class Importer: #{{{1
               inserts.append("(%(data_source_id)s, %(name_string_id)s, '%(records_hash)s' , now(), now())" % data)
               if len(inserts) >= packet_size:
                 c.execute(insert_query % ",".join(map(lambda x: str(x),inserts)))
-                print(':mysql: inserted ' + str(count))
+                #print(':mysql: inserted ' + str(count))
                 inserts=[]
           if inserts:
               c.execute(insert_query % ",".join(map(lambda x: str(x),inserts)))
           
-          print("select id, name_string_id from name_indices where data_source_id = %s and id > %s" % (self.data_source_id, last_id) )
+          #print("select id, name_string_id from name_indices where data_source_id = %s and id > %s" % (self.data_source_id, last_id) )
           c.execute("select id, name_string_id from name_indices where data_source_id = %s and id > %s" % (self.data_source_id, last_id) )
-          print(':mysql: name_indices inserts are done')
+          #print(':mysql: name_indices inserts are done')
           res = c.fetchall()
           records = []
           count = 0
@@ -203,11 +203,11 @@ class Importer: #{{{1
                   records.append("(%(name_index_id)s, %(hash)s, %(source)s, %(identifier)s, %(GlobalUniqueIdentifier)s, %(Kingdom)s, %(Rank)s, now(), now())" % data)
                   if len(records) >= packet_size:
                       c.execute(insert_query % ",".join(records)) 
-                      print(':mysql: records ' + str(count))
+                      #print(':mysql: records ' + str(count))
                       records=[]
           if records:
               c.execute(insert_query % ",".join(records)) 
-          print(':mysql: name_index_records inserts are done')
+          #print(':mysql: name_index_records inserts are done')
   def db_update(self): #{{{2
       c = self.db.cursor
       if self.changed:
