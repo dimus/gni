@@ -14,10 +14,11 @@ class NameStringsController < ApplicationController
     end
     result = {}
     result[:page_number] = page
-    result[:name_strings_total] = @name_strings.total_entries
-    result[:total_pages] = result[:name_strings_total]/per_page.to_i
+    result[:name_strings_total] = @name_strings.total_entries rescue nil
+    result[:total_pages] = result[:name_strings_total]/per_page.to_i rescue 0
     result[:per_page] = per_page
     result[:data] = @name_strings
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml {render :xml => result}

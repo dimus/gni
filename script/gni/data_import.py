@@ -224,8 +224,9 @@ class Importer: #{{{1
               for d in self.imported_data[i[1]]['data']:
                   data = self.db.escape_data(d)
                   data['name_index_id'] = name_index_id
-                  records.append("(%(name_index_id)s, %(source)s, %(identifier)s, %(GlobalUniqueIdentifier)s, %(Kingdom)s, %(Rank)s)" % data)
-              c.execute("insert into name_index_records (name_index_id, url, local_id, global_id, kingdom_id, rank) values %s" % ",".join(records)) 
+                  #pp.pprint(data)
+                  records.append("(%(name_index_id)s, %(hash)s, %(source)s, %(identifier)s, %(GlobalUniqueIdentifier)s, %(Kingdom)s, %(Rank)s, now(), now())" % data)
+              c.execute("insert into name_index_records (name_index_id, record_hash, url, local_id, global_id, kingdom_id, rank, created_at, updated_at) values %s" % ",".join(records)) 
 
   def db_store_statistics(self): #{{{2
     #c.execute("delete from import_details where created_at 
@@ -256,14 +257,14 @@ class Importer: #{{{1
               data_keys.sort()
               data_array = map(lambda x: d[x], data_keys)
               normalized_data = cjson.encode(data_array).replace(' ','')
-              print normalized_data
+              #print normalized_data
               normalized_data = sha.new(normalized_data).hexdigest()
-              print normalized_data
+              #print normalized_data
               d['hash'] = normalized_data
               hashes.append(normalized_data)
           hashes.sort()
           record_hashes = sha.new(''.join(hashes)).hexdigest()
-          print record_hashes
+          #:print record_hashes
           imp[key]['hash']= record_hashes
 
   def _import_stats(self, data, name): #{{{2

@@ -1,9 +1,9 @@
 class DataSourceContributorsController < ApplicationController
-  # GET /data_source_contributors
-  # GET /data_source_contributors.xml
+  # GET /users/2/data_source_contributors
+  # GET /users/2/data_source_contributors.xml
   def index
-    @data_source_contributors = DataSourceContributor.find(:all)
-
+    @contributor = User.find(params[:user_id])
+    @data_source_contributors = @contributor.data_source_contributors
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @data_source_contributors }

@@ -11,7 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.forgotten_password '/forgotten_password', :controller => 'users', :action => 'forgotten_password'
 
-  map.resources :users
+  map.resources :users, :has_many => [:data_source_contributors]
 
   map.resource :session
 
