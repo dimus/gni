@@ -12,9 +12,16 @@ class NameIndexRecordsController < ApplicationController
       @name_index_records = NameIndexRecord.paginate_all(:page => page, :per_page => per_page)
     end
 
+    result = {}
+    result[:page_number] = page
+    result[:total_items] = @name_index_records.total_entries rescue nil
+    result[:total_pages] = (result[:total_items]/(per_page.to_f)).ceil rescue 0
+    result[:per_page] = per_page
+
+
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @name_index_records }
+      format.xml  { render :text => GNA_XML.to_tcs(@name_index_records, result) }
     end
   end
 

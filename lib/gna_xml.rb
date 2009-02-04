@@ -63,7 +63,7 @@ module GNA_XML
     data
   end
 
-  def self.to_tcs(name_index_records, data_provider)
+  def self.to_tcs(name_index_records, other_data = nil)
     tcs = '<?xml version="1.0" encoding="utf-8"?>
 <DataSet
   xmlns="http://gnapartnership.org/schemas/tcs/1.01"
@@ -72,8 +72,14 @@ module GNA_XML
   xmlns:dc="http://purl.org/dc/elements/1.1/"
   xmlns:gn="http://gnapartnership.org/schemas/0_1"
   xsi:schemaLocation="http://gnapartnership.org/schemas/tcs/1.01 http://gnapartnership.org/gna_tcs/tcs_gni_v_0_1.xsd">
-  <TaxonNames>
 '
+    if other_data
+      tcs += "<TotalItems>#{other_data[:total_items]}</TotalItems>" if other_data[:total_items]
+      tcs += "<TotalPages>#{other_data[:total_pages]}</TotalPages>" if other_data[:total_pages]
+      tcs += "<PageNumber>#{other_data[:page_number]}</PageNumber>" if other_data[:page_number]
+      tcs += "<ItemsPerPage>#{other_data[:per_page]}</ItemsPerPage>" if other_data[:per_page]
+    end
+    tcs += "  <TaxonNames>\n"
     count = 0
     name_index_records.each  do |r|
       count += 1
@@ -84,7 +90,7 @@ module GNA_XML
       tcs += "      <ProviderSpecificData>"
       tcs += "        <dc:Kingdom>#{self.xml_escape(r.kingdom.name)}</dc:Kingdom>" if r.kingdom
       tcs += "        <dc:identifier>#{r.local_id}</dc:identifier>" if r.local_id
-      tcs += "        <dwc:GlobalUniqueIdentifier>#{self.xml_escape(r.guid_id)}</dwc:GlobalUniqueIdentifier>" if r.guid_id
+      tcs += "        <dwc:GlobalUniqueIdentifier>#{self.xml_escape(r.global_id)}</dwc:GlobalUniqueIdentifier>" if r.global_id
       tcs += "      </ProviderSpecificData>"
       tcs += "    </TaxonName>"
     end
