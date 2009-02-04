@@ -6,11 +6,14 @@ class NameStringsController < ApplicationController
   def index
     page = params[:page] || 1
     per_page = params[:per_page] || 50
-    params[:name_string][:search_term] = params[:name_string][:search_term].strip.gsub(/\*/,'%') unless params[:name_string].nil? || params[:name_string][:search_term].nil?
+    params[:search_term] = params[:search_term].strip.gsub(/\*/,'%') unless params[:search_term].nil?
     if params[:commit] == 'Search Mine'
-      @name_strings = NameString.paginate_by_sql(["select n.name from name_strings n join name_indices i on (n.id = i.name_string_id) join data_source_contributors c on (i.data_source_id = c.data_source_id)  where name like ? and c.user_id = ?", params[:name_string][:search_term], current_user.id], :page => page, :per_page => per_page) || nil rescue nil
+      @name_strings = NameString.paginate_by_sql(["select n.name from name_strings n join name_indices i on (n.id = i.name_string_id) join data_source_contributors c on (i.data_source_id = c.data_source_id)  where name like ? and c.user_id = ?", params[:search_term], current_user.id], :page => page, :per_page => per_page) || nil rescue nil
+    elsif params[:data_source_id]
+      params[:search_item] ||= '%'
+      @name_strings = NameString.paginate_by_sql(["select n.name from name_strings n join name_indices i on (n.id = i.name_string_id) where name like ? and i.data_source_id = ?", params[:search_term], params[:data_source_id]], :page => page, :per_page => per_page) || nil rescue nil
     else
-      @name_strings = NameString.paginate_by_sql(["select * from name_strings where name like ?", params[:name_string][:search_term]], :page => page, :per_page => per_page) || nil rescue nil 
+      @name_strings = NameString.paginate_by_sql(["select * from name_strings where name like ?", params[:search_term]], :page => page, :per_page => per_page) || nil rescue nil 
     end
     result = {}
     result[:page_number] = page

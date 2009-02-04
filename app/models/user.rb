@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   
   has_many :data_source_contributors
   has_many :data_sources, :through => :data_source_contributors
+  #api urls
   attr_accessor :data_sources_url
 
   validates_presence_of     :login

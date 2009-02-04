@@ -7,6 +7,7 @@ class DataSource < ActiveRecord::Base
   has_many :data_source_contributors, :dependent => :destroy
   has_many :users, :through  =>  :data_source_contributors
   has_many :name_strings, :through => :name_indices
+  has_many :name_index_records, :through => :name_indices
   belongs_to :uri_type
   belongs_to :response_format
 

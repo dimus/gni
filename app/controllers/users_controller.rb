@@ -10,20 +10,20 @@ class UsersController < ApplicationController
   # GET /users.xml
   def index
     users = User.find(:all)
-    users = users.map {|u| u.data_sources_url = user_data_source_contributors_url(:user_id => u.id) + '.xml'; u}
+    users = users.map {|u| u.data_sources_url = user_data_sources_url(:user_id => u.id) + '.xml'; u}
     respond_to do |format|
       format.xml {render :xml => users.to_xml(:only => [:login,:id, :email, :first_name, :last_name], :methods => [:data_sources_url])}
-      format.json {render :json => users.to_json(:include => {:user => :include =:only => [:login,:id, :email, :first_name, :last_name], :methods => [:data_sources_url])}
+      #format.json {render :json => users.to_json(:include => {:user => :include =:only => [:login,:id, :email, :first_name, :last_name], :methods => [:data_sources_url])}
     end
   end
   
   # GET /users/1
   # GET /users/1.xml
   def show
-    @user = User.find(params[:user][:id])
+    user = User.find(params[:id])
+    user.data_sources_url = user_data_sources_url(:user_id => user.id) + '.xml'
     respond_to do |format|
-      format.xml {render :xml => @user}
-      format.json {render :json => @user}
+      format.xml {render :xml => user.to_xml(:only => [:login,:id, :email, :first_name, :last_name], :methods => [:data_sources_url])}
     end
   end
 

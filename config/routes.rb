@@ -9,9 +9,10 @@ ActionController::Routing::Routes.draw do |map|
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.register '/register', :controller => 'users', :action => 'create'
   map.signup '/signup', :controller => 'users', :action => 'new'
+  map.api '/api', :controller => 'api', :action => 'index'
   map.forgotten_password '/forgotten_password', :controller => 'users', :action => 'forgotten_password'
 
-  map.resources :users, :has_many => [:data_source_contributors]
+  map.resources :users, :has_many => [:data_source_contributors, :data_sources]
 
   map.resource :session
 
@@ -33,7 +34,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :access_types, :has_many => :access_rules
 
-  map.resources :data_sources, :has_many => [:data_providers, :access_rules, :data_source_overlaps, :name_indices]
+  map.resources :data_sources, :has_many => [:data_providers, :access_rules, :data_source_overlaps, :name_indices, :name_strings, :name_index_records]
 
   map.resources :participant_contacts
 

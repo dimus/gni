@@ -5,14 +5,14 @@
   Index of names provided by all Name Repositories
   == (#{NameString.count} names total) 
 .boxed.centered
-  - form_for(:name_string, :url => {:action => 'index'}, :html => {:method => 'get'}) do |f|
-    = f.text_field :search_term, :size => "40"
-    = f.submit 'Search'
+  - form_tag('/name_strings', :method => :get) do
+    = text_field_tag :search_term, nil, {:size => "40"}
+    = submit_tag 'Search'
     - if current_user and current_user.data_sources
-      = f.submit 'Search Mine'
+      = submit_tag 'Search Mine'
     %br/
     - %w(A B C D E F G H I J K L M N O P Q R S T U V W X Y Z).each do |char|
-      = link_to char, 'name_string[search_term]' => char + '*'
+      = link_to char, 'search_term' => char + '*'
 
 %br/
 - if @name_strings

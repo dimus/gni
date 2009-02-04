@@ -16,10 +16,9 @@ import pprint
 pp = pprint.PrettyPrinter(indent=2)
 packet_size = 5000
 
-
 class DbImporter: #{{{1
 
-  def escape_data(self,data): #{{{2
+  def escape_data(zself,data): #{{{2
     for key in data.keys():
       if data[key]:
         if type(data[key]) == type(''):
@@ -35,7 +34,6 @@ class DbImporter: #{{{1
     self.environment = environment
     self.conn = self._connect()
     self.cursor = self.conn.cursor()
-    
 
   def _connect(self):
     db_data = os.popen('erb ' + sys.path[0] + '/../../config/database.yml').read()
@@ -51,7 +49,6 @@ class DbImporter: #{{{1
         db = db_conf['database'])
         
     return conn
-
 
 class Importer: #{{{1
 

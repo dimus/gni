@@ -17,6 +17,10 @@ class DataSourcesController < ApplicationController
       #@active_schedulers = ImportScheduler.find(:all, :conditions => ["data_source_id in (?) and status != 'updated'", @data_soucres.map {|ds| ds.id}.join("'")]
     end
 
+    if params[:user_id]
+      @data_sources = User.find(params[:user_id]).data_sources
+    end
+
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @data_sources }

@@ -5,6 +5,23 @@ require 'json'
 require 'digest/sha1'
 
 module GNA_XML
+
+  def self.xml_escape(input)
+    result = input.dup.strip
+
+    result.gsub!(/[&<>'"\v]/) do | match |
+        case match
+        when '&' then '&amp;'
+        when '<' then '&lt;'
+        when '>' then '&gt;'
+        when "'" then '&apos;'
+        when '"' then '&quot;'
+        end
+    end
+    result.gsub!(/\v/, " ")
+    result.gsub(/\s{2,}/," ")
+  end
+
   #parsing metadata xml file (deprecated)
   def self.data_source_xml(data_source_url)
     ds = {}
@@ -44,6 +61,36 @@ module GNA_XML
       data[:name_index_records] << self.convert_taxon_name(taxon_names, data_source.id)
     end
     data
+  end
+
+  def self.to_tcs(name_index_records, data_provider)
+    tcs = '<?xml version="1.0" encoding="utf-8"?>
+<DataSet
+  xmlns="http://gnapartnership.org/schemas/tcs/1.01"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:dwc="http://rs.tdwg.org/dwc/dwcore/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:gn="http://gnapartnership.org/schemas/0_1"
+  xsi:schemaLocation="http://gnapartnership.org/schemas/tcs/1.01 http://gnapartnership.org/gna_tcs/tcs_gni_v_0_1.xsd">
+  <TaxonNames>
+'
+    count = 0
+    name_index_records.each  do |r|
+      count += 1
+      tcs += "    <TaxonName id=\"#{count}\">"
+      #name normally is not part of the system
+      tcs += "      <Simple>#{self.xml_escape(r.name)}</Simple>"
+      tcs += "      <Rank>#{self.xml_escape(r.rank)}</Rank>" if r.rank
+      tcs += "      <ProviderSpecificData>"
+      tcs += "        <dc:Kingdom>#{self.xml_escape(r.kingdom.name)}</dc:Kingdom>" if r.kingdom
+      tcs += "        <dc:identifier>#{r.local_id}</dc:identifier>" if r.local_id
+      tcs += "        <dwc:GlobalUniqueIdentifier>#{self.xml_escape(r.guid_id)}</dwc:GlobalUniqueIdentifier>" if r.guid_id
+      tcs += "      </ProviderSpecificData>"
+      tcs += "    </TaxonName>"
+    end
+    tcs += '
+  </TaxonNames>
+</DataSet>'
   end
 
 protected
