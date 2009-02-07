@@ -19,3 +19,7 @@ tmp/sockets/*
 tmp/war
 lib/name_parser/names.txt
 lib/name_parser/unparsed.txt
+config/deploy.rb
+config/deploy
+vendor/gna_deploy
+
