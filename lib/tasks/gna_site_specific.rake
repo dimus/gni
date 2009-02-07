@@ -7,7 +7,7 @@ namespace :gna do
       puts "Checking out files from repository..."
       FileUtils::rm_rf site_dir if FileTest.exists? site_dir
       sh "git clone  #{ENV['repo']} #{site_dir}"
-      sh "rm -rf #{site_dir}/.git"
+      #sh "rm -rf #{site_dir}/.git"
     else
       puts <<HELP_MSG
 
