@@ -1,1 +1,0 @@
-/Users/dimus/code/gna-ror/vendor/gna_deploy/config/environment_gna.rb
