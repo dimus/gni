@@ -65,6 +65,6 @@ Rails::Initializer.run do |config|
   
 
 end  
-
+#version info is substituted by deployment tag
 APP_VERSION = "0.1"
 SCHEMA_VERSION = "0.1"
