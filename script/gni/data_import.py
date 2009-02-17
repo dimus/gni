@@ -10,7 +10,7 @@ import sha
 import time
 from optparse import OptionParser
 
-import cProfile
+#import cProfile
     
 import pprint
 pp = pprint.PrettyPrinter(indent=2)
@@ -349,5 +349,5 @@ if __name__ == '__main__': #script part {{{1
         i.db_insert()
         i.db_update()
         print i.db_store_statistics()
-    i.find_overlaps()
+    #i.find_overlaps()
     i.db_commit()
