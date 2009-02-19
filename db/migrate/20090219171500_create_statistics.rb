@@ -1,8 +1,8 @@
 class CreateStatistics < ActiveRecord::Migration
   def self.up
     create_table :statistics do |t|
-      t.string :key
-      t.string :value
+      t.string :stat_key
+      t.string :stat_value
 
       t.timestamps
     end
