@@ -156,14 +156,14 @@ textarea {
   float: left;
   border-right: 3px solid #cbe4c3;
   z-index: +1; }
+  #name_column_left.empty {
+    border-right: 0px; }
 
 #name_column_right {
   float: left;
   width: 40em;
   text_align: left;
   padding: 1em; }
-
-
 
 .boxed {
   border: 1px solid #a9c2a1;

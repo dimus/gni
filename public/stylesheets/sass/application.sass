@@ -193,18 +193,15 @@ textarea
   :float left
   :border-right = 3px solid !_light_green
   :z-index +1
+  &.empty
+    :border-right = 0px
+    
 
 #name_column_right
   :float left
   :width = 40em
   :text_align left
   :padding 1em
-
-.name_column_right_inactive
-  //:border-top = 3px solid !_light_green
-
-.name_column_right_active
-  //:border-top = 3px solid !_light_green
 
 .boxed
   :border = 1px solid (!_light_green - #222)

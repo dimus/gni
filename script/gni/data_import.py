@@ -77,10 +77,10 @@ class Importer: #{{{1
         if ret != 0:
             raise RuntimeError("%s : failed to parse" % (filename))
 
-    def process(self):
+    def process(self): #{{{2
         pass
 
-    def migrate_data(self):
+    def migrate_data(self): #{{{2
         c = self.db.cursor
         c.execute('delete ni, nir from name_indices ni join name_index_records nir on (ni.id=nir.name_index_id) where ni.data_source_id = %s' % self.data_source_id)
         
@@ -94,7 +94,7 @@ class Importer: #{{{1
     def db_commit(self): #{{{2
         self.db.conn.commit()
     
-    def db_clean_imports(self):
+    def db_clean_imports(self): #{{{2
         c = self.db.cursor
         c.execute("truncate import_name_index_records")
         self.db_commit()

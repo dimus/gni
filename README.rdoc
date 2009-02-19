@@ -1,0 +1,8 @@
+= Global Name Architecture
+
+== MySQL settings
+
+[mysqld]
+max_allowed_packet = 256M
+innodb_buffer_pool_size=256M
+

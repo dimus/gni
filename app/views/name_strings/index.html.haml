@@ -17,11 +17,11 @@
 %br/
 - if @name_strings
   #data_layout 
-    #name_column_left 
+    #name_column_left{:class=> (@name_strings.size == 0 ? 'empty' : '')}
       = will_paginate @name_strings 
       - for name_string in @name_strings
         .name_string{:name_string_id => name_string.id}= h name_string.name
       %br/
       = will_paginate @name_strings
-    #name_column_right.name_column_right_inactive
+    #name_column_right
   #data_clear_layout    
