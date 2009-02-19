@@ -1,9 +1,5 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  names_strings_number: 1
-  data_sources_number: 1
-
-two:
-  names_strings_number: 1
-  data_sources_number: 1
+  stat_key: name_strings_count
+  stat_value: "12342"
