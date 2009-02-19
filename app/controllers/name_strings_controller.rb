@@ -6,6 +6,7 @@ class NameStringsController < ApplicationController
   def index
     page = params[:page] || 1
     per_page = params[:per_page] || 50
+    @names_total = Statistic.name_strings_count
     if params[:search_term]
       params[:search_term] = params[:search_term].strip.gsub(/\*/,'%')
       if params[:commit] == 'Search Mine'

@@ -3,7 +3,7 @@
   
 .help_info
   Index of names provided by all Name Repositories
-  == (#{NameString.count} names total) 
+  == (#{@names_total} names total) 
 .boxed.centered
   - form_tag('/name_strings', :method => :get) do
     = text_field_tag :search_term, nil, {:size => "40"}
