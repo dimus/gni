@@ -76,6 +76,8 @@ class Importer: #{{{1
             ret = self.reader.Read()
         if ret != 0:
             raise RuntimeError("%s : failed to parse" % (filename))
+        #add the rest of the 'tail' data 
+        self._insert()
 
     def process(self): #{{{2
         pass
@@ -155,9 +157,9 @@ class Importer: #{{{1
         records = []
         insert_query = "insert into import_name_index_records (data_source_id, kingdom_id, name_string, name_string_id, rank, local_id, global_id, url, created_at, updated_at) values %s"
         for i in self.imported_data:
+            i['name_string_id'] = self._name_lookup(i['Simple'])
             data = self.db.escape_data(i)
             try:
-                data['name_string_id'] = self._name_lookup(data['Simple'])
                 records.append("(%(data_source_id)s, %(Kingdom)s, %(Simple)s, %(name_string_id)s, %(Rank)s, %(identifier)s, %(GlobalUniqueIdentifier)s, %(source)s, now(), now())" % data)
             except Exception, e:
                 print data.keys()
