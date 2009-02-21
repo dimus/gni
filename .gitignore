@@ -22,6 +22,6 @@ lib/name_parser/names.txt
 lib/name_parser/unparsed.txt
 config/deploy.rb
 config/deploy
-config/environment_gna.rb
+*_gna_site.rb
 vendor/gna_deploy
 

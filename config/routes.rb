@@ -28,7 +28,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :name_strings, :has_many => [:data_sources]
   
-  map.root :controller => 'data_sources'
+  map.root :controller => 'name_strings'
   
   map.resources :access_rules
 
