@@ -6,9 +6,11 @@ class NameStringsController < ApplicationController
   def index
     page = params[:page] || 1
     per_page = params[:per_page] || 50
+    search_term = params[:search_term].strip.gsub(/\*/,'%') rescue nil
+    @char_triples = nil
     @names_total = Statistic.name_strings_count
-    if params[:search_term]
-      params[:search_term] = params[:search_term].strip.gsub(/\*/,'%')
+    search_term_errors = validate_search_term(search_term)
+    if search_term && search_term_errors.blank?
       if params[:commit] == 'Search Mine'
         @name_strings = NameString.paginate_by_sql(["select n.name from name_strings n join name_indices i on (n.id = i.name_string_id) join data_source_contributors c on (i.data_source_id = c.data_source_id)  where name like ? and c.user_id = ? order by n.name", params[:search_term], current_user.id], :page => page, :per_page => per_page) || nil rescue nil
       elsif params[:data_source_id]
@@ -19,6 +21,10 @@ class NameStringsController < ApplicationController
       end
     else
       @name_strings = NameString.paginate_by_sql("select * from name_strings where 1=2", :page => page, :per_page => per_page) || nil rescue nil 
+      flash[:error]=search_term_errors
+    end    
+    if params[:expand] && NameString::LATIN_CHARS.include?(params[:expand].strip)
+      @char_triples = NameString.char_triples(params[:expand].strip)
     end
     result = {}
     result[:page_number] = page
@@ -28,9 +34,9 @@ class NameStringsController < ApplicationController
     result[:data] = @name_strings
     
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml {render :xml => result}
-      format.json {render :json => result}
+        format.html # index.html.erb
+        format.xml {render :xml => result}
+        format.json {render :json => result}
     end
   end
 
@@ -45,6 +51,16 @@ class NameStringsController < ApplicationController
       format.xml {render :xml => data}
       format.json {render :json => data}
     end
+  end
+
+protected
+
+  def validate_search_term(search_term)
+    errors = []
+    if search_term
+      errors << 'Search term with whild characters (* or %) should have at leat 3 letters' if (search_term.include?('%') && search_term.size < 4)
+    end
+    errors
   end
   
 end
