@@ -21,7 +21,12 @@
     - @char_triples.each do |a|
       %td
         - a.each do |c|
-          = link_to c + "<br />", 'search_term' => c + "*"
+          - does_exist = NameString.find_by_sql(['select 1 from name_strings where name like ? limit 1', c + '%'])
+          - unless does_exist.blank?
+            = link_to c + "<br />", 'search_term' => c + "*"
+          - else
+            %span{:style => 'color:#ddd'}= c
+            %br
 - else
   - if @name_strings
     #data_layout 
