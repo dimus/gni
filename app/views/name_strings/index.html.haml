@@ -22,7 +22,7 @@
       %td
         - a.each do |c|
           = link_to c + "<br />", 'search_term' => c + "*"
--else
+- else
   - if @name_strings
     #data_layout 
       #name_column_left{:class=> (@name_strings.size == 0 ? 'empty' : '')}
