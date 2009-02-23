@@ -8,7 +8,7 @@ class CreateNameIndices < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :name_indices, [:data_source_id, :name_string_id], :name => "idx_name_indices_1", :unique => false
+    add_index :name_indices, [:data_source_id, :name_string_id], :name => "idx_name_indices_1", :unique => true
   end
 
   def self.down

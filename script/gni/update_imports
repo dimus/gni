@@ -61,29 +61,37 @@ class Updater: #{{{1
 
     def _process_data(self): #{{{2
         try:
-            i = di.Importer(self.data_url, self.data_source_id, self.environment)
             self._change_status(PROCESSING, "Parsing XML from %s" % self.data_url)
-            for ii in i.parse():
-              self._change_status(PROCESSING, ii)
-            self._change_status(PROCESSING, "Processing data.")
-            i.process
-            i.migrate_data
-            #i.get_deleted()
-            #i.get_inserted()
-            #i.get_changed()
+            for status in di.run_imports(self.data_url, self.data_source_id, self.environment):
+                self._change_status(PROCESSING, status)
+            
             statistics = "No changes"
-            #if (i.deleted or i.inserted or i.changed):
-            #    self._change_status(PROCESSING, "Deleting removed records.")
-            #    i.db_delete()
-            #    self._change_status(PROCESSING, "Inserting new records.")
-            #    i.db_insert()
-            #    self._change_status(PROCESSING, "Updating records.")
-            #    i.db_update()
-            #    statistics = i.db_store_statistics()
-            #    self._change_status(PROCESSING, statistics)
-            #i.find_overlaps()
-            i.db_commit()
             self._change_status(UPDATED, "Successfull update: %s" % statistics)
+            
+            
+            # i = di.Importer(self.data_url, self.data_source_id, self.environment)
+            # self._change_status(PROCESSING, "Parsing XML from %s" % self.data_url)
+            # for ii in i.parse():
+            #   self._change_status(PROCESSING, ii)
+            # self._change_status(PROCESSING, "Processing data.")
+            # i.process
+            # i.migrate_data
+            # #i.get_deleted()
+            # #i.get_inserted()
+            # #i.get_changed()
+            # statistics = "No changes"
+            # #if (i.deleted or i.inserted or i.changed):
+            # #    self._change_status(PROCESSING, "Deleting removed records.")
+            # #    i.db_delete()
+            # #    self._change_status(PROCESSING, "Inserting new records.")
+            # #    i.db_insert()
+            # #    self._change_status(PROCESSING, "Updating records.")
+            # #    i.db_update()
+            # #    statistics = i.db_store_statistics()
+            # #    self._change_status(PROCESSING, statistics)
+            # #i.find_overlaps()
+            # i.db_commit()
+            # self._change_status(UPDATED, "Successfull update: %s" % statistics)
 
         except Exception, e:
             self._change_status(FAILED, e.message)

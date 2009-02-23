@@ -17,6 +17,28 @@ pp = pprint.PrettyPrinter(indent=2)
 packet_size = 5000
 commit_size = 10000
 
+def run_imports(source,source_id,environment): 
+    
+    i = Importer(source, source_id, environment)
+    #cProfile.run('i.parse()')
+    i.db_clean_imports()
+    for ii in i.parse():
+        yield ii
+    print "data entered for processing"
+    
+    print "Processing"
+    i.process()
+    
+    print "Migrating"
+    i.migrate_data()
+    
+    print "Finding overlaps"
+    i.find_overlaps()
+    
+    print "Committing"
+    i.db_commit()
+
+
 class DbImporter: #{{{1
 
     def escape_data(self,data): #{{{2
@@ -87,10 +109,10 @@ class Importer: #{{{1
         c.execute('delete ni, nir from name_indices ni join name_index_records nir on (ni.id=nir.name_index_id) where ni.data_source_id = %s' % self.data_source_id)
         
         print "second query";
-        c.execute('insert into name_indices (name_string_id, data_source_id, created_at, updated_at) (select name_string_id, data_source_id, now(), now() from import_name_index_records)')
+        c.execute('insert IGNORE into name_indices (name_string_id, data_source_id, created_at, updated_at) (select name_string_id, data_source_id, now(), now() from import_name_index_records)')
         
         print "third query";
-        c.execute('insert into name_index_records (name_index_id, kingdom_id, rank, local_id, global_id, url, created_at, updated_at) (select ni.id, inir.kingdom_id, inir.rank, inir.local_id, inir.global_id, inir.url, now(), now() from import_name_index_records inir join name_indices ni on (inir.name_string_id = ni.name_string_id) where ni.data_source_id = %s )' % self.data_source_id)
+        c.execute('insert IGNORE into name_index_records (name_index_id, kingdom_id, rank, local_id, global_id, url, created_at, updated_at) (select ni.id, inir.kingdom_id, inir.rank, inir.local_id, inir.global_id, inir.url, now(), now() from import_name_index_records inir join name_indices ni on (inir.name_string_id = ni.name_string_id) where ni.data_source_id = %s )' % self.data_source_id)
     
     def find_overlaps(self):  #{{{2
         c = self.db.cursor
@@ -99,7 +121,7 @@ class Importer: #{{{1
         data_sources = map(lambda x: x[0], c.fetchall())
         data_sources.sort
         for i in data_sources:
-            c.execute("SELECT COUNT(distinct nir_from.id) as overlap FROM (name_indices ni_from JOIN name_index_records nir_from ON (ni_from.id = nir_from.name_index_id)) JOIN (name_indices ni_to JOIN name_index_records nir_to ON (ni_to.id = nir_to.name_index_id)) ON (ni_from.name_string_id = ni_to.name_string_id) WHERE ni_from.data_source_id = %s AND ni_to.data_source_id = %s", (self.data_source_id, i))
+            c.execute("SELECT COUNT(distinct ni_from.name_string_id) as overlap FROM name_indices ni_from JOIN name_indices ni_to ON (ni_from.name_string_id = ni_to.name_string_id) WHERE ni_from.data_source_id = %s AND ni_to.data_source_id = %s", (self.data_source_id, i))
             overlap = c.fetchone()[0]
             c.execute("insert into data_source_overlaps (data_source_id_1, data_source_id_2, strict_overlap, created_at, updated_at) values (%s, %s, %s, now(), now())", (self.data_source_id, i, overlap))
             c.execute("insert into data_source_overlaps (data_source_id_1, data_source_id_2, strict_overlap, created_at, updated_at) values (%s, %s, %s, now(), now())", (i, self.data_source_id, overlap))
@@ -325,21 +347,6 @@ if __name__ == '__main__': #script part {{{1
     if not (options.source and options.source_id and type(int(options.source_id)) == type(1)):
         raise Exception("source file/url and source id are required")
     
-    i = Importer(options.source, options.source_id, options.environment)
-    #cProfile.run('i.parse()')
-    i.db_clean_imports()
-    for ii in i.parse():
-        print ii
-    print "data entered for processing"
+    for status in run_imports(options.source, options.source_id, options.environment):
+        print status
     
-    print "Processing"
-    i.process()
-    
-    print "Finding overlaps"
-    i.find_overlaps()
-    
-    print "Migrating"
-    i.migrate_data()
-    
-    print "Committing"
-    i.db_commit()

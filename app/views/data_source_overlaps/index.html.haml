@@ -11,8 +11,7 @@
     %th.top Overlap %
 
   - for overlap in @data_source_overlaps
-    - overlap_data_source_id = overlap.data_source_id_1 == @data_source.id ? overlap.data_source_id_2 : overlap.data_source_id_1
-    - other_data_source = DataSource.find(overlap_data_source_id)
+    - other_data_source = DataSource.find(overlap.data_source_id_2)
     %tr
       %td= other_data_source.title
       %td= other_data_source.name_indices.size
