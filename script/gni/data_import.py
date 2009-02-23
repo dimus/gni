@@ -91,8 +91,19 @@ class Importer: #{{{1
         
         print "third query";
         c.execute('insert into name_index_records (name_index_id, kingdom_id, rank, local_id, global_id, url, created_at, updated_at) (select ni.id, inir.kingdom_id, inir.rank, inir.local_id, inir.global_id, inir.url, now(), now() from import_name_index_records inir join name_indices ni on (inir.name_string_id = ni.name_string_id) where ni.data_source_id = %s )' % self.data_source_id)
-        
-
+    
+    def find_overlaps(self):  #{{{2
+        c = self.db.cursor
+        c.execute("delete from data_source_overlaps where data_source_id_1 = %s or data_source_id_2 = %s", (self.data_source_id, self.data_source_id))
+        c.execute("select id from data_sources where id != %s", self.data_source_id)
+        data_sources = map(lambda x: x[0], c.fetchall())
+        data_sources.sort
+        for i in data_sources:
+            c.execute("SELECT COUNT(distinct nir_from.id) as overlap FROM (name_indices ni_from JOIN name_index_records nir_from ON (ni_from.id = nir_from.name_index_id)) JOIN (name_indices ni_to JOIN name_index_records nir_to ON (ni_to.id = nir_to.name_index_id)) ON (ni_from.name_string_id = ni_to.name_string_id) WHERE ni_from.data_source_id = %s AND ni_to.data_source_id = %s", (self.data_source_id, i))
+            overlap = c.fetchone()[0]
+            c.execute("insert into data_source_overlaps (data_source_id_1, data_source_id_2, strict_overlap, created_at, updated_at) values (%s, %s, %s, now(), now())", (self.data_source_id, i, overlap))
+            c.execute("insert into data_source_overlaps (data_source_id_1, data_source_id_2, strict_overlap, created_at, updated_at) values (%s, %s, %s, now(), now())", (i, self.data_source_id, overlap))
+    
     def db_commit(self): #{{{2
         self.db.conn.commit()
     
@@ -174,7 +185,7 @@ class Importer: #{{{1
         #print(':mysql: name_index_records inserts are done')
         self.db_commit()
         self.imported_data = []
-        
+    
     
     # def _db_insert(self): #{{{2
     #     c = self.db.cursor
@@ -302,32 +313,33 @@ if __name__ == '__main__': #script part {{{1
     opts = OptionParser()
     opts.add_option("-e", "--environment", dest="environment", default="development",
         help="Specifies the environment of the system (development|test|producton).")
-
+    
     opts.add_option("-s", "--source", dest="source",
         help="Specifies url/filename which contains data for harvesting.")
-
+    
     opts.add_option("-i", "--source-id", dest="source_id",
         help="Identifier of the data_source in GNA database.")
-
+    
     (options, args) = opts.parse_args()
-
+    
     if not (options.source and options.source_id and type(int(options.source_id)) == type(1)):
         raise Exception("source file/url and source id are required")
-
+    
     i = Importer(options.source, options.source_id, options.environment)
-#cProfile.run('i.parse()')
+    #cProfile.run('i.parse()')
     i.db_clean_imports()
     for ii in i.parse():
         print ii
     print "data entered for processing"
-    #pp.pprint(i.imported_data)
-    #sys.exit()
+    
+    print "Processing"
     i.process()
-    # if (i.deleted or i.inserted or i.changed):
-    #     print i.db_store_statistics()
-    # else:
-    #     print "data is unchanged"
-    #i.find_overlaps()
+    
+    print "Finding overlaps"
+    i.find_overlaps()
+    
+    print "Migrating"
     i.migrate_data()
-    #i.db_clean_imports()
+    
+    print "Committing"
     i.db_commit()
