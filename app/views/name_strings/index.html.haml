@@ -1,5 +1,5 @@
 %h1
-  Index of Scientific Names
+  Index of Scientific Namesdsfdasf
   
 .help_info
   Index of names provided by all Name Repositories
@@ -28,7 +28,7 @@
             %span{:style => 'color:#ddd'}= c
             %br
 - else
-  - if @name_strings
+  - if !@name_strings.blank?
     #data_layout 
       #name_column_left{:class=> (@name_strings.size == 0 ? 'empty' : '')}
         = will_paginate @name_strings 
@@ -37,4 +37,8 @@
         %br/
         = will_paginate @name_strings
       #name_column_right
-    #data_clear_layout    
+    #data_clear_layout
+  - elsif !@empty_search_help.blank?
+    .info-div{:style=>'align:center'}
+      - @empty_search_help.each do |line|
+        %p= line
