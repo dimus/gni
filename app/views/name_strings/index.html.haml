@@ -1,5 +1,5 @@
 %h1
-  Index of Scientific Namesdsfdasf
+  Index of Scientific Names
   
 .help_info
   Index of names provided by all Name Repositories
@@ -21,7 +21,7 @@
     - @char_triples.each do |a|
       %td
         - a.each do |c|
-          - does_exist = NameString.find_by_sql(['select 1 from name_strings where name like ? limit 1', c + '%'])
+          - does_exist = NameString.find_by_sql(['select 1 from name_strings where normalized_name like ? limit 1', c + '%'])
           - unless does_exist.blank?
             = link_to c + "<br />", 'search_term' => c + "*"
           - else

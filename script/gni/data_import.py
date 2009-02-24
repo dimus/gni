@@ -9,13 +9,17 @@ import cjson
 import sha
 import time
 from optparse import OptionParser
-
+import re
 #import cProfile
     
 import pprint
 pp = pprint.PrettyPrinter(indent=2)
 packet_size = 5000
-commit_size = 10000
+commit_size = 50000
+del_chars=re.compile('[.;,]')
+space_char = re.compile('([-\(\)\[\]\{\}:&?\*])')
+x_char = re.compile('\s+[xX]\s+')
+mult_spaces = re.compile('\s{2,}')
 
 def run_imports(source,source_id,environment): 
     
@@ -38,6 +42,12 @@ def run_imports(source,source_id,environment):
     print "Committing"
     i.db_commit()
 
+def normalize_name_string(name_string):
+    name_string = name_string.lower()
+    name_string = del_chars.sub(' ', name_string)
+    name_string = space_char.sub(r' \1 ', name_string)
+    name_string = mult_spaces.sub(' ', name_string)
+    return name_string.strip()
 
 class DbImporter: #{{{1
 
@@ -177,10 +187,11 @@ class Importer: #{{{1
         return {'data_source_id': self.data_source_id}
         
     def _name_lookup(self, name_string): #{{{2
-        self.db.cursor.execute("select id from name_strings where name = %s", name_string)
+        normalized_name_string = normalize_name_string(name_string)
+        self.db.cursor.execute("select id from name_strings where normalized_name = %s", normalized_name_string)
         name_string_id = self.db.cursor.fetchone()
         if not name_string_id:
-            self.db.cursor.execute("insert into name_strings (name, created_at, updated_at) values (%s, now(), now())", name_string)
+            self.db.cursor.execute("insert into name_strings (name, normalized_name, created_at, updated_at) values (%s, %s, now(), now())", (name_string, normalized_name_string))
             self.db.cursor.execute("select last_insert_id()")
             name_string_id = self.db.cursor.fetchone()
         return (name_string_id[0])

@@ -6,6 +6,15 @@ class NameString < ActiveRecord::Base
   
   LATIN_CHARS = ('A'..'Z')
   
+  def self.normalize_name_string(n_string)
+    del_chars = /[.;,]/
+    space_char = /([-\(\)\[\]\{\}:&?\*])/
+    mult_spaces = /\s{2,}/
+    n_string = n_string.gsub(del_chars,' ')
+    n_string = n_string.gsub(space_char,' \1 ')
+    n_string.gsub(mult_spaces, ' ').strip
+  end
+  
   def self.char_triples(latin_char)
     triples = []
     LATIN_CHARS.each do |c1|

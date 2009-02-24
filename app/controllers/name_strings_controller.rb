@@ -6,19 +6,21 @@ class NameStringsController < ApplicationController
   def index
     page = params[:page] || 1
     per_page = params[:per_page] || 50
-    search_term = params[:search_term].strip.gsub(/\*/,'%') rescue nil
+    search_term = params[:search_term].strip.gsub(/\*\s*$/,'%') rescue nil
+    search_term = NameString.normalize_name_string(search_term) if search_term
     @char_triples = nil
     @names_total = Statistic.name_strings_count
     search_term_errors = validate_search_term(search_term)
     is_valid_search = search_term && search_term_errors.blank?
     if is_valid_search
+      search_term = NameString.normalize_name_string(search_term)
       if params[:commit] == 'Search Mine'
-        @name_strings = NameString.paginate_by_sql(["select n.name from name_strings n join name_indices i on (n.id = i.name_string_id) join data_source_contributors c on (i.data_source_id = c.data_source_id)  where name like ? and c.user_id = ? order by n.name", search_term, current_user.id], :page => page, :per_page => per_page) || nil rescue nil
+        @name_strings = NameString.paginate_by_sql(["select n.name from name_strings n join name_indices i on (n.id = i.name_string_id) join data_source_contributors c on (i.data_source_id = c.data_source_id)  where normalized_name like ? and c.user_id = ? order by n.normalized_name", search_term, current_user.id], :page => page, :per_page => per_page) || nil rescue nil
       elsif params[:data_source_id]
         search_term ||= '%'
-        @name_strings = NameString.paginate_by_sql(["select n.* from name_strings n join name_indices i on (n.id = i.name_string_id) where name like ? and i.data_source_id = ? order by n.name", search_term, params[:data_source_id]], :page => page, :per_page => per_page) || nil rescue nil
+        @name_strings = NameString.paginate_by_sql(["select n.* from name_strings n join name_indices i on (n.id = i.name_string_id) where normalized_name like ? and i.data_source_id = ? order by n.normalized_name", search_term, params[:data_source_id]], :page => page, :per_page => per_page) || nil rescue nil
       else
-        @name_strings = NameString.paginate_by_sql(["select * from name_strings where name like ? order by name", search_term], :page => page, :per_page => per_page) || nil rescue nil 
+        @name_strings = NameString.paginate_by_sql(["select * from name_strings where normalized_name like ? order by normalized_name", search_term], :page => page, :per_page => per_page) || nil rescue nil 
       end
     else
       @name_strings = NameString.paginate_by_sql("select * from name_strings where 1=2", :page => page, :per_page => per_page) || nil rescue nil 
