@@ -136,14 +136,6 @@ textarea {
     height: 3em; }
 
 /* Divs */
-#ajax_spinner {
-  padding: 0;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  text-align: left;
-  background-color: #ffff00; }
-
 
 
 .name_string {
@@ -199,6 +191,20 @@ textarea {
   padding: 1em;
   padding-left: 3em;
   vertical-align: middle; }
+
+#ajax_spinner {
+  background-image: url(/images/public/spinner_black.gif);
+  background-position: left center;
+  background-repeat: no-repeat;
+  padding: 0.4em;
+  padding-left: 3em;
+  padding-right: 0.5em;
+  position: absolute;
+  width: 100px;
+  top: 0;
+  left: 50%;
+  margin-left: -70px;
+  background-color: #fcff83; }
 
 .centered {
   text-align: center;

@@ -8,7 +8,7 @@
 !_red = #600
 !_light_red = #e99
 !_brown = #742
-!_yellow = yellow
+!_yellow = #fcff83
 !_light_brown = #efd7b5
 !_font_family = "Helvetica, Arial, san-serif"
 
@@ -174,13 +174,6 @@ textarea
 
 /* Divs
 
-#ajax_spinner
-  :padding 0
-  :position absolute
-  :top 0
-  :left 50%
-  :text-align left
-  :background-color = !_yellow
   
 
 #import_in_progress
@@ -242,6 +235,20 @@ textarea
   :padding-left 3em
   :vertical-align middle
   //:border = 1px solid !_grey
+
+#ajax_spinner
+  :background-image url(/images/public/spinner_black.gif)
+  :background-position left center
+  :background-repeat no-repeat
+  :padding 0.4em
+  :padding-left 3em
+  :padding-right 0.5em
+  :position absolute
+  :width 100px
+  :top 0
+  :left 50%
+  :margin-left -70px
+  :background-color = !_yellow
 
 .centered
   :text-align center
