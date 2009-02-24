@@ -10,7 +10,8 @@ class NameStringsController < ApplicationController
     @char_triples = nil
     @names_total = Statistic.name_strings_count
     search_term_errors = validate_search_term(search_term)
-    if search_term && search_term_errors.blank?
+    is_valid_search = search_term && search_term_errors.blank?
+    if is_valid_search
       if params[:commit] == 'Search Mine'
         @name_strings = NameString.paginate_by_sql(["select n.name from name_strings n join name_indices i on (n.id = i.name_string_id) join data_source_contributors c on (i.data_source_id = c.data_source_id)  where name like ? and c.user_id = ? order by n.name", search_term, current_user.id], :page => page, :per_page => per_page) || nil rescue nil
       elsif params[:data_source_id]
@@ -23,9 +24,13 @@ class NameStringsController < ApplicationController
       @name_strings = NameString.paginate_by_sql("select * from name_strings where 1=2", :page => page, :per_page => per_page) || nil rescue nil 
       flash[:error]=search_term_errors
     end    
+    
     if params[:expand] && NameString::LATIN_CHARS.include?(params[:expand].strip)
       @char_triples = NameString.char_triples(params[:expand].strip)
     end
+    
+    @empty_search_help = (is_valid_search && @name_strings.blank?) ? ["Your search '#{params[:search_term]}' did not return any records.", "Please use a wildcard character '*' if you are not searching for an exact string. Wildcard searches should include at least 3 latin letters.","Search examples:", 'Plantago major', 'Plantago major*', 'plantago*', 'pla*'] : []
+    
     result = {}
     result[:page_number] = page
     result[:name_strings_total] = @name_strings.total_entries rescue nil

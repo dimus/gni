@@ -8,7 +8,10 @@
 !_red = #600
 !_light_red = #e99
 !_brown = #742
+!_yellow = #fcff83
 !_light_brown = #efd7b5
+!_font_family = "Helvetica, Arial, san-serif"
+
 
 !_page_width = 69em
 !_name_column_left_width = 25em
@@ -23,7 +26,7 @@ body
   :background-position left top
   :color black 
   :font
-    :family Arial, Helvetica, sans-serif
+    :family = !_font_family
     :size 1em
   :margin 20px 0 0 0
   :padding 0
@@ -171,6 +174,8 @@ textarea
 
 /* Divs
 
+  
+
 #import_in_progress
 
 #import_finished
@@ -230,6 +235,20 @@ textarea
   :padding-left 3em
   :vertical-align middle
   //:border = 1px solid !_grey
+
+#ajax_spinner
+  :background-image url(/images/public/spinner_black.gif)
+  :background-position left center
+  :background-repeat no-repeat
+  :padding 0.4em
+  :padding-left 3em
+  :padding-right 0.5em
+  :position absolute
+  :width 100px
+  :top 0
+  :left 50%
+  :margin-left -70px
+  :background-color = !_yellow
 
 .centered
   :text-align center
@@ -361,7 +380,7 @@ span.valid_url_message
 
 #top-menu
   :position absolute
-  :font-family "Trebuchet MS", Arial, sans-serif
+  :font-family = !_font_family
   :font-size 1em
   :font-weight bold
   :margin-top 0em
@@ -401,7 +420,7 @@ span.valid_url_message
   :clear both
 
 #tabs-container
-  :font-family "Trebuchet MS", Arial, sans-serif
+  :font-family = !_font_family
   :font-size 1.1em
   :background-image url(/images/public/developer_menutile.gif)
   :border-bottom 6px solid #FFF
@@ -460,7 +479,7 @@ span.valid_url_message
     :style solid 
     :color = !_light_green
   :font-size .9em
-  :font-family "Trebuchet MS", Arial, sans-serif
+  :font-family = !_font_family
   :padding 3px
   :font-weight bold
 
@@ -523,7 +542,7 @@ span.valid_url_message
 #logo_gna
   :text-shadow = 0.1em 0.1em 0.2em !_very_light_grey
   :color = !_green
-  :font-family Arial
+  :font-family = Helvetica
   :font-size 32px
   :margin-left 30px
   :margin-top 41px
@@ -531,7 +550,7 @@ span.valid_url_message
 
 #logo_motto
   :color black
-  :font-family Arial
+  :font-family Helvetica
   :font-size 12px
   :margin-left 30px
   :margin-top 90px
