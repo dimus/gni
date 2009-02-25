@@ -11,7 +11,7 @@
     - if current_user and current_user.data_sources
       = submit_tag 'Search Mine'
     %br/
-    - NameString::LATIN_CHARS.each do |char|
+    - NameString::LATIN_CHARACTERS.each do |char|
       = link_to char, 'expand' => char
 
 %br/

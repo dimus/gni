@@ -22,5 +22,5 @@ class DataSource < ActiveRecord::Base
   def contributor?(a_user)
     !!self.users.include?(a_user)
   end
-
+  
 end

@@ -26,10 +26,11 @@
       #import_finished
         - if @current_status == ImportScheduler::UPDATED
           %h4 Last Import Succeeded
-          %p
-            = (link_to "Inserted: #{@inserted_size}, ", data_source_import_data_source_import_details_url(@inserted, :page => 1)) rescue "Inserted: 0, "
-            = (link_to "Deleted: #{@deleted_size}, ", data_source_import_data_source_import_details_url(@deleted)) rescue  "Deleted: 0, "
-            = (link_to "Updated: #{@updated_size}", data_source_import_data_source_import_details_url(@updated)) rescue "Updated: 0"
+          /
+            %p
+              = (link_to "Inserted: #{@inserted_size}, ", data_source_import_data_source_import_details_url(@inserted, :page => 1)) rescue "Inserted: 0, "
+              = (link_to "Deleted: #{@deleted_size}, ", data_source_import_data_source_import_details_url(@deleted)) rescue  "Deleted: 0, "
+              = (link_to "Updated: #{@updated_size}", data_source_import_data_source_import_details_url(@updated)) rescue "Updated: 0"
         - else
           %h4 Last Import Failed
 
@@ -51,10 +52,11 @@
   - else
     %p
       = link_to 'Overlap with other repositories',data_source_data_source_overlaps_url(@data_source)
-    %p
-      Potential Duplicates (placeholder)
-    %p
-      = link_to 'Globally uniqe names', data_source_name_indices_url(@data_source, :search_type => NameIndex::SEARCH_UNIQUE_NAMES)
+    /
+      %p
+        Potential Duplicates (placeholder)
+      %p
+        = link_to 'Globally uniqe names', data_source_name_indices_url(@data_source, :search_type => NameIndex::SEARCH_UNIQUE_NAMES)
 
 %fieldset.subsection
   %legend Information

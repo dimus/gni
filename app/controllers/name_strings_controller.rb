@@ -5,7 +5,8 @@ class NameStringsController < ApplicationController
   # GET /name_strings.xml
   def index
     page = params[:page] || 1
-    per_page = params[:per_page] || 50
+    per_page = 50 if params[:per_page].to_i < 1 
+    per_page = PER_PAGE_MAX if per_page > PER_PAGE_MAX
     search_term = params[:search_term].strip.gsub(/\*\s*$/,'%') rescue nil
     search_term = NameString.normalize_name_string(search_term) if search_term
     @char_triples = nil
@@ -20,24 +21,24 @@ class NameStringsController < ApplicationController
         search_term ||= '%'
         @name_strings = NameString.paginate_by_sql(["select n.* from name_strings n join name_indices i on (n.id = i.name_string_id) where normalized_name like ? and i.data_source_id = ? order by n.normalized_name", search_term, params[:data_source_id]], :page => page, :per_page => per_page) || nil rescue nil
       else
-        @name_strings = NameString.paginate_by_sql(["select * from name_strings where normalized_name like ? order by normalized_name", search_term], :page => page, :per_page => per_page) || nil rescue nil 
+        @name_strings = NameString.paginate_by_sql(["select * from name_strings where normalized_name like ? order by normalized_name", search_term], :page => page, :per_page => per_page) || nil rescue nil
       end
     else
       @name_strings = NameString.paginate_by_sql("select * from name_strings where 1=2", :page => page, :per_page => per_page) || nil rescue nil 
       flash[:error]=search_term_errors
     end    
     
-    if params[:expand] && NameString::LATIN_CHARS.include?(params[:expand].strip)
+    if params[:expand] && NameString::LATIN_CHARACTERS.include?(params[:expand].strip)
       @char_triples = NameString.char_triples(params[:expand].strip)
     end
     
     @empty_search_help = (is_valid_search && @name_strings.blank?) ? ["Your search '#{params[:search_term]}' did not return any records.", "Please use a wildcard character '*' if you are not searching for an exact string. Wildcard searches should include at least 3 latin letters.","Search examples:", 'Plantago major', 'Plantago major*', 'plantago*', 'pla*'] : []
-    
     result = {}
     result[:page_number] = page
     result[:name_strings_total] = @name_strings.total_entries rescue nil
     result[:total_pages] = (result[:name_strings_total]/(per_page.to_f)).ceil rescue 0
     result[:per_page] = per_page
+    result[:next_page] = name_strings_url(:search_term => search_term, :per_page => per_page, :page => page.to_i + 1, :format=>:xml) unless result[:total_pages].to_i <= page.to_i
     result[:data] = @name_strings
     
     respond_to do |format|
