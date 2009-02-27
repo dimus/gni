@@ -43,10 +43,11 @@
                     = link_to "Logout", "/logout"
                 - else
                   %li
-                  = link_to "Sign up", "/signup"
-                  = "&nbsp;" * 2
+                    = link_to "Sign up", "/signup"
                   %li
                     = link_to "Log in", "/login"
+                %li
+                  = link_to 'Help', 'http://wiki.github.com/dimus/gni/global-names-index-help', :target => '_blank' 
           #logo_gna
             Global Names Architecture
           #logo_motto
