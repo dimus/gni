@@ -15,13 +15,13 @@ To setup testing for GNI you have to do the following:
 
 * install rspec for rails gem
 
-  sudo gem install rspec_rails
+    sudo gem install rspec_rails
 
 * Install additional gems from github
 
-  sudo gem install openrain-scenarios -s http://gems.github.com
-  sudo gem install remi-rackbox -s http://gems.github.com
-  sudo gem install remi-rspec-custom-matchers -s http://gems.github.com
+    sudo gem install openrain-scenarios -s http://gems.github.com
+    sudo gem install remi-rackbox -s http://gems.github.com
+    sudo gem install remi-rspec-custom-matchers -s http://gems.github.com
 
 
 
