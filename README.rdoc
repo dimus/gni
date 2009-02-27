@@ -2,7 +2,27 @@
 
 == MySQL settings
 
-[mysqld]
-max_allowed_packet = 256M
-innodb_buffer_pool_size=256M
+Some minimal settings for my.cnf file
+
+  [mysqld]
+  max_allowed_packet = 256M
+  innodb_buffer_pool_size=256M
+
+
+== Testing
+
+To setup testing for GNI you have to do the following:
+
+* install rspec for rails gem
+
+  sudo gem install rspec_rails
+
+* Install additional gems from github
+
+  sudo gem install openrain-scenarios -s http://gems.github.com
+  sudo gem install remi-rackbox -s http://gems.github.com
+  sudo gem install remi-rspec-custom-matchers -s http://gems.github.com
+
+
+
 

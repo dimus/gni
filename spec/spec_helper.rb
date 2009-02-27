@@ -5,6 +5,15 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'spec'
 require 'spec/rails'
 
+require File.expand_path(File.dirname(__FILE__) + "/factories")
+require File.expand_path(File.dirname(__FILE__) + "/gni_spec_helpers")
+require File.expand_path(File.dirname(__FILE__) + "/custom_matchers")
+
+require 'scenarios'
+Scenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios') ]
+
+require 'rackbox'
+
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record

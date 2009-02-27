@@ -4,6 +4,9 @@ class NameString < ActiveRecord::Base
   has_many :data_source_import_details
   has_many :data_sources, :through => :name_indices
   
+  validates_presence_of :name_string
+  validates_uniqueness_of :name_string
+
   LATIN_CHARACTERS = ('A'..'Z')
   
   def self.normalize_name_string(n_string)
