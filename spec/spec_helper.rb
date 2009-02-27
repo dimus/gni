@@ -15,6 +15,12 @@ Scenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios') ]
 require 'rackbox'
 
 Spec::Runner.configure do |config|
+  include Scenario::Spec
+  include GNI::Spec::Helpers
+
+  config.include GNI::Spec::Matchers
+  config.use_blackbox = true
+
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
   # in your config/boot.rb
