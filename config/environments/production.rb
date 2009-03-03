@@ -18,7 +18,7 @@ config.action_controller.perform_caching             = true
 # config.action_mailer.raise_delivery_errors = false
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
 begin
-  require File.join(File.dirname(__FILE__), 'production_gna_site')
+  require File.join(File.dirname(__FILE__), 'production_gni_site')
 rescue LoadError
   puts '*************WARNING: COULD NOT LOAD PRODUCTION_GINE_SITE FILE***********************'
 end
