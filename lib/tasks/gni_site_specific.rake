@@ -1,6 +1,6 @@
-desc 'Add simlinks to gna site-specific files which are not needed for open source release'
-site_dir = "#{RAILS_ROOT}/vendor/gna_deploy"
-namespace :gna do
+desc 'Add simlinks to gni site-specific files which are not needed for open source release'
+site_dir = "#{RAILS_ROOT}/vendor/gni_deploy"
+namespace :gni do
   desc 'checks out site-specific repository under vendor directory'
   task :checkout_repository do
     if ENV['repo']
@@ -14,10 +14,10 @@ namespace :gna do
 Usage: 
 
 #to create site-specific files:
-rake gna:site_specific repo=uri_to_repository
+rake gni:site_specific repo=uri_to_repository
 
 #to clean up
-rake gna:clean_site_specific
+rake gni:clean_site_specific
 
 
 HELP_MSG
