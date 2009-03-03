@@ -28,7 +28,7 @@ class NameIndicesController < ApplicationController
     #   @number_total = NameIndex.find_by_sql("select count(*) as total_count from name_indices_unique")[0].total_count
     #   @name_strings = NameString.paginate_by_sql("select ns.* from name_indices_unique ni join name_strings ns on ns.id = ni.name_string_id", :page => page)
     #   @help_info = "#{@number_total} out of total #{@data_source.name_indices.size} names "
-    end
+    # end
     
     respond_to do |format|
       format.html # index.html.erb
