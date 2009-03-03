@@ -1,1 +1,0 @@
-/Users/dimus/code/gni/vendor/gni_deploy/config/environments/production_gni_site.rb
