@@ -1,5 +1,5 @@
 /**
- * Confirm plugin 1.1
+ * Confirm plugin 1.2
  *
  * Copyright (c) 2007 Nadia Alramli (http://nadiana.com/)
  * Dual licensed under the MIT (MIT-LICENSE.txt)
@@ -10,7 +10,7 @@
  * For more docs and examples visit:
  * http://nadiana.com/jquery-confirm-plugin
  * For comments, suggestions or bug reporting,
- * email me at: jquery@nadiana.com
+ * email me at: http://nadiana.com/contact/
  */
 
 jQuery.fn.confirm = function(options) {
@@ -65,8 +65,10 @@ jQuery.fn.confirm = function(options) {
       $target.show();
       $dialog.hide();
       // Rebind the saved handlers.
-      for (i in target._handlers) {
-        $target.click(target._handlers[i]);
+      if (target._handlers != undefined) {
+        jQuery.each(target._handlers, function() {
+          $target.click(this);
+        });
       }
       // Trigger click event.
       $target.click();

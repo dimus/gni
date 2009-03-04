@@ -28,7 +28,7 @@ $(function() {
   $("div#flash").show(1500);
 
   $("#submit_import_data").confirm({
-    msg:'<span style="background-color:#cbe4c3;padding:0.3em>Import new and delete old data?</span> ',
+    msg:'Import new and delete old data? ',
     timeout:5000, 
     buttons: {
       wrapper:"<button></button>",
