@@ -40,7 +40,7 @@ Rails::Initializer.run do |config|
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
   config.action_controller.session = {
-    :session_key => '_gna-ror_session',
+    :session_key => '_gni_session',
     :secret      => '0d4586e4b250c1dd1926097a57ef3a3ef8c142ca6552c8a5704128338be295dc38617de2bd3bc3b55e57e4fa58f3be3553dbbf74b630de1a44042488a5dae927'
   }
 
@@ -72,3 +72,5 @@ end
 APP_VERSION = "0.1"
 SCHEMA_VERSION = "0.1"
 PER_PAGE_MAX = 1000
+NOREPLY_EMAIL = "noreply@example.org"
+PROGRAM_NAME = "Global Name Index"

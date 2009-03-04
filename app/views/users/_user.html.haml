@@ -1,8 +1,9 @@
 - form_for user do |f|
-  %p
-    %label{:for => "login"} Login
-    %br/
-    = f.text_field :login
+  - unless user.id
+    %p
+      %label{:for => "login"} Login
+      %br/
+      = f.text_field :login
 
   %p
     %label{:for => "email"}  Email

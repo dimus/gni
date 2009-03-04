@@ -1,5 +1,7 @@
-%h1 Edit Settings for user @user.login
+%h1 
+  Edit Settings for user 
+  = "'" + @user.login + "'"
 
 = error_messages_for :user
 
-= render :partial => 'user', :locals => { :project => @user, :button => "Save"}
+= render :partial => 'user', :locals => { :user => @user, :button => "Save"}
