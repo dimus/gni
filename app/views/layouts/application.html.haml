@@ -39,6 +39,7 @@
                     %span
                       User: 
                       = current_user[:login]
+                      = link_to "(edit)", edit_user_url(current_user[:id])
                   %li
                     = link_to "Logout", "/logout"
                 - else

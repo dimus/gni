@@ -1,0 +1,6 @@
+%h1 Sign up as a new user
+- @user.password = @user.password_confirmation = nil
+
+= error_messages_for :user
+
+= render :partial => 'user', :locals => { :project => @user, :button => "Sign Up"}

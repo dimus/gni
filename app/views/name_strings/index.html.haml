@@ -14,8 +14,8 @@
     - NameString::LATIN_CHARACTERS.each do |char|
       = link_to char, 'expand' => char
 
-%br/
 - if @char_triples
+  %h4 Browse by clicking three-letter links (grey links are empty)
   %table{:style=> 'margin:0;width:100%'}
     %tr
     - @char_triples.each do |a|

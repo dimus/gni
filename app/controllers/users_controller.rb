@@ -27,7 +27,6 @@ class UsersController < ApplicationController
     end
   end
 
- 
   # POST /users 
   # POST /users.xml
   def create
@@ -42,7 +41,7 @@ class UsersController < ApplicationController
       respond_to do |wants|
         wants.html do
           self.current_user = @user # !! now logged in
-          redirect_back_or_default('/')    
+          redirect_back_or_default(data_sources_url)    
           flash[:notice] = "Thanks for signing up!"
         end
         wants.xml { render :xml => @user.to_xml }
@@ -58,11 +57,32 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  # PUT /user/1
+  # PUT /user/1.xml
+  def update
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        flash[:notice] = "User #{@user.login} was successfully updated."
+        format.html { redirect_to data_sources_url }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
   def forgotten_password
     @user = User.new
   end
 
-  def update
+  def change_forgotten_password
     @user = User.find_by_email(params[:user][:email])
     respond_to do |format|
       if @user
