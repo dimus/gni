@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--DataSet
+  xmlns="http://www.tdwg.org/schemas/tcs/1.01"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:dwc="http://rs.tdwg.org/dwc/dwcore/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:gn="http://gnapartnership.org/schemas/0_1"
+  xsi:schemaLocation="http://www.tdwg.org/schemas/tcs/1.01 http://www.tdwg.org/standards/117/files/TCS101/v101.xsd"-->
+<DataSet
+    xmlns="http://gnapartnership.org/schemas/tcs/1.01"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:dwc="http://rs.tdwg.org/dwc/dwcore/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:gn="http://gnapartnership.org/schemas/0_1"
+    xsi:schemaLocation="http://gnapartnership.org/schemas/tcs/1.01 http://gnapartnership.org/gna_tcs/tcs_gni_v_0_1.xsd">
+  <MetaData>
+    <Simple>Metadata information</Simple>
+    <MetaDataDetailed>
+      <dc:title>Metadata title</dc:title>
+      <dc:description>Metadata description</dc:description> 
+      <gn:LogoURL>http://example.org/logo_ufl.gif</gn:LogoURL>
+      <gn:HarvestingFrequencyInDays>14</gn:HarvestingFrequencyInDays>
+    </MetaDataDetailed>
+  </MetaData>
+  <TaxonNames>
+    <TaxonName id = "12345" nomenclaturalCode = "Botanical">
+      <Simple>Citrus medica L.</Simple> 
+      <Rank>Species</Rank>
+      <ProviderSpecificData>
+        <dc:source>http://example.org/species/12345</dc:source>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:example.org:name:d74fcd5e-abc1-d02b-9a4a-1234567890:eo2008</dwc:GlobalUniqueIdentifier> 
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id = "12346" nomenclaturalCode = "Botanical">
+      <Simple>Citrus X paradisi Macfad. (pro sp.)</Simple> 
+      <Rank>Species</Rank>
+      <ProviderSpecificData>
+        <dc:source>http://example.org/species/12346</dc:source>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:example.org:name:d74fcd5e-abc1-d02b-9a4a-2234567890:eo2008</dwc:GlobalUniqueIdentifier> 
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id = "12347" nomenclaturalCode = "Botanical">
+      <Simple>Citrus reticulata Blanco</Simple> 
+      <Rank>Species</Rank>
+      <ProviderSpecificData>
+        <dc:source>http://example.org/species/12347</dc:source>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:example.org:name:d74fcd5e-abc1-d02b-9a4a-2234567890:eo2008</dwc:GlobalUniqueIdentifier> 
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id = "12348" nomenclaturalCode = "Botanical">
+      <Simple>Citrus sinensis (L.) Osbeck</Simple> 
+      <Rank>Species</Rank>
+      <ProviderSpecificData>
+        <dc:source>http://example.org/species/12348</dc:source>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:example.org:name:d74fcd5e-abc1-d02b-9a4a-3234567890:eo2008</dwc:GlobalUniqueIdentifier> 
+      </ProviderSpecificData>
+    </TaxonName>
+  </TaxonNames>
+</DataSet>
