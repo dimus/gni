@@ -18,7 +18,7 @@ function spinner(show) {
 $(function() {
   
   // Set focus on login text input for login
-  $("input#login,input#user_login").focus();
+  $("input#login,input#user_login,input#data_source_title").focus();
 
   // Set zebra style for data tables
   $("table.data tbody tr:nth-child(even)").addClass("even");

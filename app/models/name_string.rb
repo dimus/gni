@@ -6,7 +6,9 @@ class NameString < ActiveRecord::Base
   
   validates_presence_of :name
   validates_uniqueness_of :name
-
+  attr_accessor :resource_uri
+  attr_accessible :resource_uri
+  
   LATIN_CHARACTERS = ('A'..'Z')
   
   def self.normalize_name_string(n_string)

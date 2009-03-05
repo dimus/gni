@@ -33,13 +33,16 @@ class NameStringsController < ApplicationController
     end
     
     @empty_search_help = (is_valid_search && @name_strings.blank?) ? ["Your search '#{params[:search_term]}' did not return any records.", "Please use a wildcard character '*' if you are not searching for an exact string. Wildcard searches should include at least 3 latin letters.","Search examples:", 'Plantago major', 'Plantago major*', 'plantago*', 'pla*'] : []
+    
+    #TODO UGGGLY!!!
+    @name_strings_serialized = @name_strings.map {|ns| ns.resource_uri = name_string_url(ns.id)+".xml"; Hash.from_xml(ns.to_xml :methods => [:resource_uri])} unless @name_strings.blank?
     result = {}
     result[:page_number] = page
     result[:name_strings_total] = @name_strings.total_entries rescue nil
-    result[:total_pages] = (result[:name_strings_total]/(per_page.to_f)).ceil rescue 0
+    #result[:total_pages] = (result[:name_strings_total]/(per_page.to_f)).ceil rescue 0
     result[:per_page] = per_page
     result[:next_page] = name_strings_url(:search_term => search_term, :per_page => per_page, :page => page.to_i + 1, :format=>:xml) unless result[:total_pages].to_i <= page.to_i
-    result[:name_strings] = @name_strings
+    result[:name_strings] = @name_strings_serialized
     
     respond_to do |format|
         format.html # index.html.erb
