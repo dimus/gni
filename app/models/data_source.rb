@@ -18,6 +18,7 @@ class DataSource < ActiveRecord::Base
   validates_format_of :data_url, :with => URL_RE, :message => "^Names Data URL should be a URL"
   validates_format_of :logo_url, :with => URL_RE, :message => "^Logo URL should be a URL"
   validates_format_of :web_site_url, :with => URL_RE, :message => "^Website URL should be a URL"
+  validates_uniqueness_of :title, :data_url
   
   def contributor?(a_user)
     !!self.users.include?(a_user)

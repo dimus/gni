@@ -2,13 +2,13 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe '/name_strings' do
 
-  before do
-    scenario :basic
+  before(:each) do
+    #scenario :basic
     @resp = req( '/name_strings' )
     @resp_xml = req('/name_strings.xml')
   end
 
-  it 'should render render' do
+  it 'should render' do
     @resp.success?.should be_true
     @resp_xml.success?.should be_true
   end
