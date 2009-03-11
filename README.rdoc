@@ -16,6 +16,7 @@ To setup testing for GNI you have to do the following:
 * install rspec for rails gem
 
     sudo gem install rspec-rails
+    sudo gem install faucets
 
 * Install additional gems from github
 

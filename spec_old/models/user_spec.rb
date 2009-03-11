@@ -202,6 +202,7 @@ describe User do
     users(:quentin).remember_me_until time
     users(:quentin).remember_token.should_not be_nil
     users(:quentin).remember_token_expires_at.should_not be_nil
+    puts users(:quentin).remember_token_expires_at.to_s
     users(:quentin).remember_token_expires_at.should == time
   end
 

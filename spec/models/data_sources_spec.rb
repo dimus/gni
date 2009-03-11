@@ -1,5 +1,4 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-
 describe DataSource do
 
   it "should require a valid #title" do

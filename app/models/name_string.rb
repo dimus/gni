@@ -9,7 +9,7 @@ class NameString < ActiveRecord::Base
   attr_accessor :resource_uri
   attr_accessible :resource_uri
   
-  LATIN_CHARACTERS = ('A'..'Z')
+  LATIN_CHARACTERS = ('A'..'Z') unless defined? LATIN_CHARACTERS
   
   def self.normalize_name_string(n_string)
     del_chars = /[.;,]/

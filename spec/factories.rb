@@ -7,7 +7,7 @@ require File.dirname(__FILE__) + '/gni_factory_girl'
 
 Factory.sequence(:string ){|n| "unique#{ n }string" }
 Factory.sequence(:scientific_name){|n| "#{Faker::Name.first_name} #{Faker::Name.last_name.downcase}" }
-Factory.sequence(:url){|n| "http://#{Faker::Lorem.words(1)}.#{['org','com','net'].shuffle[0]}/data#{n}"}
+Factory.sequence(:url){|n| "http://#{Faker::Internet.domain_name}/data#{n}"}
 
 #### Factories
 
@@ -25,4 +25,17 @@ Factory.define :data_source do |data_source|
   data_source.data_url        { Factory.next(:url) + ".xml" }
   data_source.logo_url        { Factory.next(:url) + ".jpg" }
   data_source.web_site_url    { Factory.next(:url) }
+end
+
+Factory.define :user do |user|
+  user.created_at                   { rand(10).days.ago }
+  user.updated_at                   { |r| r.created_at }
+  user.name                         { Faker::Name.name }
+  user.login                        { |r| Faker::Internet.user_name(r.name) }
+  user.email                        { |r| Faker::Internet.email(r.name) }
+  user.crypted_password             { '324324abab' }
+  user.salt                         { 'saltsalt' }
+  user.admin                        { rand(10) > 8 ? 1 : 0 }
+  user.remember_token               { Factory.next(:string) }
+  user.remember_token_expires_at    { rand(10).days.from_now }
 end
