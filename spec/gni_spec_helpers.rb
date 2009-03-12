@@ -3,6 +3,17 @@ module GNI::Spec
   end
 end
 
+# truncates all tables
+def truncate_all_tables options = { }
+  options[:verboze] ||= false
+  ActiveRecord::Base.connection.tables.each  do |table|
+    unless table == 'schema_migrations'
+      puts "[#{conn.instance_eval { @config[:database] }}].`#{table}`" if options[:verbose]
+      ActiveRecord::Base.connection.execute "TRUNCATE TABLE`#{table}`"
+    end
+  end
+end
+
 class ActiveRecord::Base
 
 # truncate's this model's table
