@@ -1,11 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-require RAILS_ROOT + '/scenarios/basic'
 
 describe User do
-  scenario :basic
-  before do 
-    quentin = User.find_by_login('quentin')
-  end
+  scenario :application
       
   describe 'being created' do
     before do
@@ -136,11 +132,12 @@ describe User do
      users(:quentin).update_attributes(:password => 'new password', :password_confirmation => 'new password')
      User.authenticate('quentin', 'new password').should == users(:quentin)
    end
-
-   it 'does not rehash password' do
-     users(:quentin).update_attributes(:login => 'quentin2')
-     User.authenticate('quentin2', 'monkey').should == users(:quentin)
-   end
+   
+   # we currently don't allow changes in username
+   # it 'does not rehash password' do
+   #   users(:quentin).update_attributes(:login => 'quentin2')
+   #   User.authenticate('quentin2', 'monkey').should == users(:quentin)
+   # end
 
    #
    # Authentication
@@ -192,9 +189,9 @@ describe User do
    end
 
    it 'remembers me for one week' do
-     before = 1.week.from_now.utc
+     before = 6.days.from_now.utc
      users(:quentin).remember_me_for 1.week
-     after = 1.week.from_now.utc
+     after = 8.days.from_now.utc
      users(:quentin).remember_token.should_not be_nil
      users(:quentin).remember_token_expires_at.should_not be_nil
      users(:quentin).remember_token_expires_at.between?(before, after).should be_true
@@ -209,13 +206,12 @@ describe User do
    end
 
    it 'remembers me default two weeks' do
-     quentin = users(:quentin)
      before = 1.weeks.from_now.utc
-     quentin.remember_me
+     users(:quentin).remember_me
      after = 3.weeks.from_now.utc
-     quentin.remember_token.should_not be_nil
-     quentin.remember_token_expires_at.should_not be_nil
-     quentin.remember_token_expires_at.between?(before, after).should be_true
+     users(:quentin).remember_token.should_not be_nil
+     users(:quentin).remember_token_expires_at.should_not be_nil
+     users(:quentin).remember_token_expires_at.between?(before, after).should be_true
    end
    
 protected

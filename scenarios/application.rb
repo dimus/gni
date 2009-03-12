@@ -1,6 +1,6 @@
 #basic scenario is loaded for the most spec cases
 
-yml_file =  File.join(RAILS_ROOT, 'scenarios', 'yml' , 'basic.yml')
+yml_file =  File.join(RAILS_ROOT, 'scenarios', 'yml' , 'application.yml')
 data = YAML.load(ERB.new(open(yml_file).read).result)
 
 data.keys.each do |klass_name|
