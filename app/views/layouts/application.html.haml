@@ -36,7 +36,7 @@
               %ul
                 - if current_user 
                   %li
-                    %span
+                    %span#current_user_login_name
                       User: 
                       = current_user[:login]
                       = link_to "(edit)", edit_user_url(current_user[:id])

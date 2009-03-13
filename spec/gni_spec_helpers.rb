@@ -14,6 +14,12 @@ def truncate_all_tables options = { }
   end
 end
 
+def login_as options = { }
+  req('/session', :params => { 
+      'login' => options[:login], 
+      'password' => options[:password] })
+end
+
 class ActiveRecord::Base
 
 # truncate's this model's table

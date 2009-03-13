@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.xml
   def show
+    puts 'here'
     user = User.find(params[:id])
     user.data_sources_url = user_data_sources_url(:user_id => user.id) + '.xml'
     respond_to do |format|
@@ -65,7 +66,6 @@ class UsersController < ApplicationController
   # PUT /user/1.xml
   def update
     @user = User.find(params[:id])
-
     respond_to do |format|
       if @user.update_attributes(params[:user])
         flash[:notice] = "User #{@user.login} was successfully updated."

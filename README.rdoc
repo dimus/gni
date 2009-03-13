@@ -16,11 +16,11 @@ To setup testing for GNI you have to do the following:
 * install rspec for rails gem
 
     sudo gem install rspec-rails
-    sudo gem install faucets
+    sudo gem install facets
+    sudo gem install faker
 
 * Install additional gems from github
 
-    sudo gem install faker
     sudo gem install thoughtbot-factory_girl --source http://gems.github.com
     sudo gem install openrain-scenarios -s http://gems.github.com
     sudo gem install remi-rspec-custom-matchers -s http://gems.github.com
