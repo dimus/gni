@@ -66,7 +66,7 @@ DataSource:
 DataSourceContributor:
   - user_id: 2 #aaron
     data_source_id: 1 #ITIS
-    admin: 1
+    data_source_admin: 1
   - user_id: 1 #quentin 
     data_source_id: 1 #ITIS
   - user_id: 1 #quentin 

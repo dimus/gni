@@ -52,11 +52,16 @@ class DataSourcesController < ApplicationController
   # GET /data_sources/new
   # GET /data_sources/new.xml
   def new
-    @data_source = DataSource.new
+    if current_user
+      @data_source = DataSource.new
     
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @data_source }
+      respond_to do |format|
+        format.html # new.html.erb
+        format.xml  { render :xml => @data_source }
+      end
+    else
+      flash[:error] = 'Login or Sign In first before creating new repositories'
+      redirect_to data_sources_url
     end
   end
 
@@ -65,7 +70,7 @@ class DataSourcesController < ApplicationController
     @data_source = DataSource.find(params[:id])
 
     if !(admin? || @data_source.contributor?(current_user))
-      flash[:notice] = 'Not a contributor for this source'
+      flash[:notice] = 'You are not a contributor for this source'
       redirect_to data_sources_url
     end  
   end
@@ -75,16 +80,20 @@ class DataSourcesController < ApplicationController
   def create
     created_msg = "Repository was successfully created."
     @data_source = DataSource.new(params[:data_source])
-    respond_to do |format|
-      if @data_source.save  
-          DataSourceContributor.create({:data_source => @data_source, :user => current_user}) if current_user
-          flash[:notice] = created_msg
-          format.html { redirect_to(@data_source) }
-          format.xml  { render :xml => @data_source, :status => :created, :location => @data_source }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @data_source.errors, :status => :unprocessable_entity }
+    if current_user
+      respond_to do |format|
+        if @data_source.save  
+            DataSourceContributor.create({:data_source => @data_source, :user => current_user}) if current_user
+            flash[:notice] = created_msg
+            format.html { redirect_to(@data_source) }
+            format.xml  { render :xml => @data_source, :status => :created, :location => @data_source }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @data_source.errors, :status => :unprocessable_entity }
+        end
       end
+    else
+      render :text => '' #should never happen unless someone tries to hack the system
     end
   end
 
@@ -92,16 +101,19 @@ class DataSourcesController < ApplicationController
   # PUT /data_sources/1.xml
   def update
     @data_source = DataSource.find(params[:id])
-
-    respond_to do |format|
-      if @data_source.update_attributes(params[:data_source])
-        flash[:notice] = 'Repository was successfully updated.'
-        format.html { redirect_to(@data_source) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @data_source.errors, :status => :unprocessable_entity }
+    if (admin? || @data_source.contributor?(current_user))
+      respond_to do |format|
+        if @data_source.update_attributes(params[:data_source])
+          flash[:notice] = 'Repository was successfully updated.'
+          format.html { redirect_to(@data_source) }
+          format.xml  { head :ok }
+        else
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @data_source.errors, :status => :unprocessable_entity }
+        end
       end
+    else
+      render :text => '' #should never happen
     end
   end
 
@@ -109,11 +121,14 @@ class DataSourcesController < ApplicationController
   # DELETE /data_sources/1.xml
   def destroy
     @data_source = DataSource.find(params[:id])
-    @data_source.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(data_sources_url) }
-      format.xml  { head :ok }
+    if (admin? || @data_source.contributor?(current_user))
+      @data_source.destroy
+      respond_to do |format|
+        format.html { redirect_to(data_sources_url) }
+        format.xml  { head :ok }
+      end
+    else
+      render :text => '' #should never happen
     end
   end
 
