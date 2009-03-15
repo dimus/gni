@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe '/data_sources' do
   before :all do
     Scenario.load :application
-    puts DataSourceContributor.count
   end
   
   # after :all do
@@ -65,7 +64,6 @@ describe '/data_sources' do
     before :all do
       @user = User.find_by_login('aaron')
       @repo = @user.data_sources.first
-      puts @user.data_sources.to_yaml
       @others_repo = DataSource.all.select {|ds| !@user.data_sources.include? ds}.first
     end
     
