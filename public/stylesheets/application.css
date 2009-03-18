@@ -335,8 +335,8 @@ span.valid_url_message {
   font-size: 1em;
   font-weight: bold;
   margin-top: 0em;
-  margin-left: 0;
-  width: 69em; }
+  margin-left: 4.3em;
+  width: 64.7em; }
   #top-menu li {
     color: black;
     margin: 0;
@@ -473,18 +473,18 @@ span.valid_url_message {
 
 #logo_gna {
   text-shadow: 0.1em 0.1em 0.2em #e9e9e9;
-  color: #000000;
+  color: #45704d;
   font-family: Helvetica;
   font-size: 32px;
-  margin-left: 80px;
+  margin-left: 100px;
   margin-top: 50px;
   position: absolute; }
 
 #logo_motto {
-  color: black;
+  color: #45704d;
   font-family: Helvetica;
   font-size: 12px;
-  margin-left: 80px;
+  margin-left: 102px;
   margin-top: 90px;
   position: absolute; }
 
@@ -503,6 +503,13 @@ span.valid_url_message {
   background: white;
   width: 100%;
   margin: 0 auto; }
+
+#bottom_logos {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: right;
+  margin-top: 10px; }
 
 #info {
   float: right;

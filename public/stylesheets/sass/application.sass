@@ -384,8 +384,8 @@ span.valid_url_message
   :font-size 1em
   :font-weight bold
   :margin-top 0em
-  :margin-left 0
-  :width = !_page_width 
+  :margin-left 4.3em
+  :width = (!_page_width - 4.3em)
 
   li
     :color black
@@ -541,18 +541,18 @@ span.valid_url_message
 
 #logo_gna
   :text-shadow = 0.1em 0.1em 0.2em !_very_light_grey
-  :color = black
+  :color = !_green 
   :font-family = Helvetica
   :font-size 32px
-  :margin-left 80px
+  :margin-left 100px
   :margin-top 50px
   :position absolute
 
 #logo_motto
-  :color black
+  :color = !_green 
   :font-family Helvetica
   :font-size 12px
-  :margin-left 80px
+  :margin-left 102px
   :margin-top 90px
   :position absolute
 
@@ -572,6 +572,13 @@ span.valid_url_message
   :background white
   :width 100%
   :margin 0 auto
+
+#bottom_logos
+  :margin 0
+  :padding 0
+  :width 100%
+  :text-align right
+  :margin-top 10px
 
 
 #info
