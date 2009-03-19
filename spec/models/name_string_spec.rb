@@ -1,6 +1,9 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe NameString do
+  after :all do
+    truncate_all_tables
+  end
 
   #it { should have_one(:kingdom) }
   #it { should have_many(:name_indices) }

@@ -5,13 +5,9 @@ describe '/data_sources' do
     Scenario.load :application
   end
   
-  # after :all do
-  #   truncate_all_tables
-  # end
-  
-  # after :all do
-  #   truncate_all_tables
-  # end
+  after :all do
+    truncate_all_tables
+  end
   
   describe 'without loging in' do
     

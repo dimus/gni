@@ -1,5 +1,12 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 describe DataSource do
+  before :all do 
+    Scenario.load :application
+  end
+  
+  after :all do
+    truncate_all_tables
+  end
 
   it "should require a valid #title" do
     DataSource.gen( :title => 'My Repository' ).should be_valid
@@ -13,13 +20,37 @@ describe DataSource do
     DataSource.build( :data_url => "someurl").should_not be_valid #not a url
     DataSource.build( :data_url => nil).should_not be_valid #cannot be nil
   end
-
+  
+  it "should have #logo_url as nil or url" do
+    DataSource.gen(:logo_url => "http://some.url/data.som").should be_valid
+    DataSource.build(:logo_url => "http://some.url/data.som").should be_valid #more than one of thes same logo is allowed
+    DataSource.gen(:logo_url => nil).should be_valid
+    DataSource.gen(:logo_url => nil).should be_valid #more than one nil is possible
+    DataSource.build(:logo_url => 'not-url').should_not be_valid
+  end
+  
+  it "should have #web_site_url as nil or url" do
+    DataSource.gen(:web_site_url => "http://some.url/data.som").should be_valid
+    DataSource.build(:web_site_url => "http://some.url/data.som").should be_valid #more than one of thes same logo is allowed
+    DataSource.gen(:web_site_url => nil).should be_valid
+    DataSource.gen(:web_site_url => nil).should be_valid #more than one nil is possible
+    DataSource.build(:web_site_url => 'not-url').should_not be_valid
+  end
+  
+  describe "contributor?" do
+    before :all do
+      @ds = DataSource.find_by_title('Index Fungorum')
+      @user = User.find_by_login('aaron')
+      @user2 = User.find_by_login('quentin')
+      DataSourceContributor.gen(:data_source => @ds, :user => @user) #TODO scenario does not load, fix in the framworkend 
+    end
+    
+    it 'should find aaron as a contributor to Index Fungorum' do  
+      @ds.contributor?(@user).should be_true
+    end
+  
+    it 'should not find quentin as a contributor to Index Fungorum' do
+      @ds.contributor?(@user2).should be_false
+    end
+  end
 end
-
-  # 
-  # validates_presence_of :title, :message => "is required"
-  # validate_uniqueness_of 
-  # validates_presence_of :data_url, :message => "^Names Data URL is required"
-  # validates_format_of :data_url, :with => URL_RE, :message => "^Names Data URL should be a URL"
-  # validates_format_of :logo_url, :with => URL_RE, :message => "^Logo URL should be a URL"
-  # validates_format_of :web_site_url, :with => URL_RE, :message => "^Website URL should be a URL"
