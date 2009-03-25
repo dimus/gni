@@ -27,6 +27,8 @@ To setup testing for GNI you have to do the following:
     sudo gem install thin
     sudo gem install remi-rackbox -s http://gems.github.com
 
+== Parser
 
+	sudo gem install dimus-biodivesity --source http://gems.github.com
 
 

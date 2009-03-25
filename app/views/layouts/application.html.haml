@@ -28,10 +28,10 @@
           #top-menu
             #top-menu-left
               %ul
-                %li
-                  = link_to 'Index', name_strings_url 
-                %li
-                  = link_to 'Repositories', data_sources_url 
+                %li= link_to 'Index', name_strings_url 
+                %li= link_to 'Repositories', data_sources_url
+                %li= link_to 'Name Parser', new_parser_url 
+                 
             #top-menu-right
               %ul
                 - if current_user 

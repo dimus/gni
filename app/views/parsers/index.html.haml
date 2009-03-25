@@ -1,0 +1,9 @@
+%h1 Scientific Name Parser: Results
+
+= link_to "Parse more", "/"
+
+%pre
+  %code
+    [
+    = @parsed_names.map {|pn| pn.to_json}.join(",\n")
+    ]
