@@ -7,7 +7,6 @@ class Parser
     parsed_names = []
     if names && !names.strip.blank?
       old_kcode = $KCODE
-      puts old_kcode
       $KCODE = 'NONE'
       names.split("\n").map {|n| n.strip}.select {|n| !n.blank?}.each do |name|
         parsed_name = @parser.parse(name)
