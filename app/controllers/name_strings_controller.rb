@@ -55,6 +55,7 @@ class NameStringsController < ApplicationController
   # GET /name_strings/1.xml
   def show
     @name_string = NameString.find(params[:id])
+    @parsed_name = Parser.parse(@name_string.name)[0]
     @data_sources_data = @name_string.name_indices.map {|ni| {:data_source => ni.data_source, :records => (NameIndexRecord.find_all_by_name_index_id(ni.id))}}
     data =  {:data => @data_sources_data, :name_string => @name_string}
     respond_to do |format|

@@ -244,6 +244,9 @@ span.valid_url_message {
   color: #660000;
   padding-left: 1em; }
 
+span.colored_label {
+  color: #2e9410; }
+
 #centerwrapper {
   background-image: url(/images/public/developer_left_side.gif);
   background-repeat: repeat-y;

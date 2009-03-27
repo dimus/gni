@@ -1,5 +1,34 @@
 %h3= @name_string.name 
 
+-if @parsed_name[:parse_succeeded]
+  %table#parsed_name
+    %tr
+      %td
+        %span.colored_label canonical:
+      %td
+        =link_to @parsed_name[:canonical], {:action=>'index', :search_term=>@parsed_name[:canonical] + "*"}
+
+    -if @parsed_name[:species]
+      %tr
+        %td
+          %span.colored_label species epithet: 
+        %td
+          = @parsed_name[:species]
+
+    -if @parsed_name[:orig_authors] && !@parsed_name[:orig_authors][:names].blank?
+      %tr
+        %td
+          %span.colored_label original authors:
+        %td
+          = @parsed_name[:orig_authors][:names].join(", ")
+        
+    -if @parsed_name[:authors] && !@parsed_name[:authors][:names].blank?
+      %tr
+        %td
+          %span.colored_label authors: 
+        %td
+          = @parsed_name[:authors][:names].join(", ")
+
 -if !@data_sources_data.empty?
   %table#js_name_string_details.data.bordered
     %tr
