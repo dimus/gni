@@ -20,7 +20,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resource :session
 
-  map.resources :name_indices
+  map.resources :name_indices, :has_many => [:name_index_records]
 
   map.resources :response_formats
 

@@ -3,13 +3,14 @@ class NameIndexRecordsController < ApplicationController
   # GET /name_index_records.xml
   def index
     page = params[:page] || 1
+    @name_index = params[:name_index_id] ? NameIndex.find(params[:name_index_id]) : nil
     per_page = params[:per_page] || 50
-    search_term = params[:search_term] || '%'
-    search_term = search_term.gsub! '*', '%'
-    if params[:data_source_id]
-      @name_index_records = NameIndexRecord.paginate_by_sql(["select n.name, nir.* from name_strings n join name_indices ni on n.id = ni.name_string_id join name_index_records nir on ni.id = nir.name_index_id where name like ? and ni.data_source_id = ? order by n.name", search_term, params[:data_source_id]], :page => page, :per_page => per_page)
-    else
-      @name_index_records = NameIndexRecord.paginate_all(:page => page, :per_page => per_page)
+    @search_term = params[:search_term] || nil
+    if params[:data_source_id] && @search_term
+      @search_term = @search_term.gsub! '*', '%' 
+      @name_index_records = NameIndexRecord.paginate_by_sql(["select n.name, nir.* from name_strings n join name_indices ni on n.id = ni.name_string_id join name_index_records nir on ni.id = nir.name_index_id where name like ? and ni.data_source_id = ? order by n.name", @search_term, params[:data_source_id]], :page => page, :per_page => per_page)
+    elsif @name_index
+      @name_index_records = @name_index.name_index_records
     end
 
     result = {}

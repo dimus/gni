@@ -3,6 +3,7 @@ class NameString < ActiveRecord::Base
   has_many :name_indices
   has_many :data_source_import_details
   has_many :data_sources, :through => :name_indices
+  has_many :name_index_records, :through => :name_indices
   
   validates_presence_of :name
   validates_uniqueness_of :name

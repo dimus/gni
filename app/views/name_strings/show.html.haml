@@ -34,19 +34,13 @@
     %tr
       %th.top Logo
       %th.top Data Source
-      %th.top Indexed on
-      %th.top URL
-      %th.top GUID
+      %th.top Records #
     - @data_sources_data.each do |data|
-      - data[:records].each do |record|
-        %tr
-          %td
-            = data_source_logo data[:data_source]
-          %td
-            = link_to data[:data_source].title, data_source_url(data[:data_source])
-          %td
-            = format_date record.created_at
-          %td
-            =record.url.blank? ? '&nbsp;' : link_to('link', record.url)
-          %td
-            =record.global_id.blank? ? '&nbsp;' : format_guid(record.global_id)
+      %tr
+        %td
+          = data_source_logo data[:data_source]
+        %td
+          = link_to data[:data_source].title, data_source_url(data[:data_source])
+        %td
+          = link_to data[:records_number], name_index_name_index_records_url(data[:name_index_id])
+

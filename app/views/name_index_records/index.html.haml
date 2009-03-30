@@ -1,0 +1,33 @@
+%h1 
+  Records List
+
+%table 
+  - if @search_term
+    %tr
+      %td 
+        %span.colored_label search term:
+      %td= in_quotes @search_term
+  - elsif @name_index
+    %tr
+      %td 
+        %span.colored_label repository:
+      %td= link_to @name_index.data_source.title, data_source_url(@name_index.data_source)
+    %tr
+      %td 
+        %span.colored_label name:
+      %td= @name_index.name_string.name 
+
+%table.data.bordered
+  %tr
+    %th.top Url
+    %th.top GUID
+    %th.top Indexed On
+  - @name_index_records.each do |record|
+    %tr
+      %td
+        = record.url.blank? ? '&nbsp;' : link_to('link', record.url)
+      %td
+        = record.global_id.blank? ? '&nbsp;' : format_guid(record.global_id)
+      %td
+        = format_date record.created_at
+      
