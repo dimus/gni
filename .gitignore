@@ -11,6 +11,7 @@
 .loadpath
 gna-ror.war
 config/database.yml
+config/newrelic.yml
 db/schema.rb
 tmp/cache/*
 tmp/pids/*
@@ -24,4 +25,5 @@ config/deploy.rb
 config/deploy
 *_gni_site.rb
 vendor/gni_deploy
+
 
