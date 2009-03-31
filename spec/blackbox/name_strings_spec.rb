@@ -82,6 +82,8 @@ describe '/name_strings' do
   it 'API should display a name_string info in xml or json' do
     resp_xml = req( '/name_strings/1.xml' )
     resp_xml.success?.should be_true
+    resp_xml = req( '/name_strings/1.xml?all_records=1' )
+    resp_xml.success?.should be_true
     resp_xml.body.should include('<?xml version="1.0"')
     resp_xml.body.should include('Adnaria frondosa')
     resp_json = req( '/name_strings/1.json' )
