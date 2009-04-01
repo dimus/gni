@@ -33,7 +33,7 @@ describe 'feedback' do
     end
     
     it 'should send email and go to root' do
-      res = request('/feedback/send_feedback', :params => {:email => 'some_email@example.com', :body => 'GNI sucks!!!'})
+      res = request('/feedback/send_feedback', :params => {:email => 'some_email@example.com', :body => 'GNI helps me keep my names happy'})
       res.redirect?.should be_true
       ActionMailer::Base.deliveries.size.should == 1
     end

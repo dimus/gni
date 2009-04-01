@@ -74,4 +74,4 @@ SCHEMA_VERSION = "0.1"
 PER_PAGE_MAX = 1000
 NOREPLY_EMAIL = "noreply@example.org"
 PROGRAM_NAME = "Global Name Index"
-FEEDBACK_RECIPIENT = 'customer_service@example.com'
+FEEDBACK_EMAIL = 'customer_service@example.com'

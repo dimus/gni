@@ -16,6 +16,7 @@ function spinner(show) {
 };
 
 function show_name_details(element) {
+  //if (element.attr('name_string_id') == undefined) return;
   $("#name_column_right").removeClass("name_column_right_inactive");
   $("#name_column_right").addClass("name_column_right_active");
   var name_string_id = element.attr('name_string_id');
@@ -48,8 +49,11 @@ $(function() {
     }
   });
 
-  
-  show_name_details($("div.name_string_active"));
+  $("div.name_string_active").each(
+    function(){
+      show_name_details($(this));
+    }
+  );
 
   //modifies 
   $("div.name_string").hover(
@@ -79,8 +83,8 @@ $(function() {
         $.getJSON('/import_schedulers/' + import_scheduler_id, {},
           function(data) {
               if (data.status == "4"){
-              	document.location = document.location
-							}
+                document.location = document.location
+              }
               var message = data.message;
               $('#import_in_progress').text(message);
             }

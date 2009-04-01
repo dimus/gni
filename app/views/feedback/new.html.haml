@@ -2,11 +2,11 @@
 
 - form_tag :action => :send_feedback do
   .form_field
-    %b Email
+    %b Your email
     %br/
     = text_field_tag 'email', (@user ? @user.email : '')
   .form_field
-    %b Feedback
+    %b Found a bug? Have a suggestion? Please let us know
     %br/
     = text_area_tag 'body'
   %br/
