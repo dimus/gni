@@ -4,7 +4,7 @@
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }/
     %meta{ :content => "en-us", "http-equiv" => "Content-Language" }/
     %title
-      Global Names Architecture
+      = PROGRAM_NAME
     %meta{ :name => "ROBOTS", :content => "ALL" }/
     %meta{ :content => "no", "http-equiv" => "imagetoolbar" }/
     %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }/
@@ -50,7 +50,7 @@
                 %li
                   = link_to 'Help', 'http://wiki.github.com/dimus/gni/global-names-index-help', :target => '_blank' 
           #logo_gna
-            Global Names Index
+            = PROGRAM_NAME
           #logo_motto
             Species Names Exchange
           %table.layout
@@ -70,9 +70,9 @@
             = yield
           #bottom_logos
             %a{:href => 'http://www.gbif.org'}
-              %img{:src => 'images/public/gbif_logo_25px.gif', :title => 'Global Biodiversity Information Facility'}/ 
+              %img{:src => '/images/public/gbif_logo_25px.gif', :title => 'Global Biodiversity Information Facility'}/ 
             %a{:href => 'http://www.eol.org'}
-              %img{:src => 'images/public/eol_logo_25px.gif', :title => 'Encyclopedia Of Life'}/
+              %img{:src => '/images/public/eol_logo_25px.gif', :title => 'Encyclopedia Of Life'}/
       #centerbottom
         #centerbottominfo
           %img{ :src => "/images/public/developer_bottomleft.gif", :height => "30", :alt => "bottomleft", :width => "300" }/

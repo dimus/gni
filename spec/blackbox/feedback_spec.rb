@@ -35,6 +35,9 @@ describe 'feedback' do
     it 'should send email and go to root' do
       res = request('/feedback/send_feedback', :params => {:email => 'some_email@example.com', :body => 'GNI helps me keep my names happy'})
       res.redirect?.should be_true
+      puts '<pre>'
+      puts ActionMailer::Base.deliveries.to_yaml
+      puts '</pre>'
       ActionMailer::Base.deliveries.size.should == 1
     end
   end

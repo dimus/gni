@@ -4,8 +4,9 @@ class FeedbackController < ApplicationController
   end
   
   def send_feedback
-    feedback = Feedback.create_feedback(params[:email],params[:body])
-    Feedback.deliver(feedback)
+    feedback_email = params[:email].strip.blank? ? 'Unknown' : params[:email].strip
+    fb = FeedbackMailer.create_feedback(feedback_email,params[:body])
+    FeedbackMailer.deliver(fb)
     flash[:notice] = "Your feedback was sent"
     redirect_to root_url
   end

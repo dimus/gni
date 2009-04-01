@@ -12,6 +12,7 @@
 gna-ror.war
 config/database.yml
 config/newrelic.yml
+config/environments/development_local.rb
 db/schema.rb
 tmp/cache/*
 tmp/pids/*
