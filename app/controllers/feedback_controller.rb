@@ -1,6 +1,6 @@
 class FeedbackController < ApplicationController
   def new
-    @user = current_use
+    @user = current_user
   end
   
   def send_feedback
