@@ -31,9 +31,12 @@
   - if !@name_strings.blank?
     #data_layout 
       #name_column_left{:class=> (@name_strings.size == 0 ? 'empty' : '')}
-        = will_paginate @name_strings 
+        = will_paginate @name_strings
+        - first_row = true
         - for name_string in @name_strings
-          .name_string{:name_string_id => name_string.id}= h name_string.name
+          - name_string_class = first_row ? 'name_string_active' : ''
+          - first_row = false
+          .name_string{:name_string_id => name_string.id, :class => name_string_class}= h name_string.name
         %br/
         = will_paginate @name_strings
       #name_column_right

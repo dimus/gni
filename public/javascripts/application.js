@@ -13,6 +13,18 @@ jQuery.fn.debug = jQuery.fn.dbg = function () {
 function spinner(show) {
   if (show) {$('#ajax_spinner').show()}
   else {$('#ajax_spinner').hide()}
+};
+
+function show_name_details(element) {
+  $("#name_column_right").removeClass("name_column_right_inactive");
+  $("#name_column_right").addClass("name_column_right_active");
+  var name_string_id = element.attr('name_string_id');
+    spinner(true);
+  $.get('/name_strings/'+ name_string_id, {},
+    function(data) {
+      $('#name_column_right').html(data);
+      spinner(false);
+    });
 }
 
 $(function() {
@@ -36,6 +48,8 @@ $(function() {
     }
   });
 
+  
+  show_name_details($("div.name_string_active"));
 
   //modifies 
   $("div.name_string").hover(
@@ -49,32 +63,11 @@ $(function() {
     }).click(
     function() {
       $("div.name_string").each(function(){
-        $(this).removeClass("name_string_click");
+        $(this).removeClass("name_string_active");
       });
       $(this).removeClass("name_string_hover");
-      $(this).addClass("name_string_click");
-      //$("#name_column_right").height($("#name_column_left").height());
-      $("#name_column_right").removeClass("name_column_right_inactive");
-      $("#name_column_right").addClass("name_column_right_active");
-      var name_string_id = $(this).attr('name_string_id');
-			spinner(true);
-      $.get('/name_strings/'+ name_string_id, {},
-				function(data) {
-					$('#name_column_right').html(data);
-          spinner(false);
-				}
-			);
-			
-			// $.getJSON('/name_strings/' + name_string_id + '/data_sources.json', {},
-      //   function(data) {
-      //     var i;
-      //     var repositories = "<h3>Repositories</h4>";
-      //     for (i=0; i < data.length; i++) {
-      //       repositories  += "<div><a href='/data_sources/" + data[i].id + "'>" + data[i].title  + "</a></div>\n";
-      //     }
-      //     $('#name_column_right').html(repositories);
-      //   }
-      // )
+      $(this).addClass("name_string_active");
+      show_name_details($(this));
     }
    );
 
