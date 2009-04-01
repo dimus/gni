@@ -77,4 +77,8 @@ class ApplicationController < ActionController::Base
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => '6cf3f472546ba6ae8b0a72276864ba59'
+
+  def rescue_500
+    render :text => '500'
+  end
 end

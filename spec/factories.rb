@@ -35,7 +35,9 @@ Factory.define :user do |user|
   user.name                         { Faker::Name.name }
   user.login                        { |r| Faker::Internet.user_name(r.name) }
   user.email                        { |r| Faker::Internet.email(r.name) }
-  user.crypted_password             { Factory.next(:sha_hash) }
+  user.password                     { Factory.next(:string) }
+  user.password_confirmation        { |r| r.password }
+  user.crypted_password             { |r| Digest::SHA1.hexdigest(r.password) }
   user.salt                         { Factory.next(:sha_hash) }
   user.admin                        { rand(10) > 8 ? 1 : 0 }
   user.remember_token               { Factory.next(:string) }

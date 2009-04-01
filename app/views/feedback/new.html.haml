@@ -1,0 +1,14 @@
+%h1 Submit your feedback
+
+- form_tag :action => :send_feedback do
+  .form_field
+    %b Email
+    %br/
+    = text_field_tag 'email', (@user ? @user.email : '')
+  .form_field
+    %b Feedback
+    %br/
+    = text_area_tag 'body'
+  %br/
+  = submit_tag 'Submit'
+  

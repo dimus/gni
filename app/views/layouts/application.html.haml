@@ -34,6 +34,8 @@
                  
             #top-menu-right
               %ul
+                %li
+                  = link_to "Feedback", "/feedback/new"
                 - if current_user 
                   %li
                     %span#current_user_login_name
