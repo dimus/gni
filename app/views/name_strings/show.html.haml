@@ -42,5 +42,7 @@
         %td
           = link_to data[:data_source].title, data_source_url(data[:data_source])
         %td
-          = link_to data[:records_number], name_index_name_index_records_url(data[:name_index_id])
+          - recs_num = data[:records_number].to_s
+          - recs_num += data[:records_number] == 1 ? ' record' : ' records'
+          = link_to recs_num, name_index_name_index_records_url(data[:name_index_id])
 
