@@ -12,7 +12,7 @@ class DataSource < ActiveRecord::Base
   belongs_to :response_format
 
   URL_RE = /^https?:\/\/|^\s*$/ unless defined? URL_RE
-  before_save :prepare_urls
+  before_validation :prepare_urls
   
   validates_presence_of :title, :message => "is required"
   validates_presence_of :data_url, :message => "^Names Data URL is required"

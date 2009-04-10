@@ -175,9 +175,9 @@ describe '/data_sources' do
       count = DataSource.count
       res = req("/data_sources", :params =>{
         'data_source[title]' =>'New Title',
-        'data_source[data_url]' => 'http://data/data.xml ',
-        'data_source[logo_url]' => 'http://url_logo/logo.gif ',
-        'data_source[web_site_url]' => 'http://url_website/index.html ',
+        'data_source[data_url]' => ' http://data/data.xml ',
+        'data_source[logo_url]' => '  http://url_logo/logo.gif ',
+        'data_source[web_site_url]' => '      http://url_website/index.html ',
         'data_source[refresh_period_days]' =>'3'
       })
       DataSource.count.should == count + 1
@@ -190,9 +190,9 @@ describe '/data_sources' do
     it 'should delete trailing spaces from urls during update (Bug TAX-196)' do
       res = req("/data_sources/#{@repo.id}", :params => {
         '_method' => 'put',
-        'data_source[data_url]' => 'http://data/data.xml ',
-        'data_source[logo_url]' => 'http://url_logo/logo.gif ',
-        'data_source[web_site_url]' => 'http://url_website/index.html ',
+        'data_source[data_url]' => '          http://data/data.xml ',
+        'data_source[logo_url]' => '     http://url_logo/logo.gif ',
+        'data_source[web_site_url]' => '         http://url_website/index.html ',
       })
       ds = DataSource.find(@repo.id)
       ds.data_url.should == 'http://data/data.xml'
