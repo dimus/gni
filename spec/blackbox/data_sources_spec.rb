@@ -170,12 +170,13 @@ describe '/data_sources' do
     it 'should delete trailing spaces from urls during create (Bug TAX-196)' do
       count = DataSource.count
       res = req("/data_sources", :params =>{
-        'data_source[title]' =>'New Title',
+        'data_source[title]' => "Random title " + rand.to_s,
         'data_source[data_url]' => ' http://data/data.xml ',
         'data_source[logo_url]' => '  http://url_logo/logo.gif ',
         'data_source[web_site_url]' => '      http://url_website/index.html ',
         'data_source[refresh_period_days]' =>'3'
       })
+      res.redirect?.should be_true
       DataSource.count.should == count + 1
       ds = DataSource.last
       ds.data_url.should == 'http://data/data.xml'
@@ -184,16 +185,18 @@ describe '/data_sources' do
     end
     
     it 'should delete trailing spaces from urls during update (Bug TAX-196)' do
+      Faker
       res = req("/data_sources/#{@repo.id}", :params => {
         '_method' => 'put',
-        'data_source[data_url]' => '          http://data/data.xml ',
-        'data_source[logo_url]' => '     http://url_logo/logo.gif ',
-        'data_source[web_site_url]' => '         http://url_website/index.html ',
+        'data_source[data_url]' => '          http://data/data123.xml ',
+        'data_source[logo_url]' => '     http://url_logo/logo123.gif ',
+        'data_source[web_site_url]' => '         http://url_website123/index.html ',
       })
+      res.redirect?.should be_true
       ds = DataSource.find(@repo.id)
-      ds.data_url.should == 'http://data/data.xml'
-      ds.logo_url.should == 'http://url_logo/logo.gif'
-      ds.web_site_url.should == 'http://url_website/index.html'
+      ds.data_url.should == 'http://data/data123.xml'
+      ds.logo_url.should == 'http://url_logo/logo123.gif'
+      ds.web_site_url.should == 'http://url_website123/index.html'
     end
   end
 
