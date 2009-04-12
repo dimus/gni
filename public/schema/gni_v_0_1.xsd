@@ -8,6 +8,16 @@
     >
     <xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2008/02/11/dc.xsd"/>
     <xs:import namespace="http://rs.tdwg.org/dwc/dwcore/" schemaLocation="http://rs.tdwg.org/dwc/tdwg_dw_core.xsd"/>
+    <xs:element name="DataURL" type="xs:anyURI">
+        <xs:annotation>
+            <xs:documentation>URL of your data file. Use it only if you want to redirect harvests to a new URL</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="WebSiteURL" type="xs:anyURI">
+        <xs:annotation>
+            <xs:documentation>A URL to the home page of the entity</xs:documentation>
+        </xs:annotation>
+    </xs:element>
     <xs:element name="LogoURL" type="xs:anyURI">
         <xs:annotation>
             <xs:documentation>A URL to a small logo of the entity.</xs:documentation>
@@ -30,6 +40,9 @@
                     <xs:documentation>Description may include but is not limited to: an abstract, table of contents, reference to a graphical representation of content or a free-text account of the content.</xs:documentation>
                 </xs:annotation>
             </xs:element>
+
+            <xs:element ref="DataURL" minOccurs="0"/>
+            <xs:element ref="WebSiteURL" minOccurs="0"/>
             <xs:element ref="LogoURL" minOccurs="0"/>
             <xs:element ref="HarvestingFrequencyInDays" minOccurs="0"/>
         </xs:sequence>

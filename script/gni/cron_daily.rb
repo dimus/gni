@@ -50,7 +50,6 @@ def do_repositories_update
   system(File.dirname(__FILE__) + "/update_imports -e " +  OPTIONS[:environment])
 end
 
-
 update_name_strings_count
-set_repositories_que
-do_repositories_update
+#set_repositories_que
+#do_repositories_update

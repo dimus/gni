@@ -10,7 +10,7 @@ describe Factory do
 
   # list of factories that are already implemented
   def self.model_classes
-    [NameString, DataSource, User, DataSourceContributor, NameIndex, NameIndexRecord].uniq
+    [NameString, DataSource, User, DataSourceContributor, NameIndex, NameIndexRecord, ImportScheduler].uniq
   end
 
   # gets the names of the factories for classes ( default: model_classes )

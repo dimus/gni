@@ -1,13 +1,13 @@
 class ImportScheduler < ActiveRecord::Base
   belongs_to :data_source
 
-  unless defined? CONSTANTS_R_DEFINED
+  unless defined? CONSTANTS_DEFINED
     NO_IMPORTS = nil
     WAITING = 1
     PROCESSING = 2
     FAILED = 3
     UPDATED = 4
-    CONSTANTS_R_DEFINED = true
+    CONSTANTS_DEFINED = true
   end
 
   def self.current_status(a_data_source)

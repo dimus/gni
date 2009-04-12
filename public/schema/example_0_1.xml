@@ -14,45 +14,36 @@
     xmlns:gn="http://gnapartnership.org/schemas/0_1"
     xsi:schemaLocation="http://gnapartnership.org/schemas/tcs/1.01 http://gnapartnership.org/gna_tcs/tcs_gni_v_0_1.xsd">
   <MetaData>
-    <Simple>Metadata information</Simple>
+    <Simple>My Collection</Simple>
     <MetaDataDetailed>
-      <dc:title>Metadata title</dc:title>
-      <dc:description>Metadata description</dc:description> 
-      <gn:LogoURL>http://example.org/logo_ufl.gif</gn:LogoURL>
+      <dc:title>My Collection</dc:title>
+      <dc:description>Plants Names</dc:description><!-- optional -->
+      <gn:DataURL>http://example.org/gni_file/data.xml</gn:DataURL><!-- optional: use only if you want to change data URL -->
+      <gn:WebSiteURL>http://mycollection.example.org</gn:WebSiteURL><!-- optional -->
+      <gn:LogoURL>http://example.org/logo_ufl.gif</gn:LogoURL><!-- optional -->
       <gn:HarvestingFrequencyInDays>14</gn:HarvestingFrequencyInDays>
     </MetaDataDetailed>
   </MetaData>
   <TaxonNames>
-    <TaxonName id = "12345" nomenclaturalCode = "Botanical">
+    <TaxonName id = "12345" nomenclaturalCode = "Botanical"><!-- an example of a TaxonName with all fields -->
       <Simple>Citrus medica L.</Simple> 
-      <Rank>Species</Rank>
+      <Rank>Species</Rank><!-- optional -->
       <ProviderSpecificData>
-        <dc:source>http://example.org/species/12345</dc:source>
-        <dwc:GlobalUniqueIdentifier>urn:lsid:example.org:name:d74fcd5e-abc1-d02b-9a4a-1234567890:eo2008</dwc:GlobalUniqueIdentifier> 
+        <dwc:Kingdom>Plantae</dwc:Kingdom><!-- optional -->
+        <dc:source>http://example.org/species/12345</dc:source><!-- optional: TaxonName URL for human eyes -->
+        <dc:identifier>214533431</dc:identifier><!--optional: local id from the database -->
+        <dwc:GlobalUniqueIdentifier>urn:lsid:example.org:name:d74fcd5e-abc1-d02b-9a4a-1234567890:eo2008</dwc:GlobalUniqueIdentifier><!-- optional --> 
       </ProviderSpecificData>
     </TaxonName>
-    <TaxonName id = "12346" nomenclaturalCode = "Botanical">
+    <TaxonName id = "12346" nomenclaturalCode = "Botanical"><!-- an example of a TaxonNamewith only required fields -->
       <Simple>Citrus X paradisi Macfad. (pro sp.)</Simple> 
-      <Rank>Species</Rank>
-      <ProviderSpecificData>
-        <dc:source>http://example.org/species/12346</dc:source>
-        <dwc:GlobalUniqueIdentifier>urn:lsid:example.org:name:d74fcd5e-abc1-d02b-9a4a-2234567890:eo2008</dwc:GlobalUniqueIdentifier> 
-      </ProviderSpecificData>
     </TaxonName>
-    <TaxonName id = "12347" nomenclaturalCode = "Botanical">
+    <TaxonName id = "12347" nomenclaturalCode = "Botanical"><!-- an example of a TaxonName with some optional fields -->
       <Simple>Citrus reticulata Blanco</Simple> 
       <Rank>Species</Rank>
       <ProviderSpecificData>
         <dc:source>http://example.org/species/12347</dc:source>
         <dwc:GlobalUniqueIdentifier>urn:lsid:example.org:name:d74fcd5e-abc1-d02b-9a4a-2234567890:eo2008</dwc:GlobalUniqueIdentifier> 
-      </ProviderSpecificData>
-    </TaxonName>
-    <TaxonName id = "12348" nomenclaturalCode = "Botanical">
-      <Simple>Citrus sinensis (L.) Osbeck</Simple> 
-      <Rank>Species</Rank>
-      <ProviderSpecificData>
-        <dc:source>http://example.org/species/12348</dc:source>
-        <dwc:GlobalUniqueIdentifier>urn:lsid:example.org:name:d74fcd5e-abc1-d02b-9a4a-3234567890:eo2008</dwc:GlobalUniqueIdentifier> 
       </ProviderSpecificData>
     </TaxonName>
   </TaxonNames>

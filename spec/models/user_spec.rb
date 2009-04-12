@@ -151,12 +151,7 @@ describe User do
      User.authenticate('quentin', 'monkey').should == users(:quentin)
    end
 
-  if REST_AUTH_SITE_KEY.blank? 
-    # old-school passwords
-    it "authenticates a user against a hard-coded old-style password" do
-      User.authenticate('old_password_holder', 'test').should == users(:old_password_holder)
-    end
-  else
+  unless REST_AUTH_SITE_KEY.blank? 
     it "doesn't authenticate a user against a hard-coded old-style password" do
       User.authenticate('old_password_holder', 'test').should be_nil
     end

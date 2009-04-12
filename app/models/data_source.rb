@@ -13,6 +13,7 @@ class DataSource < ActiveRecord::Base
 
   URL_RE = /^https?:\/\/|^\s*$/ unless defined? URL_RE
   before_validation :prepare_urls
+  before_destroy :cleanup
   
   validates_presence_of :title, :message => "is required"
   validates_presence_of :data_url, :message => "^Names Data URL is required"
@@ -34,4 +35,8 @@ class DataSource < ActiveRecord::Base
     self.web_site_url.strip! if self.web_site_url
   end
   
+  private
+  def cleanup
+    ActiveRecord::Base.connection.execute("delete from data_source_overlaps where data_source_id_1 = #{self.id} or data_source_id_2 = #{self.id}")
+  end
 end

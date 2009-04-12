@@ -19,8 +19,8 @@ User:
   - id:                        3
     login:                     old_password_holder
     email:                     salty_dog@example.com
-    salt:                      7e3041ebc2fc05a40c60028e2c4901a81035d3cd
-    password:                  test
+    salt:                      356a192b7913b04c54574d18c28d46e6395428ab # SHA1('0')
+    password:                  monkey
     created_at:                <%= 1.days.ago.to_s :db %>
 
 NameString:
@@ -63,6 +63,7 @@ DataSource:
   - id: 5
     title: "Encyclopedia of Life"
   
+
 DataSourceContributor:
   - user_id: 2 #aaron
     data_source_id: 1 #ITIS
@@ -77,6 +78,23 @@ DataSourceContributor:
     data_source_id: 4 #Name Bank
   - user_id: 2 #aaron
     data_source_id: 5 #Encyclopedia of Life
+    
+ImportScheduler:
+  - data_source_id: 1
+    status: 4
+    message: 'Updated'
+  - data_source_id: 2
+    status: 4
+    message: 'Updated'
+  - data_source_id: 3
+    status: 4
+    message: 'Updated'
+  - data_source_id: 4
+    status: 4
+    message: 'Updated'    
+  - data_source_id: 5
+    status: 4
+    message: 'Updated'    
 
 NameIndex:
   - id: 1
@@ -99,7 +117,7 @@ NameIndex:
     data_source_id: 5
   - id: 7
     name_string_id: 3
-    data_source_id: 6
+    data_source_id: 4
 
 NameIndexRecord:
   - name_index_id: 1
@@ -111,10 +129,6 @@ NameIndexRecord:
   - name_index_id: 4
   - name_index_id: 5
   - name_index_id: 6
-  - name_index_id: 7
-  - name_index_id: 7
-  - name_index_id: 7
-  - name_index_id: 7
   - name_index_id: 7
   - name_index_id: 7
   - name_index_id: 7

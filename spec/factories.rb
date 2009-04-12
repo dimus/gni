@@ -72,3 +72,9 @@ Factory.define :name_index_record do |nir|
   nir.global_id   { Factory.next(:sha_hash) }
   nir.url         { Factory.next(:url) }
 end
+
+Factory.define :import_scheduler do |imps|
+  imps.association :data_source
+  imps.status      1
+  imps.message     'Added to the que'
+end
