@@ -1,11 +1,22 @@
 %h1 Scientific Names Parser: Input
 
-.info-div 
+- form_tag '/parsers', :multipart => true  do
+  %label Output format: 
+  = radio_button_tag 'format', 'xml', true
+  xml
+  = radio_button_tag 'format', 'json'
+  json
+  %br/
   Add scientific names one per line. 
   %br/
-  Please note that some browsers have limit of about 64000 characters for input size.
-- form_tag '/parsers', :method => "get" do
-  = text_area_tag "names",nil, {:label => "Scientific Name"}
+  = text_area_tag 'names', nil, {:label => 'Scientific Name'}
+  %br/
+  Or upload a file with scientific names 
+  %br/
+  (one per line, utf-8 encoding, 50 000 names max.)
+  %br/
+  = file_field_tag 'file', :accept => 'text/plain'
   %br/
   %br/
   = submit_tag "Submit"
+  
