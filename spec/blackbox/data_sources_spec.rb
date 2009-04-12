@@ -60,10 +60,6 @@ describe '/data_sources' do
     before :all do
       @user = User.find_by_login('aaron')
       @repo = @user.data_sources.first
-      unless @repo #TODO fix it in the framwork! For some reason Scenario gets stackoverlow exception here
-        DataSourceContributor.gen(:user => @user, :data_source => DataSource.first)
-        @repo = DataSource.first
-      end
       @others_repo = DataSource.all.select {|ds| !@user.data_sources.include? ds}.first
     end
     

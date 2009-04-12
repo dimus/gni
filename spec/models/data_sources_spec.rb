@@ -42,7 +42,6 @@ describe DataSource do
       @ds = DataSource.find_by_title('Index Fungorum')
       @user = User.find_by_login('aaron')
       @user2 = User.find_by_login('quentin')
-      DataSourceContributor.gen(:data_source => @ds, :user => @user) rescue nil #TODO scenario does not load, fix in the framworkend 
     end
     
     it 'should find aaron as a contributor to Index Fungorum' do  
