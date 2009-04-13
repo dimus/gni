@@ -7,12 +7,16 @@ class ParsersController < ApplicationController
   
   # POST /parsers
   def create
-    @names = params[:file].read rescue params[:names] 
-    @parsed_names = Parser.parse(@names)
+    names = params[:file].read rescue params[:names] 
+    parser = Parser.new
+    parser.parse(names)
+    #@parsed_names = Hash.from_json(@parsed_names.to_json) 
     if params[:format] == 'json'
-      render :json => @parsed_names
+      render :json => parser.parsed_names
+    elsif params[:format] == 'yaml'
+      render :text => parser.parsed_names.to_yaml
     else
-      render :xml => @parsed_names
+      render :xml => parser.to_xml
     end
   end
 

@@ -5,7 +5,6 @@ describe '/parsers' do
     it 'should render' do
       res = request('/parsers/new')
       res.success?.should be_true
-      res.body.should have_tag('form[method="get"]')
       res.body.should have_tag('form[action="/parsers"]') do
         with_tag('textarea#names')
         with_tag('input[value="Submit"]')
@@ -13,9 +12,11 @@ describe '/parsers' do
     end
   end
   
-  describe 'index' do
+  describe 'create' do
     it 'should render' do
-      res = request('/parsers?names=Betula%20pubescens')
+      res = request('/parsers', :params =>{
+        'names' => "Betula pubescens\nPlantago major L. 1786",
+        'format' => 'json'})
       res.success?.should be_true
       res.body.should include('"parse_succeeded":true')
     end

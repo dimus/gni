@@ -2,10 +2,12 @@
 
 - form_tag '/parsers', :multipart => true  do
   %label Output format: 
-  = radio_button_tag 'format', 'xml', true
-  xml
-  = radio_button_tag 'format', 'json'
-  json
+  = radio_button_tag 'format', 'json', true
+  JSON
+  = radio_button_tag 'format', 'yaml'
+  YAML
+  = radio_button_tag 'format', 'xml'
+  XML
   %br/
   Add scientific names one per line. 
   %br/
@@ -13,7 +15,7 @@
   %br/
   Or upload a file with scientific names 
   %br/
-  (one per line, utf-8 encoding, 50 000 names max.)
+  (one per line, utf-8 encoding, 5 000 names max.)
   %br/
   = file_field_tag 'file', :accept => 'text/plain'
   %br/
