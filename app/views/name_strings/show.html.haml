@@ -21,6 +21,12 @@
           %span.colored_label original authors:
         %td
           = @parsed_name[:orig_authors][:names].join(", ")
+        - if @parsed_name[:orig_authors][:year]
+          %tr
+            %td
+              %span.colored_label original year:
+            %td
+              = @parsed_name[:orig_authors][:year]
         
     -if @parsed_name[:authors] && !@parsed_name[:authors][:names].blank?
       %tr
@@ -28,7 +34,13 @@
           %span.colored_label authors: 
         %td
           = @parsed_name[:authors][:names].join(", ")
-
+        - if @parsed_name[:authors][:year]
+          %tr
+            %td
+              %span.colored_label year:
+            %td
+              = @parsed_name[:authors][:year]
+        
 -if !@data_sources_data.empty?
   %table#js_name_string_details.data.bordered
     %tr
