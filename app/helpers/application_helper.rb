@@ -48,4 +48,5 @@ module ApplicationHelper
   def in_quotes(a_string)
     "&ldquo;" + a_string + "&rdquo;"
   end
+  
 end

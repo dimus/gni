@@ -78,4 +78,9 @@ class ApplicationController < ActionController::Base
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => '6cf3f472546ba6ae8b0a72276864ba59'
 
+  def json_callback(json_struct, callback)
+    callback ? callback + "(" + json_struct + ");" : json_struct
+  end
+
+
 end
