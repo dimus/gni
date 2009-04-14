@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-bees_nhm_ins_animalia:
-  data_source_import: bees_nhm_ins 
-  name_string: animalia
-
-bees_nhm_ins_bombus:
-  data_source_import: bees_nhm_ins 
-  name_string: bombus_fervidus

@@ -9,7 +9,7 @@ def truncate_all_tables options = { }
   ActiveRecord::Base.connection.tables.each  do |table|
     unless table == 'schema_migrations'
       puts "[#{conn.instance_eval { @config[:database] }}].`#{table}`" if options[:verbose]
-      ActiveRecord::Base.connection.execute "TRUNCATE TABLE`#{table}`"
+      ActiveRecord::Base.connection.execute "delete from #{table}" #"TRUNCATE TABLE`#{table}`"
     end
   end
 end
@@ -24,7 +24,7 @@ class ActiveRecord::Base
 
 # truncate's this model's table
   def self.truncate
-    connection.execute "TRUNCATE TABLE #{ table_name }"
+    connection.execute "delete from #{table_name}"#"TRUNCATE TABLE #{ table_name }"
   rescue => ex
     puts "#{ self.name }.truncate failed ... does the table exist?  #{ ex }"
   end
