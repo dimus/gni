@@ -78,9 +78,36 @@ class ApplicationController < ActionController::Base
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => '6cf3f472546ba6ae8b0a72276864ba59'
 
+
+  
+protected
+
   def json_callback(json_struct, callback)
     callback ? callback + "(" + json_struct + ");" : json_struct
   end
 
+  def prepare_search_data()
+    d = {}
+    d[:page] = params[:page] || 1
+    d[:per_page] = (params[:per_page].to_i < 1) ? 30 : params[:per_page].to_i 
+    d[:per_page] = PER_PAGE_MAX if d[:per_page] > PER_PAGE_MAX
+    d[:search_term] = params[:search_term].strip.gsub(/\*\s*$/,'%') rescue nil
+    d[:search_term] = NameString.normalize_name_string(d[:search_term]) if d[:search_term]
+    d[:original_search_term] = params[:search_term] || ''
+    d[:search_term_errors] = validate_search_term(d[:search_term])
+    d[:is_valid_search] = d[:search_term] && d[:search_term_errors].blank?
+    if params[:expand] && NameString::LATIN_CHARACTERS.include?(params[:expand].strip)
+      d[:char_triples] = NameString.char_triples(params[:expand].strip)
+    end
+    d
+  end
+
+  def validate_search_term(search_term)
+    errors = []
+    if search_term
+      errors << 'Search term with whild characters (* or %) should have at leat 3 letters' if (search_term.include?('%') && search_term.size < 4)
+    end
+    errors
+  end
 
 end

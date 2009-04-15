@@ -1,4 +1,9 @@
 # A namesplace to keep project-specific data
 
-class GNI
+module GNI
+
+  module Controller
+    
+  end
+  
 end

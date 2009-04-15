@@ -1,0 +1,46 @@
+.boxed.centered
+  - form_tag('/name_strings', :method => :get) do
+    = text_field_tag :search_term, nil, {:size => "40"}
+    = submit_tag 'Search'
+    - if current_user and current_user.data_sources
+      = submit_tag 'Search Mine'
+    %br/
+    - NameString::LATIN_CHARACTERS.each do |char|
+      = link_to char, 'expand' => char
+
+- if @char_triples
+  %h4 Browse by clicking three-letter links (grey links are empty)
+  %table{:style=> 'margin:0;width:100%'}
+    %tr
+    - @char_triples.each do |a|
+      %td
+        - a.each do |c|
+          - does_exist = NameString.find_by_sql(['select 1 from name_strings where normalized_name like ? limit 1', c + '%'])
+          - unless does_exist.blank?
+            = link_to c + "<br />", 'search_term' => c + "*"
+          - else
+            %span{:style => 'color:#ddd'}= c
+            %br
+- else
+  - if !@name_strings.blank?
+    #data_layout 
+      #name_column_left{:class=> (@name_strings.size == 0 ? 'empty' : '')}
+        = will_paginate @name_strings
+        - first_row = true
+        - for name_string in @name_strings
+          - name_string_class = first_row ? 'name_string_active' : ''
+          - first_row = false
+          .name_string{:name_string_id => name_string.id, :class => name_string_class}= h name_string.name
+        %br/
+        = will_paginate @name_strings
+      #name_column_right
+    #data_clear_layout
+  - elsif   @empty_search
+    .info-div{:style=>'align:center'}
+      == Your search '#{@search_term}' did not return any records.
+      %br/
+      %br/
+      Please use a wildcard character '*' if you are not searching for an exact string. Wildcard searches should include at least 3 latin letters.
+      %br/
+      %br/
+      Search examples: 'Plantago major', 'Plantago major*', 'plantago*', 'pla*' 

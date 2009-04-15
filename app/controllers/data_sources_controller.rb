@@ -30,18 +30,28 @@ class DataSourcesController < ApplicationController
 
   # GET /data_sources/1
   # GET /data_sources/1.xml
-  def show
+  def show 
     @data_source = DataSource.find(params[:id])
     @current_status = ImportScheduler.current_status(@data_source)
     @deleted = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and name='delete'", @data_source.id], :order => 'updated_at desc') 
     @inserted = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and name='insert'", @data_source.id], :order => 'updated_at desc')
     @updated = DataSourceImport.find(:first, :conditions => ["data_source_id = ? and name='update'", @data_source.id], :order => 'updated_at desc')
-
+    
     @deleted_size = @deleted.data_source_import_details.size rescue 0
     @inserted_size = @inserted.data_source_import_details.size rescue 0 
     @updated_size = @updated.data_source_import_details.size rescue 0
     @last_import_scheduler = ImportScheduler.find(:first,:conditions => ["data_source_id = ?", @data_source.id], :order => "created_at desc") 
     @import_scheduler = ImportScheduler.new
+    
+    search_data = prepare_search_data
+    if search_data[:is_valid_search]
+      @name_strings = NameString.paginate_by_sql(["select n.id, n.name from name_strings n join name_indices i on (n.id = i.name_string_id) where normalized_name like ? and i.data_source_id = ? order by n.normalized_name", search_data[:search_term], @data_source.id], :page => search_data[:page], :per_page => search_data[:per_page]) || nil rescue nil
+    else 
+      @name_strings = []
+    end
+      @char_triples = search_data[:char_triples]
+      @is_empty_search_result = (search_data[:is_valid_search] && @name_strings.blank?)
+      @search_term = search_data[:search_term]
     
     respond_to do |format|
       format.html # show.html.erb

@@ -12,6 +12,8 @@
 
 %div= link_to 'All Repositories', data_sources_path
 
+= render(:partial => "shared/names_search_browse", :locals => {:char_triples => @char_triples, :name_strings => @name_strings, :is_empty_search_result => @is_empty_search_result, :search_term => @search_term})
+
 - if @data_source.contributor?(current_user)
   %fieldset.subsection
     %legend Self-Harvesting
@@ -69,4 +71,6 @@
   %p
     %b Refresh period (days):
     =h @data_source.refresh_period_days
+
+
 

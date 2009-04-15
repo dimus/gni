@@ -140,7 +140,8 @@ textarea {
 
 .name_string {
   color: black;
-  padding-left: 1em;
+  padding-left: 2em;
+  text-indent: -1em;
   width: 25em; }
 
 .name_string_active {
