@@ -78,6 +78,6 @@ unless defined? ENV_CONSTANTS_ARE_DEFINED
   PER_PAGE_MAX = 1000
   NOREPLY_EMAIL = "noreply@example.org"
   FEEDBACK_EMAIL = 'customer_service@example.com'
-  PROGRAM_NAME = "Global Name Index"
+  PROGRAM_NAME = "Global Names Index"
   ENV_CONSTANTS_ARE_DEFINED = true
 end

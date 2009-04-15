@@ -47,7 +47,7 @@ class NameStringsController < ApplicationController
     respond_to do |format|
         format.html # index.html.erb
         format.xml {render :xml => result}
-        format.json {render :json => result}
+        format.json {render :json => json_callback(result.to_json,params[:callback])}
     end
   end
 
@@ -66,7 +66,7 @@ class NameStringsController < ApplicationController
     respond_to do |format|
       format.html
       format.xml {render :xml => data}
-      format.json {render :json => data}
+      format.json {render :json => json_callback(data.to_json,params[:callback])}
     end
   end
 

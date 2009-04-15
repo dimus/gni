@@ -482,6 +482,10 @@ span.colored_label {
   margin-left: 100px;
   margin-top: 50px;
   position: absolute; }
+  #logo_gna span {
+    color: #bb8866;
+    font-size: 0.6em;
+    font-variant: small-caps; }
 
 #logo_motto {
   color: #45704d;

@@ -1,6 +1,18 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe '/parsers' do
+  
+  describe 'index' do
+    it 'should render' do
+      res = request('/parsers.xml?names=Betula+verucosa')
+      res.success?.should be_true
+      res.body.should have_tag('canonical')
+      res = request('/parsers.json?names=Betuls+verucosa&callback=myfunc')
+      res.success?.should be_true
+      res.body.should include('myfunc([')
+    end
+  end
+  
   describe 'new' do
     it 'should render' do
       res = request('/parsers/new')
