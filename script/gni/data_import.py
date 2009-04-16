@@ -147,7 +147,7 @@ class Importer: #{{{1
     #private functions #{{{2
     def _prepare_kingdoms(self):
         c = self.db.cursor
-        c.execute("select n.id, n.name from kingdoms k join name_strings n on n.id = k.name_string_id")
+        c.execute("select id, name from kingdoms")
         res = c.fetchall()
         kingdoms = {}
         for i in res:
@@ -180,7 +180,15 @@ class Importer: #{{{1
         try:
             self._record['Kingdom'] = self.kingdoms[self._record['Kingdom'].lower()]
         except KeyError:
-            self._record['Kingdom'] = None
+            if self._record.has_key('Kingdom'):
+                new_kingdom = self._record['Kingdom']
+                self.db.cursor.execute("insert into kingdoms (name, created_at, updated_at) values (%s, now(), now())", new_kingdom)
+                self.db.cursor.execute("select last_insert_id()")
+                kingdom_id = self.db.cursor.fetchone()
+                self._record['Kingdom'] = kingdom_id
+                self.kingdoms[new_kingdom.lower()] = kingdom_id
+            else:
+                self._record['Kingdom'] = None
         self.imported_data.append(self._record.copy())
             
     def _reset_record(self): #{{{2
@@ -218,129 +226,6 @@ class Importer: #{{{1
         #print(':mysql: name_index_records inserts are done')
         self.db_commit()
         self.imported_data = []
-    
-    
-    # def _db_insert(self): #{{{2
-    #     c = self.db.cursor
-    #     c.execute('select max(id) from name_indices')
-    #     res = c.fetchall()
-    #     if res[0][0]:
-    #         last_id = res[0][0]
-    #     else:
-    #         last_id = 0 
-    #     insert_query = "insert into name_indices (data_source_id, name_string_id, records_hash, created_at, updated_at) values %s"
-    #     if self.inserted:
-    #         inserts = []
-    #         count = 0
-    #         for i in self.inserted:
-    #             count += 1
-    #             #data = self.db.escape_data(self.imported_data[i])
-    #             data = {}
-    #             data['name_string_id'] = i
-    #             data['data_source_id'] = self.data_source_id
-    #             data['records_hash'] = self.imported_data[i]['hash'] 
-    #             inserts.append("(%(data_source_id)s, %(name_string_id)s, '%(records_hash)s' , now(), now())" % data)
-    #             if len(inserts) >= packet_size:
-    #               c.execute(insert_query % ",".join(map(lambda x: str(x),inserts)))
-    #               #print(':mysql: inserted ' + str(count))
-    #               inserts=[]
-    #         if inserts:
-    #             c.execute(insert_query % ",".join(map(lambda x: str(x),inserts)))
-    #         
-    #         #print("select id, name_string_id from name_indices where data_source_id = %s and id > %s" % (self.data_source_id, last_id) )
-    #         c.execute("select id, name_string_id from name_indices where data_source_id = %s and id > %s" % (self.data_source_id, last_id) )
-    #         #print(':mysql: name_indices inserts are done')
-    #         res = c.fetchall()
-    #         records = []
-    #         count = 0
-    #         insert_query = "insert into name_index_records (name_index_id, record_hash, url, local_id, global_id, kingdom_id, rank, created_at, updated_at) values %s"
-    #         for i in res:
-    #             count += 1
-    #             name_index_id = i[0]
-    #             name_string_id = i[1]
-    #             for d in self.imported_data[name_string_id]['data']:
-    #                 data = self.db.escape_data(d)
-    #                 data['name_index_id'] = name_index_id
-    #                 records.append("(%(name_index_id)s, %(hash)s, %(source)s, %(identifier)s, %(GlobalUniqueIdentifier)s, %(Kingdom)s, %(Rank)s, now(), now())" % data)
-    #                 if len(records) >= packet_size:
-    #                     c.execute(insert_query % ",".join(records)) 
-    #                     #print(':mysql: records ' + str(count))
-    #                     records=[]
-    #         if records:
-    #             c.execute(insert_query % ",".join(records)) 
-    #         #print(':mysql: name_index_records inserts are done')
-    # def db_update(self): #{{{2
-    #     c = self.db.cursor
-    #     if self.changed:
-    #         c.execute("select id, name_string_id from name_indices where  name_string_id in (%s)" % ",".join(map(lambda x: str(x), self.changed)))
-    #         res = c.fetchall()
-    #         updates = map(lambda x: str(x[0]), res)
-    #         c.execute("delete from name_index_records where name_index_id in (%s)" % ",".join(updates))
-    #         for i in res:
-    #             name_string_id = i[1]
-    #             name_index_id = i[0]
-    #             hash = self.imported_data[name_string_id]['hash']
-    #             c.execute("update name_indices set records_hash = %s where data_source_id = %s and name_string_id = %s", (hash, self.data_source_id, name_string_id))
-    #             records = []
-    #             for d in self.imported_data[i[1]]['data']:
-    #                 data = self.db.escape_data(d)
-    #                 data['name_index_id'] = name_index_id
-    #                 #pp.pprint(data)
-    #                 records.append("(%(name_index_id)s, %(hash)s, %(source)s, %(identifier)s, %(GlobalUniqueIdentifier)s, %(Kingdom)s, %(Rank)s, now(), now())" % data)
-    #             c.execute("insert into name_index_records (name_index_id, record_hash, url, local_id, global_id, kingdom_id, rank, created_at, updated_at) values %s" % ",".join(records)) 
-    # 
-    # 
-    # def _find_overlaps(self):  #{{{2
-    #     c = self.db.cursor
-    #     c.execute("delete from data_source_overlaps where data_source_id_1 = %s or data_source_id_2 = %s", (self.data_source_id, self.data_source_id))
-    #     c.execute("select id from data_sources where id != %s", self.data_source_id)
-    #     data_sources = map(lambda x: x[0], c.fetchall())
-    #     data_sources.sort
-    #     overlap_data = []
-    #     for i in data_sources:
-    #         c.execute("select name_string_id from name_indices where data_source_id = %s", i)
-    #         other_data_source_name_ids = set(map(lambda x: x[0], c.fetchall()))
-    #         intersect_size = len(self._new_ids.intersection(other_data_source_name_ids))
-    #         overlap_data.append("(%s, %s, %s, now(), now())" % (self.data_source_id, i, intersect_size))
-    #     c.execute("insert into data_source_overlaps (data_source_id_1, data_source_id_2, strict_overlap, created_at, updated_at) values %s" % ",".join(overlap_data))
-    # 
-    # def _db_store_statistics(self): #{{{2
-    #   #c.execute("delete from import_details where created_at 
-    #   self._import_stats(self.deleted, 'delete')
-    #   self._import_stats(self.inserted, 'insert')
-    #   self._import_stats(self.changed, 'update')
-    #   return "Deleted: %s, Inserted: %s, Changed: %s" % (len(self.deleted), len(self.inserted), len(self.changed))
-    # 
-    # 
-    # def _add_hash_to_imports(self):
-    #     imp =  self.imported_data
-    #     for key in imp.keys():
-    #         hashes = [] 
-    #         for d in imp[key]['data']:
-    #             data_keys = d.keys()
-    #             data_keys.sort()
-    #             data_array = map(lambda x: d[x], data_keys)
-    #             normalized_data = cjson.encode(data_array).replace(' ','')
-    #             #print normalized_data
-    #             normalized_data = sha.new(normalized_data).hexdigest()
-    #             #print normalized_data
-    #             d['hash'] = normalized_data
-    #             hashes.append(normalized_data)
-    #         hashes.sort()
-    #         record_hashes = sha.new(''.join(hashes)).hexdigest()
-    #         #:print record_hashes
-    #         imp[key]['hash']= record_hashes
-    # 
-    # def _import_stats(self, data, name): #{{{2
-    #     c = self.db.cursor
-    #     if len(data):
-    #         c.execute("insert into data_source_imports (data_source_id, name, created_at, updated_at) values (%s, %s, now(), now())", (self.data_source_id, name))
-    #         c.execute("select last_insert_id()")
-    #         imports_id = c.fetchone()[0]
-    #         inserts = []
-    #         for i in data:
-    #             inserts.append("(%s, %s, now(), now())" % (imports_id, i))
-    #         c.execute("insert into data_source_import_details (data_source_import_id, name_string_id, created_at, updated_at) values %s" % ",".join(inserts))
 
 if __name__ == '__main__': #script part {{{1
     opts = OptionParser()
