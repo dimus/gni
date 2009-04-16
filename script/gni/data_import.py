@@ -38,9 +38,11 @@ def run_imports(source,source_id,environment):
     
     print "Finding overlaps"
     i.find_overlaps()
-    
+
     print "Committing"
     i.db_commit()
+    
+    i.db_clean_imports()
 
 def normalize_name_string(name_string):
     name_string = name_string.lower()
@@ -185,6 +187,7 @@ class Importer: #{{{1
                 self.db.cursor.execute("insert into kingdoms (name, created_at, updated_at) values (%s, now(), now())", new_kingdom)
                 self.db.cursor.execute("select last_insert_id()")
                 kingdom_id = self.db.cursor.fetchone()
+                kingdom_id = kingdom_id[0]
                 self._record['Kingdom'] = kingdom_id
                 self.kingdoms[new_kingdom.lower()] = kingdom_id
             else:
