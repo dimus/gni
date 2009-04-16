@@ -322,7 +322,8 @@ span.colored_label {
     font-size: 0.7em; }
 
 #data_layout {
-  background-color: #45704d; }
+  background-color: #45704d;
+  padding: 1em; }
 
 #data_clear_layout {
   clear: both; }
