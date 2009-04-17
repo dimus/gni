@@ -37,8 +37,7 @@
                 - if current_user 
                   %li
                     %span#current_user_login_name
-                      User: 
-                      = current_user[:login]
+                      = link_to "User: #{current_user[:login]}", data_sources_url
                       = link_to "(edit)", edit_user_url(current_user[:id])
                   %li
                     = link_to "Logout", "/logout"

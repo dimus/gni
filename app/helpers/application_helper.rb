@@ -49,4 +49,8 @@ module ApplicationHelper
     "&ldquo;" + a_string + "&rdquo;"
   end
   
+  def display_big_int(an_int)
+    an_int.to_s.reverse.gsub(/([\d]{3})/,'\1 ').reverse
+  end
+  
 end

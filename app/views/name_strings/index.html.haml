@@ -3,5 +3,5 @@
   
 .help_info
   Index of names provided by all Name Repositories
-  == (#{@names_total} names total) 
+  == (#{display_big_int(@names_total)} names total) 
 = render(:partial => "shared/names_search_browse", :locals => {:char_triples => @char_triples, :name_strings => @name_strings, :is_empty_search_result => @is_empty_search_result , :search_term => @search_term})
