@@ -109,5 +109,8 @@ protected
     end
     errors
   end
+  
+  def resource_type
+  end
 
 end

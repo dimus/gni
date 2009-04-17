@@ -15,7 +15,7 @@ import re
 import pprint
 pp = pprint.PrettyPrinter(indent=2)
 packet_size = 5000
-commit_size = 50000
+commit_size = 10000
 del_chars=re.compile('[.;,]')
 space_char = re.compile('([-\(\)\[\]\{\}:&?\*])')
 x_char = re.compile('\s+[xX]\s+')

@@ -1,12 +1,17 @@
+- @data_source ||= nil
 .boxed.centered
-  - form_tag('/name_strings', :method => :get) do
+  - form_tag( (@data_source ? "/data_sources/#{@data_source.id}" : '/name_strings') , :method => :get) do
     = text_field_tag :search_term, nil, {:size => "40"}
     = submit_tag 'Search'
-    - if current_user and current_user.data_sources
+    - if current_user && current_user.data_sources && !@data_source
       = submit_tag 'Search Mine'
     %br/
     - NameString::LATIN_CHARACTERS.each do |char|
-      = link_to char, 'expand' => char
+      - does_exist = @data_source ? NameString.find_by_sql(["select 1 from name_strings ns join name_indices ni on ns.id = ni.name_string_id where ni.data_source_id = ? and normalized_name like ? limit 1", @data_source.id, char.downcase + "%"]) : true
+      - unless does_exist.blank?
+        = link_to char, 'expand' => char
+      - else
+        %span{:style => 'color:#aaa'}= char
 
 - if @char_triples
   %h4 Browse by clicking three-letter links (grey links are empty)
@@ -15,12 +20,14 @@
     - @char_triples.each do |a|
       %td
         - a.each do |c|
-          - does_exist = NameString.find_by_sql(['select 1 from name_strings where normalized_name like ? limit 1', c + '%'])
+          - join = @data_source ? "join name_indices ni on ns.id = ni.name_string_id" : ''
+          - cond = @data_source && @data_source.id.class.name == 'Fixnum' ? "and ni.data_source_id = #{@data_source.id}" : ''
+          - does_exist = NameString.find_by_sql(["select 1 from name_strings ns #{join} where normalized_name like ? #{cond} limit 1", c + '%'])
           - unless does_exist.blank?
-            = link_to c + "<br />", 'search_term' => c + "*"
+            = link_to c , 'search_term' => c + "*"
           - else
             %span{:style => 'color:#ddd'}= c
-            %br
+          %br/
 - else
   - if !@name_strings.blank?
     #data_layout 

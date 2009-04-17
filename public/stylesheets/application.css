@@ -154,8 +154,9 @@ textarea {
   width: 25em; }
 
 #name_column_left {
+  padding-top: 0.5em;
   float: left;
-  border-right: 3px solid #cbe4c3;
+  background-color: #f8f8f8;
   z-index: +1; }
   #name_column_left.empty {
     border-right: 0px; }
