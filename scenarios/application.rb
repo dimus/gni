@@ -1,13 +1,6 @@
 #basic scenario is loaded for the most spec cases
-
+require File.dirname(__FILE__) + '/scenario_helper'
 yml_file =  File.join(RAILS_ROOT, 'scenarios', 'yml' , 'application.yml')
 data = YAML.load(ERB.new(open(yml_file).read).result)
 
-data.keys.each do |klass_name|
-  klass = Object.const_get(klass_name)
-  klass.truncate
-  data[klass_name].each do |args|
-    klass.gen(args)
-  end
-end
-
+generate_scenario(data)

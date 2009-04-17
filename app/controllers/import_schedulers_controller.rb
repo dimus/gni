@@ -1,4 +1,12 @@
 class ImportSchedulersController < ApplicationController
+  
+  def index
+    data_sources_scheduled = ImportScheduler.data_sources_scheduled
+    respond_to do |format|
+      format.xml {render :xml => data_sources_scheduled.to_xml}
+      format.json {render :json => data_sources_scheduled.to_json}
+    end
+  end
 
   def show
     @import_scheduler = ImportScheduler.find(params[:id])

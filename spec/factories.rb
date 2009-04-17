@@ -21,12 +21,13 @@ Factory.define :name_string do |name_string|
 end
 
 Factory.define :data_source do |data_source|
-  data_source.created_at      { 5.days.ago }
-  data_source.updated_at      { 5.days.ago }
-  data_source.title           { Factory.next(:string) }
-  data_source.data_url        { Factory.next(:url) + ".xml" }
-  data_source.logo_url        { Factory.next(:url) + ".jpg" }
-  data_source.web_site_url    { Factory.next(:url) }
+  data_source.created_at          { 5.days.ago }
+  data_source.updated_at          { 5.days.ago }
+  data_source.refresh_period_days {14}
+  data_source.title               { Factory.next(:string) }
+  data_source.data_url            { Factory.next(:url) + ".xml" }
+  data_source.logo_url            { Factory.next(:url) + ".jpg" }
+  data_source.web_site_url        { Factory.next(:url) }
 end
 
 Factory.define :user do |user|
