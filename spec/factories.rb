@@ -57,24 +57,26 @@ Factory.define :name_index do |ni|
   ni.records_hash { Factory.next(:sha_hash) }
 end
 
+Factory.define :name_rank do |nr|
+  nr.name       {Factory.next(:string)}
+end
+
+Factory.define :kingdom do |k|
+  k.name {Factory.next(:string)}
+end
+
 Factory.define :name_index_record do |nir|
   nir.association   :name_index
-  nir.kingdom       nil
+  nir.association   :kingdom
+  nir.association   :name_rank
   nir.record_hash   nil
-  nir.rank  do  
-    rank_index = 0
-    chance =  rand(100)
-    ranks = ['Species', 'Genus', 'Order'] 
-    rank_index = 1 if chance.between?(75,94)
-    rank_index = 2 if chance.between?(95,100)
-    ranks[rank_index]
-  end
   nir.local_id    { Factory.next(:number) }
   nir.global_id   { Factory.next(:sha_hash) }
   nir.url         { Factory.next(:url) }
 end
 
 Factory.define :import_scheduler do |imps|
+  imps.created_at  { rand(30).days.ago }
   imps.association :data_source
   imps.status      1
   imps.message     'Added to the que'

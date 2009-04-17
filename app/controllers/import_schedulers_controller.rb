@@ -1,7 +1,7 @@
 class ImportSchedulersController < ApplicationController
   
   def index
-    data_sources_scheduled = ImportScheduler.data_sources_scheduled
+    data_sources_scheduled = ImportScheduler.data_sources_to_schedule
     respond_to do |format|
       format.xml {render :xml => data_sources_scheduled.to_xml}
       format.json {render :json => data_sources_scheduled.to_json}

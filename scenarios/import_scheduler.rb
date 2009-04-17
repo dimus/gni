@@ -5,3 +5,5 @@ import_scheduler = YAML.load(ERB.new(open(yml_file).read).result)
 
 ImportScheduler.truncate
 generate_scenario(import_scheduler)
+
+ActiveRecord::Base.connection.execute("update import_schedulers set updated_at=created_at")

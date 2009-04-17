@@ -51,17 +51,39 @@ NameString:
   - id: 13
     name: "Higena plumigera Matsumura 1925"
 
+Kingdom:
+  - id: 1
+    name: Animalia
+  - id: 2
+    name: Plantae
+  - id: 3
+    name: Fungi
+
+NameRank:
+  - id: 1
+    name: Genus
+  - id: 2
+    name: Species
+
 DataSource: 
   - id: 1
     title: "ITIS"
+    refresh_period_days: 14
   - id: 2
     title: "IPNI"
+    refresh_period_days: 14
   - id: 3
     title: "Index Fungorum"
+    refresh_period_days: 14
   - id: 4
     title: "Name Bank"
+    refresh_period_days: 14
   - id: 5
     title: "Encyclopedia of Life"
+    refresh_period_days: 14
+  - id: 6
+    title: "FishBase"
+    refresh_period_days: 0
   
 
 DataSourceContributor:
