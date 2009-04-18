@@ -95,7 +95,11 @@ class Importer: #{{{1
         self.counter = 0
         self.time = time.time()
         self.kingdoms = self._prepare_kingdoms()
-
+        try:
+            urlopen(source).info
+        except IOError:
+            raise RuntimeError("Cannot access %s url" % source)
+        
         self.reader = libxml2.newTextReaderFilename(source)
         self.data_source_id = data_source_id
 
