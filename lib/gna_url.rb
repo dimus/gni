@@ -7,7 +7,7 @@ class GnaUrl
   def self.valid_url?(url)
     valid_url = true
     begin
-      parsed_url=URI.parse(url)
+      parsed_url=URI.parse(url.strip)
       header=Net::HTTP.new(parsed_url.host,parsed_url.port).head(parsed_url.path == '' ? '/' : parsed_url.path)    
       valid_url = false unless ['200','301','302'].include?(header.code) 
     rescue

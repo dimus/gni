@@ -63,8 +63,7 @@ class DbImporter: #{{{1
         for key in ('source','identifier','GlobalUniqueIdentifier', 'Kingdom', 'Rank'):
             if not data.has_key(key):
                 data[key] = 'null'
-        if data['Simple'] == "'Orthoschema tenuicorne Bates, 1870'":
-            pp.pprint(data)
+        #pp.pprint(data)
         return data
 
     def __init__(self, environment): #{{{2
@@ -94,7 +93,7 @@ class Importer: #{{{1
         self.imported_data = []
         self.counter = 0
         self.time = time.time()
-        self.kingdoms = self._prepare_kingdoms()
+        self.dependencies = self._prepare_dependencies()
         try:
             urlopen(source).info
         except IOError:
@@ -128,7 +127,7 @@ class Importer: #{{{1
         c.execute('insert IGNORE into name_indices (name_string_id, data_source_id, created_at, updated_at) (select name_string_id, data_source_id, now(), now() from import_name_index_records)')
         
         print "third query";
-        c.execute('insert IGNORE into name_index_records (name_index_id, kingdom_id, rank, local_id, global_id, url, created_at, updated_at) (select ni.id, inir.kingdom_id, inir.rank, inir.local_id, inir.global_id, inir.url, now(), now() from import_name_index_records inir join name_indices ni on (inir.name_string_id = ni.name_string_id) where ni.data_source_id = %s )' % self.data_source_id)
+        c.execute('insert IGNORE into name_index_records (name_index_id, kingdom_id, name_rank_id, local_id, global_id, url, created_at, updated_at) (select ni.id, inir.kingdom_id, inir.name_rank_id, inir.local_id, inir.global_id, inir.url, now(), now() from import_name_index_records inir join name_indices ni on (inir.name_string_id = ni.name_string_id) where ni.data_source_id = %s )' % self.data_source_id)
     
     def find_overlaps(self):  #{{{2
         c = self.db.cursor
@@ -151,14 +150,16 @@ class Importer: #{{{1
         self.db_commit()
         
     #private functions #{{{2
-    def _prepare_kingdoms(self):
+    def _prepare_dependencies(self):
         c = self.db.cursor
-        c.execute("select id, name from kingdoms")
-        res = c.fetchall()
-        kingdoms = {}
-        for i in res:
-            kingdoms[i[1].lower()] = i[0]
-        return kingdoms
+        dependecy_tables = {}
+        for table_name in ['kingdoms', 'name_ranks']:
+            c.execute("select id, name from %s" % table_name)
+            res = c.fetchall()
+            dependecy_tables[table_name] ={}
+            for i in res:
+                dependecy_tables[table_name][i[1].lower()] = i[0]
+        return dependecy_tables
 
     def _process_node(self): #{{{2
         if self.reader.NodeType() == 1: #start of a tag
@@ -175,6 +176,7 @@ class Importer: #{{{1
                     new_time = time.time()
                     yield "Processing %sth record. Average Speed: %2d records per second." % (self.counter,self.counter/(new_time - self.time))
                 self._append_imported_data()
+                #pp.pprint(self._record)
                 self._record = self._reset_record()
                 if len(self.imported_data) >= commit_size:
                     self._insert()
@@ -183,19 +185,20 @@ class Importer: #{{{1
             self._current_tag = None
 
     def _append_imported_data(self): #{{{2
-        try:
-            self._record['Kingdom'] = self.kingdoms[self._record['Kingdom'].lower()]
-        except KeyError:
-            if self._record.has_key('Kingdom'):
-                new_kingdom = self._record['Kingdom']
-                self.db.cursor.execute("insert into kingdoms (name, created_at, updated_at) values (%s, now(), now())", new_kingdom)
-                self.db.cursor.execute("select last_insert_id()")
-                kingdom_id = self.db.cursor.fetchone()
-                kingdom_id = kingdom_id[0]
-                self._record['Kingdom'] = kingdom_id
-                self.kingdoms[new_kingdom.lower()] = kingdom_id
-            else:
-                self._record['Kingdom'] = None
+        dependencies = (('Kingdom','kingdoms'),('Rank','name_ranks'))
+        for dependency in dependencies:
+            try:
+                self._record[dependency[0]] = self.dependencies[dependency[1]][self._record[dependency[0]].lower()]
+            except KeyError:
+                if self._record.has_key(dependency[0]):
+                    new_name = self._record[dependency[0]]
+                    self.db.cursor.execute("insert into " + dependency[1] + " (name, created_at, updated_at) values (%s, now(), now())", new_name)
+                    self.db.cursor.execute("select last_insert_id()")
+                    data_id = self.db.cursor.fetchone()[0]
+                    self._record[dependency[0]] = data_id
+                    self.dependencies[dependency[1]][new_name.lower()] = data_id
+                else:
+                    self._record[dependency[0]] = None
         self.imported_data.append(self._record.copy())
             
     def _reset_record(self): #{{{2
@@ -214,7 +217,7 @@ class Importer: #{{{1
     def _insert(self):
         c = self.db.cursor
         records = []
-        insert_query = "insert into import_name_index_records (data_source_id, kingdom_id, name_string, name_string_id, rank, local_id, global_id, url, created_at, updated_at) values %s"
+        insert_query = "insert into import_name_index_records (data_source_id, kingdom_id, name_string, name_string_id, name_rank_id, local_id, global_id, url, created_at, updated_at) values %s"
         for i in self.imported_data:
             i['name_string_id'] = self._name_lookup(i['Simple'])
             data = self.db.escape_data(i)
