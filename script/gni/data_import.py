@@ -143,9 +143,9 @@ class Importer: #{{{1
             c.execute("insert into data_source_overlaps (data_source_id_1, data_source_id_2, strict_overlap, created_at, updated_at) values (%s, %s, %s, now(), now())", (self.data_source_id, i, overlap))
             c.execute("insert into data_source_overlaps (data_source_id_1, data_source_id_2, strict_overlap, created_at, updated_at) values (%s, %s, %s, now(), now())", (i, self.data_source_id, overlap))
     
-    def add_names_count():
+    def add_names_count(self):
         c = self.db.cursor
-        c.execute('insert into select count(*) as count from name_indices where data_source_id = %s', self.data_source_id)
+        c.execute('update data_sources set name_strings_count = (select count(*) from name_indices where data_source_id = %s) where id = %s', (self.data_source_id, self.data_source_id))
     
     def db_commit(self): #{{{2
         self.db.conn.commit()

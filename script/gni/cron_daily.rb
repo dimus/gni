@@ -35,6 +35,7 @@ require 'import_scheduler'
 def update_name_strings_count
   ns_count = NameString.count
   Statistic.name_strings_count = ns_count
+  DataSource.update_name_strings_count
 end
 
 def set_repositories_que

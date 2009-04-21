@@ -14,7 +14,7 @@
 
 - unless @current_status == ImportScheduler::NO_IMPORTS
   %fieldset.subsection
-    %legend.subsection== Names in the Repository: #{display_big_int(@data_source.name_strings.size)}
+    %legend.subsection== Names in the Repository: #{display_big_int(@data_source.name_strings_count)}
     = render(:partial => "shared/names_search_browse", :locals => {:char_triples => @char_triples, :name_strings => @name_strings, :is_empty_search_result => @is_empty_search_result, :search_term => @search_term, :data_source => @data_source})
 
 
