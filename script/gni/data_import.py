@@ -30,16 +30,18 @@ def run_imports(source,source_id,environment):
         yield ii
     print "data entered for processing"
     
-    print "Processing"
+    yield "Processing"
     i.process()
     
-    print "Migrating"
+    yield "Migrating"
     i.migrate_data()
     
-    print "Finding overlaps"
+    yield "Finding overlaps"
     i.find_overlaps()
+    i.add_names_count()
+    
 
-    print "Committing"
+    yield "Committing"
     i.db_commit()
     
     i.db_clean_imports()
@@ -140,6 +142,10 @@ class Importer: #{{{1
             overlap = c.fetchone()[0]
             c.execute("insert into data_source_overlaps (data_source_id_1, data_source_id_2, strict_overlap, created_at, updated_at) values (%s, %s, %s, now(), now())", (self.data_source_id, i, overlap))
             c.execute("insert into data_source_overlaps (data_source_id_1, data_source_id_2, strict_overlap, created_at, updated_at) values (%s, %s, %s, now(), now())", (i, self.data_source_id, overlap))
+    
+    def add_names_count():
+        c = self.db.cursor
+        c.execute('insert into select count(*) as count from name_indices where data_source_id = %s', self.data_source_id)
     
     def db_commit(self): #{{{2
         self.db.conn.commit()
