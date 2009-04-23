@@ -32,9 +32,14 @@ require 'name_string'
 require 'data_source'
 require 'import_scheduler'
 
+def cleanup_orphans
+  NameString.delete_orphans
+end
+
 def update_name_strings_count
   ns_count = NameString.count
   Statistic.name_strings_count = ns_count
+  DataSource.update_name_strings_count
 end
 
 def set_repositories_que
@@ -50,6 +55,7 @@ def do_repositories_update
   system(File.dirname(__FILE__) + "/update_imports -e " +  OPTIONS[:environment])
 end
 
+cleanup_orphans
 update_name_strings_count
 #set_repositories_que
 #do_repositories_update

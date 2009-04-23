@@ -26,16 +26,22 @@ class DataSource < ActiveRecord::Base
     !!self.users.include?(a_user)
   end
   
-  private
+  def self.update_name_strings_count()
+    ActiveRecord::Base.connection.execute("update data_sources ds1  set ds1.name_strings_count = (select count(*) from name_indices where data_source_id = ds1.id)")
+  end
   
-  def prepare_urls()
-    
+  def update_name_strings_count()
+    ActiveRecord::Base.connection.execute("update data_sources set name_strings_count = (select count(*) from name_indices where data_source_id = #{self.id}) where id = #{self.id}")
+  end
+  
+private
+  
+  def prepare_urls()    
     self.data_url.strip! if self.data_url
     self.logo_url.strip! if self.logo_url
     self.web_site_url.strip! if self.web_site_url
   end
   
-  private
   def cleanup
     ActiveRecord::Base.connection.execute("delete from data_source_overlaps where data_source_id_1 = #{self.id} or data_source_id_2 = #{self.id}")
   end
