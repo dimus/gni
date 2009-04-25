@@ -13,22 +13,13 @@ module GNI
       | [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15
       |  \xF4[\x80-\x8F][\x80-\xBF]{2}     # plane 16
     )*\z/x
-    str=""
-    limit = 10
     count = 0
     File.open("#{fileName}").each do |l|
       count += 1
-      str << l
-      if count % limit == 0 
-        puts count if count % 100000 == 0
-        unless utf8rgx === str
-          puts count
-          return false
-        end
-        str = ""
+      unless utf8rgx === l
+        puts count.to_s + ": " + l
       end
     end
-    return false unless utf8rgx === str
     return true
   end
   
