@@ -2,6 +2,8 @@
 
 #this script should be run by cron
 require 'optparse'
+require 'fileutils'
+require 'open-uri'
 
 OPTIONS = {
   :environment => "production",
@@ -37,7 +39,6 @@ end
 ENV["RAILS_ENV"] = OPTIONS[:environment]
 require File.dirname(__FILE__) + "/../../config/environment"
 require 'data_source'
-require 'open-uri'
 
 data_source_id = OPTIONS[:identifier]
 data_url = DataSource.find(data_source_id).data_url || nil rescue nil
@@ -47,8 +48,13 @@ raise "Cannot connect to the given URL" unless GniUrl.valid_url?(data_url)
 
 data_extention = data_url.split(".").last
 data_extention = '' unless ["zip","xml"].include? data_extention
+base_dir = "#{RAILS_ROOT}/repositories/"
+data_file = "#{base_dir}#{data_source_id}.#{data_extention}"
 
-open("#{RAILS_ROOT}/repositories/#{data_source_id}.#{data_extention}",  "w").write(open(data_url).read)
-
-
+f = open(data_file,  "w")
+f.write(open(data_url).read)
+f.close
+FileUtils.rm_rf("#{base_dir}tmp")
+Dir.chdir "#{base_dir}"
+system "unzip -d tmp #{data_source_id}.zip"
 

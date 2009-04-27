@@ -2,11 +2,13 @@ class ImportScheduler < ActiveRecord::Base
   belongs_to :data_source
 
   unless defined? CONSTANTS_DEFINED
-    NO_IMPORTS = nil
-    WAITING = 1
-    PROCESSING = 2
-    FAILED = 3
-    UPDATED = 4
+    NO_IMPORTS  = nil
+    WAITING     = 1
+    DOWNLOADING = 2
+    PROCESSING  = 3
+    FAILED      = 4
+    UPDATED     = 5
+    UNCHANGED   = 6
     CONSTANTS_DEFINED = true
   end
 
