@@ -1,6 +1,6 @@
 class DataSourceAddDataHash < ActiveRecord::Migration
   def self.up
-    add_column :data_sources, :data_hash, :string 
+    add_column :data_sources, :data_hash, :string, :limit => 40 
   end
 
   def self.down

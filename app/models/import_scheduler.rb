@@ -13,14 +13,18 @@ class ImportScheduler < ActiveRecord::Base
   end
 
   def self.current_status(a_data_source)
-    ds_id = 0
-    if a_data_source.class == DataSource 
-      ds_id = a_data_source.id
-    elsif a_data_source.class == Fixnum
-      ds_id = a_data_source
-    end
+    ds_id = find_data_source_id(a_data_source)
     ImportScheduler.find_by_sql(["select status from import_schedulers where data_source_id = ? order by updated_at desc limit 1", ds_id])[0].status rescue nil
   end
+  
+  def self.last_import_status(a_data_source)
+    ds_id = find_data_source_id(a_data_source)
+    ImportScheduler.find_by_sql(["select status from import_schedulers where data_source_id = ? and status in (?,?,?) order by updated_at desc limit 1", ds_id, UNCHANGED, FAILED, UPDATED])[0].status rescue nil
+  end
+  
+  def self.last_successful_update(a_data_source)
+    ds_id = find_data_source_id(a_data_source)
+    ImportScheduler.find_by_sql(["select status from import_schedulers where data_source_id = ? and status = UPDATED order by updated_at desc limit 1", UNCHANGED])
 
   def self.scheduled?(a_data_source)
     cs = ImportScheduler.current_status a_data_source
@@ -53,4 +57,16 @@ class ImportScheduler < ActiveRecord::Base
     end
     is_ready
   end
+  
+protected
+  def self.find_data_source_id(a_data_source)
+    ds_id = 0
+    if a_data_source.class == DataSource 
+      ds_id = a_data_source.id
+    elsif a_data_source.class == Fixnum
+      ds_id = a_data_source
+    end
+    ds_id
+  end
+
 end

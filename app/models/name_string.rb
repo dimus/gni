@@ -35,6 +35,6 @@ class NameString < ActiveRecord::Base
 
   def self.delete_orphans()
     orphans = ActiveRecord::Base.connection.select_values("select ns.id from name_strings ns left join name_indices ni on ns.id = ni.name_string_id where name_string_id is null").join(",")
-    ActiveRecord::Base.connection.execute("delete from name_strings where id in (#{orphans})")
+    ActiveRecord::Base.connection.execute("delete from name_strings where id in (#{orphans})") unless orphans.blank?
   end
 end
