@@ -9,6 +9,7 @@ OPTIONS = {
   :environment => "production",
   :identifier => nil
 }
+CACHE = {}
 
 ARGV.options do |opts|
   script_name = File.basename($0)
@@ -39,7 +40,44 @@ end
 ENV["RAILS_ENV"] = OPTIONS[:environment]
 require File.dirname(__FILE__) + "/../../config/environment"
 require 'data_source'
+require 'name_string'
 require 'gni'
+
+def fetch_name_string_id(value)
+  raise "Name String should not be empty" if value.to_s == ''
+  c = ActiveRecord::Base.connection
+  normalized_name = NameString.normalize_name_string(value)
+  ns_id = c.select_value("select id from name_strings where normalized_name = '#{normalized_name}'")
+  unless  ns_id
+    ns_id = c.insert("insert into name_strings (name, normalized_name, created_at, updated_at) values ('#{value}', '#{normalized_name}', now(), now())")
+  end
+  ns_id
+end
+
+def insert_data(data)
+  c = ActiveRecord::Base.connection
+  inserts = c.sanitize_sql_array [""]
+end
+
+def fetch_id(key, value)
+  return nil if value.to_s.strip.blank?
+  table = key.to_s.gsub(/_id$/,'').pluralize
+  c = ActiveRecord::Base.connection
+  unless CACHE[table]
+    CACHE[table] = {} 
+    res = c.select_all("select id, name from #{table}")
+    res.each do |r|
+      CACHE[table][r[:name]] = r[:id]
+    end
+  end
+  
+  value_id = CACHE[table][value.to_s.strip.downcase]
+  return value_id if value_id
+  
+  value_id = c.insert("insert into #{table} (name,created_at, updated_at) values ('#{value}',now(),now())")
+  puts value_id
+end
+
 
 data_source = DataSource.find(OPTIONS[:identifier])
 data_url = data_source.data_url || nil rescue nil
@@ -75,7 +113,7 @@ links = open(links_file)
 count = 0
 mistakes = []
 data = []
-dwc_set = [:darwin_core_star_id, :local_id, :global_id, :name_string, :rank, :code, :kingdom, :modified]
+dwc_set = [:darwin_core_star_id, :local_id, :global_id, :name_string_id, :name_rank_id, :nomenclatural_code_id, :kingdom_id, :modified]
 dwc.each do |row|
   count += 1
   row.strip!
@@ -89,32 +127,22 @@ dwc.each do |row|
     lines -= 1
     next
   end
-  <id term="http://rs.tdwg.org/dwc/terms/TaxonID" index="1"/>
-   <field term="http://rs.tdwg.org/dwc/terms/GlobalUniqueIdentifier" index="2"/>
-   <!-- a local identifier (often id from the resource database) -->
-   <field term="http://purl.org/dc/terms/identifier" index="3"/>
-   <field term="http://rs.tdwg.org/dwc/terms/ScientificName" index="4"/>
-   <field term="http://rs.tdwg.org/dwc/terms/TaxonRank" index="5"/>
-   <!-- enumeration as defined by dwc -->
-   <field term="http://rs.tdwg.org/dwc/terms/NomenclaturalCode" index="6"/>
-   <field term="http://rs.tdwg.org/dwc/terms/Kingdom" index="7"/>
-   <field term="http://purl.org/dc/terms/modified" index="8"/>
   
-   CREATE TABLE `import_name_index_records` (
-     `id` int(11) NOT NULL auto_increment,
-     `data_source_id` int(11) default NULL,
-     `kingdom_id` int(11) default NULL,
-     `name_string_id` int(11) default NULL,
-     `name_string` varchar(255) default NULL,
-     `record_hash` varchar(255) default NULL,
-     `local_id` varchar(255) default NULL,
-     `global_id` varchar(255) default NULL,
-     `url` varchar(255) default NULL,
-     `created_at` datetime default NULL,
-     `updated_at` datetime default NULL,
-     `name_rank_id` int(11) default NULL,
-     PRIMARY KEY  (`id`),
-  
-  break if count > 10
+  data_hash = {}
+  (0...dwc_set.size).each do |i|
+    if [:name_rank_id, :nomenclatural_code_id, :kingdom_id].include? dwc_set[i]
+      row[i] = fetch_id(dwc_set[i],row[i])
+    end
+    fetch_name_string_id(row[i]) if dwc_set[i] == :name_string_id    
+    data_hash[dwc_set[i]] = row[i]
+    data << data_hash
+    if count % 1000 == 0
+      insert_data(data)
+      data = []
+    end
+  end
+  insert_data(data)
 end
+
+
 
