@@ -4,11 +4,11 @@ class ImportScheduler < ActiveRecord::Base
   unless defined? CONSTANTS_DEFINED
     NO_IMPORTS  = nil
     WAITING     = 1
-    DOWNLOADING = 2
-    PROCESSING  = 3
-    FAILED      = 4
-    UPDATED     = 5
-    UNCHANGED   = 6
+    PROCESSING  = 2
+    FAILED      = 3
+    UPDATED     = 4
+    UNCHANGED   = 5
+    DOWNLOADING = 6
     CONSTANTS_DEFINED = true
   end
 
@@ -25,7 +25,8 @@ class ImportScheduler < ActiveRecord::Base
   def self.last_successful_update(a_data_source)
     ds_id = find_data_source_id(a_data_source)
     ImportScheduler.find_by_sql(["select status from import_schedulers where data_source_id = ? and status = UPDATED order by updated_at desc limit 1", UNCHANGED])
-
+  end
+  
   def self.scheduled?(a_data_source)
     cs = ImportScheduler.current_status a_data_source
     if cs == WAITING || cs == PROCESSING
