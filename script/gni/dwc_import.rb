@@ -54,8 +54,39 @@ def fetch_name_string_id(value)
   ns_id
 end
 
+def escape_data(data)
+  for 
+end
+def escape_data(self,data): #{{{2
+    for key in data.keys():
+        if data[key]:
+            if type(data[key]) == type(''):
+                data[key] = "'" + MySQLdb.escape_string(str(data[key])) + "'"
+        else:
+            data[key] = 'null'
+    for key in ('source','identifier','GlobalUniqueIdentifier', 'Kingdom', 'Rank'):
+        if not data.has_key(key):
+            data[key] = 'null'
+    #pp.pprint(data)
+    return data
+
 def insert_data(data)
   c = ActiveRecord::Base.connection
+  
+  data.keys.each do |k|
+    if data[k] == ''
+  end
+  [:kingdom_id, :name_string_id, :name_string, :darwin_core_star_id, :local_id, :global_id,  :name_rank_id, :nomenclatural_code_id,  :modified
+  `data_source_id` int(11) default NULL,
+  `local_id` varchar(255) default NULL,
+  `global_id` varchar(255) default NULL,
+  `url` varchar(255) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  `name_rank_id` int(11) default NULL,
+  `darwin_core_star_id` varchar(255) default NULL,
+  `nomenclatural_code_id` int(11) default NULL,
+  
   inserts = c.sanitize_sql_array [""]
 end
 
@@ -133,7 +164,10 @@ dwc.each do |row|
     if [:name_rank_id, :nomenclatural_code_id, :kingdom_id].include? dwc_set[i]
       row[i] = fetch_id(dwc_set[i],row[i])
     end
-    fetch_name_string_id(row[i]) if dwc_set[i] == :name_string_id    
+    if dwc_set[i] == :name_string_id
+      data_hash[:name_string] = row[i]
+      row[i] == fetch_name_string_id(row[i])     
+    end
     data_hash[dwc_set[i]] = row[i]
     data << data_hash
     if count % 1000 == 0
