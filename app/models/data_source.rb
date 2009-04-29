@@ -34,6 +34,10 @@ class DataSource < ActiveRecord::Base
     ActiveRecord::Base.connection.execute("update data_sources set name_strings_count = (select count(*) from name_indices where data_source_id = #{self.id}) where id = #{self.id}")
   end
   
+  def self.update_unique_names_count()
+    ActiveRecord::Base.connection.execute("update data_sources ds1 set ds1.unique_names_count = (select count(*) from unique_names where data_source_id = ds1.id)")
+  end
+  
 private
   
   def prepare_urls()    

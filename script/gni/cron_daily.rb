@@ -36,14 +36,15 @@ def cleanup_orphans
   NameString.delete_orphans
 end
 
-def update_name_strings_count
+def update_unique_names
+  UniqueName.update_unique_names
+end
+
+def update_cached_counts
   ns_count = NameString.count
   Statistic.name_strings_count = ns_count
   DataSource.update_name_strings_count
-end
-
-def update_uniue_names
-  UniqueName.update
+  DataSource.update_unique_names_count
 end
 
 def set_repositories_que
@@ -60,6 +61,7 @@ def do_repositories_update
 end
 
 cleanup_orphans
-update_name_strings_count
+update_unique_names
+update_cached_counts
 #set_repositories_que
 #do_repositories_update

@@ -56,8 +56,22 @@
     %p
       Data are not updated yet
   - else
-    %p
-      = link_to 'Overlap with other repositories',data_source_data_source_overlaps_url(@data_source)
+    %p= link_to 'Overlap with other repositories',data_source_data_source_overlaps_url(@data_source)
+    %table.data.bordered
+      %tr
+        %th.top Data source
+        %th.top # of Names
+        %th.top Overlap
+        %th.top Overlap %
+
+      - for overlap in @data_source_overlaps
+        - other_data_source = DataSource.find(overlap.data_source_id_2)
+        %tr
+          %td= other_data_source.title
+          %td= other_data_source.name_indices.size
+          %td= overlap.strict_overlap
+          %th= overlap.percentage
+    %p= "Number of names appearing only in this repository: #{@data_source.unique_names_count} (#{(@data_source.unique_names_count/@data_source.name_strings_count)*100}%)"
     /   
     / %p
     /   Potential Duplicates (placeholder)

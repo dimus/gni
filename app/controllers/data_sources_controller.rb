@@ -43,6 +43,8 @@ class DataSourcesController < ApplicationController
     @updated_size = @updated.data_source_import_details.size rescue 0
     @last_import_scheduler = ImportScheduler.find(:first,:conditions => ["data_source_id = ?", @data_source.id], :order => "created_at desc") 
     @import_scheduler = ImportScheduler.new
+
+    @data_source_overlaps = DataSourceOverlap.paginate_by_sql(["select data_source_id_1, data_source_id_2, strict_overlap, (strict_overlap/?) * 100 as percentage from data_source_overlaps where data_source_id_1 = ? order by percentage desc", @data_source.name_indices.size,  @data_source.id], :order => "percentage desc", :page => page)
     
     search_data = prepare_search_data
     if search_data[:is_valid_search]
