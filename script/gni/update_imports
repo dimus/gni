@@ -9,12 +9,12 @@ from optparse import OptionParser
 PID_PATH =  os.path.normpath(os.path.dirname(__file__) + "/../../tmp/pids/update_imports.pid")
 TIMEOUT = 3600
 
-WAITING = 1
-DOWNLOADING = 2
-PROCESSING = 3
-FAILED = 4
-UPDATED = 5
-
+WAITING     = 1
+PROCESSING  = 2
+FAILED      = 3
+UPDATED     = 4
+UNCHANGED   = 5
+DOWNLOADING = 6
 
 def is_running(): #{{{1
     if os.path.exists(PID_PATH):

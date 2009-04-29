@@ -33,13 +33,12 @@ def run_imports(source,source_id,environment):
     yield "Processing"
     i.process()
     
-    yield "Migrating"
+    yield "Enabling new data"
     i.migrate_data()
     
     yield "Finding overlaps"
     i.find_overlaps()
     i.add_names_count()
-    
 
     yield "Committing"
     i.db_commit()
@@ -146,6 +145,7 @@ class Importer: #{{{1
     def add_names_count(self):
         c = self.db.cursor
         c.execute('update data_sources set name_strings_count = (select count(*) from name_indices where data_source_id = %s) where id = %s', (self.data_source_id, self.data_source_id))
+        c.execute("update statistics set stat_value = (select count(*) from name_strings) where stat_key='name_strings_count'")
     
     def db_commit(self): #{{{2
         self.db.conn.commit()
