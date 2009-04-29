@@ -42,6 +42,10 @@ def update_name_strings_count
   DataSource.update_name_strings_count
 end
 
+def update_uniue_names
+  UniqueName.update
+end
+
 def set_repositories_que
   data_sources = DataSource.all(:select => 'id, refresh_period_days', :order => 'id desc')
   data_sources.each do |ds|
