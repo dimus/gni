@@ -16,15 +16,10 @@ class ImportScheduler < ActiveRecord::Base
     ds_id = find_data_source_id(a_data_source)
     ImportScheduler.find_by_sql(["select status from import_schedulers where data_source_id = ? order by updated_at desc limit 1", ds_id])[0].status rescue nil
   end
-  
-  def self.last_import_status(a_data_source)
+    
+  def self.last_successful_import(a_data_source)
     ds_id = find_data_source_id(a_data_source)
-    ImportScheduler.find_by_sql(["select status from import_schedulers where data_source_id = ? and status in (?,?,?) order by updated_at desc limit 1", ds_id, UNCHANGED, FAILED, UPDATED])[0].status rescue nil
-  end
-  
-  def self.last_successful_update(a_data_source)
-    ds_id = find_data_source_id(a_data_source)
-    ImportScheduler.find_by_sql(["select status from import_schedulers where data_source_id = ? and status = UPDATED order by updated_at desc limit 1", UNCHANGED])
+    ImportScheduler.find_by_sql(["select status, updated_at from import_schedulers where data_source_id = ? and status in (?,?) order by updated_at desc limit 1", ds_id, UPDATED,UNCHANGED])[0] rescue nil
   end
   
   def self.scheduled?(a_data_source)

@@ -2,6 +2,10 @@ class DataSourceOverlap < ActiveRecord::Base
   belongs_to :data_source, :foreign_key => 'data_source_id_1'
   belongs_to :data_source, :foreign_key => 'data_source_id_2'
 
+  def other_data_source
+    @other_data_source ||= DataSource.find(data_source_id_2)
+  end
+
   def self.find_all_overlaps()
     c = ActiveRecord::Base.connection
     c.transaction do

@@ -30,8 +30,8 @@
           = scheduler_status
     - if @current_status == ImportScheduler::FAILED || @current_status == ImportScheduler::UPDATED
       #import_finished
+        %h4= "Import Succeeded on #{format_date @last_successful_import.updated_at}" if @last_successful_import
         - if @current_status == ImportScheduler::UPDATED
-          %h4 Last Import Succeeded
           /
             %p
               = (link_to "Inserted: #{@inserted_size}, ", data_source_import_data_source_import_details_url(@inserted, :page => 1)) rescue "Inserted: 0, "

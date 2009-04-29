@@ -53,8 +53,18 @@ module ApplicationHelper
     an_int.to_s.reverse.gsub(/([\d]{3})/,'\1,').reverse.gsub(/^[\s,]*/,'')
   end
   
-  def percentage_graph(data)
-      "http://chart.apis.google.com/chart?cht=bhs&amp;chs=200x125&chd=t:10,50,60,80,40|50,60,100,40,20&chco=4d89f9,c6d9fd&amp;chbh=20"
+  def chart_overlap(data_source_overlap)
+      data_source_overlap = data_source_overlap[0..10]
+      percentage = data_source_overlap.map {|d| d.percentage}.join(',')
+      ceiling = data_source_overlap.map {|d| 100}.join(',')
+      titles = data_source_overlap.map {|d| d.other_data_source.title}.reverse.join('|')
+      chart = '<img src="http://chart.apis.google.com/chart?cht=bhs'
+      chart += '&amp;chs=300x125'
+      chart += "&amp;chd=t:#{percentage}|#{ceiling}"
+      chart += '&amp;chco=45704d,cbe4c3&amp;chbh=20'
+      chart += '&amp;chxt=x,y'
+      chart += "&amp;chxl=0:|0|25|50|75|100|1:|#{titles}|"
+      chart += '">'
   end
   
 end
