@@ -59,7 +59,7 @@ module ApplicationHelper
       ceiling = data_source_overlap.map {|d| 100}.join(',')
       titles = data_source_overlap.map {|d| d.other_data_source.title}.reverse.join('|')
       chart = '<img src="http://chart.apis.google.com/chart?cht=bhs'
-      chart += '&amp;chs=300x125'
+      chart += "&amp;chs=300x#{30 * data_source_overlap.size + 25}"
       chart += "&amp;chd=t:#{percentage}|#{ceiling}"
       chart += '&amp;chco=45704d,cbe4c3&amp;chbh=20'
       chart += '&amp;chxt=x,y'
