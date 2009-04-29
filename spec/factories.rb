@@ -28,6 +28,8 @@ Factory.define :data_source do |data_source|
   data_source.data_url            { Factory.next(:url) + ".xml" }
   data_source.logo_url            { Factory.next(:url) + ".jpg" }
   data_source.web_site_url        { Factory.next(:url) }
+  data_source.unique_names_count  {10}
+  data_source.name_strings_count  {10}
 end
 
 Factory.define :user do |user|

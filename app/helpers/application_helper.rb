@@ -53,4 +53,8 @@ module ApplicationHelper
     an_int.to_s.reverse.gsub(/([\d]{3})/,'\1,').reverse.gsub(/^[\s,]*/,'')
   end
   
+  def percentage_graph(data)
+      "http://chart.apis.google.com/chart?cht=bhs&amp;chs=200x125&chd=t:10,50,60,80,40|50,60,100,40,20&chco=4d89f9,c6d9fd&amp;chbh=20"
+  end
+  
 end
