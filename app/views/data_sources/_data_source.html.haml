@@ -47,13 +47,15 @@
     .form_field
       %b Website URL
       %br/
-      = f.text_field :web_site_url, :size => "70", :value => data_source.web_site_url
+      = f.text_field :web_site_url, :size => "70", :value => data_source.web_site_url, :class => 'valid_url'
+      %span.valid_url_message
       .help_info
         URL to the website of your Repository
     .form_field
       %b Logo URL
       %br/
-      = f.text_field :logo_url, :size => "70", :value => data_source.logo_url
+      = f.text_field :logo_url, :size => "70", :value => data_source.logo_url, :class => 'valid_url'
+      %span.valid_url_message
       .help_info
         If you have a url to your logo please enter it here. Logo will be displayed in format of 46 px by 20 px 
   %p

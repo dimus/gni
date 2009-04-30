@@ -49,7 +49,7 @@ form {
 img {
   border: none; }
   img.logo {
-    height: 20px; }
+    height: 48px; }
 
 a {
   color: #774422;
@@ -89,10 +89,8 @@ hr {
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color: #45704d; }
-  hr .light {
-    border-bottom-color: #e9e9e9; }
 
-span.required {
+pan.required {
   color: #660000;
   font-size: 1.3em; }
 
@@ -138,6 +136,41 @@ textarea {
     height: 3em; }
 
 /* Divs */
+.subsection {
+  border: 1px solid #cbe4c3;
+  padding: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em; }
+
+.subsection_title {
+  font-size: 1.3em;
+  font-family: verdana, arial, helvetica, sans-serif;
+  margin-bottom: 1em; }
+
+.search_field {
+  margin-top: 0.3em;
+  margin-bottom: 0.3em; }
+
+.repository {
+  padding: 0.3em;
+  border: 1px solid #aaaaaa;
+  margin-bottom: 0.5em; }
+
+.owned_repository {
+  border: 3px solid #cbe4c3; }
+
+.btn_help {
+  background-repeat: no-repeat;
+  background-image: url(/images/public/btn_help_off.gif);
+  color: red;
+  padding-right: 45px; }
+  .btn_help:hover {
+    background-image: url(/images/public/btn_help_on.gif);
+    color: blue; }
+
+.unofficial {
+  color: #818181; }
+
 
 
 .name_string {
@@ -598,33 +631,8 @@ legend {
   color: #56815e;
   font-weight: bold; }
 
-div.subsection {
-  border: 1px solid #cbe4c3;
-  padding: 1em;
-  margin-top: 1em;
-  margin-bottom: 1em; }
-div.subsection_title {
-  font-size: 1.3em;
-  font-family: verdana, arial, helvetica, sans-serif;
-  margin-bottom: 1em; }
-div.search_field {
-  margin-top: 0.3em;
-  margin-bottom: 0.3em; }
-
 em.red {
   color: #660000; }
-
-.btn_help {
-  background-repeat: no-repeat;
-  background-image: url(/images/public/btn_help_off.gif);
-  color: red;
-  padding-right: 45px; }
-  .btn_help:hover {
-    background-image: url(/images/public/btn_help_on.gif);
-    color: blue; }
-
-.unofficial {
-  color: #818181; }
 
 #flash {
   display: none; }

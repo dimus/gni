@@ -4,9 +4,8 @@
     %h1 Scientific Names Repositories
 
     -for data_source in @data_sources
-      - user_style = (current_user && current_user.data_sources.include?(data_source)) ? "background-color:#cbe4c3;" : ""
-      %hr/
-      %div{:style => user_style}
+      - user_style = (current_user && current_user.data_sources.include?(data_source)) ? "repository owned_repository" : "repository"
+      %div{:class => user_style}
         %br/
         = data_source_logo(data_source)
         %br/
