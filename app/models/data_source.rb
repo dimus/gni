@@ -14,6 +14,7 @@ class DataSource < ActiveRecord::Base
   URL_RE = /^https?:\/\/|^\s*$/ unless defined? URL_RE
   before_validation :prepare_urls
   before_destroy :cleanup
+  after_save :create_thumbnails
   
   validates_presence_of :title, :message => "is required"
   validates_presence_of :data_url, :message => "^Names Data URL is required"
@@ -44,6 +45,12 @@ private
     self.data_url.strip! if self.data_url
     self.logo_url.strip! if self.logo_url
     self.web_site_url.strip! if self.web_site_url
+  end
+  
+  def create_thumbnails
+    if !logo_url.blank? && GniUrl.valid_url?(logo_url) && ['jpg','png','gif'].include?(logo_url.split(".")[-1].downcase)
+      GNI::Image.logo_thumbnails(logo_url,id)
+    end
   end
   
   def cleanup

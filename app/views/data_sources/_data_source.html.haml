@@ -37,13 +37,14 @@
         How often to harvest your data?
 
   %fieldset.subsection
-    %legend.subsection Details
     .form_field
-      %b Description
+      %b Logo URL
       %br/
-      = f.text_area :description, :class => "medium"
+      = f.text_field :logo_url, :size => "70", :value => data_source.logo_url, :class => 'valid_url'
+      %span.valid_url_message
       .help_info
-        Information about your Repository
+        If you have a url to your logo please enter it here.
+    %legend.subsection Details
     .form_field
       %b Website URL
       %br/
@@ -52,12 +53,11 @@
       .help_info
         URL to the website of your Repository
     .form_field
-      %b Logo URL
+      %b Description
       %br/
-      = f.text_field :logo_url, :size => "70", :value => data_source.logo_url, :class => 'valid_url'
-      %span.valid_url_message
+      = f.text_area :description, :class => "medium"
       .help_info
-        If you have a url to your logo please enter it here. Logo will be displayed in format of 46 px by 20 px 
+        Information about your Repository
   %p
     %span.required *
     required fields

@@ -102,6 +102,19 @@ $(function() {
       }
     );
   });
+  
+  // $('.valid_logo_url').bind('blur', function(event) {
+  //   var bound_element = $(this);
+  //   var data_source_id = $('form').attr('id').split('_').pop()
+  //   $.getJSON('/url_check?type=logo', {url: $(this).attr('value'), data_source_id: data_source_id},
+  //     function(data) {
+  //       bound_element.siblings().filter('[class=valid_url_message]').text(data.message);
+  //       if (data.message == 'OK') {
+  //         bound_element.siblings().filter('[class=logos_show]').show();
+  //       }
+  //     }
+  //   );
+  // });
 
   // Fix the size of the window according to the length of name_string detail table
 
