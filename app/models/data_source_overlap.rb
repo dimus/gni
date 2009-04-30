@@ -5,6 +5,10 @@ class DataSourceOverlap < ActiveRecord::Base
   def other_data_source
     @other_data_source ||= DataSource.find(data_source_id_2)
   end
+  
+  def data_source
+    @data_source ||= DataSource.find(data_source_id_1)
+  end
 
   def self.find_all_overlaps()
     c = ActiveRecord::Base.connection

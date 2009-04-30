@@ -89,6 +89,8 @@ hr {
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color: #45704d; }
+  hr .light {
+    border-bottom-color: #e9e9e9; }
 
 span.required {
   color: #660000;
@@ -329,10 +331,12 @@ span.colored_label {
   clear: both; }
 
 #data_left_column {
-  float: left; }
+  float: left;
+  width: 40em; }
 
 #data_right_column {
-  float: right; }
+  float: right;
+  width: 40em; }
 
 #top-menu {
   position: absolute;

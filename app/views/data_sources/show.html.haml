@@ -54,7 +54,7 @@
       = 'No data yet' + (current_user && current_user.data_sources.include?(@data_source) ? ', do import first' : '') 
   - elsif @current_status != ImportScheduler::UPDATED
     %p
-      Data are not updated yet
+      Data are not imported yet
   - else
     %p= link_to 'Overlap with other repositories',data_source_data_source_overlaps_url(@data_source)
 

@@ -57,14 +57,26 @@ module ApplicationHelper
       data_source_overlap = data_source_overlap[0..10]
       percentage = data_source_overlap.map {|d| d.percentage}.join(',')
       ceiling = data_source_overlap.map {|d| 100}.join(',')
-      titles = data_source_overlap.map {|d| d.other_data_source.title}.reverse.join('|')
+      titles = data_source_overlap.map {|d| shorten_string(d.other_data_source.title,20)}.reverse.join('|')
       chart = '<img src="http://chart.apis.google.com/chart?cht=bhs'
-      chart += "&amp;chs=300x#{30 * data_source_overlap.size + 25}"
+      chart += "&amp;chs=400x#{24 * data_source_overlap.size + 25}"
       chart += "&amp;chd=t:#{percentage}|#{ceiling}"
       chart += '&amp;chco=45704d,cbe4c3&amp;chbh=20'
       chart += '&amp;chxt=x,y'
       chart += "&amp;chxl=0:|0|25|50|75|100|1:|#{titles}|"
       chart += '">'
   end
+  
+  def shorten_string (string, count = 30)
+    if string.length >= count 
+      shortened = string[0, count]
+      splitted = shortened.split(/\s/)
+      words = splitted.length
+      splitted[0, words-1].join(" ") + ' ...'
+    else 
+      string
+    end
+  end
+  
   
 end

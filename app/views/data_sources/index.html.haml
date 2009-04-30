@@ -2,17 +2,18 @@
 #data_layout
   #data_left_column
     %h1 Scientific Names Repositories
-    %table{:class => "data bordered"}
-      %tr
-        %th.top Logo
-        %th.top Title
-        %th.top Description
-      -for data_source in @data_sources
-        - user_style = (current_user && current_user.data_sources.include?(data_source)) ? "background-color:#cbe4c3;" : ""
-        %tr{:style => user_style}
-          %td= data_source_logo(data_source)
-          %td= link_to h(data_source.title), data_source
-          %td= h data_source.description
+
+    -for data_source in @data_sources
+      - user_style = (current_user && current_user.data_sources.include?(data_source)) ? "background-color:#cbe4c3;" : ""
+      %hr/
+      %div{:style => user_style}
+        %br/
+        = data_source_logo(data_source)
+        %br/
+        = link_to h(data_source.title), data_source
+        %br
+        = h data_source.description
+  
   #data_right_column
     - if logged_in?
     
