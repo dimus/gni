@@ -21,6 +21,7 @@ tmp/sockets/*
 tmp/war
 log/*
 repositories/*
+public/images/logos/*
 lib/name_parser/names.txt
 lib/name_parser/unparsed.txt
 config/deploy.rb
