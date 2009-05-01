@@ -357,13 +357,15 @@ span.colored_label {
   width: 40em; }
 
 #top-menu {
-  position: absolute;
+  width: 30.5em;
   font-family: Helvetica, Arial, san-serif;
-  font-size: 1em;
-  font-weight: bold;
-  margin-top: 1em;
-  margin-left: 4.3em;
-  width: 64.7em; }
+  font-weight: bold; }
+  #top-menu table {
+    font-size: 0.45em;
+    width: 100%;
+    margin: 0;
+    margin-bottom: 1.25em;
+    padding: 0; }
   #top-menu li {
     color: black;
     margin: 0;
@@ -378,21 +380,6 @@ span.colored_label {
     background-color: #cbe4c3;
     padding: 0.15em;
     margin-right: 2em; }
-
-#top-menu-left {
-  font-size: 0.9em;
-  margin-left: -0.5em;
-  float: left;
-  width: 50%; }
-
-#top-menu-right {
-  font-size: 0.9em;
-  float: left;
-  text-align: right;
-  width: 48%; }
-
-#top-menu-end {
-  clear: both; }
 
 #tabs-container {
   font-family: Helvetica, Arial, san-serif;
@@ -504,9 +491,9 @@ span.colored_label {
   font-family: Helvetica;
   font-size: 32px;
   margin-left: 100px;
-  margin-top: 50px;
+  margin-top: 10px;
   position: absolute; }
-  #logo_gna span {
+  #logo_gna span.beta {
     color: #bb8866;
     font-size: 0.6em;
     font-variant: small-caps; }

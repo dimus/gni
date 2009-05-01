@@ -408,14 +408,17 @@ span.colored_label
   //:border = 1px solid !_light_green
 
 #top-menu
-  :position absolute
+  :width 30.5em
   :font-family = !_font_family
-  :font-size 1em
   :font-weight bold
-  :margin-top 1em
-  :margin-left 4.3em
-  :width = (!_page_width - 4.3em)
 
+  table
+    :font-size 0.45em
+    :width 100%
+    :margin 0
+    :margin-bottom 1.25em
+    :padding 0
+  
   li
     :color black
     :margin 0
@@ -432,21 +435,6 @@ span.colored_label
     :background-color = !_light_green
     :padding 0.15em
     :margin-right 2em
-
-#top-menu-left
-  :font-size 0.9em
-  :margin-left -0.5em
-  :float left
-  :width 50%
-
-#top-menu-right
-  :font-size 0.9em
-  :float left
-  :text-align right
-  :width 48%
-
-#top-menu-end
-  :clear both
 
 #tabs-container
   :font-family = !_font_family
@@ -574,10 +562,10 @@ span.colored_label
   :font-family = Helvetica
   :font-size 32px
   :margin-left 100px
-  :margin-top 50px
+  :margin-top 10px
   :position absolute
   
-  span
+  span.beta
     :color = !_brown + #444
     :font-size 0.6em
     :font-variant small-caps

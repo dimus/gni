@@ -1,4 +1,4 @@
-!!! Strict
+!!!
 %html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
   %head
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }/
@@ -25,32 +25,31 @@
     #centerwrapper
       #masthead
         #logodiv
-          #top-menu
-            #top-menu-left
-              %ul
-                %li= link_to 'Index', name_strings_url 
-                %li= link_to 'Repositories', data_sources_url
-                %li= link_to 'Name Parser', new_parser_url 
-                 
-            #top-menu-right
-              %ul
-                - if current_user 
-                  %li
-                    %span#current_user_login_name
-                      = link_to "User: #{current_user[:login]}", data_sources_url
-                      = link_to "(edit)", edit_user_url(current_user[:id])
-                  %li
-                    = link_to "Logout", "/logout"
-                - else
-                  %li
-                    = link_to "Sign up", "/signup"
-                  %li
-                    = link_to "Log in", "/login"
-                %li
-                  = link_to 'Help', 'http://wiki.github.com/dimus/gni/global-names-index-help', :target => '_blank' 
           #logo_gna
+            #top-menu
+              %table
+                %tr
+                  %td{:style => 'text-align: left'}
+                    = link_to 'Index', name_strings_url 
+                    &nbsp;&nbsp;
+                    = link_to 'Repositories', data_sources_url
+                    &nbsp;&nbsp;
+                    = link_to 'Name Parser', new_parser_url 
+                  %td{:style => 'text-align: right'}
+                    - if current_user 
+                      %span#current_user_login_name
+                        &nbsp;&nbsp;
+                        = link_to "User: #{current_user[:login]}", data_sources_url
+                        = link_to "(edit)", edit_user_url(current_user[:id])
+                      = link_to "Logout", "/logout"
+                    - else
+                      = link_to "Sign up", "/signup"
+                      &nbsp;&nbsp;
+                      = link_to "Log in", "/login"
+                    &nbsp;&nbsp;
+                    = link_to 'Help', 'http://wiki.github.com/dimus/gni/global-names-index-help', :target => '_blank' 
             = PROGRAM_NAME 
-            %span beta
+            %span.beta beta
           #logo_motto
             Species Names Exchange
           %table.layout
