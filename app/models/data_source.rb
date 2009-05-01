@@ -50,6 +50,11 @@ private
   def create_thumbnails
     if !logo_url.blank? && GniUrl.valid_url?(logo_url) && ['jpg','png','gif'].include?(logo_url.split(".")[-1].downcase)
       GNI::Image.logo_thumbnails(logo_url,id)
+    else
+      ['large','medium','small'].each do |size|
+        file_name = RAILS_ROOT + "/public/images/logos/" + self.id.to_s + "_" + size + ".jpg"
+        File.unlink(file_name) if File.exists?(file_name)
+      end
     end
   end
   

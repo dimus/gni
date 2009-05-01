@@ -80,6 +80,9 @@ a {
   a.node:link {
     color: blue;
     text-decoration: none; }
+  a.bold_link {
+    font-weight: bold;
+    font-size: 1.1em; }
 
 .disabled_link {
   color: #aaa; }
@@ -142,7 +145,16 @@ textarea {
   margin-bottom: 0.5em; }
 
 .owned_repository {
-  border: 3px solid #cbe4c3; }
+  border: 2px solid #a9c2a1; }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -349,7 +361,7 @@ span.colored_label {
   font-family: Helvetica, Arial, san-serif;
   font-size: 1em;
   font-weight: bold;
-  margin-top: 0em;
+  margin-top: 1em;
   margin-left: 4.3em;
   width: 64.7em; }
   #top-menu li {
@@ -603,6 +615,19 @@ fieldset.subsection {
 legend {
   color: #56815e;
   font-weight: bold; }
+
+div.subsection {
+  border: 1px solid #cbe4c3;
+  padding: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em; }
+div.subsection_title {
+  font-size: 1.3em;
+  font-family: verdana, arial, helvetica, sans-serif;
+  margin-bottom: 1em; }
+div.search_field {
+  margin-top: 0.3em;
+  margin-bottom: 0.3em; }
 
 em.red {
   color: #660000; }

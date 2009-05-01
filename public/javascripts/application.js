@@ -28,6 +28,10 @@ function show_name_details(element) {
     });
 }
 
+function strip(a_string) {
+  return a_string.replace(/^\s+|\s+$/g,"");
+}
+
 $(function() {
   
   // Set focus on login text input for login
@@ -96,11 +100,17 @@ $(function() {
 
   $('.valid_url').bind('blur', function(event) {
     var bound_element = $(this);
-    $.getJSON('/url_check', {url: $(this).attr('value')},
-      function(data) {
-        bound_element.siblings().filter('[class=valid_url_message]').text(data.message);
-      }
-    );
+    var url_to_check = strip($(this).attr('value'));
+    if (url_to_check != '') {
+      $.getJSON('/url_check', {url: url_to_check},
+        function(data) {
+          bound_element.siblings().filter('[class=valid_url_message]').text(data.message);
+        }
+      );
+    } else {
+      bound_element.siblings().filter('[class=valid_url_message]').text('');
+      bound_element.attr('value','');
+    }
   });
   
   // $('.valid_logo_url').bind('blur', function(event) {

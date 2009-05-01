@@ -42,8 +42,7 @@ module ApplicationHelper
     ds_logo = "/images/logos/" + data_source.id.to_s + "_" + size + ".jpg"
     logo_url = File.exists?(RAILS_ROOT + "/public" + ds_logo) ? ds_logo : default_logo
     result = "<img src=\"#{logo_url}\"/>"
-    result = "<a href=\"#{data_source_url(data_source.id)}\">" + result + "</a>"
-    result
+    "<a href=\"#{data_source_url(data_source.id)}\">" + result + "</a>"
   end
 
   def in_quotes(a_string)

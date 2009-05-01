@@ -108,6 +108,10 @@ a
       :color blue
       :text-decoration none
 
+  &.bold_link
+    :font-weight bold
+    :font-size 1.1em
+
 .disabled_link
   :color #aaa
 
@@ -180,7 +184,17 @@ textarea
   :margin-bottom 0.5em
   
 .owned_repository
-  :border = 3px solid !_light_green
+  :border = 2px solid (!_light_green - #222)
+
+/ .repository_logo
+/   :float left
+/   :height 50px
+/   :width 75px
+/   :vertical-align middle
+/ 
+/ .repository_info
+/   :padding 1em
+/   :float left
 
 #import_in_progress
 
@@ -398,7 +412,7 @@ span.colored_label
   :font-family = !_font_family
   :font-size 1em
   :font-weight bold
-  :margin-top 0em
+  :margin-top 1em
   :margin-left 4.3em
   :width = (!_page_width - 4.3em)
 
@@ -696,6 +710,22 @@ legend
   :color = !_green + #111
   :font
     :weight bold 
+
+div
+  &.subsection
+    :border = 1px solid !_light_green
+    :padding 1em
+    :margin-top 1em
+    :margin-bottom 1em
+
+  &.subsection_title
+    :font-size 1.3em
+    :font-family verdana, arial, helvetica, sans-serif
+    :margin-bottom 1em
+
+  &.search_field
+    :margin-top 0.3em
+    :margin-bottom 0.3em
 
 em.red
   :color = !_red

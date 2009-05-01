@@ -1,9 +1,9 @@
 %table
   %tr
-    %td.vcentered{:width => "50px"}
+    %td.vcentered
       = data_source_logo(@data_source,'large') 
     %td.vcentered
-      %h1
+      %h1{:style => 'padding-left: 1em'}
         = "Repository " + in_quotes(@data_source.title)
     %td.vcentered
       -if @data_source.contributor?(current_user)

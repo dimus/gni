@@ -53,9 +53,9 @@
       .help_info
         URL to the website of your Repository
     .form_field
-      %b Description
+      %b Short Description (255 characters)
       %br/
-      = f.text_area :description, :class => "medium"
+      = f.text_area :description, :class => "medium", :style => "height: 3em"
       .help_info
         Information about your Repository
   %p

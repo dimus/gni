@@ -50,7 +50,7 @@
     - @data_sources_data.each do |data|
       %tr
         %td
-          = data_source_logo data[:data_source]
+          = data_source_logo data[:data_source], 'small'
         %td
           = link_to data[:data_source].title, data_source_url(data[:data_source])
         %td

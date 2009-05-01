@@ -6,12 +6,14 @@
     -for data_source in @data_sources
       - user_style = (current_user && current_user.data_sources.include?(data_source)) ? "repository owned_repository" : "repository"
       %div{:class => user_style}
-        %br/
-        = data_source_logo(data_source)
-        %br/
-        = link_to h(data_source.title), data_source
-        %br
-        = h data_source.description
+        %table{:style => 'width: 100%; margin: 0; padding: 0'}
+          %tr
+            %td.vcentered{:style => 'width: 75px;'}
+              = data_source_logo(data_source)
+            %td{:style => 'vertical-align: top'}
+              = link_to h(data_source.title), data_source, :class => "bold_link"
+              %br
+              = h data_source.description
   
   #data_right_column
     - if logged_in?
@@ -22,12 +24,12 @@
 
       - @user_data_sources.each do |data_source|
         .boxed-small
-          %table{:style => "margin:0;padding:0;"}
+          %table{:style => "width:100%;margin:0;padding:0;"}
             %tr{:style => "margin:0;padding:0;"}
-              %td{:style => "width:50px;margin:0;padding:0"}
+              %td.vcentered{:style => "width:75px;margin:0;padding:0"}
                 = data_source_logo(data_source)
-              %td{:style => "margin:0;padding:0;"}
-                = link_to h(data_source.title), data_source
+              %td{:style => "margin:0;padding:0;padding-left:0.5em"}
+                = link_to h(data_source.title), data_source, :class => "bold_link"
 
 #data_clear_layout
   %br/
