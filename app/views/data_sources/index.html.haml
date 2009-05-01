@@ -12,6 +12,8 @@
               = data_source_logo(data_source)
             %td{:style => 'vertical-align: top'}
               = link_to h(data_source.title), data_source, :class => "bold_link"
+              = "(#{display_big_int(data_source.name_strings_count)} names)" if data_source.name_strings_count
+              = link_to('<img src="/images/public/world_link.png">', data_source.web_site_url) if data_source.web_site_url
               %br
               = h data_source.description
   

@@ -49,7 +49,8 @@ private
   
   def create_thumbnails
     return if RAILS_ENV == 'test' #no icons generation for tests
-    if !logo_url.blank? && GniUrl.valid_url?(logo_url) && ['jpg','png','gif'].include?(logo_url.split(".")[-1].downcase)
+    if !logo_url.blank? && ['jpg','png','gif'].include?(logo_url.split(".")[-1].downcase)
+      return unless GniUrl.valid_url?(logo_url) #do nothing if url is not accessible (keeps older generated icons)
       GNI::Image.logo_thumbnails(logo_url,id)
     else
       ['large','medium','small'].each do |size|
