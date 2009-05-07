@@ -48,10 +48,11 @@
                       = link_to "Log in", "/login"
                     &nbsp;&nbsp;
                     = link_to 'Help', 'http://wiki.github.com/dimus/gni/global-names-index-help', :target => '_blank' 
-            = PROGRAM_NAME 
-            %span.beta beta
+            #program_name
+              = link_to PROGRAM_NAME, name_strings_url
+              %span.beta beta
           #logo_motto
-            Species Names Exchange
+            = link_to "Species Names Exchange", name_strings_url
           %table.layout
             %tr
               %td{ :width => "230" }

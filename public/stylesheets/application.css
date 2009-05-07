@@ -357,11 +357,11 @@ span.colored_label {
   width: 36em; }
 
 #top-menu {
-  width: 27em;
+  width: 54.5em;
   font-family: Helvetica, Arial, san-serif;
   font-weight: bold; }
   #top-menu table {
-    font-size: 0.45em;
+    font-size: 0.9em;
     width: 100%;
     margin: 0;
     margin-bottom: 1.25em;
@@ -485,18 +485,23 @@ span.colored_label {
 #p7PMnav li {
   width: auto; }
 
-#logo_gna {
+#program_name {
   text-shadow: 0.1em 0.1em 0.2em #e9e9e9;
   color: #45704d;
   font-family: Helvetica;
-  font-size: 32px;
-  margin-left: 100px;
-  margin-top: 10px;
-  position: absolute; }
-  #logo_gna span.beta {
+  font-size: 32px; }
+  #program_name a {
+    color: #45704d;
+    text-decoration: none; }
+  #program_name span.beta {
     color: #bb8866;
     font-size: 0.6em;
     font-variant: small-caps; }
+
+#logo_gna {
+  margin-left: 100px;
+  margin-top: 10px;
+  position: absolute; }
 
 #logo_motto {
   color: #45704d;
@@ -505,6 +510,9 @@ span.colored_label {
   margin-left: 102px;
   margin-top: 90px;
   position: absolute; }
+  #logo_motto a {
+    color: #45704d;
+    text-decoration: none; }
 
 #login_box {
   margin-left: auto;
