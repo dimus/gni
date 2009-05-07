@@ -11,7 +11,7 @@ body {
   font-size: 1em;
   margin: 20px 0 0 0;
   padding: 0;
-  min-width: 69em; }
+  min-width: 63em; }
 
 h1, h2, h3, h4, h5, h6 {
   text-shadow: 0.2em 0.2em 0.2em #e9e9e9;
@@ -274,7 +274,7 @@ span.colored_label {
   background-repeat: repeat-y;
   background-position: left top;
   margin: 0 auto;
-  width: 69em; }
+  width: 63em; }
 
 #masthead {
   background-image: url(/images/public/developer_masthead_bg.gif);
@@ -336,7 +336,7 @@ span.colored_label {
   margin: 0 auto;
   font-style: italic;
   color: white;
-  width: 69em; }
+  width: 63em; }
   #footer p {
     padding: 0;
     margin: 0;
@@ -350,14 +350,14 @@ span.colored_label {
 
 #data_left_column {
   float: left;
-  width: 40em; }
+  width: 36em; }
 
 #data_right_column {
   float: right;
-  width: 40em; }
+  width: 36em; }
 
 #top-menu {
-  width: 30.5em;
+  width: 27em;
   font-family: Helvetica, Arial, san-serif;
   font-weight: bold; }
   #top-menu table {

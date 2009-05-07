@@ -22,7 +22,7 @@ module ApplicationHelper
     guid = lsid.match(guid) ? link_to(guid, 'http://lsid.tdwg.org/summary/' + guid) : guid
   end
   
-  def format_date(date,format='%m/%d/%y')
+  def format_date(date,format='%d-%m-%Y')
     date.strftime(format)
   end
   
@@ -30,7 +30,7 @@ module ApplicationHelper
     raise ArgumentError, "#{format_date(date1)} is bigger than #{format_date(date2)}" if date1 > date2
     date_string = format_date(date1) + " - "
     if date1.year == date2.year
-      date_string += format_date(date2, '%m/%d')
+      date_string += format_date(date2, '%d-%m')
     else
       date_string += format_date(date2)
     end
