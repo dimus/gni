@@ -1,3 +1,5 @@
+require 'net/http'
+require 'uri'
 # A namesplace to keep project-specific data
 
 module GNI
@@ -48,4 +50,87 @@ module GNI
       success
     end
   end
+  
+  
+  class Url
+    
+    attr_reader :net_http, :path, :header
+    
+    def initialize(url)
+      @url = url
+      @parsed_url = URI.parse(url.strip)
+      @path = @parsed_url.path == '' ? '/' : @parsed_url.path
+      @net_http = Net::HTTP.new(@parsed_url.host, @parsed_url.port)
+      @header = get_header
+    end
+   
+    # confirm that the passed in URL is valid and responses with a proper code
+    def valid?
+        @header && ['200','301','302'].include?(@header.code)
+    end
+  
+    def content_length
+      header ? header.content_length : nil
+    end
+
+  protected
+    def get_header
+      begin
+        return @net_http.head(@path) 
+      rescue SocketError 
+        return nil
+      end
+    end
+  end
+  
+  class Downloader
+    
+    attr_reader :url
+    
+    def initialize(data_source)
+      @data_source = data_source
+      @url = Url.new(@data_source.data_url)
+      @download_length = 0
+    end
+    
+    #downloads a given file into a specified filename. If block is given returns download progress
+    def download(file_name)
+      f = open(file_name,'w')
+      count = 0
+      @url.net_http.request_get(@url.path) do |r|
+        r.read_body do |s|
+          @download_length += s.length
+          f.write s
+          if block_given?
+            count += 1
+            if count % 100 == 0
+              yield @download_length
+            end
+          end
+        end 
+      end
+      f.close
+      downloaded = @download_length
+      @download_length = 0
+      downloaded
+    end
+    
+    def download_with_percentage(file_name)
+      start_time = Time.now
+      download(file_name) do |r| 
+        percentage = r.to_f/@url.header.content_length * 100
+        elapsed_time = Time.now - start_time
+        eta = calculate_eta(percentage, elapsed_time)
+        yield percentage, elapsed_time, eta
+      end
+    end
+    protected
+  
+    def calculate_eta(percentage, elapsed_time)
+      eta = elapsed_time/percentage * 100 - elapsed_time
+      eta = 1.0 if eta <= 0
+      eta
+    end
+  end
+  
 end

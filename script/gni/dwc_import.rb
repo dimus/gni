@@ -114,7 +114,7 @@ data_source = DataSource.find(OPTIONS[:identifier])
 data_url = data_source.data_url || nil rescue nil
 raise "DataSource with id #{OPTIONS[:identifier]} is not found." unless data_source
 raise "Repository URL is not given." unless data_url
-raise "Cannot connect to the given URL." unless GniUrl.valid_url?(data_url)
+raise "Cannot connect to the given URL." unless GNI::Url.new(data_url).valid?
 base_dir = "#{RAILS_ROOT}/repositories/"
 data_file = "#{base_dir}#{data_source.id}.zip"
 

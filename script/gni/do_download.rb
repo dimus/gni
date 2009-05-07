@@ -44,7 +44,7 @@ data_source = DataSource.find(OPTIONS[:identifier])
 data_url = data_source.data_url || nil rescue nil
 raise "DataSource with id #{OPTIONS[:identifier]} is not found" unless data_source
 raise "Repository URL is not given" unless data_url
-raise "Cannot connect to the given URL" unless GniUrl.valid_url?(data_url)
+raise "Cannot connect to the given URL" unless GNI::Url.new(data_url).valid?
 
 data_extention = data_url.split(".").last
 data_extention = '' unless ["zip","xml"].include? data_extention
