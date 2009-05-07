@@ -9,6 +9,7 @@ class ImportScheduler < ActiveRecord::Base
     UPDATED     = 4
     UNCHANGED   = 5
     DOWNLOADING = 6
+    DOWNLOADED  = 7
     CONSTANTS_DEFINED = true
   end
 

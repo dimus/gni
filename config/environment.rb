@@ -12,6 +12,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 #load empty GNI namespace
 require 'gni'
+require 'gni_harvester'
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.

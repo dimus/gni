@@ -84,6 +84,9 @@ DataSource:
   - id: 6
     title: "FishBase"
     refresh_period_days: 0
+  - id: 7
+    title: "Tropicos"
+    refresh_period_days: 14
   
 
 DataSourceContributor:
@@ -100,6 +103,8 @@ DataSourceContributor:
     data_source_id: 4 #Name Bank
   - user_id: 2 #aaron
     data_source_id: 5 #Encyclopedia of Life
+  - user_id: 2 #aaron
+    data_source_id: 7 #Encyclopedia of Life
     
 ImportScheduler:
   - data_source_id: 1
