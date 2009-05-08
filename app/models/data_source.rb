@@ -39,6 +39,12 @@ class DataSource < ActiveRecord::Base
     ActiveRecord::Base.connection.execute("update data_sources ds1 set ds1.unique_names_count = (select count(*) from unique_names where data_source_id = ds1.id)")
   end
   
+  def downloaded_file_name
+    extension = self.data_url.split('.')[-1]
+    extension = '' unless ['xml','zip','gz'].include?(extension)
+    self.id.to_s + '.' + extension
+  end
+  
 private
   
   def prepare_urls()    

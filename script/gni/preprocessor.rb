@@ -30,7 +30,7 @@ end
 ENV["RAILS_ENV"] = OPTIONS[:environment]
 require File.dirname(__FILE__) + "/../../config/environment"
 
-PID_FILE = RAILS_ROOT + "/tmp/pids/downloader"
+PID_FILE = RAILS_ROOT + "/tmp/pids/preprocessor"
 
 def running?(pid_file)
   File.exists? pid_file
@@ -59,8 +59,8 @@ exit if running? PID_FILE
 
 set_running PID_FILE
 begin
-  ds = GNI::DownloadScheduler.new
-  ds.do_downloads(true) {|r| puts 'from download'; system(RAILS_ROOT + '/script/gni/preprocessor.rb')}
+  ds = GNI::Preprocessor.new
+  ds.execute {|r| system('harvester.rb')}
 rescue RuntimeError
   raise 
 ensure

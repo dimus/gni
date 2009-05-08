@@ -1,7 +1,15 @@
 require 'net/http'
 require 'uri'
-# A namesplace to keep project-specific data
 
+module ActiveRecord #:nodoc:
+  class Base
+    def self.gni_sanitize_sql(ary)
+      self.sanitize_sql_array(ary)
+    end
+  end
+end
+
+# A namesplace to keep project-specific data
 module GNI
   module Encoding
     UTF8RGX = /\A(
@@ -51,7 +59,6 @@ module GNI
     end
   end
   
-  
   class Url
     
     attr_reader :net_http, :path, :header
@@ -82,55 +89,5 @@ module GNI
       end
     end
   end
-  
-  class Downloader
-    
-    attr_reader :url
-    
-    def initialize(data_source)
-      @data_source = data_source
-      @url = Url.new(@data_source.data_url)
-      @download_length = 0
-    end
-    
-    #downloads a given file into a specified filename. If block is given returns download progress
-    def download(file_name)
-      f = open(file_name,'w')
-      count = 0
-      @url.net_http.request_get(@url.path) do |r|
-        r.read_body do |s|
-          @download_length += s.length
-          f.write s
-          if block_given?
-            count += 1
-            if count % 100 == 0
-              yield @download_length
-            end
-          end
-        end 
-      end
-      f.close
-      downloaded = @download_length
-      @download_length = 0
-      downloaded
-    end
-    
-    def download_with_percentage(file_name)
-      start_time = Time.now
-      download(file_name) do |r| 
-        percentage = r.to_f/@url.header.content_length * 100
-        elapsed_time = Time.now - start_time
-        eta = calculate_eta(percentage, elapsed_time)
-        yield percentage, elapsed_time, eta
-      end
-    end
-    protected
-  
-    def calculate_eta(percentage, elapsed_time)
-      eta = elapsed_time/percentage * 100 - elapsed_time
-      eta = 1.0 if eta <= 0
-      eta
-    end
-  end
-  
+
 end

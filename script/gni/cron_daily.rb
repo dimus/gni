@@ -63,5 +63,6 @@ end
 cleanup_orphans
 update_unique_names
 update_cached_counts
+ImportScheduler.run_scheduler
 #set_repositories_que
 #do_repositories_update
