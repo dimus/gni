@@ -37,6 +37,9 @@ class ImportScheduler < ActiveRecord::Base
     downloadables
   end
   
+  def self.preprocessed_item()
+    self.find_by_status(PREPROCESSING)
+  end
   
   # Schedule a data_source for import if 
   # 1. it is not scheduled already

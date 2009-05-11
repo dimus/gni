@@ -29,7 +29,7 @@ module GNI
         begin
           data_source = dl.data_source
           dlr = Downloader.new(data_source)
-          file_name = DOWNLOAD_PATH + data_source.downloaded_file_name
+          file_name = DOWNLOAD_PATH + data_source.id.to_s
           dl.change_state ImportScheduler::DOWNLOADING, "Downloading"
           if with_details
             dlr.download_with_percentage(file_name) do |r| 
@@ -39,9 +39,10 @@ module GNI
           else
             dlr.download(file_name)
           end
-          dl.change_state ImportScheduler::PREPROCESSING, "Preprocessing"
+          current_state = dlr.unchanged? ? [ImportScheduler::UNCHANGED, "Unchanged"] : [ImportScheduler::PREPROCESSING, "Preprocessing"] 
+          dl.change_state current_state[0], current_state[1]
           if block_given?
-            yield 0
+            yield dl.status
           end
         rescue Errno::ECONNREFUSED
           dl.change_state ImportScheduler::FAILED, "Cannot establish connection with #{dl.data_source.data_url}"
@@ -63,6 +64,7 @@ module GNI
       @data_source = data_source
       @url = Url.new(@data_source.data_url)
       @download_length = 0
+      @filename = nil
     end
     
     #downloads a given file into a specified filename. If block is given returns download progress
@@ -88,9 +90,10 @@ module GNI
       downloaded
     end
     
-    def download_with_percentage(file_name)
+    def download_with_percentage(filename)
+      @filename = filename
       start_time = Time.now
-      download(file_name) do |r| 
+      download(@filename) do |r| 
         percentage = r.to_f/@url.header.content_length * 100
         elapsed_time = Time.now - start_time
         eta = calculate_eta(percentage, elapsed_time)
@@ -98,6 +101,20 @@ module GNI
         yield res
       end
     end
+    
+    def unchanged?
+      return false
+      return nil unless (@filename && File.exists?(@filename))
+      sha = IO.popen("sha1sum " + @filename).read.split(/\s+/)[0]
+      if @data_source.data_hash != sha
+        @data_source.data_hash = sha
+        @data_source.save!
+        return false
+      else
+        return true
+      end
+    end
+    
     protected
   
     def calculate_eta(percentage, elapsed_time)
@@ -108,8 +125,75 @@ module GNI
   end
   
   class Preprocessor
-    def execute
+    def initialize()
+      @preprocessed_item = ImportScheduler.preprocessed_item
+    end
+    
+     
+    
+    def do_preprocessing
+      while @preprocessed_item     
+        @file_processor = FileProcessorFactory.new(@preprocessed_item).file_processor
+        @file_processor.process
+        @preprocessed_item = ImportScheduler.preprocessed_item
+      end
+    end
+  end
+  
+  class FileProcessorFactory
+    attr_reader :file_processor
+    
+    def initialize(import_scheduler_item)
+      @import_scheduler_item = import_scheduler_item
+      @data_source_file = DOWNLOAD_PATH + @import_scheduler_item.data_source.id.to_s
+      set_file_processor
+    end
+
+    protected
+    
+    def set_file_processor
       puts 'got here'
+      file_type = IO.popen("file " + @data_source_file).read
+      ['Zip', 'HTML'].each do |x|
+        eval("@file_processor = Processor#{x}.new(@import_scheduler_item)") if file_type.match /#{x}/i
+      end
+      @file_processor ||= ProcessorNull.new(@import_scheduler_item)
+    end
+    
+    class ProcessorHTML
+      def initialize(import_scheduler_item)
+        @import_scheduler_item = import_scheduler_item
+        @data_file = DOWNLOAD_PATH + @import_scheduler_item.data_source.id.to_s
+      end
+      
+      def process
+        File.unlink @data_file
+        @import_scheduler_item.change_state ImportScheduler::FAILED, "Got HTML file instead of data file (404 error?)"
+      end
+    end
+    
+    class ProcessorZip
+      def initialize(import_scheduler_item)
+        @import_scheduler_item = import_scheduler_item
+        @data_file = DOWNLOAD_PATH + @import_scheduler_item.data_source.id.to_s
+      end
+      
+      def process
+        File.unlink @data_file
+        @import_scheduler_item.change_state ImportScheduler::PROCESSING, "Processing"
+      end
+    end
+    
+    class ProcessorNull
+      def initialize(import_scheduler_item)
+        @import_scheduler_item = import_scheduler_item
+        @data_file = DOWNLOAD_PATH + @import_scheduler_item.data_source.id.to_s
+      end
+      
+      def process
+        msg = File.exists?(@data_file) ? "Downloaded file diappeared, some hungry file eater ate it." : "Unknown format of the file"
+        @import_scheduler_item.change_state ImportScheduler::FAILED, msg
+      end
     end
   end
   

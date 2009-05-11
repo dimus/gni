@@ -60,7 +60,7 @@ exit if running? PID_FILE
 set_running PID_FILE
 begin
   ds = GNI::Preprocessor.new
-  ds.execute {|r| system('harvester.rb')}
+  ds.do_preprocessing #{|r| system('harvester.rb')}
 rescue RuntimeError
   raise 
 ensure
