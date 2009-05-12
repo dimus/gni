@@ -5,7 +5,7 @@ module GNI
     def report_error(an_import_scheduler)
       an_import_scheduler.status = ImportScheduler::FAILED
       an_import_scheduler.message = ActiveRecord::Base.gni_sanitize_sql ["%s", self.message]
-      an_import_scheduler.save!
+      an_import_scheduler.save! :
     end
   end
   
@@ -132,7 +132,10 @@ module GNI
     def do_preprocessing
       while @preprocessed_item     
         @file_processor = FileProcessorFactory.new(@preprocessed_item.data_source).file_processor
-        @file_processor.process {|state| @preprocessed_item.change_state state[0], state[1]}
+        @file_processor.process do |state| 
+          @preprocessed_item.change_state state[0], state[1]
+          yield state[0]
+        end
         @preprocessed_item = ImportScheduler.preprocessed_item
       end
     end
@@ -149,7 +152,6 @@ module GNI
     protected
     
     def set_file_processor
-      puts 'got here'
       file_type = IO.popen("file " + @data_source.file_path).read
       ['Zip', 'HTML', 'XML'].each do |x|
         if file_type.match /#{x}/i
@@ -187,15 +189,20 @@ module GNI
 
     class ProcessorDarwinCoreStar < ProcessorFile
       def process
+        unless File.exists? @data_source.temporary_path
+           yield [ImportScheduler::FAILED, "Looks like download of compressed file was interrupted, or archive is not compressed correctly"]
+        end
         Dir.chdir @data_source.temporary_path
         entries =  Dir.entries "."
 
         if entries.include?('meta.xml')
           Dir.chdir DOWNLOAD_PATH
+          FileUtils.rm_rf @data_source.directory_path
           system "mv #{@data_source.temporary_path} #{@data_source.directory_path}"
         else
           entries.select {|ent| ent != '.' && ent != '..'}.each do |entry|
             if File.directory?(entry) && Dir.entries(entry).include?('meta.xml')
+              FileUtils.rm_rf @data_source.directory_path
               system "mv #{entry} #{@data_source.directory_path}"
               yield [ImportScheduler::PROCESSING, "Processing"]
               clean_up
@@ -223,5 +230,30 @@ module GNI
     end
   end
   
+  class Importer
+    def initialize
+      @preprocessed_item = ImportScheduler.preprocessed_item
+    end
+    
+    def do_import
+      while @preprocessed_item
+        dsi = DataSourceImporter.new @preprocessed_item.data_source
+        dsi.import
+        @preprocessed_item = ImportScheduler.preprocessed_item
+      end
+    end
+  end
+  
+  class DataSourceImporter
+    def initialize(data_source)
+      @data_source = data_source
+    end
+    
+    def import
+      read_meta_file
+      get_darwin_core
+    end
+    
+  end
   
 end

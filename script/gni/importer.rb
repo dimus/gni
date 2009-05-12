@@ -30,7 +30,7 @@ end
 ENV["RAILS_ENV"] = OPTIONS[:environment]
 require File.dirname(__FILE__) + "/../../config/environment"
 
-PID_FILE = RAILS_ROOT + "/tmp/pids/preprocessor"
+PID_FILE = RAILS_ROOT + "/tmp/pids/importer"
 
 def running?(pid_file)
   File.exists? pid_file
@@ -60,7 +60,7 @@ exit if running? PID_FILE
 set_running PID_FILE
 begin
   ds = GNI::Importer.new
-  ds.do_import 
+  ds.do_import
 rescue RuntimeError
   raise 
 ensure

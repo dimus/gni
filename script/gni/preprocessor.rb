@@ -60,7 +60,12 @@ exit if running? PID_FILE
 set_running PID_FILE
 begin
   ds = GNI::Preprocessor.new
-  ds.do_preprocessing {|r| system(RAILS_ROOT + '/script/gni/importer.rb -e ' + OPTIONS[:environment])}
+  ds.do_preprocessing do |status|
+    if status == ImportScheduler::PROCESSING
+      cmd = RAILS_ROOT + '/script/gni/importer.rb -e ' + OPTIONS[:environment]
+      system(cmd) 
+    end
+  end
 rescue RuntimeError
   raise 
 ensure

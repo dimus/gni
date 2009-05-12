@@ -41,6 +41,10 @@ class ImportScheduler < ActiveRecord::Base
     self.find_by_status(PREPROCESSING)
   end
   
+  def self.processed_item()
+    self.find_by_status(PROCESSING)
+  end
+  
   # Schedule a data_source for import if 
   # 1. it is not scheduled already
   # 2. has refresh_period_days > 0
