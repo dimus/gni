@@ -7,15 +7,14 @@
     <core location="darwin_core.txt" encoding="UTF-8" fieldsTerminatedBy="\t" linesTerminatedBy="\n" rowType="http://rs.tdwg.org/dwc/terms/Taxon">
         <!-- the name identifier used in source, if existing a globally unique one -->
         <id term="http://rs.tdwg.org/dwc/terms/TaxonID" index="1"/>
-        <field term="http://rs.tdwg.org/dwc/terms/GlobalUniqueIdentifier" index="2"/>
         <!-- a local identifier (often id from the resource database) -->
-        <field term="http://purl.org/dc/terms/identifier" index="3"/>
-        <field term="http://rs.tdwg.org/dwc/terms/ScientificName" index="4"/>
-        <field term="http://rs.tdwg.org/dwc/terms/TaxonRank" index="5"/>
+        <field term="http://purl.org/dc/terms/identifier" index="2"/>
+        <field term="http://rs.tdwg.org/dwc/terms/ScientificName" index="3"/>
+        <field term="http://rs.tdwg.org/dwc/terms/TaxonRank" index="4"/>
         <!-- enumeration as defined by dwc -->
-        <field term="http://rs.tdwg.org/dwc/terms/NomenclaturalCode" index="6"/>
-        <field term="http://rs.tdwg.org/dwc/terms/Kingdom" index="7"/>
-        <field term="http://purl.org/dc/terms/modified" index="8"/>
+        <field term="http://rs.tdwg.org/dwc/terms/NomenclaturalCode" index="5"/>
+        <field term="http://rs.tdwg.org/dwc/terms/Kingdom" index="6"/>
+        <field term="http://purl.org/dc/terms/modified" index="7"/>
     </core>
     
     <extension location="links.txt">
