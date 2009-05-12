@@ -16,6 +16,8 @@ class DataSource < ActiveRecord::Base
   before_destroy :cleanup
   after_save :create_thumbnails
   
+  attr_reader :file_path, :directory_path, :temporary_path
+  
   validates_presence_of :title, :message => "is required"
   validates_presence_of :data_url, :message => "^Names Data URL is required"
   validates_format_of :data_url, :with => URL_RE, :message => "^Names Data URL should be a URL"
@@ -25,6 +27,18 @@ class DataSource < ActiveRecord::Base
   
   def contributor?(a_user)
     !!self.users.include?(a_user)
+  end
+  
+  def file_path
+    @file_path ||= GNI::DOWNLOAD_PATH + "files/" + self.id.to_s
+  end
+  
+  def directory_path
+    @directory_path ||= GNI::DOWNLOAD_PATH + self.id.to_s
+  end
+  
+  def temporary_path
+    @temporary_path ||= GNI::DOWNLOAD_PATH + 'tmp'
   end
   
   def self.update_name_strings_count()

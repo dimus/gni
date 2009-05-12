@@ -60,7 +60,7 @@ exit if running? PID_FILE
 set_running PID_FILE
 begin
   ds = GNI::DownloadScheduler.new
-  ds.do_downloads(true) {|status| system(RAILS_ROOT + '/script/gni/preprocessor.rb -e ' + RAILS_ENV) unless status == ImportScheduler::UNCHANGED}
+  ds.do_downloads(true) {|status| system(RAILS_ROOT + '/script/gni/preprocessor.rb -e ' + OPTIONS[:environment]) unless status == ImportScheduler::UNCHANGED}
 rescue RuntimeError
   raise 
 ensure

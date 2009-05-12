@@ -57,9 +57,9 @@ class ImportScheduler < ActiveRecord::Base
     end
   end
   
-  def change_state(new_state_constant, new_message)
-    self.status = new_state_constant
-    self.message = new_message
+  def change_state(new_status, new_msg)
+    self.status = new_status
+    self.message = new_msg
     self.save!
   end
   

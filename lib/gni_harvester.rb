@@ -29,7 +29,7 @@ module GNI
         begin
           data_source = dl.data_source
           dlr = Downloader.new(data_source)
-          file_name = DOWNLOAD_PATH + data_source.id.to_s
+          file_name = data_source.file_path
           dl.change_state ImportScheduler::DOWNLOADING, "Downloading"
           if with_details
             dlr.download_with_percentage(file_name) do |r| 
@@ -129,12 +129,10 @@ module GNI
       @preprocessed_item = ImportScheduler.preprocessed_item
     end
     
-     
-    
     def do_preprocessing
       while @preprocessed_item     
-        @file_processor = FileProcessorFactory.new(@preprocessed_item).file_processor
-        @file_processor.process
+        @file_processor = FileProcessorFactory.new(@preprocessed_item.data_source).file_processor
+        @file_processor.process {|state| @preprocessed_item.change_state state[0], state[1]}
         @preprocessed_item = ImportScheduler.preprocessed_item
       end
     end
@@ -143,9 +141,8 @@ module GNI
   class FileProcessorFactory
     attr_reader :file_processor
     
-    def initialize(import_scheduler_item)
-      @import_scheduler_item = import_scheduler_item
-      @data_source_file = DOWNLOAD_PATH + @import_scheduler_item.data_source.id.to_s
+    def initialize(data_source)
+      @data_source = data_source
       set_file_processor
     end
 
@@ -153,48 +150,78 @@ module GNI
     
     def set_file_processor
       puts 'got here'
-      file_type = IO.popen("file " + @data_source_file).read
-      ['Zip', 'HTML'].each do |x|
-        eval("@file_processor = Processor#{x}.new(@import_scheduler_item)") if file_type.match /#{x}/i
+      file_type = IO.popen("file " + @data_source.file_path).read
+      ['Zip', 'HTML', 'XML'].each do |x|
+        if file_type.match /#{x}/i
+          eval("@file_processor = Processor#{x}.new(@data_source)")
+          break
+        end
       end
-      @file_processor ||= ProcessorNull.new(@import_scheduler_item)
+      @file_processor ||= ProcessorNull.new(@data_source)
     end
     
-    class ProcessorHTML
-      def initialize(import_scheduler_item)
-        @import_scheduler_item = import_scheduler_item
-        @data_file = DOWNLOAD_PATH + @import_scheduler_item.data_source.id.to_s
+    class ProcessorFile
+      def initialize(data_source)
+        @data_source = data_source
       end
-      
       def process
-        File.unlink @data_file
-        @import_scheduler_item.change_state ImportScheduler::FAILED, "Got HTML file instead of data file (404 error?)"
-      end
-    end
-    
-    class ProcessorZip
-      def initialize(import_scheduler_item)
-        @import_scheduler_item = import_scheduler_item
-        @data_file = DOWNLOAD_PATH + @import_scheduler_item.data_source.id.to_s
-      end
-      
-      def process
-        File.unlink @data_file
-        @import_scheduler_item.change_state ImportScheduler::PROCESSING, "Processing"
+        raise RuntimeException, "Not implemented"
       end
     end
     
-    class ProcessorNull
-      def initialize(import_scheduler_item)
-        @import_scheduler_item = import_scheduler_item
-        @data_file = DOWNLOAD_PATH + @import_scheduler_item.data_source.id.to_s
+    class ProcessorHTML < ProcessorFile
+      def process
+        File.unlink(@data_source.file_path)
+        yield [ImportScheduler::FAILED, "Got HTML file instead of data file (404 error?)"]
+      end
+    end
+    
+    class ProcessorZip < ProcessorFile
+      def process
+        FileUtils.rm_rf @data_source.temporary_path
+        system "unzip -d #{@data_source.temporary_path} #{@data_source.file_path}"
+        dwc = ProcessorDarwinCoreStar.new(@data_source)
+        dwc.process {|status| yield status}
+      end
+    end
+
+    class ProcessorDarwinCoreStar < ProcessorFile
+      def process
+        Dir.chdir @data_source.temporary_path
+        entries =  Dir.entries "."
+
+        if entries.include?('meta.xml')
+          Dir.chdir DOWNLOAD_PATH
+          system "mv #{@data_source.temporary_path} #{@data_source.directory_path}"
+        else
+          entries.select {|ent| ent != '.' && ent != '..'}.each do |entry|
+            if File.directory?(entry) && Dir.entries(entry).include?('meta.xml')
+              system "mv #{entry} #{@data_source.directory_path}"
+              yield [ImportScheduler::PROCESSING, "Processing"]
+              clean_up
+              return
+            end
+          end
+          yield [ImportScheduler::FAILED, "Cannot find DarwinCore Star Files"]
+          clean_up
+        end
       end
       
+      protected
+      
+      def clean_up
+        File.unlink @data_source.file_path
+        FileUtils.rm_rf @data_source.temporary_path
+      end
+    end
+    
+    class ProcessorNull < ProcessorFile
       def process
-        msg = File.exists?(@data_file) ? "Downloaded file diappeared, some hungry file eater ate it." : "Unknown format of the file"
-        @import_scheduler_item.change_state ImportScheduler::FAILED, msg
+        msg = File.exists?(@data_source.file_path) ? "Downloaded file disappeared, some hungry file eater ate it." : "Unknown format of the file"
+       yield [ImportScheduler::FAILED, msg]
       end
     end
   end
+  
   
 end
