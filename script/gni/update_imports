@@ -6,16 +6,18 @@ import data_import as di
 
 from optparse import OptionParser
 
-PID_PATH =  os.path.normpath(os.path.dirname(__file__) + "/../../tmp/pids/update_imports.pid")
+PID_PATH = os.path.normpath(os.path.dirname(__file__) + "/../../tmp/pids/update_imports.pid")
+FILES_PATH = os.path.normpath(os.path.dirname(__file__) + "/../../repositories/")
+
 TIMEOUT = 3600
 
-WAITING     = 1
-PROCESSING  = 2
-FAILED      = 3
-UPDATED     = 4
-UNCHANGED   = 5
-DOWNLOADING = 6
-DOWNLOADED = 7
+WAITING           = 1
+PROCESSING        = 2
+FAILED            = 3
+UPDATED           = 4
+UNCHANGED         = 5
+DOWNLOADING       = 6
+PREPROCESSING     = 7
 
 def is_running(): #{{{1
     if os.path.exists(PID_PATH):
@@ -35,7 +37,7 @@ class Updater: #{{{1
         self.db = di.DbImporter(environment)
     
     def get_data_source_id(self): #{{{2
-        self.db.cursor.execute("select id, data_source_id from import_schedulers where status = %s order by created_at limit 1", WAITING)
+        self.db.cursor.execute("select id, data_source_id from import_schedulers where status = %s order by created_at limit 1", PROCESSING)
         res =  self.db.cursor.fetchone()
         print res
         if res:
@@ -44,28 +46,27 @@ class Updater: #{{{1
             res = res[0]
         return res
     
-    def get_data_url(self): #{{{2
-        self.db.cursor.execute("select data_url from data_sources where id = %s", self.data_source_id)
-        res = self.db.cursor.fetchone()
-        if res:
-            self.data_url = res[0]
-            self._change_status(PROCESSING, "Getting data from %s." % self.data_url)
+    def get_data_file(self): #{{{2
+        self.data_file = FILES_PATH + "/" + str(self.data_source_id) + "/" + str(self.data_source_id)
+        if os.path.exists(self.data_file):
+            self._change_status(PROCESSING, "Getting data from downloaded file.")
         else:
-            self._change_status(FAILED, 'Could not not find data url')
-        return res
+            self._change_status(FAILED, 'Could not not find data file %s' % self.data_file  )
+            self.data_file = None
+        return self.data_file
 
     def process_updates(self): #{{{2
         while 1 == 1:
             if self.get_data_source_id():
-                if self.get_data_url():
+                if self.get_data_file():
                     self._process_data()
             else:
                 break
 
     def _process_data(self): #{{{2
         try:
-            self._change_status(PROCESSING, "Parsing XML from %s" % self.data_url)
-            for status in di.run_imports(self.data_url, self.data_source_id, self.environment):
+            self._change_status(PROCESSING, "Parsing XML from %s" % self.data_file)
+            for status in di.run_imports(self.data_file, self.data_source_id, self.environment):
                 self._change_status(PROCESSING, status)
             
             statistics = "No changes"

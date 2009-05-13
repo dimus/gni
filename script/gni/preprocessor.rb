@@ -62,7 +62,7 @@ begin
   ds = GNI::Preprocessor.new
   ds.do_preprocessing do |status|
     if status == ImportScheduler::PROCESSING
-      cmd = RAILS_ROOT + '/script/gni/importer.rb -e ' + OPTIONS[:environment]
+      cmd = RAILS_ROOT + '/script/gni/update_imports -e ' + OPTIONS[:environment]
       system(cmd) 
     end
   end

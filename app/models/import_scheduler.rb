@@ -28,7 +28,7 @@ class ImportScheduler < ActiveRecord::Base
     (cs && [WAITING, DOWNLOADING, PREPROCESSING, PROCESSING].include?(cs.status)) ? true : false
   end
   
-  def self.downloadables()
+  def self.downloadables
     downloadables = []
     DataSource.all.each do |ds|
       current =  ImportScheduler.current(ds)
@@ -37,11 +37,11 @@ class ImportScheduler < ActiveRecord::Base
     downloadables
   end
   
-  def self.preprocessed_item()
+  def self.preprocessed_item
     self.find_by_status(PREPROCESSING)
   end
   
-  def self.processed_item()
+  def self.processed_item
     self.find_by_status(PROCESSING)
   end
   

@@ -5,7 +5,7 @@ module GNI
     def report_error(an_import_scheduler)
       an_import_scheduler.status = ImportScheduler::FAILED
       an_import_scheduler.message = ActiveRecord::Base.gni_sanitize_sql ["%s", self.message]
-      an_import_scheduler.save! :
+      an_import_scheduler.save!
     end
   end
   
@@ -103,7 +103,6 @@ module GNI
     end
     
     def unchanged?
-      return false
       return nil unless (@filename && File.exists?(@filename))
       sha = IO.popen("sha1sum " + @filename).read.split(/\s+/)[0]
       if @data_source.data_hash != sha
@@ -162,12 +161,21 @@ module GNI
       @file_processor ||= ProcessorNull.new(@data_source)
     end
     
+    
     class ProcessorFile
       def initialize(data_source)
         @data_source = data_source
       end
       def process
         raise RuntimeException, "Not implemented"
+      end
+    end
+    
+    class ProcessorXML < ProcessorFile
+      def process
+        FileUtils.mkdir_p @data_source.directory_path
+        FileUtils.mv @data_source.file_path, @data_source.directory_path
+        yield [ImportScheduler::PROCESSING, "Processing"]
       end
     end
     
@@ -232,28 +240,20 @@ module GNI
   
   class Importer
     def initialize
-      @preprocessed_item = ImportScheduler.preprocessed_item
+      @processed_item = ImportScheduler.processed_item
     end
     
     def do_import
-      while @preprocessed_item
-        dsi = DataSourceImporter.new @preprocessed_item.data_source
-        dsi.import
-        @preprocessed_item = ImportScheduler.preprocessed_item
+      #until we have DWC star file we use old tcs algorithm for importing
+      while @processed_item
+        ds = @processed_item.data_source
+        xml_file = ds.directory_path + "/" + ds.id.to_s
+        cmd = "#{RAILS_ROOT}/script/gni/data_import.py -i #{ds.id} -s #{xml_file}"
+        system(cmd)
+        @processed_item = ImportScheduler.processed_item
       end
     end
   end
   
-  class DataSourceImporter
-    def initialize(data_source)
-      @data_source = data_source
-    end
-    
-    def import
-      read_meta_file
-      get_darwin_core
-    end
-    
-  end
   
 end

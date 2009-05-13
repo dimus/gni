@@ -1,7 +1,7 @@
 %h1 
   Names Overlap for Repository 
   = in_quotes(@data_source.title)
-.help_info== #{in_quotes(@data_source.title)} names total: #{@data_source.name_indices.size}
+.help_info== #{in_quotes(@data_source.title)} names total: #{display_big_int(@data_source.name_strings_count)}
 
 
 %h4 Strict Overlap (Names match exactly)

@@ -12,7 +12,7 @@
 
 .help_info
 
-- unless @current_status == ImportScheduler::NO_IMPORTS
+- if @last_successful_import
   %fieldset.subsection
     %legend.subsection== Names in the Repository: #{display_big_int(@data_source.name_strings_count)}
     = render(:partial => "shared/names_search_browse", :locals => {:char_triples => @char_triples, :name_strings => @name_strings, :is_empty_search_result => @is_empty_search_result, :search_term => @search_term, :data_source => @data_source})
@@ -28,17 +28,13 @@
       .spinner
         #import_in_progress{:import_scheduler_id => last_import_scheduler_id}
           = scheduler_status
-    - if @current_status == ImportScheduler::FAILED || @current_status == ImportScheduler::UPDATED
+    - if @last_successful_import
       #import_finished
         %h4= "Import Succeeded on #{format_date @last_successful_import.updated_at}" if @last_successful_import
-        - if @current_status == ImportScheduler::UPDATED
-          /
-            %p
-              = (link_to "Inserted: #{@inserted_size}, ", data_source_import_data_source_import_details_url(@inserted, :page => 1)) rescue "Inserted: 0, "
-              = (link_to "Deleted: #{@deleted_size}, ", data_source_import_data_source_import_details_url(@deleted)) rescue  "Deleted: 0, "
-              = (link_to "Updated: #{@updated_size}", data_source_import_data_source_import_details_url(@updated)) rescue "Updated: 0"
-        - else
-          %h4 Last Import Failed
+    - if @current_status == ImportScheduler::FAILED
+      %h4== Last import (#{format_date @current_import.updated_at}) Failed
+    - elsif @current_status == ImportScheduler::UNCHANGED
+      %h4== Last import (#{format_date @current_import.updated_at}) was not needed because data did not change
 
     - if (@current_status != ImportScheduler::WAITING && @current_status != ImportScheduler::PROCESSING)
       - form_for(@import_scheduler, :action => 'post') do |f|
@@ -52,13 +48,13 @@
   - if @current_status == ImportScheduler::NO_IMPORTS
     %p
       = 'No data yet' + (current_user && current_user.data_sources.include?(@data_source) ? ', do import first' : '') 
-  - elsif @current_status != ImportScheduler::UPDATED
-    %p
-      Data are not imported yet
-  - else
+  - elsif @last_successful_import
     %p= link_to 'Overlap with other repositories',data_source_data_source_overlaps_url(@data_source)
 
     %p= "Number of names appearing only in this repository: #{@data_source.unique_names_count} (#{sprintf("%.2f",(@data_source.unique_names_count.to_f/@data_source.name_strings_count)*100) rescue 'N/A'}%)"
+  - else
+    %p
+      Data are not imported yet
     /   
     / %p
     /   Potential Duplicates (placeholder)

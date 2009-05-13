@@ -86,7 +86,7 @@ $(function() {
       if (import_scheduler_id > 0){
         $.getJSON('/import_schedulers/' + import_scheduler_id, {},
           function(data) {
-              if (data.status == "4"){
+              if (data.status == "4" || data.status == "3" || data.status == "5"){
                 document.location = document.location
               }
               var message = data.message;
