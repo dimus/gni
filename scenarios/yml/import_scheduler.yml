@@ -33,5 +33,4 @@ ImportScheduler:
     message: 'Updated'
     created_at: <%= 1.month.ago.to_s :db %>
     updated_at: <%= 1.month.ago.to_s :db %>
-  #- data_source_id: 5 should be scheduled because there is no data in import scheduler list about it
-  
+  #- data_source_id: 5 and 7 should be scheduled because there is no data in import scheduler list about it

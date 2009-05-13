@@ -104,7 +104,7 @@ DataSourceContributor:
   - user_id: 2 #aaron
     data_source_id: 5 #Encyclopedia of Life
   - user_id: 2 #aaron
-    data_source_id: 7 #Encyclopedia of Life
+    data_source_id: 7 #Tropicos
     
 ImportScheduler:
   - data_source_id: 1

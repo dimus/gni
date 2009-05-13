@@ -49,16 +49,22 @@ class ImportScheduler < ActiveRecord::Base
   # 1. it is not scheduled already
   # 2. has refresh_period_days > 0
   # 3. last successfull update happened more then refresh_period_days days ago
-  def self.run_scheduler
+  def self.run_scheduler(dry_run = false)
+    to_schedule = []
     DataSource.all.each do |a_data_source|
       if  !ImportScheduler.in_process?(a_data_source) && a_data_source.refresh_period_days && a_data_source.refresh_period_days > 0
       
         last_success = ImportScheduler.find_by_data_source_id(a_data_source.id, :conditions => "status = #{UPDATED}", :order => 'updated_at desc')
         if last_success == nil || (Time.now - last_success.updated_at) > (a_data_source.refresh_period_days.to_i * 60 * 60 * 24)
-          ImportScheduler.create(:data_source => a_data_source, :status => WAITING, :message => "Scheduled")
+          if dry_run
+            to_schedule << a_data_source
+          else  
+            ImportScheduler.create(:data_source => a_data_source, :status => WAITING, :message => "Scheduled")
+          end
         end
       end
     end
+    dry_run ? to_schedule : nil
   end
   
   def change_state(new_status, new_msg)
