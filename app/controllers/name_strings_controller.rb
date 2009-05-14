@@ -15,12 +15,12 @@ class NameStringsController < ApplicationController
     if search_data[:is_valid_search]
       search_term = NameString.normalize_name_string(search_data[:search_term])
       if params[:commit] == 'Search Mine'
-        @name_strings = NameString.paginate_by_sql(["select n.id, n.name from name_strings n join name_indices i on (n.id = i.name_string_id) join data_source_contributors c on (i.data_source_id = c.data_source_id)  where normalized_name like ? and c.user_id = ? order by n.normalized_name", search_term, current_user.id], :page => page, :per_page => search_data[:per_page]) || nil rescue nil
+        @name_strings = NameString.search(search_term, nil, current_user.id, search_data[:page], search_data[:per_page])
       elsif params[:data_source_id]
         search_term ||= '%'
-        @name_strings = NameString.paginate_by_sql(["select n.id, n.name from name_strings n join name_indices i on (n.id = i.name_string_id) where normalized_name like ? and i.data_source_id = ? order by n.normalized_name", search_term, params[:data_source_id]], :page => search_data[:page], :per_page => search_data[:per_page]) || nil rescue nil
+        @name_strings = NameString.search(search_term, params[:data_source_id], nil, search_data[:page], search_data[:per_page])
       else
-        @name_strings = NameString.paginate_by_sql(["select id, name from name_strings where normalized_name like ? order by normalized_name", search_term], :page => search_data[:page], :per_page => search_data[:per_page]) || nil rescue nil
+        @name_strings = NameString.search(search_term, nil, nil, search_data[:page], search_data[:per_page]) 
       end
     else
       #returning Pagintation object instead of empty array

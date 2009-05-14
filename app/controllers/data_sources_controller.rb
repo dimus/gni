@@ -48,7 +48,7 @@ class DataSourcesController < ApplicationController
     
     search_data = prepare_search_data
     if search_data[:is_valid_search]
-      @name_strings = NameString.paginate_by_sql(["select n.id, n.name from name_strings n join name_indices i on (n.id = i.name_string_id) where normalized_name like ? and i.data_source_id = ? order by n.normalized_name", search_data[:search_term], @data_source.id], :page => search_data[:page], :per_page => search_data[:per_page]) || nil rescue nil
+      @name_strings = NameString.search(search_data[:search_term], @data_source.id, nil, search_data[:page], search_data[:per_page])
     else 
       @name_strings = []
     end

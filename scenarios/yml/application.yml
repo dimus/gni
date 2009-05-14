@@ -23,34 +23,68 @@ User:
     password:                  monkey
     created_at:                <%= 1.days.ago.to_s :db %>
 
-NameString:
+CanonicalForm:
   - id: 1
-    name: "Adnaria frondosa (L.) Kuntze"
+    name: "Adnaria frondosa"
   - id: 2
-    name: "Adnatosphaeridium tutulosum (Cookson & Eisenack 1960)"
+    name: "Adnatosphaeridium tutulosum"
   - id: 3
-    name: "Adnatosphaeridium G. Williams et Downie, 1966"
+    name: "Adnatosphaeridium"
   - id: 4
-    name: "Dadoychus flavocinctus Monné & Giesbert, 1994"
+    name: "Dadoychus flavocinctus"
   - id: 5
-    name: "Dadoychus mucuim Júlio, Giorgi & Monné, 2000"
+    name: "Dadoychus mucuim"
   - id: 6
-    name: "Higehananomia Kôno 1935"
+    name: "Higehananomia"
   - id: 7
     name: "Higehananomia palpalis"
   - id: 8
+    name: "Higena"
+  - id: 9
+    name: "Higena distincta"
+  - id: 10
+    name: "Higena plumigera"
+
+NameString:
+  - id: 1
+    name: "Adnaria frondosa (L.) Kuntze"
+    canonical_form_id: 1
+  - id: 2
+    name: "Adnatosphaeridium tutulosum (Cookson & Eisenack 1960)"
+    canonical_form_id: 2
+  - id: 3
+    name: "Adnatosphaeridium G. Williams et Downie, 1966"
+    canonical_form_id: 3
+  - id: 4
+    name: "Dadoychus flavocinctus Monné & Giesbert, 1994"
+    canonical_form_id: 4
+  - id: 5
+    name: "Dadoychus mucuim Júlio, Giorgi & Monné, 2000"
+    canonical_form_id: 5
+  - id: 6
+    name: "Higehananomia Kôno 1935"
+    canonical_form_id: 6
+  - id: 7
+    name: "Higehananomia palpalis"
+    canonical_form_id: 7
+  - id: 8
     name: "Higehananomia palpalis Kono 1935"
+    canonical_form_id: 7
   - id: 9
     name: "Higena"
+    canonical_form_id: 8
   - id: 10
     name: "Higena distincta"
+    canonical_form_id: 9
   - id: 11
     name: "Higena Matsumura 1925"
+    canonical_form_id: 8
   - id: 12
     name: "Higena plumigera"
+    canonical_form_id: 10
   - id: 13
     name: "Higena plumigera Matsumura 1925"
-
+    canonical_form_id: 10
 Kingdom:
   - id: 1
     name: Animalia

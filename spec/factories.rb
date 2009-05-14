@@ -13,11 +13,16 @@ Factory.sequence(:sha_hash)         { |n| Digest::SHA1.hexdigest(n.to_s) }
 
 #### Factories
 
+Factory.define :canonical_form do |canonical_form|
+  canonical_form.name { Factory.next(:scientific_name) }
+end
+
 Factory.define :name_string do |name_string|
   name_string.created_at      { 5.days.ago }
   name_string.updated_at      { 5.days.ago }
   name_string.name            { Factory.next(:scientific_name) }
   name_string.normalized_name { |ns| "#{NameString.normalize_name_string(ns.name)}" }
+  name_string.association :canonical_form
 end
 
 Factory.define :data_source do |data_source|

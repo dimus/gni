@@ -52,6 +52,11 @@ describe '/data_sources' do
       DataSource.count.should == count
       res.body.should be_blank
     end
+    
+    it 'should render search' do
+      res = req("/data_sources/1?search_term=ADN*")
+      res.success?.should be_true
+    end
       
   end
   
