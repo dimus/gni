@@ -6,7 +6,7 @@
       %td
         %span.colored_label canonical:
       %td
-        =link_to @parsed_name[:canonical], {:action=>'index', :search_term=>@parsed_name[:canonical] + "*"}
+        =link_to @parsed_name[:canonical], {:action=>'index', :search_term=>@parsed_name[:canonical]}
 
     -if @parsed_name[:species]
       %tr
@@ -40,8 +40,24 @@
               %span.colored_label year:
             %td
               = @parsed_name[:authors][:year]
+
+- lexical_groups = @name_string.lexical_groups
+-  unless lexical_groups.blank?
+  .lexical_group
+    %h3= "Lexical groups"
+    - count = 0
+    - lexical_groups.each do |lg|
+      - count += 1
+      %h4= "Group #" + count.to_s if lexical_groups.size > 1
         
--if !@data_sources_data.empty?
+      - lg.name_strings.map {|ns| ns.name}.each do |ns|
+        - if @name_string.name == ns
+          = ns
+        - else
+          = link_to ns, "/?search_term=#{ns}"
+        %br/
+    
+- unless @data_sources_data.empty?
   %table#js_name_string_details.data.bordered
     %tr
       %th.top Logo

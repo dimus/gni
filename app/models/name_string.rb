@@ -4,6 +4,8 @@ class NameString < ActiveRecord::Base
   has_many :data_source_import_details
   has_many :data_sources, :through => :name_indices
   has_many :name_index_records, :through => :name_indices
+  has_many :lexical_group_name_strings
+  has_many :lexical_groups, :through => :lexical_group_name_strings
   belongs_to :canonical_form
   
   validates_presence_of :name

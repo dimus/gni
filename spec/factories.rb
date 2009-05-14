@@ -25,6 +25,15 @@ Factory.define :name_string do |name_string|
   name_string.association :canonical_form
 end
 
+Factory.define :lexical_group do |lexical_group|
+  lexical_group.supercedure_id { nil }
+end
+
+Factory.define :lexical_group_name_string do |lgns|
+  lgns.association :name_string
+  lgns.association :lexical_group
+end
+
 Factory.define :data_source do |data_source|
   data_source.created_at          { 5.days.ago }
   data_source.updated_at          { 5.days.ago }

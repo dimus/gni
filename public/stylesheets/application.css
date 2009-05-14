@@ -611,6 +611,10 @@ legend {
   color: #56815e;
   font-weight: bold; }
 
+div.lexical_group {
+  margin: 0;
+  padding: 1em;
+  background-color: #e9e9e9; }
 div.subsection {
   border: 1px solid #cbe4c3;
   padding: 1em;
