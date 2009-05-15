@@ -3,24 +3,37 @@
   = in_quotes(@data_source.title)
 .help_info== #{in_quotes(@data_source.title)} names total: #{display_big_int(@data_source.name_strings_count)}
 
-
-%h4 Strict Overlap (Names match exactly)
-
-= chart_overlap(@data_source_overlaps)
-
-%table.data.bordered
+%table{:style => 'text-align: right'}
+  %tr
+    %td
+      %h4 Strict Overlap (Names match exactly)
+      = chart_overlap(@data_source_overlaps, 'strict')
+    %td
+      %h4 Apparent Overlap (Names matched by groups)
+      = chart_overlap(@data_source_overlaps, 'lexical_groups')
+%table.data.bordered{:style => "text-align:right"}
   %tr
     %th.top Data source
     %th.top # of Names
     %th.top Overlap
     %th.top Overlap %
+    %th.top 
+      Apparent
+      %br/
+      Overlap
+    %th.top 
+      Apparent
+      %br/
+      Overlap %
 
   - for overlap in @data_source_overlaps
     %tr
       %td= link_to overlap.other_data_source.title, data_source_data_source_overlaps_url(overlap.other_data_source.id)
       %td= overlap.other_data_source.name_indices.size
       %td= overlap.strict_overlap
-      %th= overlap.percentage
+      %th= sprintf("%1.2f %", overlap.strict_percentage)
+      %th= overlap.lexical_groups_overlap
+      %th= sprintf("%1.2f %", overlap.lexical_groups_percentage)
 
 %br/
 

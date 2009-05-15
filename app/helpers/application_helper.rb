@@ -53,9 +53,9 @@ module ApplicationHelper
     an_int.to_s.reverse.gsub(/([\d]{3})/,'\1,').reverse.gsub(/^[\s,]*/,'')
   end
   
-  def chart_overlap(data_source_overlap)
+  def chart_overlap(data_source_overlap, type='strict')
       data_source_overlap = data_source_overlap[0..10]
-      percentage = data_source_overlap.map {|d| d.percentage}.join(',')
+      percentage = data_source_overlap.map {|d| type == 'strict' ? d.strict_percentage : d.lexical_groups_percentage}.join(',')
       ceiling = data_source_overlap.map {|d| 100}.join(',')
       titles = data_source_overlap.map {|d| shorten_string(d.other_data_source.title,20)}.reverse.join('|')
       chart = '<img src="http://chart.apis.google.com/chart?cht=bhs'

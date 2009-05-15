@@ -44,6 +44,8 @@ CanonicalForm:
     name: "Higena distincta"
   - id: 10
     name: "Higena plumigera"
+  - id: 11
+    name: "Hegena"
 
 NameString:
   - id: 1
@@ -88,6 +90,14 @@ NameString:
   - id: 14
     name: "Higena plumigera Linneaus 1787"
     canonical_form_id: 10
+  - id: 15
+    name: "Higena plumigera L. 1787"
+  - id: 16
+    name: "Higena plumigera Linn."
+    canonical_form_id: 10
+  - id: 17
+    name: "Hegena Matsumura 1925"
+    canonical_form_id: 11
 
 LexicalGroup:
   - id: 1
@@ -124,7 +134,16 @@ LexicalGroupNameString:
   - id: 8 
     lexical_group_id: 4
     name_string_id: 14
-  
+  - id: 9
+    lexical_group_id: 4
+    name_string_id: 15
+  - id: 10
+    lexical_group_id: 4
+    name_string_id: 16
+  - id: 11
+    lexical_group_id: 2
+    name_string_id: 17
+
 Kingdom:
   - id: 1
     name: Animalia
@@ -240,6 +259,21 @@ NameIndex:
   - id: 14
     name_string_id: 14
     data_source_id: 2
+  - id: 15
+    name_string_id: 15 #lexical group match, not strict match
+    data_source_id: 4
+  - id: 16
+    name_string_id: 16 #lexical group match, not strict match
+    data_source_id: 4
+  - id: 17
+    name_string_id: 4
+    data_source_id: 4
+  - id: 18
+    name_string_id: 17 #lexical group match, not strict match
+    data_source_id: 4 
+  - id: 19
+    name_string_id: 7 #strict match
+    data_source_id: 4    
 
 NameIndexRecord:
   - name_index_id: 1
@@ -264,3 +298,5 @@ NameIndexRecord:
   - name_index_id: 12
   - name_index_id: 13
   - name_index_id: 14
+  - name_index_id: 15
+  - name_index_id: 16

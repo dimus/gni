@@ -4,7 +4,7 @@ class DataSourceOverlapsController < ApplicationController
   def index
     page = params[:page] || 1 rescue 1
     @data_source = DataSource.find params[:data_source_id]
-    @data_source_overlaps = DataSourceOverlap.paginate_by_sql(["select data_source_id_1, data_source_id_2, strict_overlap, (strict_overlap/?) * 100 as percentage from data_source_overlaps where data_source_id_1 = ? order by percentage desc", @data_source.name_indices.size,  @data_source.id], :order => "percentage desc", :page => page)
+    @data_source_overlaps = DataSourceOverlap.paginate_by_sql(["select data_source_id_1, data_source_id_2, strict_overlap, (strict_overlap/?) * 100 as strict_percentage, lexical_groups_overlap, (lexical_groups_overlap/?) * 100 as lexical_groups_percentage from data_source_overlaps where data_source_id_1 = ? order by strict_percentage desc", @data_source.name_strings_count, @data_source.name_strings_count,  @data_source.id], :order => "percentage desc", :page => page)
 
     respond_to do |format|
       format.html # index.html.erb
