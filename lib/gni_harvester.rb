@@ -1,3 +1,4 @@
+require 'nokogiri'
 module GNI
   DOWNLOAD_PATH = RAILS_ROOT + "/repositories/"
   
@@ -103,6 +104,7 @@ module GNI
     end
     
     def unchanged?
+      return false
       return nil unless (@filename && File.exists?(@filename))
       sha = IO.popen("sha1sum " + @filename).read.split(/\s+/)[0]
       if @data_source.data_hash != sha
@@ -212,7 +214,9 @@ module GNI
             if File.directory?(entry) && Dir.entries(entry).include?('meta.xml')
               FileUtils.rm_rf @data_source.directory_path
               system "mv #{entry} #{@data_source.directory_path}"
-              yield [ImportScheduler::PROCESSING, "Processing"]
+              dwcc = DwcToTcsConverter.new(@data_source)
+              current_state = dwcc.convert ? [ImportScheduler::PROCESSING, "Processing"] : [ImportScheduler::FAILED, "Cannot convert Darwin Core Star files to Taxon Concept Schema XML"]
+              yield current_state
               clean_up
               return
             end
@@ -237,6 +241,102 @@ module GNI
       end
     end
   end
+  
+  
+  class DwcToTcsConverter
+    unless defined? CONSTANTS_DEFINED
+      CORE_TERMS_DICT  = { "http://purl.org/dc/terms/identifier" => "dc:identifier",
+                      "http://purl.org/dc/terms/source"  => "dc:source",
+                      "http://rs.tdwg.org/dwc/terms/ScientificName" => "dwc:ScientificName",
+                      "http://rs.tdwg.org/dwc/terms/TaxonRank" => "dwc:TaxonRank",
+                      "http://rs.tdwg.org/dwc/terms/Kingdom" => "dwc:Kingdom"}
+      LINK_TERMS_DICT { "http://purl.org/dc/terms/source"  => "dc:source",
+                        "http://purl.org/dc/terms/format" => "dc:format" }
+      CORE_TERMS = CORE_TERMS_DICT.keys.map {|k| k.downcase}
+      LINK_TERMS = LINK_TERMS_DICT.keys.map {|k| k.downcase}
+      CONSTANTS_DEFINED = true
+    end
+    
+    def initialize(data_source)
+      @data_source = data_source
+      Dir.chdir @data_source.directory_path
+      @core_errors = []
+      @core_data = []
+    end
+    
+    def convert
+      success = read_meta_xml
+      success = ingest_core_file if success
+      ingest_extensions if success
+      write_xml
+    end
+    
+    protected
+    def read_meta_xml
+      @doc = Nokogiri::XML(open 'meta.xml')
+      @core = @doc.xpath('//xmlns:core').first
+      @core_id = @doc.xpath('//xmlns:core/xmlns:id').first
+      @core_fields = @doc.xpath('//xmlns:core/xmlns:field').select do |f| 
+        CORE_TERMS.include? f.attributes['term'].to_s.strip.downcase
+      end
+      @extensions = @doc.xpath('//xmlns:extension')
+      !@core_fields.blank?
+    end
+    
+    def ingest_core_file
+      process_data(@core, @core_id, @core_fields) do |data|
+        @core_data << {data[:key] => data[:value]
+      end
+      !@core_data.blank?
+    end
+    
+    def process_data(node, core_id, fields)
+      delimiter = node.attributes['fieldsTerminatedBy'] || "\t"
+      border_chars = node.attributes['fieldsEnclosedBy'] || ""
+      border_regex = border_char == "" ? nil : /^#{border_chars}(.*)#{border_chars}$/
+      open(node.attributes('location')).each do |line|
+        if GNI::Encoding.utf8_string? line
+          line_fields = line.split(delimiter)
+          row_id = line_fields[core_id.attributes('index')].to_sym
+          data = {:key => row_id, :value => {}}
+          @core_fields.each do |field|
+            field_index = field.attributes['index']
+            field_data = line_fields[field_index]
+            field_data = field_data.gsub(@border_redex, "#{$1}") if @border_redex
+            data[:value][CORE_TERMS_DICT[field.attributes['term']]] = field_data.to_s
+          end
+          yield data
+        else
+          add_to_errors(line.strip + " -- is not in UTF-8 encoding")
+        end
+      end
+    end
+    
+    def ingest_extensions
+      @extensions.each do |extension|
+        source_field = extension.xpath('child::xmlns:field').select {|field| field.attributes['term'].to_str.downcase == 'http://purl.org/dc/terms/source' }
+        core_id = extension.xpath('child::xmlns:coreid').first        
+        if source_field.size > 0 && core_id
+          fields = extension.xpath('child::xmlns:field').select {|field| LINK_TERMS_DICT.indlude? field.attributes['term'].to_str.downcase}
+          process_data(extension, core_id, fields) do |data|
+            if guid? data[:value]['dc:source']
+              @core_data[data[:key]]['dwc:GlobalUniqueIdentifier'] = data[:value]['dc:source']
+            end
+          end
+        end
+      end
+    end
+    
+    def guid?(a_string)
+      !!a_string.match(/urn:lsid/)
+    end
+    
+    def add_to_errors(error_desc)
+      @core_errors << error_desc if @core_errors.size < 100
+      @core_errors.size < 100
+    end
+  end
+  
   
   class Importer
     def initialize
