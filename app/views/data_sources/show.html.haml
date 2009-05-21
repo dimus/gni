@@ -32,7 +32,7 @@
       #import_finished
         %h4= "Import Succeeded on #{format_date @last_successful_import.updated_at}" if @last_successful_import
     - if @current_status == ImportScheduler::FAILED
-      %h4== Last import (#{format_date @current_import.updated_at}) Failed
+      %h4== Last import (#{format_date @current_import.updated_at}) Failed: #{@current_import.message}
     - elsif @current_status == ImportScheduler::UNCHANGED
       %h4== Last import (#{format_date @current_import.updated_at}) was not needed because data did not change
 
