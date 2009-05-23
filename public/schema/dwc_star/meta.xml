@@ -6,7 +6,8 @@
     
     <core location="darwin_core.txt" encoding="UTF-8" fieldsTerminatedBy="\t" linesTerminatedBy="\n" rowType="http://rs.tdwg.org/dwc/terms/Taxon">
         <!-- the name identifier used in source, if existing a globally unique one -->
-        <id term="http://rs.tdwg.org/dwc/terms/TaxonID" index="1"/>
+        <id term="http://rs.tdwg.org/dwc/terms/TaxonID" index="0"/>
+        <field term="http://purl.org/dc/terms/source" index="1"/>
         <!-- a local identifier (often id from the resource database) -->
         <field term="http://purl.org/dc/terms/identifier" index="2"/>
         <field term="http://rs.tdwg.org/dwc/terms/ScientificName" index="3"/>
@@ -19,20 +20,20 @@
     
     <extension location="links.txt">
         <!-- foreign key pointing to the id of the corresponding core record -->
-        <coreid term="http://rs.tdwg.org/dwc/terms/TaxonID" index="1"/>
+        <coreid term="http://rs.tdwg.org/dwc/terms/TaxonID" index="0"/>
         <!-- the link as a URL -->
-        <field term="http://purl.org/dc/terms/source" index="2"/>
+        <field term="http://purl.org/dc/terms/source" index="1"/>
         <!-- the MIME type or for xml the full namespace of the most important namespace, e.g. http://rs.tdwg.org/dwc/terms -->
-        <field term="http://purl.org/dc/terms/format" index="3"/>
+        <field term="http://purl.org/dc/terms/format" index="2"/>
     </extension>
     
     <extension location="lexical_groups.txt">
         <!-- foreign key pointing to the id of the corresponding core record -->
-        <coreid term="http://rs.tdwg.org/dwc/terms/TaxonID" index="1"/>
+        <coreid term="http://rs.tdwg.org/dwc/terms/TaxonID" index="0"/>
         <!-- the lexical group ID -->
-        <field term="http://purl.org/dc/terms/identifier" index="2"/>
+        <field term="http://purl.org/dc/terms/identifier" index="1"/>
         <!-- qualifier why this name belongs to this lexical group. e.g. orthographical variant -->
-        <field term="http://globalnames.org/gni/qualifier" index="3"/>
+        <field term="http://globalnames.org/gni/qualifier" index="2"/>
     </extension>
     
 </starArchive>

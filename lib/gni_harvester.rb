@@ -104,7 +104,7 @@ module GNI
     end
     
     def unchanged?
-      return false
+      return false unless RAILS_ENV == 'production'
       return nil unless (@filename && File.exists?(@filename))
       sha = IO.popen("sha1sum " + @filename).read.split(/\s+/)[0]
       if @data_source.data_hash != sha
@@ -245,15 +245,18 @@ module GNI
   
   class DwcToTcsConverter
     unless defined? CONSTANTS_DEFINED
+      #terms are in low case to compensate for possible case mistakes from submitters
       CORE_TERMS_DICT  = { "http://purl.org/dc/terms/identifier" => "dc:identifier",
                       "http://purl.org/dc/terms/source"  => "dc:source",
-                      "http://rs.tdwg.org/dwc/terms/ScientificName" => "dwc:ScientificName",
-                      "http://rs.tdwg.org/dwc/terms/TaxonRank" => "dwc:TaxonRank",
-                      "http://rs.tdwg.org/dwc/terms/Kingdom" => "dwc:Kingdom"}
-      LINK_TERMS_DICT { "http://purl.org/dc/terms/source"  => "dc:source",
+                      "http://rs.tdwg.org/dwc/terms/scientificname" => "dwc:ScientificName",
+                      "http://rs.tdwg.org/dwc/terms/taxonrank" => "dwc:TaxonRank",
+                      "http://rs.tdwg.org/dwc/terms/NomenclaturalCode" => "dwc:NomenclaturalCode",
+                      "http://rs.tdwg.org/dwc/terms/kingdom" => "dwc:Kingdom",
+                      "http://purl.org/dc/terms/modified" => "dc:modified"}
+      LINK_TERMS_DICT = { "http://purl.org/dc/terms/source"  => "dc:source",
                         "http://purl.org/dc/terms/format" => "dc:format" }
-      CORE_TERMS = CORE_TERMS_DICT.keys.map {|k| k.downcase}
-      LINK_TERMS = LINK_TERMS_DICT.keys.map {|k| k.downcase}
+      CORE_TERMS = CORE_TERMS_DICT.keys
+      LINK_TERMS = LINK_TERMS_DICT.keys
       CONSTANTS_DEFINED = true
     end
     
@@ -261,50 +264,72 @@ module GNI
       @data_source = data_source
       Dir.chdir @data_source.directory_path
       @core_errors = []
-      @core_data = []
+      @core_data = {}
     end
     
     def convert
       success = read_meta_xml
       success = ingest_core_file if success
       ingest_extensions if success
-      write_xml
+      write_tcs_xml if success
     end
     
     protected
     def read_meta_xml
       @doc = Nokogiri::XML(open 'meta.xml')
       @core = @doc.xpath('//xmlns:core').first
-      @core_id = @doc.xpath('//xmlns:core/xmlns:id').first
+      @core_id = @core.xpath('child::xmlns:id').first
       @core_fields = @doc.xpath('//xmlns:core/xmlns:field').select do |f| 
-        CORE_TERMS.include? f.attributes['term'].to_s.strip.downcase
+        CORE_TERMS.include? f.attributes['term'].value.to_s.strip.downcase
       end
       @extensions = @doc.xpath('//xmlns:extension')
       !@core_fields.blank?
     end
     
     def ingest_core_file
-      process_data(@core, @core_id, @core_fields) do |data|
-        @core_data << {data[:key] => data[:value]
+      process_data(@core, @core_id, @core_fields, CORE_TERMS_DICT) do |data|
+        @core_data[data[:key]] = data[:value]
       end
       !@core_data.blank?
     end
     
-    def process_data(node, core_id, fields)
-      delimiter = node.attributes['fieldsTerminatedBy'] || "\t"
-      border_chars = node.attributes['fieldsEnclosedBy'] || ""
-      border_regex = border_char == "" ? nil : /^#{border_chars}(.*)#{border_chars}$/
-      open(node.attributes('location')).each do |line|
+    def ingest_extensions
+      @extensions.each do |extension|
+        source_field = extension.xpath('child::xmlns:field').select {|field| field.attributes['term'].value.to_str.downcase == 'http://purl.org/dc/terms/source' }
+        core_id = extension.xpath('child::xmlns:coreid').first        
+        if source_field.size > 0 && core_id
+          fields = extension.xpath('child::xmlns:field').select {|field| LINK_TERMS.include? field.attributes['term'].value.to_str.downcase}
+          process_data(extension, core_id, fields, LINK_TERMS_DICT) do |data|
+            if guid?(data[:value]['dc:source'])
+              @core_data[data[:key]]['dwc:GlobalUniqueIdentifier'] = data[:value]['dc:source'] if @core_data[data[:key]]
+            end
+          end
+        end
+      end
+    end
+
+    def process_data(node, core_id, fields, terms_dict)
+      return if node.blank? || core_id.blank? || fields.blank?
+      delimiter = get_delimiter(node.attributes['fieldsTerminatedBy'].value)
+      border_chars = node.attributes['fieldsEnclosedBy'].value || ""
+      border_regex = border_chars == "" ? nil : /^#{border_chars}(.*)#{border_chars}$/
+      open(node.attributes['location'].value).each do |line|
         if GNI::Encoding.utf8_string? line
           line_fields = line.split(delimiter)
-          row_id = line_fields[core_id.attributes('index')].to_sym
+          row_id = line_fields[core_id.attributes['index'].value.to_i].to_sym
           data = {:key => row_id, :value => {}}
-          @core_fields.each do |field|
-            field_index = field.attributes['index']
+          
+          fields.each do |field|
+            field_index = field.attributes['index'].value.to_i
             field_data = line_fields[field_index]
-            field_data = field_data.gsub(@border_redex, "#{$1}") if @border_redex
-            data[:value][CORE_TERMS_DICT[field.attributes['term']]] = field_data.to_s
+            unless field_data
+              add_to_errors(line + ' -- either split by delimiter ' + delimiter + ' did not work, or wrong number of fields')
+              break
+            end
+            field_data = field_data.gsub(border_regex, "#{$1}") if border_regex
+            data[:value][terms_dict[field.attributes['term'].value.to_s.strip.downcase]] = field_data.to_s
           end
+          
           yield data
         else
           add_to_errors(line.strip + " -- is not in UTF-8 encoding")
@@ -312,23 +337,30 @@ module GNI
       end
     end
     
-    def ingest_extensions
-      @extensions.each do |extension|
-        source_field = extension.xpath('child::xmlns:field').select {|field| field.attributes['term'].to_str.downcase == 'http://purl.org/dc/terms/source' }
-        core_id = extension.xpath('child::xmlns:coreid').first        
-        if source_field.size > 0 && core_id
-          fields = extension.xpath('child::xmlns:field').select {|field| LINK_TERMS_DICT.indlude? field.attributes['term'].to_str.downcase}
-          process_data(extension, core_id, fields) do |data|
-            if guid? data[:value]['dc:source']
-              @core_data[data[:key]]['dwc:GlobalUniqueIdentifier'] = data[:value]['dc:source']
-            end
-          end
-        end
+    def write_tcs_xml
+      xg = GNA_XML::TcsXmlBuilder.new(@data_source)
+      count = 0
+      @core_data.each do |key,data|
+        count += 1
+        xg.make_node(data, count)
       end
+      xg.close
+      true
     end
     
+    def get_delimiter(delimiter_string)
+      if delimiter_string.match /\s*\\t\s*/
+        return "\t"
+      elsif delimiter_string.match /\s*[\,\|]\s*/
+        return delmiter_string.strip
+      elsif delmiter_string == ' '
+        return ' '
+      end
+      delimiter_string
+    end
+
     def guid?(a_string)
-      !!a_string.match(/urn:lsid/)
+      !!(!a_string.blank? && a_string.match(/urn:lsid/))
     end
     
     def add_to_errors(error_desc)
@@ -336,24 +368,5 @@ module GNI
       @core_errors.size < 100
     end
   end
-  
-  
-  class Importer
-    def initialize
-      @processed_item = ImportScheduler.processed_item
-    end
-    
-    def do_import
-      #until we have DWC star file we use old tcs algorithm for importing
-      while @processed_item
-        ds = @processed_item.data_source
-        xml_file = ds.directory_path + "/" + ds.id.to_s
-        cmd = "#{RAILS_ROOT}/script/gni/data_import.py -i #{ds.id} -s #{xml_file}"
-        system(cmd)
-        @processed_item = ImportScheduler.processed_item
-      end
-    end
-  end
-  
   
 end

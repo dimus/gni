@@ -100,6 +100,44 @@ protected
     res
   end
   
+  
+  class TcsXmlBuilder
+    
+    def initialize(data_source)
+      @data_source = data_source
+      @tcs_file = open @data_source.directory_path + '/' + @data_source.id.to_s, 'w'
+      @tcs_file.write('<?xml version="1.0" encoding="utf-8"?>
+  <DataSet
+    xmlns="http://gnapartnership.org/schemas/tcs/1.01"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:dwc="http://rs.tdwg.org/dwc/dwcore/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:gn="http://gnapartnership.org/schemas/0_1"
+    xsi:schemaLocation="http://gnapartnership.org/schemas/tcs/1.01 http://gnapartnership.org/gna_tcs/tcs_gni_v_0_1.xsd">
+    <TaxonNames>')
+    end
+    
+    def make_node(record_data, count)
+      record = [""]
+      record << (" " * 4) + "<TaxonName id=\"#{count}\" nomenclaturalCode=\"#{record_data['dwc:NomenclaturalCode'] || "Indeterminate"}\">"
+      record << (" " * 6) + "<Simple>#{GNA_XML.xml_escape(record_data['dwc:ScientificName'])}</Simple>"
+      record << (" " * 6) + "<Rank>#{GNA_XML.xml_escape(record_data['dwc:TaxonRank'])}</Rank>" if record_data.key? 'dwc:TaxonRank'
+      record << (" " * 6) + "<ProviderSpecificData>"
+      record << (" " * 8) +  "<dwc:Kingdom>#{GNA_XML.xml_escape(record_data['dwc:Kingdom'])}</dwc:Kingdom>" if record_data.key? 'dwc:Kingdom'
+      record << (" " * 8) + "<dc:identifier>#{GNA_XML.xml_escape(record_data['dc:identifier'])}</dc:identifier>" if record_data.key? 'dc:identifier'
+      record << (" " * 8) + "<dc:source>#{GNA_XML.xml_escape('dc:source')}</dc:source>" if record_data.key? 'dc:source'
+      record << (" " * 8) + "<dwc:GlobalUniqueIdentifier>#{GNA_XML.xml_escape(record_data['dwc:GlobalUniqueIdentifier'])}</dwc:GlobalUniqueIdentifier>" if record_data.key? 'dwc:GlobalUniqueIdentifier'
+      record << (" " * 6) + "</ProviderSpecificData>"
+      record << (" " * 4) + "</TaxonName>"
+      @tcs_file.write(record.join("\n"))
+      puts count if count % 100000 == 0
+    end
+    
+    def close
+      @tcs_file.write("\n </TaxonNames>\n</DataSet>\n")
+      @tcs_file.close
+    end
+  end
 end
 
 
