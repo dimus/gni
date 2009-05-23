@@ -24,7 +24,7 @@
     - last_import_scheduler_id = @last_import_scheduler.id rescue 0
     - scheduler_status = @last_import_scheduler.message rescue "Preparing..."
     
-    - if @current_status == ImportScheduler::WAITING || @current_status == ImportScheduler::PROCESSING
+    - if ImportScheduler.in_process?(@data_source)
       .spinner
         #import_in_progress{:import_scheduler_id => last_import_scheduler_id}
           = scheduler_status
