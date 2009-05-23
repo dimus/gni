@@ -62,6 +62,7 @@ Rails::Initializer.run do |config|
   config.active_record.default_timezone = :utc
 
   #config.gem 'hpricot'
+  config.gem 'nokogiri'
   config.gem 'haml'
   config.gem 'mislav-will_paginate', :version => '>= 2.3.2', :lib => 'will_paginate', :source => 'http://gems.github.com/'
   config.gem 'json'
