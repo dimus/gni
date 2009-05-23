@@ -8,3 +8,10 @@ def generate_scenario(data)
     end
   end
 end
+
+def downloaded_file(file_name, data_source)
+  FileUtils.rm_rf data_source.temporary_path
+  FileUtils.rm_rf data_source.directory_path
+  FileUtils.mkdir data_source.temporary_path
+  FileUtils.cp RAILS_ROOT + '/scenarios/files/' + file_name, data_source.file_path
+end

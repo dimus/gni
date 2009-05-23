@@ -191,7 +191,7 @@ module GNI
     class ProcessorZip < ProcessorFile
       def process
         FileUtils.rm_rf @data_source.temporary_path
-        system "unzip -d #{@data_source.temporary_path} #{@data_source.file_path}"
+        system "unzip -qq -d #{@data_source.temporary_path} #{@data_source.file_path}"
         dwc = ProcessorDarwinCoreStar.new(@data_source)
         dwc.process {|status| yield status}
       end
@@ -202,28 +202,31 @@ module GNI
         unless File.exists? @data_source.temporary_path
            yield [ImportScheduler::FAILED, "Looks like download of compressed file was interrupted, or archive is not compressed correctly"]
         end
-        Dir.chdir @data_source.temporary_path
-        entries =  Dir.entries "."
-
+        entries =  Dir.entries  @data_source.temporary_path
+        found_meta_xml = false
         if entries.include?('meta.xml')
-          Dir.chdir DOWNLOAD_PATH
           FileUtils.rm_rf @data_source.directory_path
           system "mv #{@data_source.temporary_path} #{@data_source.directory_path}"
+          found_meta_xml = true
         else
           entries.select {|ent| ent != '.' && ent != '..'}.each do |entry|
+            entry = @data_source.temporary_path + '/' + entry
             if File.directory?(entry) && Dir.entries(entry).include?('meta.xml')
               FileUtils.rm_rf @data_source.directory_path
               system "mv #{entry} #{@data_source.directory_path}"
-              dwcc = DwcToTcsConverter.new(@data_source)
-              current_state = dwcc.convert ? [ImportScheduler::PROCESSING, "Processing"] : [ImportScheduler::FAILED, "Cannot convert Darwin Core Star files to Taxon Concept Schema XML"]
-              yield current_state
-              clean_up
-              return
+              found_meta_xml = true
+              break
             end
           end
-          yield [ImportScheduler::FAILED, "Cannot find DarwinCore Star Files"]
-          clean_up
         end
+        if found_meta_xml
+          dwcc = DwcToTcsConverter.new(@data_source)
+          current_state = dwcc.convert ? [ImportScheduler::PROCESSING, "Processing"] : [ImportScheduler::FAILED, "Cannot convert Darwin Core Star files to Taxon Concept Schema XML"]
+          yield current_state
+        else
+          yield [ImportScheduler::FAILED, "Cannot find DarwinCore Star Files"]
+        end
+        clean_up
       end
       
       protected
@@ -262,7 +265,6 @@ module GNI
     
     def initialize(data_source)
       @data_source = data_source
-      Dir.chdir @data_source.directory_path
       @core_errors = []
       @core_data = {}
     end
@@ -276,7 +278,7 @@ module GNI
     
     protected
     def read_meta_xml
-      @doc = Nokogiri::XML(open 'meta.xml')
+      @doc = Nokogiri::XML(open @data_source.directory_path + '/meta.xml')
       @core = @doc.xpath('//xmlns:core').first
       @core_id = @core.xpath('child::xmlns:id').first
       @core_fields = @doc.xpath('//xmlns:core/xmlns:field').select do |f| 
@@ -313,7 +315,7 @@ module GNI
       delimiter = get_delimiter(node.attributes['fieldsTerminatedBy'].value)
       border_chars = node.attributes['fieldsEnclosedBy'].value || ""
       border_regex = border_chars == "" ? nil : /^#{border_chars}(.*)#{border_chars}$/
-      open(node.attributes['location'].value).each do |line|
+      open(@data_source.directory_path + '/' + node.attributes['location'].value).each do |line|
         if GNI::Encoding.utf8_string? line
           line_fields = line.split(delimiter)
           row_id = line_fields[core_id.attributes['index'].value.to_i].to_sym
