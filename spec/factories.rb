@@ -20,8 +20,7 @@ end
 Factory.define :name_string do |name_string|
   name_string.created_at      { 5.days.ago }
   name_string.updated_at      { 5.days.ago }
-  name_string.name            { Factory.next(:scientific_name) }
-  name_string.normalized_name { |ns| "#{NameString.normalize_name_string(ns.name)}" }
+  name_string.name { NameString.normalize_name_string(Factory.next(:scientific_name))}
   name_string.association :canonical_form
 end
 

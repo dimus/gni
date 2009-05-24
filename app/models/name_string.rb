@@ -22,12 +22,12 @@ class NameString < ActiveRecord::Base
   end
   
   def self.normalize_name_string(n_string)
-    del_chars = /[.;,]/
-    space_char = /([-\(\)\[\]\{\}:&?\*])/
-    mult_spaces = /\s{2,}/
-    n_string = n_string.gsub(del_chars,' ')
-    n_string = n_string.gsub(space_char,' \1 ')
-    n_string.gsub(mult_spaces, ' ').strip.downcase #UTF8 characters will not get downcased
+    # n_string = n_string.gsub(/([\(\[])\s+/, '\1')
+    # n_string = n_string.gsub(/([\,])(?=[^\s])/, '\1 ')
+    # n_string = n_string.gsub(/\s+([\)\]\.\,\;\:])/, '\1')
+    # n_string = n_string.gsub('&amp;', '&')
+    # n_string = n_string.gsub(/([&])/, ' \1 ')
+    n_string.gsub(/\s{2,}/, ' ').strip
   end
   
   def self.char_triples(latin_char)
@@ -45,19 +45,19 @@ class NameString < ActiveRecord::Base
   def self.search(search_term, data_source_id, user_id, page_number, items_per_page)
     name_strings = nil
     if user_id
-      name_strings = self.paginate_by_sql(["select distinct ns.id, ns.name from canonical_forms cf join name_strings ns on (cf.id = ns.canonical_form_id) join name_indices ni on (ns.id = ni.name_string_id) join data_source_contributors dsc on (ni.data_source_id = dsc.data_source_id)  where cf.name like ? and dsc.user_id = ? order by ns.normalized_name", search_term, user_id], :page => page_number, :per_page => items_per_page) || nil rescue nil
+      name_strings = self.paginate_by_sql(["select distinct ns.id, ns.name from canonical_forms cf join name_strings ns on (cf.id = ns.canonical_form_id) join name_indices ni on (ns.id = ni.name_string_id) join data_source_contributors dsc on (ni.data_source_id = dsc.data_source_id)  where cf.name like ? and dsc.user_id = ? order by ns.name", search_term, user_id], :page => page_number, :per_page => items_per_page) || nil rescue nil
       if name_strings.blank?
-        name_strings = self.paginate_by_sql(["select distinct n.id, n.name from name_strings n join name_indices i on (n.id = i.name_string_id) join data_source_contributors c on (i.data_source_id = c.data_source_id)  where normalized_name like ? and c.user_id = ? order by n.normalized_name", search_term, user_id], :page => page_number, :per_page => items_per_page) || nil rescue nil
+        name_strings = self.paginate_by_sql(["select distinct n.id, n.name from name_strings n join name_indices i on (n.id = i.name_string_id) join data_source_contributors c on (i.data_source_id = c.data_source_id)  where n.name like ? and c.user_id = ? order by n.name", search_term, user_id], :page => page_number, :per_page => items_per_page) || nil rescue nil
       end
     elsif data_source_id
-      name_strings = self.paginate_by_sql(["select ns.id, ns.name from canonical_forms cf join name_strings ns on (cf.id = ns.canonical_form_id) join name_indices ni on (ns.id = ni.name_string_id) where cf.name like ?  and ni.data_source_id = ? order by ns.normalized_name", search_term, data_source_id], :page => page_number, :per_page => items_per_page) || nil rescue nil
+      name_strings = self.paginate_by_sql(["select ns.id, ns.name from canonical_forms cf join name_strings ns on (cf.id = ns.canonical_form_id) join name_indices ni on (ns.id = ni.name_string_id) where cf.name like ?  and ni.data_source_id = ? order by ns.name", search_term, data_source_id], :page => page_number, :per_page => items_per_page) || nil rescue nil
       if name_strings.blank?
-        name_strings = self.paginate_by_sql(["select n.id, n.name from name_strings n join name_indices i on (n.id = i.name_string_id) where normalized_name like ? and i.data_source_id = ? order by n.normalized_name", search_term, data_source_id], :page => page_number, :per_page => items_per_page) || nil rescue nil
+        name_strings = self.paginate_by_sql(["select n.id, n.name from name_strings n join name_indices i on (n.id = i.name_string_id) where n.name like ? and i.data_source_id = ? order by n.name", search_term, data_source_id], :page => page_number, :per_page => items_per_page) || nil rescue nil
       end
     else
-      name_strings = self.paginate_by_sql(["select ns.id, ns.name from canonical_forms cf join name_strings ns on (cf.id = ns.canonical_form_id) where cf.name like ? order by ns.normalized_name", search_term], :page => page_number, :per_page => items_per_page) || nil rescue nil
+      name_strings = self.paginate_by_sql(["select ns.id, ns.name from canonical_forms cf join name_strings ns on (cf.id = ns.canonical_form_id) where cf.name like ? order by ns.name", search_term], :page => page_number, :per_page => items_per_page) || nil rescue nil
       if name_strings.blank?
-        name_strings = self.paginate_by_sql(["select id, name from name_strings where normalized_name like ? order by normalized_name", search_term], :page => page_number, :per_page => items_per_page) || nil rescue nil
+        name_strings = self.paginate_by_sql(["select id, name from name_strings where name like ? order by name", search_term], :page => page_number, :per_page => items_per_page) || nil rescue nil
       end
     end
     name_strings

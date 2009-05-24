@@ -65,7 +65,7 @@ class Updater: #{{{1
 
     def _process_data(self): #{{{2
         try:
-            self._change_status(PROCESSING, "Parsing XML from %s" % self.data_file)
+            self._change_status(PROCESSING, "Parsing XML from the downloaded file")
             for status in di.run_imports(self.data_file, self.data_source_id, self.environment):
                 self._change_status(PROCESSING, status)
             

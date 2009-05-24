@@ -16,10 +16,12 @@ import pprint
 pp = pprint.PrettyPrinter(indent=2)
 packet_size = 5000
 commit_size = 10000
-del_chars=re.compile('[.;,]')
-space_char = re.compile('([-\(\)\[\]\{\}:&?\*])')
-x_char = re.compile('\s+[xX]\s+')
-mult_spaces = re.compile('\s{2,}')
+
+no_space_after = re.compile('(\[])\s+')
+space_after = re.compile('([\,])(?=[^\s])')
+no_space_before = re.compile('\s+([\)\]\.\,\;\:])')
+spaces_around = re.compile('([&])')
+multi_spaces = re.compile('\s{2,}')
 
 def run_imports(source,source_id,environment): 
     
@@ -48,10 +50,12 @@ def run_imports(source,source_id,environment):
     i.db_clean_imports()
 
 def normalize_name_string(name_string):
-    name_string = name_string.lower()
-    name_string = del_chars.sub(' ', name_string)
-    name_string = space_char.sub(r' \1 ', name_string)
-    name_string = mult_spaces.sub(' ', name_string)
+    # name_string = no_space_after.sub(r'\1', name_string)
+    # name_string = space_after.sub(r'\1 ', name_string)
+    # name_string = no_space_before.sub(r'\1', name_string)
+    # name_string = name_string.replace('&amp', '&')
+    # name_string = spaces_around.sub(r' \1 ', name_string)
+    name_string = multi_spaces.sub(' ', name_string)
     return name_string.strip()
 
 class DbImporter: #{{{1
@@ -130,7 +134,7 @@ class Importer: #{{{1
         c.execute('insert IGNORE into name_indices (name_string_id, data_source_id, created_at, updated_at) (select name_string_id, data_source_id, now(), now() from import_name_index_records)')
         
         print "third query";
-        c.execute('insert IGNORE into name_index_records (name_index_id, kingdom_id, name_rank_id, local_id, global_id, url, created_at, updated_at) (select ni.id, inir.kingdom_id, inir.name_rank_id, inir.local_id, inir.global_id, inir.url, now(), now() from import_name_index_records inir join name_indices ni on (inir.name_string_id = ni.name_string_id) where ni.data_source_id = %s )' % self.data_source_id)
+        c.execute('insert IGNORE into name_index_records (name_index_id, kingdom_id, name_rank_id, local_id, global_id, url, original_name_string, created_at, updated_at) (select ni.id, inir.kingdom_id, inir.name_rank_id, inir.local_id, inir.global_id, inir.url, inir.original_name_string, now(), now() from import_name_index_records inir join name_indices ni on (inir.name_string_id = ni.name_string_id) where ni.data_source_id = %s )' % self.data_source_id)
     
     def find_overlaps(self):  #{{{2
         c = self.db.cursor
@@ -217,23 +221,30 @@ class Importer: #{{{1
         
     def _name_lookup(self, name_string): #{{{2
         normalized_name_string = normalize_name_string(name_string)
-        self.db.cursor.execute("select id from name_strings where normalized_name = %s", normalized_name_string)
+        self.db.cursor.execute("select id from name_strings where name = %s", normalized_name_string)
         name_string_id = self.db.cursor.fetchone()
         if not name_string_id:
-            self.db.cursor.execute("insert into name_strings (name, normalized_name, created_at, updated_at) values (%s, %s, now(), now())", (name_string, normalized_name_string))
+            self.db.cursor.execute("insert into name_strings (name, created_at, updated_at) values (%s, now(), now())", (normalized_name_string))
             self.db.cursor.execute("select last_insert_id()")
             name_string_id = self.db.cursor.fetchone()
-        return (name_string_id[0])
+        return name_string_id[0], normalized_name_string
 
     def _insert(self):
         c = self.db.cursor
         records = []
-        insert_query = "insert into import_name_index_records (data_source_id, kingdom_id, name_string, name_string_id, name_rank_id, local_id, global_id, url, created_at, updated_at) values %s"
+        insert_query = "insert into import_name_index_records (data_source_id, kingdom_id, name_string, name_string_id, name_rank_id, local_id, global_id, url, original_name_string, created_at, updated_at) values %s"
         for i in self.imported_data:
-            i['name_string_id'] = self._name_lookup(i['Simple'])
+            i['name_string_id'], normalized_string = self._name_lookup(i['Simple'])
+            
+            #keep name string if it was modified by normalization
+            if i['Simple'] == normalized_string:
+                i['OriginalNameString'] = None
+            else:
+                i['OriginalNameString'] = i['Simple']
+
             data = self.db.escape_data(i)
             try:
-                records.append("(%(data_source_id)s, %(Kingdom)s, %(Simple)s, %(name_string_id)s, %(Rank)s, %(identifier)s, %(GlobalUniqueIdentifier)s, %(source)s, now(), now())" % data)
+                records.append("(%(data_source_id)s, %(Kingdom)s, %(Simple)s, %(name_string_id)s, %(Rank)s, %(identifier)s, %(GlobalUniqueIdentifier)s, %(source)s, %(OriginalNameString)s, now(), now())" % data)
             except Exception, e:
                 print data.keys()
                 print data.values()

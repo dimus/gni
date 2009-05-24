@@ -255,7 +255,7 @@ module GNI
                       "http://rs.tdwg.org/dwc/terms/taxonrank" => "dwc:TaxonRank",
                       "http://rs.tdwg.org/dwc/terms/NomenclaturalCode" => "dwc:NomenclaturalCode",
                       "http://rs.tdwg.org/dwc/terms/kingdom" => "dwc:Kingdom",
-                      "http://purl.org/dc/terms/modified" => "dc:modified"}
+                      }
       LINK_TERMS_DICT = { "http://purl.org/dc/terms/source"  => "dc:source",
                         "http://purl.org/dc/terms/format" => "dc:format" }
       CORE_TERMS = CORE_TERMS_DICT.keys

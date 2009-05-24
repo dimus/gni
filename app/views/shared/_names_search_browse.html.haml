@@ -7,7 +7,7 @@
       = submit_tag 'Search Mine'
     %br/
     - NameString::LATIN_CHARACTERS.each do |char|
-      - does_exist = @data_source ? NameString.find_by_sql(["select 1 from name_strings ns join name_indices ni on ns.id = ni.name_string_id where ni.data_source_id = ? and normalized_name like ? limit 1", @data_source.id, char.downcase + "%"]) : true
+      - does_exist = @data_source ? NameString.find_by_sql(["select 1 from name_strings ns join name_indices ni on ns.id = ni.name_string_id where ni.data_source_id = ? and ns.name like ? limit 1", @data_source.id, char.downcase + "%"]) : true
       - unless does_exist.blank?
         = link_to char, 'expand' => char
       - else
@@ -22,7 +22,7 @@
         - a.each do |c|
           - join = @data_source ? "join name_indices ni on ns.id = ni.name_string_id" : ''
           - cond = @data_source && @data_source.id.class.name == 'Fixnum' ? "and ni.data_source_id = #{@data_source.id}" : ''
-          - does_exist = NameString.find_by_sql(["select 1 from name_strings ns #{join} where normalized_name like ? #{cond} limit 1", c + '%'])
+          - does_exist = NameString.find_by_sql(["select 1 from name_strings ns #{join} where ns.name like ? #{cond} limit 1", c + '%'])
           - unless does_exist.blank?
             = link_to c , 'search_term' => c + "*"
           - else

@@ -24,10 +24,6 @@
     - last_import_scheduler_id = @last_import_scheduler.id rescue 0
     - scheduler_status = @last_import_scheduler.message rescue "Preparing..."
     
-    - if ImportScheduler.in_process?(@data_source)
-      .spinner
-        #import_in_progress{:import_scheduler_id => last_import_scheduler_id}
-          = scheduler_status
     - if @last_successful_import
       #import_finished
         %h4= "Import Succeeded on #{format_date @last_successful_import.updated_at}" if @last_successful_import
@@ -35,8 +31,12 @@
       %h4== Last import (#{format_date @current_import.updated_at}) Failed: #{@current_import.message}
     - elsif @current_status == ImportScheduler::UNCHANGED
       %h4== Last import (#{format_date @current_import.updated_at}) was not needed because data did not change
-
-    - if (@current_status != ImportScheduler::WAITING && @current_status != ImportScheduler::PROCESSING)
+    
+    - if ImportScheduler.in_process?(@data_source)
+      .spinner
+        #import_in_progress{:import_scheduler_id => last_import_scheduler_id}
+          = scheduler_status
+    - else
       - form_for(@import_scheduler, :action => 'post') do |f|
         = f.hidden_field :data_source_id,  :value => @data_source.id
         = f.hidden_field :status, :value => ImportScheduler::WAITING

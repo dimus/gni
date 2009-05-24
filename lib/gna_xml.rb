@@ -125,7 +125,7 @@ protected
       record << (" " * 6) + "<ProviderSpecificData>"
       record << (" " * 8) +  "<dwc:Kingdom>#{GNA_XML.xml_escape(record_data['dwc:Kingdom'])}</dwc:Kingdom>" if record_data.key? 'dwc:Kingdom'
       record << (" " * 8) + "<dc:identifier>#{GNA_XML.xml_escape(record_data['dc:identifier'])}</dc:identifier>" if record_data.key? 'dc:identifier'
-      record << (" " * 8) + "<dc:source>#{GNA_XML.xml_escape('dc:source')}</dc:source>" if record_data.key? 'dc:source'
+      record << (" " * 8) + "<dc:source>#{GNA_XML.xml_escape(record_data['dc:source'])}</dc:source>" if record_data.key? 'dc:source'
       record << (" " * 8) + "<dwc:GlobalUniqueIdentifier>#{GNA_XML.xml_escape(record_data['dwc:GlobalUniqueIdentifier'])}</dwc:GlobalUniqueIdentifier>" if record_data.key? 'dwc:GlobalUniqueIdentifier'
       record << (" " * 6) + "</ProviderSpecificData>"
       record << (" " * 4) + "</TaxonName>"

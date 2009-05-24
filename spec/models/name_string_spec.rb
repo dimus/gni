@@ -1,5 +1,26 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+describe 'NameString.normalize_name_string' do
+  it "should convert strings to normalized form" do 
+    strings = [
+      ['Betula','Betula'], #no changes
+      # ['Betula Mark&John', 'Betula Mark & John'], #one space before and after ampersand
+      #  ['Parus major ( L. )', 'Parus major (L.)'],
+      #  ['Parus major [ L . ]', 'Parus major [L.]'],
+      #  ['Parus major (    L   .& Murray 188? )', 'Parus major (L. & Murray 188?)'],
+      #  ["Plantago\t\t minor L. , Murray&Linn 1733", 'Plantago minor L., Murray & Linn 1733'],
+      #  ['Plantago major : some garbage ,more of it', 'Plantago major: some garbage, more of it'],
+      #  ["Parus minor\n\r L. 1774", 'Parus minor L. 1774'],
+      #  ['Ceanothus divergens ssp. confusus (J. T. Howell) Abrams', 'Ceanothus divergens ssp. confusus (J. T. Howell) Abrams']
+      ['Plantago     major     L.   ', 'Plantago major L.']
+      ]
+    strings.each do |ns|
+      NameString.normalize_name_string(ns[0]).should == ns[1]
+    end
+  end
+end
+
+
 describe NameString do
   before :all do
     Scenario.load :application
