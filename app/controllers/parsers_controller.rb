@@ -2,7 +2,7 @@ class ParsersController < ApplicationController
 
   # GET /parsers
   def index
-    names = params[:names].gsub(";","\n")
+    names = params[:names].gsub(/[;|]/,"\n")
     parse_names(names)
   end
 
@@ -21,12 +21,12 @@ private
     parser = Parser.new
     parser.parse(names)
     #@parsed_names = Hash.from_json(@parsed_names.to_json) 
-    if params[:format] == 'json'
-      render :json => json_callback(parser.parsed_names.to_json, params[:callback])
+    if params[:format] == 'xml'
+      render :xml => parser.to_xml
     elsif params[:format] == 'yaml'
       render :text => parser.parsed_names.to_yaml
     else
-      render :xml => parser.to_xml
+      render :json => json_callback(parser.parsed_names.to_json, params[:callback])
     end
   end
 end

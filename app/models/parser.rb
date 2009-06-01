@@ -36,7 +36,7 @@ class Parser
     xml.parsed_names do
       @parsed_names.each do |pn|
         xml.parsed_name do
-          xml.tag!(:input, pn[:input])
+          xml.tag!(:verbatim, pn[:input])
           xml.tag!(:parse_succeeded, pn[:parse_succeeded])
           if pn[:parse_succeeded]
             xml.tag!(:canonical, pn[:canonical])

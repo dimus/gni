@@ -131,6 +131,7 @@ describe '/data_sources' do
     end
     
     it 'should be able to update their repository' do
+      @repo.id.should == 1 #double check that it is a data_source with logo url
       new_description = "new description #{rand}"
       res = req("/data_sources/#{@repo.id}", :params => {
         '_method' => 'put',
@@ -138,7 +139,12 @@ describe '/data_sources' do
       })
       res.redirect?.should be_true
       res.should redirect_to("/data_sources/#{@repo.id}")
-      DataSource.find(@repo.id).description.should == new_description 
+      DataSource.find(@repo.id).description.should == new_description
+      #update should generate logo url for the repository
+      #this cached url should appear in api
+      res = req("/data_sources/#{@repo.id}.xml")
+      res.success?.should be_true
+      res.body.should include("<cached_logo_url>") 
     end
     
     it 'should be able to delete their repository' do

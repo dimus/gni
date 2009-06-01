@@ -31,9 +31,9 @@
       %td= link_to overlap.other_data_source.title, data_source_data_source_overlaps_url(overlap.other_data_source.id)
       %td= overlap.other_data_source.name_indices.size
       %td= overlap.strict_overlap
-      %th= sprintf("%1.2f %", overlap.strict_percentage)
+      %th= sprintf("%1.2f %", (overlap.strict_percentage || 0.0))
       %th= overlap.lexical_groups_overlap
-      %th= sprintf("%1.2f %", overlap.lexical_groups_percentage)
+      %th= sprintf("%1.2f %", (overlap.lexical_groups_percentage || 0.0))
 
 %br/
 

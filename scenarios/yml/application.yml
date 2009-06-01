@@ -161,6 +161,7 @@ NameRank:
 DataSource: 
   - id: 1
     title: "ITIS"
+    logo_url: "http://www.google.com/intl/en_ALL/images/logo.gif"
     refresh_period_days: 14
   - id: 2
     title: "IPNI"

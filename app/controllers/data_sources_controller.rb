@@ -20,7 +20,9 @@ class DataSourcesController < ApplicationController
     if params[:user_id]
       @data_sources = User.find(params[:user_id]).data_sources
     end
-
+    
+    @data_sources.each {|ds| set_cached_logo_url(ds)} 
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @data_sources }
@@ -32,6 +34,7 @@ class DataSourcesController < ApplicationController
   # GET /data_sources/1.xml
   def show 
     @data_source = DataSource.find(params[:id])
+    set_cached_logo_url(@data_source)
     @data_source.update_name_strings_count unless @data_source.name_strings_count > 0
     @current_import = ImportScheduler.current(@data_source) rescue nil
     @current_status = @current_import.status rescue nil
@@ -151,4 +154,10 @@ protected
       params[:data_source][p] = '' if params[:data_source][p] == "http://"
     end
   end
+  
+  def set_cached_logo_url(data_source)
+    logo_file = data_source.id.to_s + "_large.jpg"
+    data_source.cached_logo_url = root_url + "images/logos/" + logo_file if File.exists? data_source.logo_path + logo_file
+  end
+
 end

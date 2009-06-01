@@ -4,7 +4,7 @@ describe '/parsers' do
   
   describe 'index' do
     it 'should render' do
-      res = request('/parsers.xml?names=Betula+verucosa')
+      res = request('/parsers.xml?names=Betula%20verucosa;Parus+major')
       res.success?.should be_true
       res.body.should have_tag('canonical')
       res = request('/parsers.json?names=Betuls+verucosa&callback=myfunc')

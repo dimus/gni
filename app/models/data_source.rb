@@ -16,7 +16,7 @@ class DataSource < ActiveRecord::Base
   before_destroy :cleanup
   after_save :create_thumbnails
   
-  attr_reader :file_path, :directory_path, :temporary_path
+  attr_reader :file_path, :directory_path, :temporary_path, :logo_path
   
   validates_presence_of :title, :message => "is required"
   validates_presence_of :data_url, :message => "^Names Data URL is required"
@@ -25,6 +25,9 @@ class DataSource < ActiveRecord::Base
   validates_format_of :web_site_url, :with => URL_RE, :message => "^Website URL should be a URL"
   validates_uniqueness_of :title, :data_url
   
+   attr_accessor :cached_logo_url
+   #attr_accessible :cached_logo_url
+
   def contributor?(a_user)
     !!self.users.include?(a_user)
   end
@@ -39,6 +42,10 @@ class DataSource < ActiveRecord::Base
   
   def temporary_path
     @temporary_path ||= GNI::DOWNLOAD_PATH + 'tmp'
+  end
+  
+  def logo_path
+    @logo_path ||= RAILS_ROOT + '/public/images/logos/'
   end
   
   def self.update_name_strings_count()
@@ -59,6 +66,16 @@ class DataSource < ActiveRecord::Base
     self.id.to_s + '.' + extension
   end
   
+  def to_xml(options = {})
+    options[:methods] = cached_logo_url ? [:cached_logo_url] : []
+    super(options)
+  end
+  
+  def to_json(options = {})
+    options[:methods] = options[:methods] ? options[:methods] : [:cached_logo_url]
+    super(options)
+  end
+  
 private
   
   def prepare_urls()    
@@ -71,7 +88,7 @@ private
     return if RAILS_ENV == 'test' #no icons generation for tests
     if !logo_url.blank? && ['jpg','png','gif'].include?(logo_url.split(".")[-1].downcase)
       return unless GNI::Url.new(logo_url).valid? #do nothing if url is not accessible (keeps older generated icons)
-      GNI::Image.logo_thumbnails(logo_url,id)
+      GNI::Image.logo_thumbnails(self)
     else
       ['large','medium','small'].each do |size|
         file_name = RAILS_ROOT + "/public/images/logos/" + self.id.to_s + "_" + size + ".jpg"
