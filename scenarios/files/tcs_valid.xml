@@ -1,0 +1,995 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <DataSet
+    xmlns="http://gnapartnership.org/schemas/tcs/1.01"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:dwc="http://rs.tdwg.org/dwc/dwcore/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:gn="http://gnapartnership.org/schemas/0_1"
+    xsi:schemaLocation="http://gnapartnership.org/schemas/tcs/1.01 http://gnapartnership.org/gna_tcs/tcs_gni_v_0_1.xsd">
+    <TaxonNames>
+    <TaxonName id="1" nomenclaturalCode="Indeterminate">
+      <Simple>Microporus makuensis (Cooke) Kuntze</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:470144</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="2" nomenclaturalCode="Indeterminate">
+      <Simple>Sphaeria congregata Lév.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:224264</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="3" nomenclaturalCode="Indeterminate">
+      <Simple>Scutellinia barlae (Boud.) Maire</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:338972</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="4" nomenclaturalCode="Indeterminate">
+      <Simple>Leucoagaricus sericifer (Locq.) Vellinga</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:466169</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="5" nomenclaturalCode="Indeterminate">
+      <Simple>Botrytis cinerea Pers.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:217312</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="6" nomenclaturalCode="Indeterminate">
+      <Simple>Microsporum amazonicum Moraes, Borelli &amp; Feo</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:334274</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="7" nomenclaturalCode="Indeterminate">
+      <Simple>Achlya caroliniana Coker</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Chromista</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:210439</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="8" nomenclaturalCode="Indeterminate">
+      <Simple>Cyathus helenae H.J. Brodie</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:329463</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="9" nomenclaturalCode="Indeterminate">
+      <Simple>Phaeographina echinocarpica A.W. Archer &amp; Elix</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:460736</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="10" nomenclaturalCode="Indeterminate">
+      <Simple>Tubaria moseri Raithelh.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:325079</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="11" nomenclaturalCode="Indeterminate">
+      <Simple>Oidium furfur (C.P. Robin) Zopf</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:456419</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="12" nomenclaturalCode="Indeterminate">
+      <Simple>Laschia lateritia (Henn.) Sacc.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:203459</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="13" nomenclaturalCode="Indeterminate">
+      <Simple>Psathyrella parva A.H. Sm.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:321299</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="14" nomenclaturalCode="Indeterminate">
+      <Simple>Russula intermedia f. intermedia P. Karst.</Simple>
+      <Rank>f.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:449887</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="15" nomenclaturalCode="Indeterminate">
+      <Simple>Anthostoma denigrans (Curr.) Sacc.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:196482</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="16" nomenclaturalCode="Indeterminate">
+      <Simple>Microcalicium arenarium (Hampe ex A. Massal.) Tibell</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:317625</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="17" nomenclaturalCode="Indeterminate">
+      <Simple>Tichothecium pulvinatum Eitner</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:444297</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="18" nomenclaturalCode="Indeterminate">
+      <Simple>Hygrophorus montanus Murrill</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:189502</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="19" nomenclaturalCode="Indeterminate">
+      <Simple>Exidiopsis vermifera (Oberw.) Wojewoda</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:314032</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="20" nomenclaturalCode="Indeterminate">
+      <Simple>Gymnoderma favosum Hoffm.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:439912</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="21" nomenclaturalCode="Indeterminate">
+      <Simple>Sphaeria rubelloides Plowr.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:182432</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="22" nomenclaturalCode="Indeterminate">
+      <Simple>Ciboria aestivalis (Pollock) Whetzel</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:433817</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="23" nomenclaturalCode="Indeterminate">
+      <Simple>Mycena delectabilis (Peck) Sacc.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:175169</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="24" nomenclaturalCode="Indeterminate">
+      <Simple>Ceraceomyces fibuliger (K.S. Thind &amp; S.S. Rattan) S.S. Rattan</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:310459</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="25" nomenclaturalCode="Indeterminate">
+      <Simple>Hypoxylon truncatum var. truncatum (Schwein.) J.H. Mill.</Simple>
+      <Rank>var.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:427665</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="26" nomenclaturalCode="Indeterminate">
+      <Simple>Lentinus fumigatus Lév.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:167961</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="27" nomenclaturalCode="Indeterminate">
+      <Simple>Ramariopsis tenuiramosa Corner</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:305024</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="28" nomenclaturalCode="Indeterminate">
+      <Simple>Dothiorella pyrenophora subsp. pyrenophora Berk. ex Sacc.</Simple>
+      <Rank>subsp.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:422432</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="29" nomenclaturalCode="Indeterminate">
+      <Simple>Hydnum fimbriatum (Banker) Sacc. &amp; Trotter</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:160634</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="30" nomenclaturalCode="Indeterminate">
+      <Simple>Agaricus tectorum With.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:299911</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="31" nomenclaturalCode="Indeterminate">
+      <Simple>Russula turci var. turci Bres.</Simple>
+      <Rank>var.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:417569</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="32" nomenclaturalCode="Indeterminate">
+      <Simple>Sphaerella dubia (Miles) Sacc.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:153433</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="33" nomenclaturalCode="Indeterminate">
+      <Simple>Chaetosphaeria myriocarpa (Fr.) C. Booth</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:294740</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="34" nomenclaturalCode="Indeterminate">
+      <Simple>Panus incandescens Berk. &amp; Broome</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:146023</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="35" nomenclaturalCode="Indeterminate">
+      <Simple>Psathyrella luteovelata A.H. Sm.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:290043</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="36" nomenclaturalCode="Indeterminate">
+      <Simple>Neosartorya botucatensis Y. Horie, Miyaji &amp; Nishim.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:413570</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="37" nomenclaturalCode="Indeterminate">
+      <Simple>Hypoxylon rubiginosum var. robustum Speg.</Simple>
+      <Rank>var.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:137481</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="38" nomenclaturalCode="Indeterminate">
+      <Simple>Menegazzia capitata Sipman &amp; Bjerke</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:529853</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="39" nomenclaturalCode="Indeterminate">
+      <Simple>Diplodina attenuata Wehm.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:286182</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="40" nomenclaturalCode="Indeterminate">
+      <Simple>Sclerophyton circumscriptum (Taylor) Zahlbr.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:405000</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="41" nomenclaturalCode="Indeterminate">
+      <Simple>Dencoeliopsis betulicola W.Y. Zhuang</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:133809</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="42" nomenclaturalCode="Indeterminate">
+      <Simple>Cucurbitaria mantuana (Sacc.) Kuntze</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:524794</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="43" nomenclaturalCode="Indeterminate">
+      <Simple>Mollisia verrucosa Rodway</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:281600</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="44" nomenclaturalCode="Indeterminate">
+      <Simple>Microphiale semecarpi (Vain.) Zahlbr.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:395538</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="45" nomenclaturalCode="Indeterminate">
+      <Simple>Erysiphe doidgeae U. Braun</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:130515</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="46" nomenclaturalCode="Indeterminate">
+      <Simple>Boletus albidus var. albidus Schaeff.</Simple>
+      <Rank>var.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:520282</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="47" nomenclaturalCode="Indeterminate">
+      <Simple>Coniomela rimincola (Rehm) Kirschst.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:276584</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="48" nomenclaturalCode="Indeterminate">
+      <Simple>Glyphis depressa Fée</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:385149</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="49" nomenclaturalCode="Indeterminate">
+      <Simple>Coprinus pachydermus Bogart</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:127173</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="50" nomenclaturalCode="Indeterminate">
+      <Simple>Lycoperdellon minutum R. Heim</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:271350</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="51" nomenclaturalCode="Indeterminate">
+      <Simple>Sphaeria ulmi Schleich.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:375178</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="52" nomenclaturalCode="Indeterminate">
+      <Simple>Psathyra pennata var. brasiliensis Rick</Simple>
+      <Rank>var.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:506100</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="53" nomenclaturalCode="Indeterminate">
+      <Simple>Tuber aestivum var. mesentericum (Vittad.) E. Fisch.</Simple>
+      <Rank>var.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:123664</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="54" nomenclaturalCode="Indeterminate">
+      <Simple>Phyllis melacarpa F. Wilson</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:369246</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="55" nomenclaturalCode="Indeterminate">
+      <Simple>Coniothyrium typhicola (Fautrey &amp; Lambotte) Tassi</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:502048</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="56" nomenclaturalCode="Indeterminate">
+      <Simple>Tolyposporium glabrum (Clinton &amp; Ricker) Cif.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:266040</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="57" nomenclaturalCode="Indeterminate">
+      <Simple>Colletotrichum gloeosporioides f.sp. cuscutae T.Y. Zhang</Simple>
+      <Rank>f.sp.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:118272</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="58" nomenclaturalCode="Indeterminate">
+      <Simple>Ogataea minuta (Wick.) Y. Yamada, K. Maeda &amp; Mikata</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:362595</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="59" nomenclaturalCode="Indeterminate">
+      <Simple>Agaricus stipitarius var. caulicinalis (Bull.) Fr.</Simple>
+      <Rank>var.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:498055</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="60" nomenclaturalCode="Indeterminate">
+      <Simple>Volvaria cinerascens Bres.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:260790</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="61" nomenclaturalCode="Indeterminate">
+      <Simple>Phaeosphaeria salebricola (E. Bommer, M. Rousseau &amp; Sacc.) Leuchtm.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:114997</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="62" nomenclaturalCode="Indeterminate">
+      <Simple>Leucocarpia dictyospora (Orange) R. Sant.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:359121</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="63" nomenclaturalCode="Indeterminate">
+      <Simple>Clavaria gibbsiae var. tenuis Corner</Simple>
+      <Rank>var.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:493899</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="64" nomenclaturalCode="Indeterminate">
+      <Simple>Clavaria amethystina (Holmsk.) Pers.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:255477</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="65" nomenclaturalCode="Indeterminate">
+      <Simple>Faerberia carbonaria (Alb. &amp; Schwein.) Pouzar</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:111488</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="66" nomenclaturalCode="Indeterminate">
+      <Simple>Amanita pekeoides G.S. Ridl.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:355194</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="67" nomenclaturalCode="Indeterminate">
+      <Simple>Lophodermium eriophori (Henn.) P.R. Johnst. &amp; Scheuer</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:488820</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="68" nomenclaturalCode="Indeterminate">
+      <Simple>Xylaria fulvella Berk. &amp; M.A. Curtis</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:248802</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="69" nomenclaturalCode="Indeterminate">
+      <Simple>Hydrophilomyces arcuatus Huldén</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:108058</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="70" nomenclaturalCode="Indeterminate">
+      <Simple>Boletus resinosus Schrad.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:484239</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="71" nomenclaturalCode="Indeterminate">
+      <Simple>Clitopilus mundulus (Lasch) P. Kumm.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:241518</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="72" nomenclaturalCode="Indeterminate">
+      <Simple>Russula lutensis f. reducta Romagn.</Simple>
+      <Rank>f.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:350304</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="73" nomenclaturalCode="Indeterminate">
+      <Simple>Petrakina discoidea M.L. Farr &amp; M.E. Palm</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:104610</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="74" nomenclaturalCode="Indeterminate">
+      <Simple>Xanthoparmelia convexa (Elix) O. Blanco, A. Crespo, Elix, D. Hawksw. &amp; Lumbsch</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:474918</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="75" nomenclaturalCode="Indeterminate">
+      <Simple>Nummularia ustulinoides Henn.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:234500</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="76" nomenclaturalCode="Indeterminate">
+      <Simple>Pachyascus lapponicus Poelt &amp; Hertel</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:345386</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="77" nomenclaturalCode="Indeterminate">
+      <Simple>Sphaerostilbe musarum S.F. Ashby</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:101196</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="78" nomenclaturalCode="Indeterminate">
+      <Simple>Sporotrichum humanum Benedek</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:471665</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="79" nomenclaturalCode="Indeterminate">
+      <Simple>Polystictus sartwellii (Berk. &amp; M.A. Curtis) Cooke</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:227856</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="80" nomenclaturalCode="Indeterminate">
+      <Simple>Bryopogon norsticticus (Motyka) Bystrek</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:341475</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="81" nomenclaturalCode="Indeterminate">
+      <Simple>Cellularia polita (Fr.) Kuntze</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:468486</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="82" nomenclaturalCode="Indeterminate">
+      <Simple>Botrytis destructor Berk.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:220939</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="83" nomenclaturalCode="Indeterminate">
+      <Simple>Scutellinia kerguelensis var. microspora W.Y. Zhuang</Simple>
+      <Rank>var.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:336514</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="84" nomenclaturalCode="Indeterminate">
+      <Simple>Graphis serpentina var. spathea Ach.</Simple>
+      <Rank>var.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:463585</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="85" nomenclaturalCode="Indeterminate">
+      <Simple>Virgaria olivacea Ellis &amp; Everh.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:213777</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="86" nomenclaturalCode="Indeterminate">
+      <Simple>Helotium novae-zelandiae Dennis</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:331831</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="87" nomenclaturalCode="Indeterminate">
+      <Simple>Naevia olivacea Mouton</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:207100</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="88" nomenclaturalCode="Indeterminate">
+      <Simple>Cantharellula infundibuliformis Singer</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:327469</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="89" nomenclaturalCode="Indeterminate">
+      <Simple>Cladonia peltastica f. peltastica (Nyl.) Müll. Arg.</Simple>
+      <Rank>f.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:458693</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="90" nomenclaturalCode="Indeterminate">
+      <Simple>Sageria tsugae A. Funk</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:323042</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="91" nomenclaturalCode="Indeterminate">
+      <Simple>Puccinia mariae-wilsoniae var. mariae-wilsoniae Clinton</Simple>
+      <Rank>var.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:452701</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="92" nomenclaturalCode="Indeterminate">
+      <Simple>Diplodia acerina Cooke &amp; Massee</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:200190</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="93" nomenclaturalCode="Indeterminate">
+      <Simple>Phaeocollybia querqueti Corner &amp; E. Horak</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:319551</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="94" nomenclaturalCode="Indeterminate">
+      <Simple>Deightoniella arecae W.Q. Chen</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:446537</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="95" nomenclaturalCode="Indeterminate">
+      <Simple>Polyporus caesioflavus Pat.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:193082</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="96" nomenclaturalCode="Indeterminate">
+      <Simple>Inocybe roseipes Malençon</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:315880</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="97" nomenclaturalCode="Indeterminate">
+      <Simple>Lecanora expallens f. expallens Ach.</Simple>
+      <Rank>f.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:442616</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="98" nomenclaturalCode="Indeterminate">
+      <Simple>Melanomma obtusissima Speg.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:185882</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="99" nomenclaturalCode="Indeterminate">
+      <Simple>Corynascus sepedonium (C.W. Emmons) Arx</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:312213</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="100" nomenclaturalCode="Indeterminate">
+      <Simple>Gloiothele humilis (Boidin) Boidin, Lanq. &amp; Gilles</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:437416</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="101" nomenclaturalCode="Indeterminate">
+      <Simple>Dothidea geranii (Fr.) Fr.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:178859</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="102" nomenclaturalCode="Indeterminate">
+      <Simple>Lepiota locquinii var. locquinii Bon</Simple>
+      <Rank>var.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:430420</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="103" nomenclaturalCode="Indeterminate">
+      <Simple>Cercospora viticola (Ces.) Sacc.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:171602</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="104" nomenclaturalCode="Indeterminate">
+      <Simple>Actinopeltis palustris J.P. Ellis</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:308273</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="105" nomenclaturalCode="Indeterminate">
+      <Simple>Fusarium stilboides var. stilboides Wollenw.</Simple>
+      <Rank>var.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:425287</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="106" nomenclaturalCode="Indeterminate">
+      <Simple>Trametes guyoniana Mont.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:164333</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="107" nomenclaturalCode="Indeterminate">
+      <Simple>Pellicularia praticola (Kotila) Flentje</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:302341</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="108" nomenclaturalCode="Indeterminate">
+      <Simple>Craterium leucocephalum var. leucocephalum (Pers.) Ditmar</Simple>
+      <Rank>var.</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Protozoa</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:419619</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="109" nomenclaturalCode="Indeterminate">
+      <Simple>Puccinia tepperi F. Ludw.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:157086</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="110" nomenclaturalCode="Indeterminate">
+      <Simple>Entylomella meliloti Cif.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:297297</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="111" nomenclaturalCode="Indeterminate">
+      <Simple>Trechispora silvae-ryae (J. Erikss. &amp; Ryvarden) K.H. Larss.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:415451</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="112" nomenclaturalCode="Indeterminate">
+      <Simple>Agaricus radiatus Sw.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:149921</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="113" nomenclaturalCode="Indeterminate">
+      <Simple>Agaricus squamuliferus (F.H. Møller) Pilát</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:292313</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="114" nomenclaturalCode="Indeterminate">
+      <Simple>Poria lacticolor Murrill</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:142321</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="115" nomenclaturalCode="Indeterminate">
+      <Simple>Entoloma brevispermum G.M. Gates &amp; Noordel.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:532422</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="116" nomenclaturalCode="Indeterminate">
+      <Simple>Meliola carpolobiicola Hansf. &amp; Deighton</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:288139</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="117" nomenclaturalCode="Indeterminate">
+      <Simple>Verrucaria rupestris Schrad.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:409686</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="118" nomenclaturalCode="Indeterminate">
+      <Simple>Microbotryum dianthorum (Liro) H. Scholz &amp; I. Scholz</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:135376</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="119" nomenclaturalCode="Indeterminate">
+      <Simple>Fungus tornocephalus (Berk. &amp; Broome) Kuntze</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:526484</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="120" nomenclaturalCode="Indeterminate">
+      <Simple>Amylocystis lapponicus (Romell) Bondartsev &amp; Singer</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:284163</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="121" nomenclaturalCode="Indeterminate">
+      <Simple>Physcia pulverulenta (Schreb.) Hampe ex Fürnr.</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:400789</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="122" nomenclaturalCode="Indeterminate">
+      <Simple>Anisomeridium albisedum (Nyl.) R.C. Harris</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:132197</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+    <TaxonName id="123" nomenclaturalCode="Indeterminate">
+      <Simple>Mollisia peruni (Velen.) Gminder</Simple>
+      <Rank>species</Rank>
+      <ProviderSpecificData>
+        <dwc:Kingdom>Fungi</dwc:Kingdom>
+        <dwc:GlobalUniqueIdentifier>urn:lsid:indexfungorum.org:names:522374</dwc:GlobalUniqueIdentifier>
+      </ProviderSpecificData>
+    </TaxonName>
+  </TaxonNames>
+</DataSet>
