@@ -132,7 +132,7 @@ module GNI
     
     def do_preprocessing
       while @preprocessed_item     
-        @file_processor = FileProcessorFactory.new(@preprocessed_item.data_source).file_processor
+        @file_processor = FileProcessorFactory.new(@preprocessed_item).file_processor
         @file_processor.process do |state| 
           @preprocessed_item.change_state state[0], state[1]
           yield state[0]
@@ -145,8 +145,9 @@ module GNI
   class FileProcessorFactory
     attr_reader :file_processor
     
-    def initialize(data_source)
-      @data_source = data_source
+    def initialize(import_scheduler)
+      @import_scheduler = import_scheduler
+      @data_source = @import_scheduler.data_source
       set_file_processor
     end
 
@@ -156,17 +157,18 @@ module GNI
       file_type = IO.popen("file " + @data_source.file_path).read
       ['Zip', 'HTML', 'XML'].each do |x|
         if file_type.match /#{x}/i
-          eval("@file_processor = Processor#{x}.new(@data_source)")
+          eval("@file_processor = Processor#{x}.new(@import_scheduler)")
           break
         end
       end
-      @file_processor ||= ProcessorNull.new(@data_source)
+      @file_processor ||= ProcessorNull.new(@import_scheduler)
     end
     
     
     class ProcessorFile
-      def initialize(data_source)
-        @data_source = data_source
+      def initialize(import_scheduler)
+        @import_scheduler = import_scheduler
+        @data_source = @import_scheduler.data_source
       end
       def process
         raise RuntimeException, "Not implemented"
@@ -220,7 +222,7 @@ module GNI
           end
         end
         if found_meta_xml
-          dwcc = DwcToTcsConverter.new(@data_source)
+          dwcc = DwcToTcsConverter.new(@import_scheduler)
           current_state = dwcc.convert ? [ImportScheduler::PROCESSING, "Processing"] : [ImportScheduler::FAILED, "Cannot convert Darwin Core Star files to Taxon Concept Schema XML"]
           yield current_state
         else
@@ -263,8 +265,9 @@ module GNI
       CONSTANTS_DEFINED = true
     end
     
-    def initialize(data_source)
-      @data_source = data_source
+    def initialize(import_scheduler)
+      @import_scheduler = import_scheduler
+      @data_source = @import_scheduler.data_source
       @core_errors = []
       @core_data = {}
     end
