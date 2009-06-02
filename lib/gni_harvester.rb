@@ -364,7 +364,7 @@ module GNI
       @core_data.each do |key,data|
         count += 1
         if count % 10000 == 0
-          msg = @import_scheduler.message.split(":")[0] + ":converting #{count}th record"
+          msg = @import_scheduler.message.split(":")[0] + ": converting #{count}th record"
           @import_scheduler.change_state ImportScheduler::PREPROCESSING, msg
         end
         xg.make_node(data, count)

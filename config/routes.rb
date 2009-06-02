@@ -12,6 +12,7 @@ ActionController::Routing::Routes.draw do |map|
   map.register '/register', :controller => 'users', :action => 'create'
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.api '/api', :controller => 'api', :action => 'index'
+  map.about '/about', :controller => 'name_strings', :action => 'about'
   map.forgotten_password '/forgotten_password', :controller => 'users', :action => 'forgotten_password'
   
   map.resources :parsers

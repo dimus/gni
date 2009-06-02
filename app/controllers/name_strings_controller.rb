@@ -69,7 +69,9 @@ class NameStringsController < ApplicationController
       format.json {render :json => json_callback(data.to_json,params[:callback])}
     end
   end
-
-
   
+  # explanation what the site is about
+  def about
+  end
+
 end

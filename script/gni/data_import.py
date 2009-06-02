@@ -152,9 +152,9 @@ class Importer: #{{{1
         c = self.db.cursor
         c.execute('update data_sources set name_strings_count = (select count(*) from name_indices where data_source_id = %s) where id = %s', (self.data_source_id, self.data_source_id))
         c.execute("update statistics set stat_value = (select count(*) from name_strings) where stat_key='name_strings_count'")
-        c.execute("delete from unique_names")
-        c.execute("insert into unique_names (select null, data_source_id, name_string_id, now(), now() from name_indices group by name_string_id having count(*) = 1)")
-        c.execute("update data_sources ds1 set ds1.unique_names_count = (select count(*) from unique_names where data_source_id = ds1.id)")
+        #c.execute("delete from unique_names")
+        #c.execute("insert into unique_names (select null, data_source_id, name_string_id, now(), now() from name_indices group by name_string_id having count(*) = 1)")
+        #c.execute("update data_sources ds1 set ds1.unique_names_count = (select count(*) from unique_names where data_source_id = ds1.id)")
     
     def db_commit(self): #{{{2
         self.db.conn.commit()
