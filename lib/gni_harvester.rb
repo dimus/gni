@@ -147,7 +147,7 @@ module GNI
     
     def initialize(import_scheduler)
       @import_scheduler = import_scheduler
-      @data_source = @import_scheduler.data_source
+      @data_source = import_scheduler.data_source
       set_file_processor
     end
 
@@ -194,7 +194,7 @@ module GNI
       def process
         FileUtils.rm_rf @data_source.temporary_path
         system "unzip -qq -d #{@data_source.temporary_path} #{@data_source.file_path}"
-        dwc = ProcessorDarwinCoreStar.new(@data_source)
+        dwc = ProcessorDarwinCoreStar.new(@import_scheduler)
         dwc.process {|status| yield status}
       end
     end
@@ -281,6 +281,7 @@ module GNI
     
     protected
     def read_meta_xml
+      @import_scheduler.change_state ImportScheduler::PREPROCESSING, "Reading Darwin Core meta.xml file"
       @doc = Nokogiri::XML(open @data_source.directory_path + '/meta.xml')
       @core = @doc.xpath('//xmlns:core').first
       @core_id = @core.xpath('child::xmlns:id').first
@@ -292,6 +293,7 @@ module GNI
     end
     
     def ingest_core_file
+      @import_scheduler.change_state ImportScheduler::PREPROCESSING, "Reading Darwin Core file"      
       process_data(@core, @core_id, @core_fields, CORE_TERMS_DICT) do |data|
         @core_data[data[:key]] = data[:value]
       end
@@ -299,7 +301,10 @@ module GNI
     end
     
     def ingest_extensions
+      count = 0
       @extensions.each do |extension|
+        count += 1
+        @import_scheduler.change_state ImportScheduler::PREPROCESSING, "Reading Darwin Core extension file (#{count} out of #{@extensions.size})"              
         source_field = extension.xpath('child::xmlns:field').select {|field| field.attributes['term'].value.to_str.downcase == 'http://purl.org/dc/terms/source' }
         core_id = extension.xpath('child::xmlns:coreid').first        
         if source_field.size > 0 && core_id
@@ -318,35 +323,50 @@ module GNI
       delimiter = get_delimiter(node.attributes['fieldsTerminatedBy'].value)
       border_chars = node.attributes['fieldsEnclosedBy'].value || ""
       border_regex = border_chars == "" ? nil : /^#{border_chars}(.*)#{border_chars}$/
+      count = 0
       open(@data_source.directory_path + '/' + node.attributes['location'].value).each do |line|
+        count += 1
+        if count % 10000 == 0
+          msg = @import_scheduler.message.split(":")[0] + ": ingesting #{count}th line"
+          @import_scheduler.change_state ImportScheduler::PREPROCESSING, msg
+        end
         if GNI::Encoding.utf8_string? line
-          line_fields = line.split(delimiter)
-          row_id = line_fields[core_id.attributes['index'].value.to_i].to_sym
-          data = {:key => row_id, :value => {}}
+          begin
+            line_fields = line.split(delimiter)
+            row_id = line_fields[core_id.attributes['index'].value.to_i].to_sym
+            data = {:key => row_id, :value => {}}
           
-          fields.each do |field|
-            field_index = field.attributes['index'].value.to_i
-            field_data = line_fields[field_index]
-            unless field_data
-              add_to_errors(line + ' -- either split by delimiter ' + delimiter + ' did not work, or wrong number of fields')
-              break
+            fields.each do |field|
+              field_index = field.attributes['index'].value.to_i
+              field_data = line_fields[field_index]
+              unless field_data
+                add_to_errors(count.to_s + ": " + line.strip + ' -- either split by delimiter ' + delimiter + ' did not work, or wrong number of fields')
+                break
+              end
+              field_data = field_data.gsub(border_regex, "#{$1}") if border_regex
+              data[:value][terms_dict[field.attributes['term'].value.to_s.strip.downcase]] = field_data.to_s
             end
-            field_data = field_data.gsub(border_regex, "#{$1}") if border_regex
-            data[:value][terms_dict[field.attributes['term'].value.to_s.strip.downcase]] = field_data.to_s
-          end
           
-          yield data
+            yield data
+          rescue
+            add_to_errors(count.to_s + ": " + line.strip + " -- cannot process the line")
+          end
         else
-          add_to_errors(line.strip + " -- is not in UTF-8 encoding")
+          add_to_errors(count.to_s + ": " + line.strip + " -- is not in UTF-8 encoding")
         end
       end
     end
     
     def write_tcs_xml
+      @import_scheduler.change_state ImportScheduler::PREPROCESSING, "Creating Taxon Concept Schema file from ingested data"       
       xg = GNA_XML::TcsXmlBuilder.new(@data_source)
       count = 0
       @core_data.each do |key,data|
         count += 1
+        if count % 10000 == 0
+          msg = @import_scheduler.message.split(":")[0] + ":converting #{count}th record"
+          @import_scheduler.change_state ImportScheduler::PREPROCESSING, msg
+        end
         xg.make_node(data, count)
       end
       xg.close
@@ -369,6 +389,8 @@ module GNI
     end
     
     def add_to_errors(error_desc)
+      #puts "!!!!!!!!!!!!INGESTION ERROR!!!!!!!!!!!!!!!!"
+      #puts error_desc
       @core_errors << error_desc if @core_errors.size < 100
       @core_errors.size < 100
     end

@@ -98,4 +98,3 @@ describe 'GNI::Preprocessor' do
   end
   
 end
-  
