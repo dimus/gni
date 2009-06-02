@@ -73,3 +73,17 @@
         #centerbottominfo
           %img{ :src => "/images/public/developer_bottomleft.gif", :height => "30", :alt => "bottomleft", :width => "300" }/
     = render :partial => "shared/footer" 
+    :javascript
+      var uservoiceJsHost = ("https:" == document.location.protocol) ? "https://uservoice.com" : "http://cdn.uservoice.com";
+      document.write(unescape("%3Cscript src='" + uservoiceJsHost + "/javascripts/widgets/tab.js' type='text/javascript'%3E%3C/script%3E"))
+    :javascript
+      UserVoice.Tab.show({ 
+        key: 'gni',
+        host: 'gni.uservoice.com', 
+        forum: 'general', 
+        alignment: 'left',
+        background_color:'#600', 
+        text_color: 'white',
+        hover_color: '#e99',
+        lang: 'en'
+      })
