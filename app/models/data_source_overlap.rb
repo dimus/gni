@@ -56,15 +56,13 @@ class DataSourceOverlap < ActiveRecord::Base
               on lgns_from_group.name_string_id=lgns_to_group.name_string_id 
             where ni_from.data_source_id=#{dsi1} and ni_to.data_source_id=#{dsi2})
           ").num_rows
-          
-          ["data_source_id_2, data_source_id_1","data_source_id_1, data_source_id_2"].each do |t|
-            c.execute("
-              insert into data_source_overlaps 
-                ( #{t}, 
-                  strict_overlap, lexical_groups_overlap,
-                  created_at, updated_at) 
-                values (#{dsi1}, #{dsi2}, #{strict_overlap}, #{lexical_groups_overlap}, now(), now())")
-          end
+        
+          c.execute("
+            insert into data_source_overlaps 
+              ( data_source_id_1, data_source_id_2, 
+                strict_overlap, lexical_groups_overlap,
+                created_at, updated_at) 
+              values (#{dsi1}, #{dsi2}, #{strict_overlap}, #{lexical_groups_overlap}, now(), now())")
         end
       end
     end

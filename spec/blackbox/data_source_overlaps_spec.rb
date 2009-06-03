@@ -13,7 +13,7 @@ describe '/data_source_overlaps' do
   it "should render" do
     res = request('/data_sources/3/data_source_overlaps')
     res.success?.should be_true
-    res.body.should include("ITIS")
+    res.body.should include("Name Bank")
   end
   
   it "should render after deletion of a repository (Bug: TAX-197)" do
@@ -22,6 +22,6 @@ describe '/data_source_overlaps' do
     DataSource.count.should == count -1
     res = request('/data_sources/3/data_source_overlaps')
     res.success?.should be_true
-    res.body.should include("ITIS")
+    res.body.should include("Name Bank")
   end
 end
