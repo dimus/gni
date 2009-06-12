@@ -4,6 +4,7 @@ class Parser
   
   def initialize()
     @parser = ScientificNameParser.new
+    @node = nil
   end
   
   def parse(names)
@@ -25,9 +26,30 @@ class Parser
     @parsed_names = parsed_names
   end
   
+  def parse_name(name)
+    old_kcode = $KCODE
+    $KCODE = 'NONE'
+    @node = @parser.parse(name)
+    $KODE = old_kcode
+    self
+  end
+  
+  def to_json
+    @node ? @node.to_json : nil
+  end
+  
+  def to_html
+    jsn = @node ? @node.to_json : nil
+    obj = JSON.load jsn
+    render_html obj
+  end
+  
   def parsed_names
     @parsed_names
   end
+  
+  
+  
   
   def to_xml(options = {})
     options[:indent] ||= 2
@@ -80,5 +102,37 @@ class Parser
   end
     
 private
-  
+  def render_html(struct,count)
+    count += 1
+    keys = []
+    retValue = ""
+    struct.keys.each do |k|
+      if struct[k].class == Hash
+        retValue += (' ' * count) + '<div class="tree">' + "\n"
+        retValue += (' ' * (count + 1)) + k + "\n"
+        retValue += render_html(struct[k],count)
+        retValue += (' ' * count) +  "</div>\n"
+      elsif struct[k].class == Array
+        retValue += (' ' * count) +  '<div class="tree">' + "\n"
+        vals = []
+        struct[k].each do |el|
+          if el.class == Hash
+            retValue += (' ' * count) +  '<div class="tree">' + "\n"
+            retValue += (' ' * (count + 1)) + k + "\n"
+            retValue += render_html(el, count)
+            retValue += (' ' * count) +  "</div>\n"
+          else
+            vals << el 
+          end
+          retValue += vals.join(", ") if vals.size > 0
+        end
+        retValue += struct[k].join(", ")
+        retValue += (' ' * count) +  "</div>\n"
+      else
+        retValue += (' ' * (count + 1)) +  '<div class="tree">' + "\n" + (' ' * (count + 2)) + k + "=" + struct[k].to_s + "\n" +  (' ' * (count + 1)) + "</div>\n"
+      end
+      keys << k
+    end
+    retValue
+  end
 end

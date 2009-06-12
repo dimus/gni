@@ -1,45 +1,6 @@
 %h3= @name_string.name 
 
--if @parsed_name[:parse_succeeded]
-  %table#parsed_name
-    %tr
-      %td
-        %span.colored_label canonical:
-      %td
-        =link_to @parsed_name[:canonical], {:action=>'index', :search_term=>@parsed_name[:canonical]}
-
-    -if @parsed_name[:species]
-      %tr
-        %td
-          %span.colored_label species epithet: 
-        %td
-          = @parsed_name[:species]
-
-    -if @parsed_name[:orig_authors] && !@parsed_name[:orig_authors][:names].blank?
-      %tr
-        %td
-          %span.colored_label original authors:
-        %td
-          = @parsed_name[:orig_authors][:names].join(", ")
-        - if @parsed_name[:orig_authors][:year]
-          %tr
-            %td
-              %span.colored_label original year:
-            %td
-              = @parsed_name[:orig_authors][:year]
-        
-    -if @parsed_name[:authors] && !@parsed_name[:authors][:names].blank?
-      %tr
-        %td
-          %span.colored_label authors: 
-        %td
-          = @parsed_name[:authors][:names].join(", ")
-        - if @parsed_name[:authors][:year]
-          %tr
-            %td
-              %span.colored_label year:
-            %td
-              = @parsed_name[:authors][:year]
+= debug @parsed_name
 
 - lexical_groups = @name_string.lexical_groups
 -  unless lexical_groups.blank?
