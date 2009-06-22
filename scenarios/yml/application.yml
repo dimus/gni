@@ -92,6 +92,7 @@ NameString:
     canonical_form_id: 10
   - id: 15
     name: "Higena plumigera L. 1787"
+    canonical_form_id: 10
   - id: 16
     name: "Higena plumigera Linn."
     canonical_form_id: 10
@@ -301,3 +302,92 @@ NameIndexRecord:
   - name_index_id: 14
   - name_index_id: 15
   - name_index_id: 16
+  
+NameWord:
+  - id: 1
+    word: Adnaria
+  - id: 2
+    word: frondosa
+  - id: 3
+    word: L
+  - id: 4
+    word: Kuntze
+  - id: 5
+    word: Adnatosphaeridium
+  - id: 6
+    word: tutulosum
+  - id: 7
+    word: Cookson
+  - id: 8
+    word: Eisenack
+  - id: 9
+    word: 1960
+  - id: 10
+    word: G
+  - id: 11
+    word: Williams
+  - id: 12
+    word: Downie
+  - id: 13
+    word: 1966
+  - id: 14
+    word: Dadoychus
+  - id: 15
+    word: flavocinctus
+  - id: 16
+    word: Monné
+  - id: 17
+    word: Giesbert
+  - id: 18
+    word: 1994
+  - id: 19
+    word: mucuim
+  - id: 20
+    word: Júlio
+  - id: 21
+    word: Giorgi
+  - id: 22
+    word: 2000
+  - id: 23
+    word: Higehananomia
+  - id: 24
+    word: Kôno
+  - id: 25
+    word: 1935
+  - id: 26
+    word: palpalis
+  - id: 27
+    word: Kono
+  - id: 28
+    word: Higena
+  - id: 29
+    word: distincta
+  - id: 30
+    word: Matsumura
+  - id: 31
+    word: 1925
+  - id: 32
+    word: plumigera
+  - id: 33
+    word: Linneaus
+  - id: 34
+    word: 1787
+  - id: 35
+    word: Linn
+  - id: 36
+    word: Hegena
+  
+SemanticMeaning:
+  - id: 1
+    name: uninomial
+  - id: 2
+    name: genus
+  - id: 3
+    name: species
+  - id: 4
+    name: infraspecies
+  - id: 5
+    name: author_word
+  - id: 6
+    name: year
+  

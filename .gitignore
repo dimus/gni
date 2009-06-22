@@ -28,5 +28,5 @@ config/deploy.rb
 config/deploy
 *_gni_site.rb
 vendor/gni_deploy
-
+script/gni/batch_scripts/*
 

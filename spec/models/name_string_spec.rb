@@ -43,74 +43,121 @@ describe NameString do
   it "should find a name by canonical form" do
     name_strings = NameString.search("adnaria frondosa", nil, nil, 1, 10)
     name_strings.should_not be_nil
-    name_strings.size.should > 0
+    name_strings.size.should == 1
+    name_strings[0].name.should == 'Adnaria frondosa (L.) Kuntze'
+  end
+  
+  it "should find a name with any words sequence" do
+    name_strings = NameString.search("frondosa adnaria", nil, nil, 1, 10)
+    name_strings.should_not be_nil
+    name_strings.size.should == 1
     name_strings[0].name.should == 'Adnaria frondosa (L.) Kuntze'
   end
   
   it "should_find name by partial canonical form" do
-    name_strings = NameString.search("adn%", nil, nil, 1, 10)
-    name_strings.should_not be_nil
-    name_strings.size.should > 0
-    name_strings[0].name.should == 'Adnaria frondosa (L.) Kuntze'
-  end
+     name_strings = NameString.search("frondosa adn%", nil, nil, 1, 10)
+     name_strings.should_not be_nil
+     name_strings.size.should > 0
+     name_strings[0].name.should == 'Adnaria frondosa (L.) Kuntze'
+   end
+   
+   it "should find name with author" do
+     search_term = "Adnaria frondosa (L.)"
+     name_strings = NameString.search(search_term, nil, nil, 1, 10)
+     name_strings.should_not be_nil
+     name_strings.size.should > 0
+     name_strings[0].name.should == 'Adnaria frondosa (L.) Kuntze'
+   end
+   
+   it "should find a name by canonical form in a data_source" do
+     name_strings = NameString.search("adnaria frondosa", @data_source.id, nil, 1, 10)
+     name_strings.should_not be_nil
+     name_strings.size.should > 0
+     name_strings[0].name.should == 'Adnaria frondosa (L.) Kuntze'
+   end
+   
+   it "should find a name by partial canonical form in a datasource" do
+     name_strings = NameString.search("adn%", @data_source.id, nil, 1, 10)
+     name_strings.should_not be_nil
+     name_strings.size.should > 0
+     name_strings[0].name.should == 'Adnaria frondosa (L.) Kuntze'
+   end
+   
+   it "should find name with author in a datasource" do
+     search_term = "Adnaria frondosa (L.)"
+     name_strings = NameString.search(search_term, @data_source.id, nil, 1, 10)
+     name_strings.should_not be_nil
+     name_strings.size.should > 0
+     name_strings[0].name.should == 'Adnaria frondosa (L.) Kuntze'
+   end
+   
+   it "should not find name if it is not in a datasource" do
+     search_term = "Adnaria frondosa (L.)"
+     name_strings = NameString.search(search_term, 100, nil, 1, 10)
+     name_strings.size.should == 0
+   end
+   
+   it "should find a name in datasources belonging to a user" do
+     name_strings = NameString.search("adnaria L", nil, @user.id, 1, 10)
+     name_strings.should_not be_nil
+     name_strings.size.should > 0
+     name_strings[0].name.should == 'Adnaria frondosa (L.) Kuntze'
+   end
   
-  it "should find name with author" do
-    search_term = NameString.normalize_name_string("Adnaria frondosa (L.)%")
+   it "should find name with author in datasources belogning to a user" do
+     search_term = "Adnaria frondosa (L.)"
+     name_strings = NameString.search(search_term, nil, @user.id, 1, 10)
+     name_strings.should_not be_nil
+     name_strings.size.should > 0
+     name_strings[0].name.should == 'Adnaria frondosa (L.) Kuntze'
+   end
+   
+   it "should not find a name which does not belong to a user" do
+     search_term = "Adnaria frondosa (L.)"
+     name_strings = NameString.search(search_term, nil, 100, 1, 10)
+     name_strings.should_not be_nil
+     name_strings.size.should == 0
+   end
+   
+   it "should find genera with gen: qualifier" do
+    search_term = "gen:Hig%"
     name_strings = NameString.search(search_term, nil, nil, 1, 10)
     name_strings.should_not be_nil
     name_strings.size.should > 0
-    name_strings[0].name.should == 'Adnaria frondosa (L.) Kuntze'
-  end
+   end
   
-  it "should find a name by canonical form in a data_source" do
-    name_strings = NameString.search("adnaria frondosa", @data_source.id, nil, 1, 10)
+  it "should work with several qualifiers" do
+    search_term = "gen:Hig% sp:plum%"
+    name_strings = NameString.search(search_term, nil, nil, 1, 10)
     name_strings.should_not be_nil
     name_strings.size.should > 0
-    name_strings[0].name.should == 'Adnaria frondosa (L.) Kuntze'
   end
   
-  it "should find a name by partial canonical form in a datasource" do
-    name_strings = NameString.search("adn%", @data_source.id, nil, 1, 10)
-    name_strings.should_not be_nil
-    name_strings.size.should > 0
-    name_strings[0].name.should == 'Adnaria frondosa (L.) Kuntze'
-  end
-  
-  it "should find name with author in a datasource" do
-    search_term = NameString.normalize_name_string("Adnaria frondosa (L.)%")
-    name_strings = NameString.search(search_term, @data_source, nil, 1, 10)
-    name_strings.should_not be_nil
-    name_strings.size.should > 0
-    name_strings[0].name.should == 'Adnaria frondosa (L.) Kuntze'
-  end
-  
-  it "should not find name if it is not in a datasource" do
-    search_term = NameString.normalize_name_string("Adnaria frondosa (L.)%")
-    name_strings = NameString.search(search_term, 100, nil, 1, 10)
-    name_strings.size.should == 0
-  end
-  
-  it "should find a name in datasources belonging to a user" do
-    name_strings = NameString.search("adnaria frondosa", nil, @user.id, 1, 10)
-    name_strings.should_not be_nil
-    name_strings.size.should > 0
-    name_strings[0].name.should == 'Adnaria frondosa (L.) Kuntze'
-  end
-
-  it "should find name with author in datasources belogning to a user" do
-    search_term = NameString.normalize_name_string("Adnaria frondosa (L.)%")
-    name_strings = NameString.search(search_term, nil, @user.id, 1, 10)
-    name_strings.should_not be_nil
-    name_strings.size.should > 0
-    name_strings[0].name.should == 'Adnaria frondosa (L.) Kuntze'
-  end
-  
-  it "should not find a name which does not belong to a user" do
-    search_term = NameString.normalize_name_string("Adnaria frondosa (L.)%")
-    name_strings = NameString.search(search_term, nil, 100, 1, 10)
+  it "should ignore wrong qulaifiers" do
+    search_term = "gen:Hig% wrong:plum%"
+    name_strings = NameString.search(search_term, nil, nil, 1, 10)
     name_strings.should_not be_nil
     name_strings.size.should == 0
   end
   
+  it "should work with canonical form search" do
+    search_term = "can:Higena plumigera gen:Hig%"
+    name_strings = NameString.search(search_term, nil, nil, 1, 10)
+    name_strings.should_not be_nil
+    name_strings.size.should == 5
+    search_term = "can:Higena plumigera"
+    name_strings = NameString.search(search_term, nil, nil, 1, 10)
+    name_strings.should_not be_nil
+    name_strings.size.should == 5
+  end
+  
+  it "should work with all qualifiers" do
+    search_terms = ['can:Higena plumigera', 'yr:1787', 'sp:plumigera', 'gen:Adnatosphaeridium', 'uni:Higena', 'au:Williams au:G.']
+    search_terms.each do |st|
+      name_strings = NameString.search(st, nil, nil, 1, 10)
+      name_strings.should_not be_nil
+      name_strings.size.should > 0
+    end
+  end
 end
 

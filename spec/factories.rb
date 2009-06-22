@@ -96,3 +96,18 @@ Factory.define :import_scheduler do |imps|
   imps.status      1
   imps.message     'Added to the que'
 end
+
+Factory.define :name_word do |nw|
+  nw.word { Factory.next(:string) }
+  nw.first_letter { |r| r.word.to_s.split('').first }
+  nw.length { |r| r.word.size }
+end
+
+Factory.define :semantic_meaning do |sm|
+  sm.name { Factory.next(:string) }
+end
+
+Factory.define :name_word_semantic do |ns|
+  ns.association :name_word
+  ns.association :semantic_meaning
+end
