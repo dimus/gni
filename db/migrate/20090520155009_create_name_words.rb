@@ -8,7 +8,7 @@ class CreateNameWords < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_index :name_words, :word, :name => 'idx_name_words_1'
+    add_index :name_words, :word, :name => 'idx_name_words_1', :unique => true
     add_index :name_words, [:first_letter, :length], :name => 'idx_name_words_2'
   end
 

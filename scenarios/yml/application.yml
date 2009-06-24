@@ -46,6 +46,10 @@ CanonicalForm:
     name: "Higena plumigera"
   - id: 11
     name: "Hegena"
+  - id: 12
+    name: "Cunninghamella echinulata elegans"
+  - id: 13
+    name: "Plantago lorata"
 
 NameString:
   - id: 1
@@ -99,6 +103,13 @@ NameString:
   - id: 17
     name: "Hegena Matsumura 1925"
     canonical_form_id: 11
+  - id: 18
+    name: "Cunninghamella echinulata elegans (Lendn.) Lunn & Shipton 1983"
+    canonical_form_id: 12
+  - id: 19
+    name: "Plantago lorata (J.Z.Liu) Shipunov"
+  - id: 20
+    name: "Tylocephalum trygonis (Shipley & Hornell 1905) Shipley & Hornell 1906"
 
 LexicalGroup:
   - id: 1
@@ -108,6 +119,12 @@ LexicalGroup:
   - id: 3
     supercedure_id:
   - id: 4
+    supercedure_id:
+  - id: 5
+    supercedure_id:
+  - id: 6
+    supercedure_id:
+  - id: 7
     supercedure_id:
 
 LexicalGroupNameString:
@@ -144,6 +161,15 @@ LexicalGroupNameString:
   - id: 11
     lexical_group_id: 2
     name_string_id: 17
+  - id: 12
+    lexical_group_id: 5
+    name_string_id: 18
+  - id: 13
+    lexical_group_id: 6
+    name_string_id: 19
+  - id: 14
+    lexical_group_id: 7
+    name_string_id: 20
 
 Kingdom:
   - id: 1
@@ -275,7 +301,16 @@ NameIndex:
     data_source_id: 4 
   - id: 19
     name_string_id: 7 #strict match
-    data_source_id: 4    
+    data_source_id: 4 
+  - id: 20
+    name_string_id: 18
+    data_source_id: 4
+  - id: 21
+    name_string_id: 19
+    data_source_id: 4
+  - id: 22
+    name_string_id: 20
+    data_source_id: 4
 
 NameIndexRecord:
   - name_index_id: 1
@@ -302,6 +337,12 @@ NameIndexRecord:
   - name_index_id: 14
   - name_index_id: 15
   - name_index_id: 16
+  - name_index_id: 17
+  - name_index_id: 18
+  - name_index_id: 19
+  - name_index_id: 20
+  - name_index_id: 21
+  - name_index_id: 22
   
 NameWord:
   - id: 1
@@ -376,6 +417,44 @@ NameWord:
     word: Linn
   - id: 36
     word: Hegena
+  - id: 37
+    word: Cunninghamella
+  - id: 38
+    word: echinulata
+  - id: 39
+    word: elegans
+  - id: 40
+    word: Lendn
+  - id: 41
+    word: Lunn
+  - id: 42
+    word: Shipton
+  - id: 43
+    word: 1983
+  - id: 44
+    word: Plantago
+  - id: 45
+    word: lorata
+  - id: 46
+    word: J
+  - id: 47
+    word: Z
+  - id: 48
+    word: Liu
+  - id: 49
+    word: Shipunov
+  - id: 50
+    word: Tylocephalum
+  - id: 51
+    word: trygonis
+  - id: 52
+    word: Shipley
+  - id: 53
+    word: Hornell
+  - id: 54
+    word: 1905
+  - id: 55
+    word: 1906
   
 SemanticMeaning:
   - id: 1
@@ -390,4 +469,3 @@ SemanticMeaning:
     name: author_word
   - id: 6
     name: year
-  

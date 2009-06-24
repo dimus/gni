@@ -34,6 +34,7 @@ class DataSourcesController < ApplicationController
   # GET /data_sources/1.xml
   def show 
     @data_source = DataSource.find(params[:id])
+    @show_help = !!params[:help]
     set_cached_logo_url(@data_source)
     @data_source.update_name_strings_count unless @data_source.name_strings_count > 0
     @current_import = ImportScheduler.current(@data_source) rescue nil
@@ -58,6 +59,7 @@ class DataSourcesController < ApplicationController
       @char_triples = search_data[:char_triples]
       @is_empty_search_result = (search_data[:is_valid_search] && @name_strings.blank?)
       @search_term = search_data[:search_term]
+      @item_first, @item_last = get_items_number(@name_strings)
     
     respond_to do |format|
       format.html # show.html.erb

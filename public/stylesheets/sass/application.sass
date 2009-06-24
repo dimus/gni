@@ -115,6 +115,10 @@ a
 .disabled_link
   :color #aaa
 
+em
+  :font-weight bold
+  :color = !_green
+
 hr
   :border none
   :border-bottom 
@@ -232,6 +236,10 @@ textarea
   :text_align left
   :padding 1em
 
+.green
+  :color = !_green
+  :font-weight bold
+
 .boxed
   :border = 1px solid (!_light_green - #222)
   :background-color = !_light_green
@@ -239,6 +247,8 @@ textarea
   :margin-top 1em
   :margin-bottom 1em
   :padding 1em
+  :-moz-border-radius 6px 
+  :-webkit-border-radius 6px
 
 .boxed-small
   :border = 1px solid (!_light_green - #222)
@@ -308,6 +318,20 @@ textarea
 
 .valid_url
   :color black
+
+span#search_help
+  :color = !_green
+  :text-decoration underline
+  :cursor pointer
+
+#search_help_body
+  :padding 0.5em
+  :text-align left
+  :background-color = !_light_green + #222
+  :margin-top 0.5em
+  :border = 1px solid (!_light_green - #333)
+  :-moz-border-radius 6px 
+  :-webkit-border-radius 6px
 
 span.valid_url_message
   :color = !_red

@@ -9,7 +9,7 @@ class NameStringsController < ApplicationController
     @search_term = search_data[:original_search_term]
     @char_triples = search_data[:char_triples]
 
-
+    @show_help = !!params[:help]
     @names_total = Statistic.name_strings_count
     
     if search_data[:is_valid_search]
@@ -33,7 +33,9 @@ class NameStringsController < ApplicationController
     if params[:expand] && NameString::LATIN_CHARACTERS.include?(params[:expand].strip)
       @char_triples = NameString.char_triples(params[:expand].strip)
     end
-
+    
+    @item_first, @item_last = get_items_number(@name_strings)
+    
     #TODO UGGGLY!!!
     @name_strings_serialized = @name_strings.map {|ns| ns.resource_uri = name_string_url(ns.id)+".xml"; Hash.from_xml(ns.to_xml :methods => [:resource_uri])['name_string']} unless @name_strings.blank?
     result = {}

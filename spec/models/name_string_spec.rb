@@ -40,6 +40,16 @@ describe NameString do
     NameString.build( :name => 'Plantago' ).should_not be_valid # because there's already Plantago
   end
   
+  it "should find names with * or %" do
+    name_strings = NameString.search("adn%", nil, nil, 1, 10)
+    name_strings.should_not be_nil
+    name_strings.size.should > 0
+    ns1_size = name_strings.size
+    name_strings = NameString.search("adn*", nil, nil, 1, 10)
+    name_strings.should_not be_nil
+    name_strings.size.should == ns1_size 
+  end
+  
   it "should find a name by canonical form" do
     name_strings = NameString.search("adnaria frondosa", nil, nil, 1, 10)
     name_strings.should_not be_nil
@@ -152,12 +162,39 @@ describe NameString do
   end
   
   it "should work with all qualifiers" do
-    search_terms = ['can:Higena plumigera', 'yr:1787', 'sp:plumigera', 'gen:Adnatosphaeridium', 'uni:Higena', 'au:Williams au:G.']
+    search_terms = ['can:Higena plumigera', 'yr:1787', 'sp:plumigera', 'gen:Adnatosphaeridium', 'uni:Higena', 'au:Williams au:G.', 'ssp:elegans']
     search_terms.each do |st|
       name_strings = NameString.search(st, nil, nil, 1, 10)
       name_strings.should_not be_nil
       name_strings.size.should > 0
     end
   end
+  
+  it "should be able to search names_strings as well" do
+    search_terms = ["ns:Higena pl%", "yr:1787 ns:Hig%"]
+    search_terms.each do |search_term|
+      name_strings = NameString.search(search_term, nil, nil, 1, 10)
+      name_strings.should_not be_nil
+      name_strings.size.should > 0
+    end
+    search_terms = ["ns:Higena 1787", "ns:Hig% yr:1787"]
+    search_terms.each do |search_term|
+      name_strings = NameString.search(search_term, nil, nil, 1, 10)
+      name_strings.should_not be_nil
+      name_strings.size.should == 0
+    end
+  end
+  
+  it "words should be treated only with and" do
+    search_term = "Ship* Plantago"
+    name_strings = NameString.search(search_term, nil, nil, 1, 10)
+    name_strings.should_not be_nil
+    name_strings.size.should > 0
+    name_strings.each do |ns|
+      ns.name.match('Ship').should be_true
+      ns.name.match('Plantago').should be_true
+    end
+  end
+  
 end
 

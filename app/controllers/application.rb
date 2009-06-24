@@ -112,5 +112,17 @@ protected
   
   def resource_type
   end
+  
+  def get_items_number(name_strings)
+    item_start = 0
+    item_end = 0
+    if name_strings && name_strings.size > 0
+      item_end = name_strings.current_page * name_strings.per_page
+      item_start = item_end - name_strings.per_page + 1
+      item_end = name_strings.total_entries if name_strings.current_page == name_strings.total_pages
+    end
+    item_start = item_end = 1 if name_strings && name_strings.size == 1
+    [item_start, item_end]
+  end
 
 end

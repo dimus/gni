@@ -35,7 +35,7 @@ function strip(a_string) {
 $(function() {
   
   // Set focus on login text input for login
-  $("input#login,input#user_login,input#data_source_title").focus();
+  $("input#login,input#user_login,input#data_source_title,input#search_term").focus();
 
   // Set zebra style for data tables
   $("table.data tbody tr:nth-child(even)").addClass("even");
@@ -43,7 +43,7 @@ $(function() {
   // Set info/error messages dissapear after 5 seconds
   //$("div#flash").fadeIn("slow").animate({opacity: 1.0}, 10000).fadeOut("slow");
   $("div#flash").show(1500);
-
+  
   $("#submit_import_data").confirm({
     msg:'Import new and delete old data? ',
     timeout:5000, 
@@ -97,6 +97,18 @@ $(function() {
         $('#import_in_progress').text("No imports had been scheduled yet.");
       }
   });
+  
+  $('#search_help').bind('click', function(event) {
+      if ($('#search_help_body').is(':hidden')) {
+        $(this).text('Hide Help');
+        $('#search_help_body').slideDown();//.css('display','none');
+      } else {
+        $(this).text('Help');
+        $('#search_help_body').slideUp();//.css('display','block');
+      }
+      $("input#search_term").focus();
+    }
+  );
 
   $('.valid_url').bind('blur', function(event) {
     var bound_element = $(this);
