@@ -47,7 +47,7 @@ class NameString < ActiveRecord::Base
     qualifiers_list = "(au|gen|sp|yr|uni|ssp)"
     data_source_id = data_source_id.to_i
     user_id = user_id.to_i
-    search_term = search_term.gsub(/[\(\)\[\].,&;]/, ' ').gsub("*", '%').gsub(/\s+/, ' ')
+    search_term = search_term.gsub(/[\(\)\[\]|.,&;]/, ' ').gsub("*", '%').gsub(/\s+/, ' ')
     name_string_term = search_term.match(/ns:(.*)$/) ? $1.strip : nil
     canonical_term = search_term.match(/can:(.*?)(#{qualifiers_list}:|$)/) ? $1.strip : nil
     search_term = search_term.gsub("can:"+canonical_term, '').gsub(/\s+/, ' ') if canonical_term
@@ -75,28 +75,30 @@ class NameString < ActiveRecord::Base
       
       select = "ns.id, ns.name from name_strings ns join name_word_semantics nws ON (ns.id=nws.name_string_id) left join (semantic_meanings sm) ON (nws.semantic_meaning_id=sm.id) join name_words nw on (nws.name_word_id=nw.id)"
       suffix = "GROUP BY ns.id HAVING count(distinct nws.name_word_id) >= #{search_words_size} ORDER BY ns.name"
-      if (search_words.size + qualified_words.size) > 0
+      regexes = []
+      
+      if (search_words.size + qualified_words.size) > 0 && !(canonical_term || name_string_term)
         where = "(1=2"
         
         search_words.each do |wcw|
           where += " OR word LIKE '#{wcw}'"
+          regexes << prepare_regex(wcw)
         end
         qualified_words.each do |wcw|
           where += " OR (sm.name='#{qualifiers[wcw[0].to_sym]}' AND word LIKE '#{wcw[1]}')"
+          regexes << prepare_regex(wcw[1])
         end
         where += ")"
-      else
-        #should only get here if searching with canonical form only
-        where ="(1=2 OR cf.name = '#{canonical_term}')"
-        suffix = "GROUP BY ns.id HAVING count(distinct cf.id) >= #{search_words_size} ORDER BY ns.name"
+        where +=  " and (ns.name rlike "
+        where += regexes.map {|w| "'#{w}'"}.join(' and ns.name rlike ') + ")"
       end
+      
       
       if canonical_term
-        select += " left join canonical_forms cf on (ns.canonical_form_id=cf.id and cf.name='#{canonical_term}')"
-        suffix = "GROUP BY ns.id HAVING (count(distinct nws.id)+count(distinct cf.id)) >= #{search_words_size} ORDER BY ns.name"
-      end
-      
-      if name_string_term
+        select = "ns.id, ns.name from name_strings ns join canonical_forms cf on (cf.id = ns.canonical_form_id)"
+        where = ActiveRecord::Base.gni_sanitize_sql([" cf.name like ?", canonical_term])
+        suffix = "ORDER BY ns.name"
+      elsif name_string_term
         select = "ns.id, ns.name from name_strings ns"
         where = ActiveRecord::Base.gni_sanitize_sql([" ns.name like ?", name_string_term])
         suffix = 'ORDER BY ns.name'
@@ -119,5 +121,11 @@ class NameString < ActiveRecord::Base
   def self.delete_orphans()
     orphans = ActiveRecord::Base.connection.select_values("select ns.id from name_strings ns left join name_indices ni on ns.id = ni.name_string_id where name_string_id is null").join(",")
     ActiveRecord::Base.connection.execute("delete from name_strings where id in (#{orphans})") unless orphans.blank?
+  end
+  
+private
+  
+  def self.prepare_regex(word)
+    '(^|[^[:alnum:]-])' + word.gsub(/([^%])$/, '\1([^[:alnum:]-]|$)').gsub('%', '')
   end
 end

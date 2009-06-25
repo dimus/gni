@@ -11,8 +11,8 @@ jQuery.fn.debug = jQuery.fn.dbg = function () {
 };
 
 function spinner(show) {
-  if (show) {$('#ajax_spinner').show()}
-  else {$('#ajax_spinner').hide()}
+  if (show) {$('#ajax_spinner').show();}
+  else {$('#ajax_spinner').hide();}
 };
 
 function show_name_details(element) {
@@ -87,12 +87,12 @@ $(function() {
         $.getJSON('/import_schedulers/' + import_scheduler_id, {},
           function(data) {
               if (data.status == "4" || data.status == "3" || data.status == "5"){
-                document.location = document.location
+                document.location = document.location;
               }
               var message = data.message;
               $('#import_in_progress').text(message);
             }
-          )
+          );
       } else {
         $('#import_in_progress').text("No imports had been scheduled yet.");
       }

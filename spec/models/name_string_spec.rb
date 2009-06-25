@@ -57,6 +57,14 @@ describe NameString do
     name_strings[0].name.should == 'Adnaria frondosa (L.) Kuntze'
   end
   
+  it "should find the same resulrs with or without removed characters: ()[]|.,&;" do
+    name_strings1 = NameString.search("frondosa adnaria ", nil, nil, 1, 10)
+    name_strings2 = NameString.search("|frondosa,| & [(adnaria.)];", nil, nil, 1, 10)
+    name_strings1.should_not be_nil
+    name_strings2.should_not be_nil
+    name_strings1.should == name_strings2
+  end
+  
   it "should find a name with any words sequence" do
     name_strings = NameString.search("frondosa adnaria", nil, nil, 1, 10)
     name_strings.should_not be_nil
@@ -151,7 +159,7 @@ describe NameString do
   end
   
   it "should work with canonical form search" do
-    search_term = "can:Higena plumigera gen:Hig%"
+    search_term = "can:Higena plumigera"
     name_strings = NameString.search(search_term, nil, nil, 1, 10)
     name_strings.should_not be_nil
     name_strings.size.should == 5
