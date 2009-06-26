@@ -21,6 +21,10 @@ class NameString < ActiveRecord::Base
     CONSTANTS_DEFINED = true
   end
   
+  def self.prepare_search_term(search_term)
+    search_term.gsub(/[\(\)\[\]|.,&;]/, ' ').gsub("*", '%').gsub(/\s+/, ' ') if search_term
+  end
+  
   def self.normalize_name_string(n_string)
     # n_string = n_string.gsub(/([\(\[])\s+/, '\1')
     # n_string = n_string.gsub(/([\,])(?=[^\s])/, '\1 ')
@@ -49,7 +53,7 @@ class NameString < ActiveRecord::Base
       qualifiers_list = "(au|gen|sp|yr|uni|ssp)"
       data_source_id = data_source_id.to_i
       user_id = user_id.to_i
-      search_term_modified = search_term.gsub(/[\(\)\[\]|.,&;]/, ' ').gsub("*", '%').gsub(/\s+/, ' ')
+      search_term_modified = NameString.prepare_search_term(search_term)
       name_string_term = search_term_modified.match(/ns:(.*)$/) ? $1.strip : nil
       canonical_term = search_term_modified.match(/can:(.*?)(#{qualifiers_list}:|$)/) ? $1.strip : nil
       #search_term_modified = search_term_modified.gsub("can:"+canonical_term, '').gsub(/\s+/, ' ') if canonical_term

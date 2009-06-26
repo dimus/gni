@@ -707,22 +707,11 @@ ul.info li {
   color: #660000; }
 
 .tree {
-  margin-left: -2em;
-  line-height: 2em; }
+  maring: 0;
+  margin-left: +2em; }
 
-.tree_main_table {
-  width: 100%;
-  border: 1px solid #818181;
-  border-collapse: collapse; }
-  .tree_main_table td {
-    border: 1px solid #818181; }
-
-.tree_permissions_table {
-  width: 100%;
-  border: none;
-  border-collapse: collapse; }
-  .tree_permissions_table td {
-    border: none; }
+.tree_key {
+  color: #45704d; }
 
 .tip-catlist {
   width: 200px;

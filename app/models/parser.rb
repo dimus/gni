@@ -38,8 +38,14 @@ class Parser
     @node ? @node.to_json : nil
   end
   
+  def self.to_html(a_string)
+    obj = JSON.load a_string
+    render_html obj
+  end
+  
   def to_html
     jsn = @node ? @node.to_json : nil
+    rerturn unless jsn
     obj = JSON.load jsn
     render_html obj
   end
@@ -102,34 +108,35 @@ class Parser
   end
     
 private
-  def render_html(struct,count)
+  def self.render_html(struct,count = 0)
     count += 1
     keys = []
-    retValue = ""
+    retValue = ''
     struct.keys.each do |k|
       if struct[k].class == Hash
         retValue += (' ' * count) + '<div class="tree">' + "\n"
-        retValue += (' ' * (count + 1)) + k + "\n"
+        retValue += (' ' * (count + 1)) + '<span class="tree_key">' + k + '</span>' + "\n"
         retValue += render_html(struct[k],count)
         retValue += (' ' * count) +  "</div>\n"
       elsif struct[k].class == Array
-        retValue += (' ' * count) +  '<div class="tree">' + "\n"
+        retValue += (' ' * count) +  '<div class="tree">'+ "\n"
+        retValue += (' ' * (count + 1)) + '<span class="tree_key">' + k + '</span>' + "\n"
         vals = []
         struct[k].each do |el|
-          if el.class == Hash
-            retValue += (' ' * count) +  '<div class="tree">' + "\n"
-            retValue += (' ' * (count + 1)) + k + "\n"
-            retValue += render_html(el, count)
-            retValue += (' ' * count) +  "</div>\n"
-          else
+          # if el.class == Hash
+          #   retValue += (' ' * count) +  '<div class="tree">' + "\n"
+          #   retValue += (' ' * (count + 1)) + '<span class="tree_key">' + k + '</span>' + "\n"
+          #   retValue += render_html(el, count)
+          #   retValue += (' ' * count) +  "</div>\n"
+          # else
             vals << el 
-          end
-          retValue += vals.join(", ") if vals.size > 0
+          # end
+          #retValue += vals.join(", ") if vals.size > 0
         end
-        retValue += struct[k].join(", ")
+        retValue +=  vals.join(", ")
         retValue += (' ' * count) +  "</div>\n"
       else
-        retValue += (' ' * (count + 1)) +  '<div class="tree">' + "\n" + (' ' * (count + 2)) + k + "=" + struct[k].to_s + "\n" +  (' ' * (count + 1)) + "</div>\n"
+        retValue += (' ' * (count + 1)) +  '<div class="tree">' + "\n" + (' ' * (count + 2)) + '<span class="tree_key">' + k + ": " + '</span>' + struct[k].to_s + "\n" +  (' ' * (count + 1)) + "</div>\n"
       end
       keys << k
     end

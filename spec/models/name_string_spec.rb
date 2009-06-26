@@ -204,5 +204,12 @@ describe NameString do
     end
   end
   
+  it "should find namestring" do 
+    search_term = "ns:hig*"
+    name_strings = NameString.search(search_term, nil, nil, 1, 10)
+    name_strings.should_not be_nil
+    name_strings.size.should > 0
+  end
+  
 end
 

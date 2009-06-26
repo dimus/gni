@@ -6,7 +6,7 @@
     = submit_tag 'Search'
     - if current_user && current_user.data_sources && !@data_source
       = submit_tag 'Search Mdine'
-    &nbsp;&nbsp&nbsp;
+    &nbsp;&nbsp;&nbsp;
     %span#search_help{:title => "How to search?"}= @show_help ? 'Hide Help' : 'Help'
     %br/
     - NameString::LATIN_CHARACTERS.each do |char|
@@ -19,7 +19,7 @@
       %h4 Search Options
       
       %span.green Examples:
-      - ['Parus major', 'gen:Parus sp:major', 'can:Parus ma*', 'gen:Parus yr:1822', 'au:Lang* yr:1888'].each do |srch|
+      - ['Parus major', 'gen:Parus sp:major', 'can:Parus maj*', 'gen:Parus yr:1822', 'au:Lang* yr:1888'].each do |srch|
         = '&nbsp;' * 1
         = link_to in_quotes(srch), 'search_term' => srch, 'help' => 'true'     
       
@@ -43,7 +43,7 @@
               Search for literal string from its beginning
               %br/
               (other modifiers will be ignored)
-            %td= link_to 'ns:parus m*', 'search_term' => 'ns:parus m*', 'help' => 'true'
+            %td= link_to 'ns:parus maj*', 'search_term' => 'ns:parus maj*', 'help' => 'true'
           %tr
             %td.green can:
             %td canonical form

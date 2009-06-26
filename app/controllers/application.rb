@@ -105,7 +105,16 @@ protected
   def validate_search_term(search_term)
     errors = []
     if search_term
-      errors << 'Search term with whild characters (* or %) should have at leat 3 letters' if (search_term.include?('%') && search_term.size < 4)
+      search_term = NameString.prepare_search_term(search_term)
+      search_words = search_term.split(" ")
+      search_words.each do |sw|
+        sw = sw.split(':')
+        sw = sw.size > 1 ? sw[-1] : sw[0]
+        if sw.include?('%') && sw.size < 4
+          errors << 'Search words with whild characters (* or %) should have at leat 3 letters'
+          break
+        end
+      end
     end
     errors
   end
