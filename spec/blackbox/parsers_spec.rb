@@ -6,7 +6,7 @@ describe '/parsers' do
     it 'should render' do
       res = request('/parsers.xml?names=Betula%20verucosa;Parus+major')
       res.success?.should be_true
-      res.body.should have_tag('canonical')
+      res.body.should have_tag('scientific_name')
       res = request('/parsers.json?names=Betuls+verucosa&callback=myfunc')
       res.success?.should be_true
       res.body.should include('myfunc([')
@@ -30,7 +30,8 @@ describe '/parsers' do
         'names' => "Betula pubescens\nPlantago major L. 1786",
         'format' => 'json'})
       res.success?.should be_true
-      res.body.should include('"parse_succeeded":true')
+      JSON.load(res.body).size.should == 2
+      res.body.should include('"parsed":true')
     end
   end
 end

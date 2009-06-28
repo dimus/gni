@@ -15,14 +15,12 @@ function spinner(show) {
   else {$('#ajax_spinner').hide();}
 };
 
-function show_name_details(element) {
+function show_name_details(element,do_show_tree) {
   //if (element.attr('name_string_id') == undefined) return;
   $("#name_column_right").removeClass("name_column_right_inactive");
   $("#name_column_right").addClass("name_column_right_active");
-  show_tree = '?show_tree=1';
-  if ($('.tree_root').is(':hidden')) {
-    show_tree = '';
-  }
+  show_tree = '';
+  if (do_show_tree) show_tree = '?show_tree=1';
   var name_string_id = element.attr('name_string_id');
     spinner(true);
   $.get('/name_strings/'+ name_string_id + show_tree, {},
@@ -71,7 +69,7 @@ $(function() {
 
   $("div.name_string_active").each(
     function(){
-      show_name_details($(this));
+      show_name_details($(this),false);
     }
   );
 
@@ -91,7 +89,11 @@ $(function() {
       });
       $(this).removeClass("name_string_hover");
       $(this).addClass("name_string_active");
-      show_name_details($(this));
+      var show_tree = true;
+      if ($('.tree_root').is(':hidden')) {
+        show_tree = false;
+      }
+      show_name_details($(this), show_tree);
     }
    );
 

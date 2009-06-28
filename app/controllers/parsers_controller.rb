@@ -19,14 +19,14 @@ class ParsersController < ApplicationController
 private 
   def parse_names(names)
     parser = Parser.new
-    parser.parse_names_list_to_json(names)
-    #@parsed_names = Hash.from_json(@parsed_names.to_json) 
-    if params[:format] == 'xml'
-      render :xml => parser.to_xml
-    elsif params[:format] == 'yaml'
-      render :text => parser.parsed_names.to_yaml
+    format = params[:format] ? params[:format] : 'json'
+    names = parser.parse_names_list(names, format)
+    if format == 'xml'
+      render :xml => names
+    elsif format == 'yaml'
+      render :text => names
     else
-      render :json => json_callback(parser.parsed_names.to_json, params[:callback])
+      render :json => json_callback(names, params[:callback])
     end
   end
 end

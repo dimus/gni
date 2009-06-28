@@ -10,9 +10,9 @@ def generate_scenario(data)
 end
 
 def populate_name_word_semantic_table
-  semantics = {:uninomial => 1, :genus => 2, :species => 3, :subspecies => 4, :author_word => 5, :year => 6}
+  semantics = {:uninomial => 1, :genus => 2, :species => 3, :infraspecies => 4, :author_word => 5, :year => 6}
 
-  parser = ScientificNameParser.new
+  parser = Parser.new
   NameWordSemantic.truncate
   NameString.all.each do |ns|
     name =  ns.name

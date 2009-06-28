@@ -11,6 +11,26 @@ end
 
 # A namesplace to keep project-specific data
 module GNI
+  module XML
+    XML_HEAD = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+
+    def self.escape_xml(input)
+      result = input.dup.strip
+
+      result.gsub!(/[&<>'"\v]/) do | match |
+          case match
+          when '&' then '&amp;'
+          when '<' then '&lt;'
+          when '>' then '&gt;'
+          when "'" then '&apos;'
+          when '"' then '&quot;'
+          end
+      end
+      result.gsub!(/\v/, " ")
+      result.gsub(/\s{2,}/," ")
+    end
+    
+  end
   module Encoding
     UTF8RGX = /\A(
         [\x09\x0A\x0D\x20-\x7E]            # ASCII

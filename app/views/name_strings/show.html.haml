@@ -1,12 +1,12 @@
 %h3= @name_string.name 
 
-- show_text = params[:show_tree] ? 'hide' : 'show';
-- show_tree = params[:show_tree] ? 'display: block;' : 'display: none;'
+- show_text = !!params[:show_tree] ? 'hide' : 'show';
+- show_tree = !!params[:show_tree] ? 'display: block;' : 'display: none;'
 
 %h6#parsed_information{ :onclick => 'toggle_parsed_information()'}== Parsed information (#{show_text})
 
 .tree_root{:style => show_tree}
-  = Parser.to_html(@parsed_name)
+  = Parser.json_to_html(@parsed_name)
 %br/
 
 - lexical_groups = @name_string.lexical_groups
@@ -22,7 +22,7 @@
         - if @name_string.name == ns
           = ns
         - else
-          = link_to ns, "/?search_term=ns:#{ns}"
+          = link_to ns, "/?search_term=ns:#{CGI::escape(ns)}"
         %br/
     
 - unless @data_sources_data.empty?
