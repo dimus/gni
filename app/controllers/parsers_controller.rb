@@ -19,7 +19,7 @@ class ParsersController < ApplicationController
 private 
   def parse_names(names)
     parser = Parser.new
-    parser.parse(names)
+    parser.parse_names_list_to_json(names)
     #@parsed_names = Hash.from_json(@parsed_names.to_json) 
     if params[:format] == 'xml'
       render :xml => parser.to_xml

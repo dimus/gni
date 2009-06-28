@@ -58,7 +58,7 @@ class NameStringsController < ApplicationController
   def show
     @name_string = NameString.find(params[:id])
     @show_records = (params[:all_records] && params[:all_records] != '0') ? true : false
-    @parsed_name = Parser.new().parse_name(@name_string.name).to_json
+    @parsed_name = Parser.new.parse(@name_string.name).to_json
     @data_sources_data = @name_string.name_indices.map do |ni| 
       res = {:name_index_id => ni.id, :data_source => ni.data_source, :records_number => ni.name_index_records.size}
       res.merge!(:records =>  (NameIndexRecord.find_all_by_name_index_id(ni.id))) if @show_records

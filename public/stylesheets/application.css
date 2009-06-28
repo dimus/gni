@@ -41,6 +41,9 @@ h5 {
 
 h6 {
   font-size: 0.9em; }
+  h6#parsed_information {
+    text-decoration: underline;
+    cursor: pointer; }
 
 form {
   margin: 0;

@@ -19,9 +19,13 @@ function show_name_details(element) {
   //if (element.attr('name_string_id') == undefined) return;
   $("#name_column_right").removeClass("name_column_right_inactive");
   $("#name_column_right").addClass("name_column_right_active");
+  show_tree = '?show_tree=1';
+  if ($('.tree_root').is(':hidden')) {
+    show_tree = '';
+  }
   var name_string_id = element.attr('name_string_id');
     spinner(true);
-  $.get('/name_strings/'+ name_string_id, {},
+  $.get('/name_strings/'+ name_string_id + show_tree, {},
     function(data) {
       $('#name_column_right').html(data);
       spinner(false);
@@ -31,6 +35,18 @@ function show_name_details(element) {
 function strip(a_string) {
   return a_string.replace(/^\s+|\s+$/g,"");
 }
+
+function toggle_parsed_information() {
+  var tree = $('.tree_root');
+  if (tree.is(':hidden')) {
+    tree.slideDown();
+    $('#parsed_information').text('Parsed information (hide)');
+  } else {
+    tree.slideUp();    
+    $('#parsed_information').text('Parsed information (show)');
+  }
+  
+};
 
 $(function() {
   
@@ -109,7 +125,7 @@ $(function() {
       $("input#search_term").focus();
     }
   );
-
+  
   $('.valid_url').bind('blur', function(event) {
     var bound_element = $(this);
     var url_to_check = strip($(this).attr('value'));
