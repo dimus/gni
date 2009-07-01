@@ -98,7 +98,7 @@ private
     xml_string.gsub!('</node>', '</div>')
     xml_string.gsub!('<node_key>', '<span class="tree_key">')
     xml_string.gsub!('</node_key>', '</span>')
-    xml_string.gsub!('<node_value></node_value>', ', ')
+    xml_string.gsub!('</node_value><node_value>', ', ')
     xml_string.gsub!('<node_value>', '')
     xml_string.gsub!('</node_value>', '')
     xml_string

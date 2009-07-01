@@ -18,11 +18,11 @@
       - count += 1
       %h4= "Group #" + count.to_s if lexical_groups.size > 1
         
-      - lg.name_strings.map {|ns| ns.name}.each do |ns|
-        - if @name_string.name == ns
-          = ns
+      - lg.name_strings.each do |ns|
+        - if @name_string.name == ns.name
+          = ns.name
         - else
-          = link_to ns, "/?search_term=ns:#{CGI::escape(ns)}"
+          = link_to ns.name, name_string_path(ns.id)
         %br/
     
 - unless @data_sources_data.empty?

@@ -91,7 +91,8 @@ protected
     d[:page] = params[:page] || 1
     d[:per_page] = (params[:per_page].to_i < 1) ? 30 : params[:per_page].to_i 
     d[:per_page] = PER_PAGE_MAX if d[:per_page] > PER_PAGE_MAX
-    d[:search_term] = params[:search_term].strip.gsub(/\*\s*$/,'%') rescue nil
+    #TODO remove last gsub it is jsut to fix crawlers prolem till they switch to new links
+    d[:search_term] = params[:search_term].strip.gsub(/\*\s*$/,'%').gsub(/^(HIG%)$/, 'ns:\1') rescue nil
     d[:search_term] = NameString.normalize_name_string(d[:search_term]) if d[:search_term]
     d[:original_search_term] = params[:search_term] || ''
     d[:search_term_errors] = validate_search_term(d[:search_term])

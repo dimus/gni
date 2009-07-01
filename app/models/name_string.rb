@@ -47,84 +47,28 @@ class NameString < ActiveRecord::Base
   end
   
   def self.search(search_term, data_source_id, user_id, page_number, items_per_page)
-    table_term = "st:#{search_term},dsi:#{data_source_id},ui:#{user_id}"
-    unless temp_table?(temp_table(table_term))
-      qualifiers = {:au => 'author_word', :gen => 'genus', :sp => 'species', :yr => 'year', :uni => 'uninomial', :ssp => 'infraspecies'}
-      qualifiers_list = "(au|gen|sp|yr|uni|ssp)"
-      data_source_id = data_source_id.to_i
-      user_id = user_id.to_i
-      search_term_modified = NameString.prepare_search_term(search_term)
-      name_string_term = search_term_modified.match(/ns:(.*)$/) ? $1.strip : nil
-      canonical_term = search_term_modified.match(/can:(.*?)(#{qualifiers_list}:|$)/) ? $1.strip : nil
-      #search_term_modified = search_term_modified.gsub("can:"+canonical_term, '').gsub(/\s+/, ' ') if canonical_term
-      #canonical_term = search_term_modified.match(/(can:'[^']+')/)
-      search_words = search_term_modified.split(' ').uniq
-      name_strings = nil
+    search_term_modified = NameString.prepare_search_term(search_term)
     
-      search_words_size = search_words.size
-      search_words_size += 1 if canonical_term
+    #special cases
+    ns_id = search_term_modified.match(/id:(.*)$/) ? $1.strip.to_i : nil
+    name_string_term = search_term_modified.match(/ns:(.*)$/) ? $1.strip : nil
+    canonical_term = search_term_modified.match(/can:(.*?)$/) ? $1.strip : nil
     
-      if search_words_size > 0 
-        search_words_prepared = []
-        qualified_words = []
-        search_words.each do |word|
-          if !!word.match(/^#{qualifiers_list}:(.*)$/)
-            qualified_words << [$1, $2]
-          else
-            search_words_prepared << word
-          end
-        end
-      
-        search_words = search_words_prepared
-      
-        search_words_string = "'" + search_words.join("','") + "'"
-      
-        select = "distinct ns.id, ns.name from name_strings ns join name_word_semantics nws ON (ns.id=nws.name_string_id) left join (semantic_meanings sm) ON (nws.semantic_meaning_id=sm.id) join name_words nw on (nws.name_word_id=nw.id)"
-        suffix = "ORDER BY ns.name"
-        regexes = []
-      
-        if (search_words.size + qualified_words.size) > 0 && !(canonical_term || name_string_term)
-          where = "(1=2"
-        
-          search_words.each do |wcw|
-            where += " OR word LIKE '#{wcw}'"
-            regexes << prepare_regex(wcw)
-          end
-          qualified_words.each do |wcw|
-            where += " OR (sm.name='#{qualifiers[wcw[0].to_sym]}' AND word LIKE '#{wcw[1]}')"
-            regexes << prepare_regex(wcw[1])
-          end
-          where += ")"
-          where +=  " and (ns.name rlike "
-          where += regexes.map {|w| "'#{w}'"}.join(' and ns.name rlike ') + ")"
-        end
-      
-      
-        if canonical_term
-          select = "ns.id, ns.name from name_strings ns join canonical_forms cf on (cf.id = ns.canonical_form_id)"
-          where = ActiveRecord::Base.gni_sanitize_sql([" cf.name like ?", canonical_term])
-          suffix = "ORDER BY ns.name"
-        elsif name_string_term
-          select = "ns.id, ns.name from name_strings ns"
-          where = ActiveRecord::Base.gni_sanitize_sql([" ns.name like ?", name_string_term])
-          suffix = 'ORDER BY ns.name'
-        end
-      
-        if user_id > 0
-           select += " join name_indices ni on (ns.id = ni.name_string_id) join data_source_contributors dsc on (ni.data_source_id = dsc.data_source_id)"
-           where += " and dsc.user_id=" + user_id.to_s
-        elsif data_source_id > 0
-          select += " join name_indices ni on (ns.id = ni.name_string_id)"
-          where += " AND ni.data_source_id = #{data_source_id}"
-        end
-        q = "create temporary table `#{temp_table(table_term)}` SELECT #{select} WHERE #{where} #{suffix}"
-        ActiveRecord::Base.connection.execute(q)
-      else
-        q = "create temporary table `#{temp_table(table_term)}` (id int, name varchar(2))"
-        ActiveRecord::Base.connection.execute(q)
-      end
+    is_special_case = !!ns_id || !!name_string_term || !!canonical_term
+    
+    if is_special_case
+      select, where , suffix = prepare_special_case_query(ns_id, name_string_term, canonical_term)
+    else
+      select, where, suffix = prepare_query(search_term_modified)
     end
-    q = "select * from `#{temp_table(table_term)}`"
+
+    if select
+      select, where = query_with_user_and_data_source(select, where, user_id, data_source_id)
+      q = "SELECT #{select} WHERE #{where} #{suffix}"
+    else
+      q = "SELECT id, name from name_strings where 1=2"
+    end  
+
     self.paginate_by_sql(q, :page => page_number, :per_page => items_per_page)
   end
  
@@ -140,18 +84,73 @@ private
     '(^|[^[:alnum:]-])' + word.gsub(/([^%])$/, '\1([^[:alnum:]-]|$)').gsub('%', '')
   end
   
-  def self.temp_table(table_term)
-    Digest::SHA1.hexdigest(table_term)
+  def self.prepare_special_case_query(ns_id, name_string_term, canonical_term)
+    suffix = 'ORDER BY ns.name'
+    if ns_id
+      select = "ns.id, ns.name from name_strings ns"
+      where = "ns.id = %s" % ns_id.to_i
+      suffix = ''
+    elsif name_string_term
+      select = "ns.id, ns.name from name_strings ns"
+      where = ActiveRecord::Base.gni_sanitize_sql([" ns.name like ?", name_string_term])
+    elsif canonical_term
+      select = "ns.id, ns.name from name_strings ns join canonical_forms cf on (cf.id = ns.canonical_form_id)"
+      where = ActiveRecord::Base.gni_sanitize_sql([" cf.name like ?", canonical_term])
+    end
+    [select, where, suffix]
   end
   
-  def self.temp_table?(temp_table)
-    tbl_name = ActiveRecord::Base.gni_sanitize_sql(['?', temp_table]).gsub("'",'')
-    begin
-      q = "select 1 from `#{tbl_name}`"
-      ActiveRecord::Base.connection.select_value(q)
-    rescue ActiveRecord::StatementInvalid => error
-      return false
+  def self.prepare_query(search_term_modified)
+    search_words = search_term_modified.split(' ').uniq
+    return nil,nil,nil if search_words.blank?
+    
+    qualifiers = {:au => 'author_word', :gen => 'genus', :sp => 'species', :yr => 'year', :uni => 'uninomial', :ssp => 'infraspecies'}
+    qualifiers_list = "(au|gen|sp|yr|uni|ssp)"
+    search_words_prepared = []
+    qualified_words = []
+    regexes = []
+    
+    search_words.each do |word|
+      if !!word.match(/^#{qualifiers_list}:(.*)$/)
+        qualified_words << [$1, $2]
+      else
+        search_words_prepared << word
+      end
     end
-    return true
+
+    select = "distinct ns.id, ns.name from name_strings ns join name_word_semantics nws on (ns.id=nws.name_string_id) join name_words nw on (nws.name_word_id=nw.id)"    
+    select += " left join (semantic_meanings sm) ON (nws.semantic_meaning_id=sm.id)" unless qualified_words.blank?
+    where = "(1=2"
+  
+    search_words_prepared.each do |wcw|
+      where += " OR word LIKE '#{wcw}'"
+      regexes << prepare_regex(wcw)
+    end
+
+    qualified_words.each do |wcw|
+      where += " OR (sm.name='#{qualifiers[wcw[0].to_sym]}' AND word LIKE '#{wcw[1]}')"
+      regexes << prepare_regex(wcw[1])
+    end
+
+    where += ")"
+    where +=  " and (ns.name rlike "
+    where += regexes.map {|w| "'#{w}'"}.join(' and ns.name rlike ') + ")"
+  
+    suffix = "ORDER BY ns.name"
+    [select, where, suffix]
   end
+  
+  def self.query_with_user_and_data_source(select, where, user_id, data_source_id)
+    user_id = user_id.to_i
+    data_source_id = data_source_id.to_i  
+    if user_id > 0
+       select += " join name_indices ni on (ns.id = ni.name_string_id) join data_source_contributors dsc on (ni.data_source_id = dsc.data_source_id)"
+       where += " and dsc.user_id=" + user_id.to_s
+    elsif data_source_id > 0
+      select += " join name_indices ni on (ns.id = ni.name_string_id)"
+      where += " AND ni.data_source_id = #{data_source_id}"
+    end
+    [select, where]
+  end
+  
 end

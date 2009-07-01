@@ -211,5 +211,12 @@ describe NameString do
     name_strings.size.should > 0
   end
   
+  it "should find id" do
+    search_term = "id:17"
+    name_strings = NameString.search(search_term, nil, nil, 1, 10)
+    name_strings.should_not be_nil
+    name_strings.size.should > 0
+  end
+  
 end
 
