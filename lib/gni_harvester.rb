@@ -155,6 +155,10 @@ module GNI
     
     def set_file_processor
       file_type = IO.popen("file " + @data_source.file_path).read
+      #short xml files are not recognized by file command:
+      first_line = IO.popen("head -n 1 " + @data_source.file_path).read
+      file_type = 'XML' if first_line.match(/<\?\s*xml/)
+      
       ['Zip', 'HTML', 'XML'].each do |x|
         if file_type.match /#{x}/i
           eval("@file_processor = Processor#{x}.new(@import_scheduler)")
@@ -241,7 +245,7 @@ module GNI
     
     class ProcessorNull < ProcessorFile
       def process
-        msg = File.exists?(@data_source.file_path) ? "Downloaded file disappeared, some hungry file eater ate it." : "Unknown format of the file"
+        msg = File.exists?(@data_source.file_path) ? "Unknown format of the file" : "Downloaded file disappeared, some hungry file eater ate it."
        yield [ImportScheduler::FAILED, msg]
       end
     end
