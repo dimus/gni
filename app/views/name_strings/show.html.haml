@@ -22,7 +22,7 @@
         - if @name_string.name == ns.name
           = ns.name
         - else
-          = link_to ns.name, name_string_path(ns.id)
+          = link_to ns.name, "/?search_term=id:#{ns.id}"
         %br/
     
 - unless @data_sources_data.empty?

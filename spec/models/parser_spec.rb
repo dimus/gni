@@ -19,7 +19,7 @@ describe Parser do
   
   it 'should convert parsed result to html' do
     r = @parser.parse "Betula verucosa"
-    r.to_html.should == " <div class=\"tree\">\n  <span class=\"tree_key\">scientificName</span>\n   <div class=\"tree\">\n    <span class=\"tree_key\">canonical: </span>Betula verucosa\n   </div>\n  <div class=\"tree\">\n   <span class=\"tree_key\">details</span>\n   <div class=\"tree\">\n    <span class=\"tree_key\">genus</span>\n     <div class=\"tree\">\n      <span class=\"tree_key\">epitheton: </span>Betula\n     </div>\n   </div>\n   <div class=\"tree\">\n    <span class=\"tree_key\">species</span>\n     <div class=\"tree\">\n      <span class=\"tree_key\">epitheton: </span>verucosa\n     </div>\n   </div>\n  </div>\n   <div class=\"tree\">\n    <span class=\"tree_key\">verbatim: </span>Betula verucosa\n   </div>\n   <div class=\"tree\">\n    <span class=\"tree_key\">normalized: </span>Betula verucosa\n   </div>\n   <div class=\"tree\">\n    <span class=\"tree_key\">hybrid: </span>false\n   </div>\n   <div class=\"tree\">\n    <span class=\"tree_key\">parsed: </span>true\n   </div>\n </div>\n"
+    r.to_html.should include('span class')
   end
   
   
