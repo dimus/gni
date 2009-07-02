@@ -5,7 +5,7 @@
     = text_field_tag :search_term, nil, {:size => "40"}
     = submit_tag 'Search'
     - if current_user && current_user.data_sources && !@data_source
-      = submit_tag 'Search Mdine'
+      = submit_tag 'Search Mine'
     &nbsp;&nbsp;&nbsp;
     %span#search_help{:title => "How to search?"}= @show_help ? 'Hide Help' : 'Help'
     %br/
