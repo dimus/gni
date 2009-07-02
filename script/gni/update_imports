@@ -69,8 +69,7 @@ class Updater: #{{{1
             for status in di.run_imports(self.data_file, self.data_source_id, self.environment):
                 self._change_status(PROCESSING, status)
             
-            statistics = "No changes"
-            self._change_status(UPDATED, "Successfull update: %s" % statistics)
+            self._change_status(UPDATED, "Successfull update")
             
         except Exception, e:
             self._change_status(FAILED, e.message)
