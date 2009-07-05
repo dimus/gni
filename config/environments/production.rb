@@ -20,6 +20,6 @@ config.action_controller.perform_caching             = true
 begin
   require File.join(File.dirname(__FILE__), 'production_gni_site')
 rescue LoadError
-  puts '*************WARNING: COULD NOT LOAD PRODUCTION_GINE_SITE FILE***********************'
+  puts '*************WARNING: COULD NOT LOAD PRODUCTION_GNI_SITE FILE***********************'
 end
     

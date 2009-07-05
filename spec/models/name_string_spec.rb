@@ -24,6 +24,7 @@ end
 describe NameString do
   before :all do
     Scenario.load :application
+    Scenario.load :name_string_search
     @data_source = DataSource.find(1)
     @user = User.find(1)
   end

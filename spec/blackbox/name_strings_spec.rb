@@ -4,6 +4,7 @@ require 'uri'
 describe '/name_strings' do
   before :all do
     Scenario.load :application
+    Scenario.load :name_string_search
   end
   
   after :all do

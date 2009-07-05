@@ -13,6 +13,3 @@ data = YAML.load(ERB.new(open(yml_file).read).result)
 
 generate_scenario(data)
 
-populate_name_word_semantic_table()
-
-

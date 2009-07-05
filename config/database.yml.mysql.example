@@ -1,5 +1,5 @@
 <% jdbc = defined?(JRUBY_VERSION) ? 'jdbc' : '' %>
-<% db_name = "gna" %>
+<% db_name = "gni" %>
 defaults: &defaults
   adapter: <%= jdbc %>mysql
   username: root

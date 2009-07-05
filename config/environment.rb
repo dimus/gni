@@ -13,6 +13,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 #load empty GNI namespace
 require 'gni'
 require 'gni_harvester'
+require 'gni_search'
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
@@ -69,7 +70,7 @@ Rails::Initializer.run do |config|
   config.gem "rspec", :lib => false, :version => ">= 1.2.0" 
   config.gem "rspec-rails", :lib => false, :version => ">= 1.2.0" 
   
-  config.gem 'dimus-biodiversity', :version => '>= 0.0.8', :lib => 'biodiversity', :source => 'http://gems.github.com/'
+  config.gem 'dimus-biodiversity', :version => '>= 0.5.0', :lib => 'biodiversity', :source => 'http://gems.github.com/'
   
 
 end  
