@@ -1,5 +1,3 @@
-require 'biodiversity'
-
 module GNI
   class NameWordsGenerator
     def initialize(transaction_limit = 200000)
@@ -42,7 +40,7 @@ module GNI
     
     def start_transaction
       @c.execute('start_transaction') if RAILS_ENV != 'test'
-      @parser = ScientificNameParser.new
+      @parser = Parser.new
     end
     
     def end_transaction

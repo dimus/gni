@@ -40,6 +40,7 @@ def populate_name_word_semantic_table
       word << semantic_meaning
       sem_id = semantics[word[2].to_sym] ? semantics[word[2].to_sym] : nil rescue nil
       nw = NameWord.find_by_word(word[1])
+      puts word[1] if nw == nil
       NameWordSemantic.create(:name_word_id => nw.id, :name_string_id => ns.id, :semantic_meaning_id => sem_id, :name_string_position => word[0])
     end
   end
