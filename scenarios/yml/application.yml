@@ -108,8 +108,16 @@ NameString:
     canonical_form_id: 12
   - id: 19
     name: "Plantago lorata (J.Z.Liu) Shipunov"
+    canonical_form_id: nil
   - id: 20
     name: "Tylocephalum trygonis (Shipley & Hornell 1905) Shipley & Hornell 1906"
+    canonical_form_id: nil
+  - id: 21
+    name: "Plantago major Linneaus" #not parsed
+    canonical_form_id: nil
+  - id: 22
+    name: Alpharetrovirus Avian myeloblastosis virus ICTV #not parsable
+    canonical_form_id: nil
 
 LexicalGroup:
   - id: 1
@@ -310,6 +318,12 @@ NameIndex:
     data_source_id: 4
   - id: 22
     name_string_id: 20
+    data_source_id: 4
+  - id: 23
+    name_string_id: 21
+    data_source_id: 4
+  - id: 24
+    name_string_id: 22
     data_source_id: 4
 
 NameIndexRecord:
