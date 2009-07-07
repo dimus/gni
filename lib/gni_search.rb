@@ -38,7 +38,7 @@ module GNI
       
   protected
     def get_names
-      @c.execute('select ns.id, ns.name, ns.canonical_form_id where ns.has_words = 0 or ns.has_words is null')
+      @c.execute('select ns.id, ns.name, ns.canonical_form_id from name_strings ns where ns.has_words = 0 or ns.has_words is null')
     end
     
     def get_semantics

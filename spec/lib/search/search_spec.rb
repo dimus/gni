@@ -18,7 +18,7 @@ describe 'GNI::NameWordsGenerator' do
     NameWord.truncate
     NameWordSemantic.truncate
     NameWord.all.should be_blank
-    @nwp.generate_words
+    #@nwp.generate_words
     #NameWord.count.should > 1
     #NameWordSemantic.count.should > 1
   end
