@@ -15,7 +15,7 @@ module GNI
     XML_HEAD = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
 
     def self.escape_xml(input)
-      result = input.dup.strip
+      result = input.to_s.dup.strip
 
       result.gsub!(/[&<>'"\v]/) do | match |
           case match
