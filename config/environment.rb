@@ -76,7 +76,7 @@ Rails::Initializer.run do |config|
 end  
 #version info is substituted by deployment tag
 unless defined? ENV_CONSTANTS_ARE_DEFINED
-  APP_VERSION = "0.1"
+  APP_VERSION = "N/A"
   SCHEMA_VERSION = "0.1"
   PER_PAGE_MAX = 1000
   PROGRAM_NAME = "Global Names Index"
