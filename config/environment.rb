@@ -79,8 +79,9 @@ unless defined? ENV_CONSTANTS_ARE_DEFINED
   APP_VERSION = "0.1"
   SCHEMA_VERSION = "0.1"
   PER_PAGE_MAX = 1000
-  NOREPLY_EMAIL = "noreply@example.org"
-  FEEDBACK_EMAIL = 'customer_service@example.com'
   PROGRAM_NAME = "Global Names Index"
   ENV_CONSTANTS_ARE_DEFINED = true
+  GOOGLE_ANALYTICS = '' 
+  NOREPLY_EMAIL = "noreply@example.org"
+  FEEDBACK_EMAIL = 'customer_service@example.com'
 end
