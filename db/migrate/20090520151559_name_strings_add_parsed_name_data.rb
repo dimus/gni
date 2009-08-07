@@ -5,7 +5,7 @@ class NameStringsAddParsedNameData < ActiveRecord::Migration
       t.text    :parsing_data
     end
     change_table :canonical_forms do |t|
-      t.integer :first_letter, :limit => 1
+      t.string :first_letter, :limit => 1
       t.integer :length
     end
     
