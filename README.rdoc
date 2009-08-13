@@ -1,4 +1,4 @@
-= Global Name Architecture
+= Global Names Index
 
 == MySQL settings
 
