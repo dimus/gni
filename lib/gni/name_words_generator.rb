@@ -27,7 +27,7 @@ module GNI
           name_string_id, name, canonical_form_id = name_array
           words = NameWord.split_name(name)
           positions = @parser.parse(name).pos
-          generate_words(words, positions, name_string_id)
+          generate(words, positions, name_string_id)
           insert_canonical_form(name_string_id, name) unless canonical_form_id
           end_transaction
           start_transaction
@@ -46,7 +46,7 @@ module GNI
     end
     
     def start_transaction
-      @c.execute('start_transaction') if RAILS_ENV != 'test'
+      @c.execute('start transaction') if RAILS_ENV != 'test'
       @parser = Parser.new
     end
     
@@ -54,7 +54,7 @@ module GNI
       @c.execute('commit') if RAILS_ENV != 'test'
     end
     
-    def generate_words(words, positions, name_string_id)
+    def generate(words, positions, name_string_id)
       words.each do |word|
         semantic_meaning = (positions[word[0]] ? positions[word[0]][0] : nil) rescue nil
         word << semantic_meaning

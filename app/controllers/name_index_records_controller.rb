@@ -22,7 +22,7 @@ class NameIndexRecordsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :text => GNA_XML.to_tcs(@name_index_records, result) }
+      format.xml  { render :text => GNI::XML.to_tcs(@name_index_records, result) }
     end
   end
 
@@ -56,7 +56,7 @@ class NameIndexRecordsController < ApplicationController
 
   # POST /name_index_records.xml
   def create
-    res = GNA_XML::from_tcs(params)
+    res = GNI::XML::from_tcs(params)
     respond_to do |format|
         format.xml  { render :xml => res.to_xml}
     end

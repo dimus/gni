@@ -1,2 +1,0 @@
-require '../gna_xml'
-

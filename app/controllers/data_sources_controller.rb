@@ -1,5 +1,3 @@
-require 'gna_xml'
-
 class DataSourcesController < ApplicationController
   before_filter :prepare_params, :only => [:create, :update]
   # GET /data_sources

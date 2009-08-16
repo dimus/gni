@@ -60,9 +60,15 @@ def do_repositories_update
   system(File.dirname(__FILE__) + "/update_imports -e " +  OPTIONS[:environment])
 end
 
+def generate_words
+  nwp = GNI::NameWordsGenerator.new
+  nwp.generate_words
+end
+
 cleanup_orphans
 update_unique_names
 update_cached_counts
+generate_words
 ImportScheduler.run_scheduler
 #set_repositories_que
 #do_repositories_update

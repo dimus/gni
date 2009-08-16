@@ -363,7 +363,7 @@ module GNI
     
     def write_tcs_xml
       @import_scheduler.change_state ImportScheduler::PREPROCESSING, "Creating Taxon Concept Schema file from ingested data"       
-      xg = GNA_XML::TcsXmlBuilder.new(@data_source)
+      xg = GNI::XML::TcsXmlBuilder.new(@data_source)
       count = 0
       @core_data.each do |key,data|
         count += 1
