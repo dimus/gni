@@ -16,7 +16,7 @@ def populate_name_word_semantic_table
   NameWordSemantic.truncate
   NameString.all.each do |ns|
     name =  ns.name
-    pos = parser.parse(name).pos
+    pos = parser.parse(name)[:scientificName][:positions]
     name = name.gsub(/[\(\)\[\],.&]/, ' ').gsub(/\s/, ' ').gsub(/ (et|and) /, ' ') if name
     word = ''
     last_letter = ' '

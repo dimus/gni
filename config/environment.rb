@@ -69,7 +69,7 @@ Rails::Initializer.run do |config|
   config.gem "rspec-rails", :lib => false, :version => ">= 1.2.0" 
   
   config.gem 'dimus-biodiversity', :version => '>= 0.5.0', :lib => 'biodiversity', :source => 'http://gems.github.com/'
-  #config.gem 'dimus-taxamatch_rb', :lib => 'taxamatch_rb', :source => 'http://gems.github.com'
+  config.gem 'dimus-taxamatch_rb', :lib => 'taxamatch_rb', :source => 'http://gems.github.com'
   
 
 end  

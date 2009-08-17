@@ -2,19 +2,9 @@
 require 'biodiversity'
 class Parser
   
-  def self.json_to_html(json_string)
-    obj = JSON.load json_string
-    render_html obj
-  end
-  
-  def self.json_to_xml(json_string)
-    obj = JSON.load json_string
-    GNI::XML::XML_HEAD + "<scientific_name>\n" + traverse(obj,1) + "</scientific_name>\n"
-  end
-  
   def initialize()
     @parser = ScientificNameParser.new
-    @node = nil
+    @parsed = nil
   end
   
   def parse_names_list(names, format = 'json')
@@ -22,8 +12,8 @@ class Parser
     if names && !names.strip.blank?
       names = names.split(/\n|\r/)[0..5000]
       names.map {|n| n.strip}.select {|n| !n.blank?}.each do |name|
-        parsed_name = @parser.parse(name).to_json 
-        parsed_names << parsed_name
+        parsed_name = parse(name)
+        parsed_names << parsed_name.format_json
       end
     end
     @parsed_names = "[" + parsed_names.join(",\n") + "]"
@@ -42,18 +32,21 @@ class Parser
     end
   end
   
-  def parse(name)
+  def parse(name, format = nil)
     old_kcode = $KCODE
     $KCODE = 'NONE'
-    @node = @parser.parse(name)
-    $KODE = old_kcode
-    def @node.to_html 
-      Parser.json_to_html(self.to_json)
+    begin
+      result = @parser.parse(name)     
+      @parsed = @parser.parsed
+    rescue 
+      result = {:verbatim => name, :parsed => false, :error => 'Parser error'}
+      @parsed = nil
     end
-    def @node.to_xml
-      Parser.json_to_xml(self.to_json)
-    end
-    @node
+    $KCODE = old_kcode
+    #add format_json, format_html, format_xml methods to singleton class
+    result.extend GNI::ParserResult
+    result.parsed = @parsed
+    result
   end
   
   def parsed_names

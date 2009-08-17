@@ -4,6 +4,7 @@ require 'gni/image'
 require 'gni/name_words_generator'
 require 'gni/net'
 require 'gni/xml'
+require 'gni/parser_result'
 
 module ActiveRecord #:nodoc:
   class Base

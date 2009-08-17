@@ -6,7 +6,7 @@
 %h6#parsed_information{ :onclick => 'toggle_parsed_information()'}== Parsed information (#{show_text})
 
 .tree_root{:style => show_tree}
-  = Parser.json_to_html(@parsed_name)
+  = @parsed_name.format_html
 %br/
 
 - lexical_groups = @name_string.lexical_groups
