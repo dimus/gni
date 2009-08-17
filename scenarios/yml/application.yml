@@ -23,101 +23,73 @@ User:
     password:                  monkey
     created_at:                <%= 1.days.ago.to_s :db %>
 
-CanonicalForm:
-  - id: 1
-    name: "Adnaria frondosa"
-  - id: 2
-    name: "Adnatosphaeridium tutulosum"
-  - id: 3
-    name: "Adnatosphaeridium"
-  - id: 4
-    name: "Dadoychus flavocinctus"
-  - id: 5
-    name: "Dadoychus mucuim"
-  - id: 6
-    name: "Higehananomia"
-  - id: 7
-    name: "Higehananomia palpalis"
-  - id: 8
-    name: "Higena"
-  - id: 9
-    name: "Higena distincta"
-  - id: 10
-    name: "Higena plumigera"
-  - id: 11
-    name: "Hegena"
-  - id: 12
-    name: "Cunninghamella echinulata elegans"
-  - id: 13
-    name: "Plantago lorata"
-
 NameString:
   - id: 1
     name: "Adnaria frondosa (L.) Kuntze"
-    canonical_form_id: 1
+    canonical_form_id:
   - id: 2
     name: "Adnatosphaeridium tutulosum (Cookson & Eisenack 1960)"
-    canonical_form_id: 2
+    canonical_form_id:
   - id: 3
     name: "Adnatosphaeridium G. Williams et Downie, 1966"
-    canonical_form_id: 3
+    canonical_form_id:
   - id: 4
     name: "Dadoychus flavocinctus Monné & Giesbert, 1994"
-    canonical_form_id: 4
+    canonical_form_id:
   - id: 5
     name: "Dadoychus mucuim Júlio, Giorgi & Monné, 2000"
-    canonical_form_id: 5
+    canonical_form_id:
   - id: 6
     name: "Higehananomia Kôno 1935"
-    canonical_form_id: 6
+    canonical_form_id:
   - id: 7
     name: "Higehananomia palpalis"
-    canonical_form_id: 7
+    canonical_form_id:
   - id: 8
     name: "Higehananomia palpalis Kono 1935"
-    canonical_form_id: 7
+    canonical_form_id:
   - id: 9
     name: "Higena"
-    canonical_form_id: 8
+    canonical_form_id:
   - id: 10
     name: "Higena distincta"
-    canonical_form_id: 9
+    canonical_form_id:
   - id: 11
     name: "Higena Matsumura 1925"
-    canonical_form_id: 8
+    canonical_form_id:
   - id: 12
     name: "Higena plumigera"
-    canonical_form_id: 10
+    canonical_form_id:
   - id: 13
     name: "Higena plumigera Matsumura 1925"
-    canonical_form_id: 10
+    canonical_form_id:
   - id: 14
     name: "Higena plumigera Linneaus 1787"
-    canonical_form_id: 10
+    canonical_form_id:
   - id: 15
     name: "Higena plumigera L. 1787"
-    canonical_form_id: 10
+    canonical_form_id:
   - id: 16
     name: "Higena plumigera Linn."
-    canonical_form_id: 10
+    canonical_form_id:
   - id: 17
     name: "Hegena Matsumura 1925"
-    canonical_form_id: 11
+    canonical_form_id:
   - id: 18
     name: "Cunninghamella echinulata elegans (Lendn.) Lunn & Shipton 1983"
-    canonical_form_id: 12
+    canonical_form_id:
   - id: 19
     name: "Plantago lorata (J.Z.Liu) Shipunov"
-    canonical_form_id: nil
+    canonical_form_id:
   - id: 20
     name: "Tylocephalum trygonis (Shipley & Hornell 1905) Shipley & Hornell 1906"
-    canonical_form_id: nil
+    canonical_form_id:
   - id: 21
     name: "Plantago major Linneaus" #not parsed
-    canonical_form_id: nil
+    canonical_form_id:
   - id: 22
     name: Alpharetrovirus Avian myeloblastosis virus ICTV #not parsable
-    canonical_form_id: nil
+    canonical_form_id:
 
 LexicalGroup:
   - id: 1
