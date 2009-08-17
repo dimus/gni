@@ -3,9 +3,10 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe 'GNI::NameWordsGenerator' do
   before(:all) do
     Scenario.load :application
+    10.times {NameString.generate}
     @nwp = GNI::NameWordsGenerator.new
   end
-
+  
   it 'should find words that are not in the system' do    
     @nwp.names.num_rows.should > 1
   end
@@ -15,12 +16,11 @@ describe 'GNI::NameWordsGenerator' do
   end
   
   it 'should create new words' do
-    NameWord.truncate
-    NameWordSemantic.truncate
-    NameWord.all.should be_blank
-    #@nwp.generate_words
-    #NameWord.count.should > 1
-    #NameWordSemantic.count.should > 1
+    nwc = NameWord.count
+    nwsc = NameWordSemantic.count
+    @nwp.generate_words
+    NameWord.count.should > nwc
+    NameWordSemantic.count.should > nwsc
   end
 
 end

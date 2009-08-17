@@ -39,7 +39,7 @@ class Parser
       result = @parser.parse(name)     
       @parsed = @parser.parsed
     rescue 
-      result = {:verbatim => name, :parsed => false, :error => 'Parser error'}
+      result = {:scientificName => {:verbatim => name, :parsed => false, :error => 'Parser fatal error'}}
       @parsed = nil
     end
     $KCODE = old_kcode

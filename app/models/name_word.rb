@@ -1,9 +1,8 @@
 class NameWord < ActiveRecord::Base
   has_many :name_word_semantics
   
-  
   #takes a name string, returns array of arrays where each consist of a word position and the word
-  def self.split_word(name_string)
+  def self.get_words(name_string)
     name = name_string
     #spaces are not removed to keep position data correct.
     name = name.gsub(/[\(\)\[\],.;|\?"'&\s]/, ' ').gsub(/ et /, '    ').gsub(/ and /, '     ') if name
@@ -14,7 +13,7 @@ class NameWord < ActiveRecord::Base
     words = []
     name.split('').each do |l|
       if l != ' ' && last_letter == ' '
-        words << [word_position, word] if word != ''
+        words << [word_position, Taxamatch::Normalizer.normalize_word(word)] if word && word != ''
         word = l
         word_position = count
       elsif l != ' '
@@ -23,7 +22,7 @@ class NameWord < ActiveRecord::Base
       last_letter = l
       count += 1
     end
-    words << [word_position, word]
+    words << [word_position, Taxamatch::Normalizer.normalize_word(word)]
   end
 
 end

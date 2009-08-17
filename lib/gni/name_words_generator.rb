@@ -24,15 +24,14 @@ module GNI
       names.each do |name_string_id, name, canonical_form_id|
         count += 1
         words = NameWord.get_words(name)
-        parsed_name = @parser.parse(name)
-        positions = parsed_name[:scientificName][:positions]
-        canonical_form_id = insert_canonical_form(name_string_id, parsed_name.canonical) if canonical_form_id == nil && defined?(parsed_name.canonical)
+        parsed_name = @parser.parse(name)[:scientificName]
+        positions = parsed_name[:positions] 
+        canonical_form_id = insert_canonical_form(name_string_id, parsed_name[:canonical]) if canonical_form_id == nil && parsed_name[:canonical]
         generate(words, positions, name_string_id, canonical_form_id)
         if count % @transaction_limit == 0
           end_transaction
           start_transaction
         end
-
       end
       end_transaction
     end
@@ -66,6 +65,7 @@ module GNI
         end
         insert_name_word_semantics(word,name_word_id, name_string_id)
       end
+      canonical_form_id = "'null'" unless canonical_form_id
       @c.update("update name_strings set has_words = 1, canonical_form_id = %s where id = %s" % [canonical_form_id, name_string_id])
     end
     
