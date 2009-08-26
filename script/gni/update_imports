@@ -35,6 +35,7 @@ class Updater: #{{{1
     def __init__(self, environment): #{{{2
         self.environment = environment
         self.db = di.DbImporter(environment)
+        self.import_scheduler_id = None
     
     def get_data_source_id(self): #{{{2
         self.db.cursor.execute("select id, data_source_id from import_schedulers where status = %s order by created_at limit 1", PROCESSING)
@@ -66,7 +67,7 @@ class Updater: #{{{1
     def _process_data(self): #{{{2
         try:
             self._change_status(PROCESSING, "Parsing XML from the downloaded file")
-            for status in di.run_imports(self.data_file, self.data_source_id, self.environment):
+            for status in di.run_imports(self.data_file, self.data_source_id, self.import_scheduler_id, self.environment):
                 self._change_status(PROCESSING, status)
             
             self._change_status(UPDATED, "Successfull update")

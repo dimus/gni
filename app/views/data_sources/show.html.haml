@@ -40,6 +40,7 @@
       - form_for(@import_scheduler, :action => 'post') do |f|
         = f.hidden_field :data_source_id,  :value => @data_source.id
         = f.hidden_field :status, :value => ImportScheduler::WAITING
+        = f.hidden_field :errors_list, :value => ''
         = f.hidden_field :message, :value => 'Data are added to import que'
         = f.submit "Import data", :class => "submit_em", :id => "submit_import_data"
 

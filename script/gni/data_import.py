@@ -23,30 +23,30 @@ no_space_before = re.compile('\s+([\)\]\.\,\;\:])')
 spaces_around = re.compile('([&])')
 multi_spaces = re.compile('\s{2,}')
 
-def run_imports(source,source_id,environment): 
+def run_imports(source, source_id, import_scheduler_id, environment): 
     
-    i = Importer(source, source_id, environment)
+    i = Importer(source, source_id, import_scheduler_id, environment)
     #cProfile.run('i.parse()')
     i.db_clean_imports()
     for ii in i.parse():
         yield ii
     print "data entered for processing"
-    
+
     yield "Processing"
     i.process()
-    
+
     yield "Making new data publicly available"
     i.migrate_data()
-    
+
     yield "Finding overlaps"
     i.find_overlaps()
-    
+
     yield "Gathering statistics"
     i.add_names_count()
 
     yield "Committing"
     i.db_commit()
-    
+
     i.db_clean_imports()
 
 def normalize_name_string(name_string):
@@ -95,7 +95,7 @@ class DbImporter: #{{{1
 
 class Importer: #{{{1
 
-    def __init__(self, source, data_source_id, environment): #{{{2
+    def __init__(self, source, data_source_id, import_scheduler_id, environment): #{{{2
         self.db = DbImporter(environment)
         self.imported_data = []
         self.counter = 0
@@ -108,6 +108,7 @@ class Importer: #{{{1
         
         self.reader = libxml2.newTextReaderFilename(source)
         self.data_source_id = data_source_id
+        self.import_scheduler_id = import_scheduler_id
 
         self._current_tag = None
         self._record = self._reset_record()
@@ -221,38 +222,57 @@ class Importer: #{{{1
         
     def _name_lookup(self, name_string): #{{{2
         normalized_name_string = normalize_name_string(name_string)
-        self.db.cursor.execute("select id from name_strings where name = %s", normalized_name_string)
-        name_string_id = self.db.cursor.fetchone()
-        if not name_string_id:
-            self.db.cursor.execute("insert into name_strings (name, created_at, updated_at) values (%s, now(), now())", (normalized_name_string))
-            self.db.cursor.execute("select last_insert_id()")
+        if len(normalized_name_string) < 256:
+            self.db.cursor.execute("select id from name_strings where name = %s", normalized_name_string)
             name_string_id = self.db.cursor.fetchone()
+            if not name_string_id:
+                try:
+                    self.db.cursor.execute("insert into name_strings (name, created_at, updated_at) values (%s, now(), now())", (normalized_name_string))
+                    self.db.cursor.execute("select last_insert_id()")
+                    name_string_id = self.db.cursor.fetchone()
+                except:
+                    self._add_error("Could not insert name %s" % normalized_name_string)
+                    name_string_id = [0]
+        else:
+            self._add_error("Name '%s' is too long (longer than 256 characters)" % normalized_name_string)
+            name_string_id = [0]
         return name_string_id[0], normalized_name_string
+
+    def _add_error(self, error):
+        if self.import_scheduler_id:
+            errors_res = self.db.cursor.execute("select errors_list from import_schedulers where id = %s" % self.import_scheduler_id)
+            errors = errors_res.fetch_one[0]
+            errors += "\n" + error
+            self.db.cursor.execute("update import_schedulers set errors_list = %s where id = %s" % (error, self.import_scheduler_id))
+        else:
+            print error
 
     def _insert(self):
         c = self.db.cursor
         records = []
         insert_query = "insert into import_name_index_records (data_source_id, kingdom_id, name_string, name_string_id, name_rank_id, local_id, global_id, url, original_name_string, created_at, updated_at) values %s"
         for i in self.imported_data:
-            i['name_string_id'], normalized_string = self._name_lookup(i['Simple'])
+            name_string_id, normalized_string = self._name_lookup(i['Simple'])
+            if name_string_id > 0:
+                i['name_string_id'] = name_string_id
             
-            #keep name string if it was modified by normalization
-            if i['Simple'] == normalized_string:
-                i['OriginalNameString'] = None
-            else:
-                i['OriginalNameString'] = i['Simple']
+                #keep name string if it was modified by normalization
+                if i['Simple'] == normalized_string:
+                    i['OriginalNameString'] = None
+                else:
+                    i['OriginalNameString'] = i['Simple']
 
-            data = self.db.escape_data(i)
-            try:
-                records.append("(%(data_source_id)s, %(Kingdom)s, %(Simple)s, %(name_string_id)s, %(Rank)s, %(identifier)s, %(GlobalUniqueIdentifier)s, %(source)s, %(OriginalNameString)s, now(), now())" % data)
-            except Exception, e:
-                print data.keys()
-                print data.values()
-                raise Exception
-            if len(records) >= packet_size:
-                c.execute(insert_query % ",".join(records)) 
-                #print(':mysql: records ' + str(count))
-                records=[]
+                data = self.db.escape_data(i)
+                try:
+                    records.append("(%(data_source_id)s, %(Kingdom)s, %(Simple)s, %(name_string_id)s, %(Rank)s, %(identifier)s, %(GlobalUniqueIdentifier)s, %(source)s, %(OriginalNameString)s, now(), now())" % data)
+                except Exception, e:
+                    print data.keys()
+                    print data.values()
+                    raise Exception
+                if len(records) >= packet_size:
+                    c.execute(insert_query % ",".join(records)) 
+                    #print(':mysql: records ' + str(count))
+                    records=[]
         if records:
             c.execute(insert_query % ",".join(records)) 
         #print(':mysql: name_index_records inserts are done')
@@ -269,12 +289,13 @@ if __name__ == '__main__': #script part {{{1
     
     opts.add_option("-i", "--source-id", dest="source_id",
         help="Identifier of the data_source in GNA database.")
+
     
     (options, args) = opts.parse_args()
     
     if not (options.source and options.source_id and type(int(options.source_id)) == type(1)):
         raise Exception("source file/url and source id are required")
     
-    for status in run_imports(options.source, options.source_id, options.environment):
+    for status in run_imports(options.source, options.source_id, None, options.environment):
         print status
     
