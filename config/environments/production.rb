@@ -7,6 +7,8 @@ config.cache_classes = true
 # Use a different logger for distributed setups
 # config.logger = SyslogLogger.new
 
+# config.log_level = :debug
+
 # Full error reports are disabled and caching is turned on
 config.action_controller.consider_all_requests_local = false
 config.action_controller.perform_caching             = true

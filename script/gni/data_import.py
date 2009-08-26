@@ -119,7 +119,7 @@ class Importer: #{{{1
                 yield i
             ret = self.reader.Read()
         if ret != 0:
-            raise RuntimeError("%s : failed to parse" % (filename))
+            raise RuntimeError("failed to parse xml")
         #add the rest of the 'tail' data 
         self._insert()
 
