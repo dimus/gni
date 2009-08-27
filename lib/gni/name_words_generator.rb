@@ -1,6 +1,6 @@
 module GNI
   class NameWordsGenerator
-    def initialize(transaction_limit = 200000)
+    def initialize(transaction_limit = 10000)
       @c = ActiveRecord::Base.connection
       @names = get_names
       @names_order = nil
@@ -18,7 +18,7 @@ module GNI
       @semantics ||= get_semantics 
     end
     
-    def generate_words
+    def generate_words(print_progress = false)
       start_transaction
       count = 0
       names.each do |name_string_id, name, canonical_form_id|
@@ -29,6 +29,7 @@ module GNI
         canonical_form_id = insert_canonical_form(name_string_id, parsed_name[:canonical]) if canonical_form_id == nil && parsed_name[:canonical]
         generate(words, positions, name_string_id, canonical_form_id)
         if count % @transaction_limit == 0
+          puts count if print_progress
           end_transaction
           start_transaction
         end
