@@ -26,8 +26,9 @@ module GNI
         words = NameWord.get_words(name)
         parsed_name = @parser.parse(name)[:scientificName]
         positions = parsed_name[:positions] 
-        canonical_form_id = insert_canonical_form(name_string_id, parsed_name[:canonical]) if canonical_form_id == nil && parsed_name[:canonical]
+        canonical_form_id, is_new_canonical_form = insert_canonical_form(name_string_id, parsed_name[:canonical]) if canonical_form_id == nil && parsed_name[:canonical]
         generate(words, positions, name_string_id, canonical_form_id)
+        insert_extended_canonical_form(canonical_form_id, parsed_name[:canonical]) if is_new_canonical_form
         if count % @transaction_limit == 0
           puts count if print_progress
           end_transaction
@@ -71,7 +72,6 @@ module GNI
     end
     
     def insert_name_word(word_array)
-      #this will only be correct with ruby 1.9
       word_size = word_array[1].size
       first_letter = word_array[1][0..0]
       q = "insert into name_words (word, first_letter, length, created_at, updated_at) values ('%s', '%s', %s, now(), now())" % [word_array[1], first_letter, word_size]
@@ -86,17 +86,22 @@ module GNI
     end
     
     def insert_canonical_form(name_string_id, canonical_form)
+      is_new = false
       canonical_form = @norm.normalize canonical_form
       canonical_form_id = @c.select_value("select id from canonical_forms where name = '%s'" % canonical_form)
       unless canonical_form_id
         canonical_form_id = @c.insert("insert into canonical_forms (name, created_at, updated_at) values ('%s', now(), now())" % canonical_form)
-        
-        words = canonical_form.split(" ")
-        word1_id = @c.select_value("select id from name_words where word = '#{words[0]}'") || 'null' rescue 'null'
-        @c.execute ActiveRecord::Base.gni_sanitize_sql(["insert into extended_canonical_forms (id, number_of_words, word1_id, word1, word1_length, word2, word2_length, word3, word3_length) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", canonical_form_id, words.size, word1_id, words[0], (words[0].size rescue nil), words[1], (words[1].size rescue nil), words[2], (words[2].size rescue nil)])
-
+        is_new = true
       end
-      return canonical_form_id
+      return [canonical_form_id, is_new]
     end
+
+    def insert_extended_canonical_form(canonical_form_id, canonical_form)
+      words = canonical_form.split(" ")
+      word1_id = @c.select_value("select id from name_words where word = '#{words[0]}'") || 'null' rescue 'null'
+      @c.execute ActiveRecord::Base.gni_sanitize_sql(["insert into extended_canonical_forms (id, number_of_words, word1_id, word1, word1_length, word2, word2_length, word3, word3_length) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", canonical_form_id, words.size, word1_id, words[0], (words[0].size rescue nil), words[1], (words[1].size rescue nil), words[2], (words[2].size rescue nil)])
+    end
+
   end
+  
 end
