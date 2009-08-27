@@ -238,16 +238,21 @@ class Importer: #{{{1
             name_string_id = [0]
         return name_string_id[0], normalized_name_string
 
-    def _add_error(self, error):
+    def _add_error(self, error): #{{{2
         if self.import_scheduler_id:
-            errors_res = self.db.cursor.execute("select errors_list from import_schedulers where id = %s" % self.import_scheduler_id)
-            errors = errors_res.fetch_one[0]
+            self.db.cursor.execute("select errors_list from import_schedulers where id = %s" % self.import_scheduler_id)
+            errors = self.db.cursor.fetchone()
+            errors = errors[0]
+            if not errors: errors = 'Errors:'
             errors += "\n" + error
-            self.db.cursor.execute("update import_schedulers set errors_list = %s where id = %s" % (error, self.import_scheduler_id))
+            errors = MySQLdb.escape_string(errors)
+            query = "update import_schedulers set errors_list = '%s' where id = %s" % (errors, self.import_scheduler_id)
+            print query
+            self.db.cursor.execute(query)
         else:
             print error
 
-    def _insert(self):
+    def _insert(self): #{{{2
         c = self.db.cursor
         records = []
         insert_query = "insert into import_name_index_records (data_source_id, kingdom_id, name_string, name_string_id, name_rank_id, local_id, global_id, url, original_name_string, created_at, updated_at) values %s"
@@ -296,6 +301,6 @@ if __name__ == '__main__': #script part {{{1
     if not (options.source and options.source_id and type(int(options.source_id)) == type(1)):
         raise Exception("source file/url and source id are required")
     
-    for status in run_imports(options.source, options.source_id, None, options.environment):
+    for status in run_imports(options.source, options.source_id, 86, options.environment):
         print status
     
