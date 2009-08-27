@@ -89,6 +89,11 @@ module GNI
       canonical_form_id = @c.select_value("select id from canonical_forms where name = '%s'" % canonical_form)
       unless canonical_form_id
         canonical_form_id = @c.insert("insert into canonical_forms (name, created_at, updated_at) values ('%s', now(), now())" % canonical_form)
+        
+        words = canonical_form.split(" ")
+        word1_id = @c.select_value("select id from name_words where word = '#{words[0]}'") || 'null' rescue 'null'
+        @c.execute ActiveRecord::Base.gni_sanitize_sql(["insert into extended_canonical_forms (id, number_of_words, word1_id, word1, word1_length, word2, word2_length, word3, word3_length) values (?, ?, ?, ?, ?, ?, ?, ?, ?)", canonical_form_id, words.size, word1_id, words[0], (words[0].size rescue nil), words[1], (words[1].size rescue nil), words[2], (words[2].size rescue nil)])
+
       end
       return canonical_form_id
     end
