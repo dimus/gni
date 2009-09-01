@@ -31,7 +31,8 @@ module GNI
           canonical_form = @norm.normalize parsed_name[:canonical]
           canonical_form_id, is_new_canonical_form = insert_canonical_form(name_string_id, canonical_form) 
         end
-        generate(words, positions, name_string_id, canonical_form_id)
+        is_canonical_form = (parsed_name[:canonical] && name == parsed_name[:canonical]) ? 1 : 0
+        generate(words, positions, name_string_id, canonical_form_id, is_canonical_form)
         insert_extended_canonical_form(canonical_form_id, canonical_form) if is_new_canonical_form
         if count % @transaction_limit == 0
           puts count if print_progress
@@ -60,7 +61,7 @@ module GNI
       @c.execute('commit') if RAILS_ENV != 'test'
     end
     
-    def generate(words, positions, name_string_id, canonical_form_id)
+    def generate(words, positions, name_string_id, canonical_form_id, is_canonical_form)
       words.each do |word|
         semantic_meaning = (positions[word[0]] ? positions[word[0]][0] : nil) rescue nil
         word << semantic_meaning
@@ -72,7 +73,7 @@ module GNI
         insert_name_word_semantics(word,name_word_id, name_string_id)
       end
       canonical_form_id = "'null'" unless canonical_form_id
-      @c.update("update name_strings set has_words = 1, canonical_form_id = %s where id = %s" % [canonical_form_id, name_string_id])
+      @c.update("update name_strings set has_words = 1, canonical_form_id = %s, is_canonical_form = %s where id = %s" % [canonical_form_id, is_canonical_form, name_string_id])
     end
     
     def insert_name_word(word_array)

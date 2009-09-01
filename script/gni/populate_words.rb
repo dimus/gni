@@ -53,7 +53,7 @@ if 1 == 1
       KEY `idx_#{t}_words_1` (`first_letter`,`length`)
       ) ENGINE=InnoDB DEFAULT CHARSET=ASCII")
 
-    query = "insert into #{t}_words select distinct nw.id, nw.word, nw.first_letter, nw.length, null from name_word_semantics nws join name_words nw on nw.id=nws.name_word_id join semantic_meanings sm on sm.id = nws.semantic_meaning_id where sm.name='#{t}' order by normalized"
+    query = "insert into #{t}_words select distinct nw.id, nw.word, nw.first_letter, nw.length, null from name_word_semantics nws join name_words nw on nw.id=nws.name_word_id join semantic_meanings sm on sm.id = nws.semantic_meaning_id where sm.name='#{t}' order by nw.word"
     puts query
     c.execute query
   end

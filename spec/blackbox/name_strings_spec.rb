@@ -50,6 +50,12 @@ describe '/name_strings' do
     resp.body.should include("Adnatosphaeridium tutulosum (Cookson &amp; Eisenack 1960)")
     resp.body.should_not include("Higehananomia palpalis")
   end
+  
+  it 'should be able to search a name with an apostrophy' do
+    resp = req("/name_strings?search_term=O'Connel")
+    resp.success?.should be_true
+    resp.body.should include("Tauriaptychus crastobalensis (O'Connel )")
+  end
 
   it 'API should return search in xml and json' do
     resp_xml = req( '/name_strings.xml?search_term=adna*' )
