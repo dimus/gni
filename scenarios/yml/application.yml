@@ -27,69 +27,95 @@ NameString:
   - id: 1
     name: "Adnaria frondosa (L.) Kuntze"
     canonical_form_id:
+    is_canonical_form:      
   - id: 2
     name: "Adnatosphaeridium tutulosum (Cookson & Eisenack 1960)"
     canonical_form_id:
+    is_canonical_form:
   - id: 3
     name: "Adnatosphaeridium G. Williams et Downie, 1966"
     canonical_form_id:
+    is_canonical_form:
   - id: 4
     name: "Dadoychus flavocinctus Monné & Giesbert, 1994"
     canonical_form_id:
+    is_canonical_form:
   - id: 5
     name: "Dadoychus mucuim Júlio, Giorgi & Monné, 2000"
     canonical_form_id:
+    is_canonical_form:
   - id: 6
     name: "Higehananomia Kôno 1935"
     canonical_form_id:
+    is_canonical_form:
   - id: 7
     name: "Higehananomia palpalis"
     canonical_form_id:
+    is_canonical_form:
   - id: 8
     name: "Higehananomia palpalis Kono 1935"
     canonical_form_id:
+    is_canonical_form:
   - id: 9
     name: "Higena"
     canonical_form_id:
+    is_canonical_form:
   - id: 10
     name: "Higena distincta"
     canonical_form_id:
+    is_canonical_form:
   - id: 11
     name: "Higena Matsumura 1925"
     canonical_form_id:
+    is_canonical_form:
   - id: 12
     name: "Higena plumigera"
     canonical_form_id:
+    is_canonical_form:
   - id: 13
     name: "Higena plumigera Matsumura 1925"
     canonical_form_id:
+    is_canonical_form:
   - id: 14
     name: "Higena plumigera Linneaus 1787"
     canonical_form_id:
+    is_canonical_form:
   - id: 15
     name: "Higena plumigera L. 1787"
     canonical_form_id:
+    is_canonical_form:
   - id: 16
     name: "Higena plumigera Linn."
     canonical_form_id:
+    is_canonical_form:
   - id: 17
     name: "Hegena Matsumura 1925"
     canonical_form_id:
+    is_canonical_form:
   - id: 18
     name: "Cunninghamella echinulata elegans (Lendn.) Lunn & Shipton 1983"
     canonical_form_id:
+    is_canonical_form:
   - id: 19
     name: "Plantago lorata (J.Z.Liu) Shipunov"
     canonical_form_id:
+    is_canonical_form:
   - id: 20
     name: "Tylocephalum trygonis (Shipley & Hornell 1905) Shipley & Hornell 1906"
     canonical_form_id:
+    is_canonical_form:
   - id: 21
     name: "Plantago major Linneaus" #not parsed
     canonical_form_id:
+    is_canonical_form:
   - id: 22
     name: Alpharetrovirus Avian myeloblastosis virus ICTV #not parsable
     canonical_form_id:
+    is_canonical_form:
+  - id: 23
+    name: Tauriaptychus crastobalensis (O'Connel )
+    canonical_form_id:
+    is_canonical_form:
 
 LexicalGroup:
   - id: 1
@@ -297,6 +323,9 @@ NameIndex:
   - id: 24
     name_string_id: 22
     data_source_id: 4
+  - id: 25
+    name_string_id: 23
+    data_source_id: 4
 
 NameIndexRecord:
   - name_index_id: 1
@@ -329,6 +358,7 @@ NameIndexRecord:
   - name_index_id: 20
   - name_index_id: 21
   - name_index_id: 22
+  - name_index_id: 23
   
 SemanticMeaning:
   - id: 1
