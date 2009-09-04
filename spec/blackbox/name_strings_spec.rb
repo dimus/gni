@@ -56,6 +56,13 @@ describe '/name_strings' do
     resp.success?.should be_true
     resp.body.should include("Tauriaptychus crastobalensis (O'Connel )")
   end
+  
+  it 'should be able to search names with non-ascii characters' do 
+    resp = req("/name_strings?search_term=au%3AKôno")
+    resp.success?.should be_true
+    resp.body.should include("Higehananomia Kôno 1935")
+    resp.body.should include("Higehananomia palpalis Kono 1935")
+  end
 
   it 'API should return search in xml and json' do
     resp_xml = req( '/name_strings.xml?search_term=adna*' )
