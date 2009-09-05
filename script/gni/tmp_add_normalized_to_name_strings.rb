@@ -35,11 +35,18 @@ c = ActiveRecord::Base.connection
 c.execute("drop table if exists name_strings_tmp")
 c.execute("create table name_strings_tmp like name_strings")
 
-names = c.execute "select id, name, is_canonical_form, canonical_form_id, has_words, created_at, updated_at from name_strings order by name"
-
+names = c.execute "select id, name, is_canonical_form, canonical_form_id, has_words, created_at, updated_at from name_strings order by id"
+count = 0
+c.execute "start transaction" 
 names.each do |id, name, is_canonical_form, canonical_form_id, has_words, created_at, updated_at|
-  puts created_at
+  count += 1
+  if count % 10000 == 0
+    puts count
+    c.execute "commit" 
+    c.execute "start transaction" 
+  end
   normalized = ActiveRecord::Base.gni_sanitize_sql(["?", Taxamatch::Normalizer.normalize(name)])
   name = ActiveRecord::Base.gni_sanitize_sql(["?", name])
   c.execute "insert into name_strings_tmp (id, name, normalized, is_canonical_form, has_words, canonical_form_id, created_at, updated_at) values (%s, %s, %s, %s, %s, %s, '%s', '%s')" % [id, name, normalized, is_canonical_form, canonical_form_id, has_words, created_at, updated_at]
 end
+c.execute "commit"

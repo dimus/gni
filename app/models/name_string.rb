@@ -92,7 +92,7 @@ private
       suffix = ''
     elsif name_string_term
       select = "ns.id, ns.name from name_strings ns"
-      where = ActiveRecord::Base.gni_sanitize_sql([" ns.name like ?", name_string_term])
+      where = ActiveRecord::Base.gni_sanitize_sql([" ns.normalized like ?", name_string_term])
     elsif canonical_term
       select = "ns.id, ns.name from name_strings ns join canonical_forms cf on (cf.id = ns.canonical_form_id)"
       where = ActiveRecord::Base.gni_sanitize_sql([" cf.name like ?", canonical_term])
@@ -112,9 +112,9 @@ private
     
     search_words.each do |word|
       if !!word.match(/^#{qualifiers_list}:(.*)$/)
-        qualified_words << [$1, $2]
+        qualified_words << [$1, Taxamatch::Normalizer.normalize($2)]
       else
-        search_words_prepared << word
+        search_words_prepared << Taxamatch::Normalizer.normalize(word)
       end
     end
 
@@ -133,8 +133,8 @@ private
     end
 
     where += ")"
-    where +=  " and (ns.name rlike "
-    where += regexes.map {|w| "'#{w}'"}.join(' and ns.name rlike ') + ")"
+    where +=  " and (ns.normalized rlike "
+    where += regexes.map {|w| "'#{w}'"}.join(' and ns.normalized rlike ') + ")"
   
     suffix = "ORDER BY ns.name"
     [select, where, suffix]

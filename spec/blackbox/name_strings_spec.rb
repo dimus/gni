@@ -58,9 +58,8 @@ describe '/name_strings' do
   end
   
   it 'should be able to search names with non-ascii characters' do 
-    resp = req("/name_strings?search_term=au%3AKôno")
+    resp = req(URI.encode "/name_strings?search_term=au:Kôno")
     resp.success?.should be_true
-    resp.body.should include("Higehananomia Kôno 1935")
     resp.body.should include("Higehananomia palpalis Kono 1935")
   end
 
