@@ -2,7 +2,9 @@
 
 - form_tag '/parsers', :multipart => true  do
   %label Output format: 
-  = radio_button_tag 'format', 'json', true
+  = radio_button_tag 'format', 'html', true
+  HTML
+  = radio_button_tag 'format', 'json'
   JSON
   = radio_button_tag 'format', 'yaml'
   YAML

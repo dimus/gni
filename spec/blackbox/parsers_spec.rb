@@ -25,13 +25,21 @@ describe '/parsers' do
   end
   
   describe 'create' do
-    it 'should render' do
+    it 'should render json' do
       res = request('/parsers', :params =>{
         'names' => "Betula pubescens\nPlantago major L. 1786",
         'format' => 'json'})
       res.success?.should be_true
       JSON.load(res.body).size.should == 2
       res.body.should include('"parsed":true')
+    end
+    
+    it 'should render html' do
+      res = request('/parsers', :params =>{
+        'names' => "Betula pubescens\nPlantago major L. 1786",
+        'format' => 'html'})
+      res.success?.should be_true
+      res.body.should include('<span class="tree_key">parsed: </span>true')
     end
   end
 end

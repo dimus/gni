@@ -29,6 +29,14 @@ class Parser
       end
       xml_string += "</scientific_names>\n"
       return xml_string
+    elsif format == 'html'
+      names = JSON.load(@parsed_names)
+      html_string = ''
+      names.each do |name|
+        html_string += Parser.render_html(name)
+        html_string += "<br/>"
+      end
+      return html_string
     end
   end
   

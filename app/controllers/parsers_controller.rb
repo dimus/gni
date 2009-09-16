@@ -25,8 +25,11 @@ private
       render :xml => names
     elsif format == 'yaml'
       render :text => names
-    else
+    elsif format == 'json'
       render :json => json_callback(names, params[:callback])
+    else
+      @names = names
+      render :action => :names
     end
   end
 end
