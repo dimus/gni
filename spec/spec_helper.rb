@@ -6,6 +6,13 @@ require 'spec/autorun'
 #require 'spec'
 require 'spec/rails'
 
+#hack added to make has_tag method compatible with rails 2.3.4
+require 'action_controller'
+require 'action_controller/assertions/selector_assertions'
+include ActionController::Assertions::SelectorAssertions
+#end hack
+
+
 require File.expand_path(File.dirname(__FILE__) + "/factories")
 require File.expand_path(File.dirname(__FILE__) + "/gni_spec_helpers")
 require File.expand_path(File.dirname(__FILE__) + "/custom_matchers")

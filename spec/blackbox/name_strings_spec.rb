@@ -73,7 +73,7 @@ describe '/name_strings' do
     resp_json = req( '/name_strings.json?search_term=adna*' )
     resp_json.success?.should be_true
     resp_json.body.should include("Adnaria frondosa")
-    resp_json.body.should include("Adnatosphaeridium tutulosum (Cookson & Eisenack 1960)")
+    resp_json.body.should include("Adnatosphaeridium tutulosum (Cookson \\u0026 Eisenack 1960)")
     resp_json.body.should_not include("Higehananomia palpalis")
   end
 

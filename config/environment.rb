@@ -5,13 +5,10 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.2.2' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
-
-#load empty GNI namespace
-require 'gni'
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
@@ -84,3 +81,7 @@ unless defined? ENV_CONSTANTS_ARE_DEFINED
   NOREPLY_EMAIL = "noreply@example.org"
   FEEDBACK_EMAIL = 'customer_service@example.com'
 end
+
+#load GNI namespace
+require 'gni'
+
