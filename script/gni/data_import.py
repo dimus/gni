@@ -81,6 +81,8 @@ class DbImporter: #{{{1
     def _connect(self):
         db_data = os.popen('erb ' + sys.path[0] + '/../../config/database.yml').read()
         db_conf =  yaml.load(db_data)[self.environment]
+        if db_conf['password'] == None:
+            db_conf['password'] = ''
         if not db_conf.has_key('socket'):
             db_conf['socket'] = "/tmp/mysql.sock"
 
