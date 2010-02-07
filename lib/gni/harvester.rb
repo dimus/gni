@@ -154,12 +154,13 @@ module GNI
     protected
     
     def set_file_processor
-      file_type = IO.popen("file " + @data_source.file_path).read
+      file_type = IO.popen("file -z " + @data_source.file_path).read
+      file_type = 'TarGz' if file_type.match(/tar.*gzip/i)
       #short xml files are not recognized by file command:
       first_line = IO.popen("head -n 1 " + @data_source.file_path).read
       file_type = 'XML' if first_line.match(/<\?\s*xml/)
       
-      ['Zip', 'HTML', 'XML'].each do |x|
+      ['TarGz', 'Zip', 'HTML', 'XML'].each do |x|
         if file_type.match /#{x}/i
           eval("@file_processor = Processor#{x}.new(@import_scheduler)")
           break
@@ -202,6 +203,23 @@ module GNI
         dwc.process {|status| yield status}
       end
     end
+    
+    class ProcessorTarGz < ProcessorFile
+      def process
+        FileUtils.rm_rf @data_source.temporary_path
+        FileUtils.mkdir @data_source.temporary_path
+        system "tar -zxvf #{@data_source.file_path} -C #{@data_source.temporary_path}"
+        dwc = ProcessorDarwinCoreStar.new(@import_scheduler)
+        dwc.process {|status| yield status}
+      end
+    end
+    
+    class ProcessorNull < ProcessorFile
+      def process
+        msg = File.exists?(@data_source.file_path) ? "Unknown format of the file" : "Downloaded file disappeared, some hungry file eater ate it."
+       yield [ImportScheduler::FAILED, msg]
+      end
+    end
 
     class ProcessorDarwinCoreStar < ProcessorFile
       def process
@@ -240,13 +258,6 @@ module GNI
       def clean_up
         File.unlink @data_source.file_path
         FileUtils.rm_rf @data_source.temporary_path
-      end
-    end
-    
-    class ProcessorNull < ProcessorFile
-      def process
-        msg = File.exists?(@data_source.file_path) ? "Unknown format of the file" : "Downloaded file disappeared, some hungry file eater ate it."
-       yield [ImportScheduler::FAILED, msg]
       end
     end
   end
@@ -327,8 +338,9 @@ module GNI
       delimiter = get_delimiter(node.attributes['fieldsTerminatedBy'].value)
       border_chars = node.attributes['fieldsEnclosedBy'].value || ""
       border_regex = border_chars == "" ? nil : /^#{border_chars}(.*)#{border_chars}$/
+      location = node.attributes['location'] ? node.attributes['location'].value : @core.xpath("child::xmlns:files[1]/xmlns:location").text
       count = 0
-      open(@data_source.directory_path + '/' + node.attributes['location'].value).each do |line|
+      open(@data_source.directory_path + '/' + location).each do |line|
         count += 1
         if count % 10000 == 0
           msg = @import_scheduler.message.split(":")[0] + ": ingesting #{count}th line"

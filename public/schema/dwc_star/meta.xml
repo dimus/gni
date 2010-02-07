@@ -4,7 +4,10 @@
     xsi:schemaLocation="http://rs.tdwg.org/dwc/terms/xsd/archive/ http://darwincore.googlecode.com/svn/trunk/text/tdwg_dwc_text.xsd"
     fileRoot=".">
     
-    <core location="darwin_core.txt" encoding="UTF-8" fieldsTerminatedBy="\t" linesTerminatedBy="\n" rowType="http://rs.tdwg.org/dwc/terms/Taxon">
+    <core encoding="UTF-8" fieldsTerminatedBy="\t" linesTerminatedBy="\n" rowType="http://rs.tdwg.org/dwc/terms/Taxon">
+        <files>
+            <location>taxa.txt</location>
+        </files>
         <!-- the name identifier used in source, if existing a globally unique one -->
         <id term="http://rs.tdwg.org/dwc/terms/TaxonID" index="0"/>
         <field term="http://purl.org/dc/terms/source" index="1"/>
@@ -18,7 +21,10 @@
         <field term="http://purl.org/dc/terms/modified" index="7"/>
     </core>
     
-    <extension location="links.txt">
+    <extension>
+        <files>
+            <location>links.txt</location>
+        </files>
         <!-- foreign key pointing to the id of the corresponding core record -->
         <coreid term="http://rs.tdwg.org/dwc/terms/TaxonID" index="0"/>
         <!-- the link as a URL -->
@@ -27,7 +33,10 @@
         <field term="http://purl.org/dc/terms/format" index="2"/>
     </extension>
     
-    <extension location="lexical_groups.txt">
+    <extension>
+        <files>
+            <location>lexical_groups.txt</location>
+        </files>
         <!-- foreign key pointing to the id of the corresponding core record -->
         <coreid term="http://rs.tdwg.org/dwc/terms/TaxonID" index="0"/>
         <!-- the lexical group ID -->
