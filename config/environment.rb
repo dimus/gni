@@ -84,4 +84,5 @@ end
 
 #load GNI namespace
 require 'gni'
-
+require File.join([RAILS_ROOT, 'vendor', 'libs', 'ruby-uuid', 'uuid'])
+$GNA_NAMESPACE = UUID.create_v5("globalnames.org", UUID::NameSpace_DNS)

@@ -20,6 +20,10 @@ class NameString < ActiveRecord::Base
     PARSING_CANONICAL = 3
     CONSTANTS_DEFINED = true
   end
+
+  def guid
+    UUID.parse(self.uuid.unpack("H*")[0]).guid
+  end
   
   def self.prepare_search_term(search_term)
     search_term.gsub(/[\(\)\[\]|.,&;]/, ' ').gsub("*", '%').gsub(/\s+/, ' ') if search_term

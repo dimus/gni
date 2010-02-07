@@ -8,6 +8,7 @@ import yaml
 import cjson
 import sha
 import time
+import uuid
 from optparse import OptionParser
 import re
 #import cProfile
@@ -22,6 +23,7 @@ space_after = re.compile('([\,])(?=[^\s])')
 no_space_before = re.compile('\s+([\)\]\.\,\;\:])')
 spaces_around = re.compile('([&])')
 multi_spaces = re.compile('\s{2,}')
+gna_namespace = uuid.uuid5(uuid.NAMESPACE_DNS, "globalnames.org")
 
 def run_imports(source, source_id, import_scheduler_id, environment): 
     
@@ -229,7 +231,8 @@ class Importer: #{{{1
             name_string_id = self.db.cursor.fetchone()
             if not name_string_id:
                 try:
-                    self.db.cursor.execute("insert into name_strings (name, created_at, updated_at) values (%s, now(), now())", (normalized_name_string))
+                    uuid_hex = uuid.uuid5(gna_namespace, normalized_name_string).hex
+                    self.db.cursor.execute("insert into name_strings (name, uuid, created_at, updated_at) values (%s, unhex(%s), now(), now())", (normalized_name_string, uuid_hex))
                     self.db.cursor.execute("select last_insert_id()")
                     name_string_id = self.db.cursor.fetchone()
                 except:
