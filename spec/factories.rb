@@ -22,6 +22,7 @@ Factory.define :name_string do |name_string|
   name_string.updated_at      { 5.days.ago }
   name_string.name { NameString.normalize_name_string(Factory.next(:scientific_name))}
   name_string.association :canonical_form
+  name_string.uuid {|n| GNI.uuid(n)
 end
 
 Factory.define :lexical_group do |lexical_group|

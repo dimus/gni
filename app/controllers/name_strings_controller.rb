@@ -37,7 +37,7 @@ class NameStringsController < ApplicationController
     @item_first, @item_last = get_items_number(@name_strings)
     
     #TODO UGGGLY!!!
-    @name_strings_serialized = @name_strings.map {|ns| ns.resource_uri = name_string_url(ns.id)+".xml"; Hash.from_xml(ns.to_xml :methods => [:resource_uri])['name_string']} unless @name_strings.blank?
+    @name_strings_serialized = @name_strings.map {|ns| ns.resource_uri = name_string_url(ns.id)+".xml"; Hash.from_xml(ns.to_xml :except => [:uuid], :methods => [:resource_uri, :uuid_hex, :lsid])['name_string']} unless @name_strings.blank?
     result = {}
     result[:page_number] = search_data[:page]
     result[:name_strings_total] = @name_strings.total_entries rescue nil
@@ -67,7 +67,7 @@ class NameStringsController < ApplicationController
     data = {:data => @data_sources_data, :name_string => @name_string}
     respond_to do |format|
       format.html
-      format.xml {render :xml => data}
+      format.xml {render :xml => data.to_xml(:except => [:uuid], :methods => [:uuid_hex, :lsid, :resource_uri])}
       format.json {render :json => json_callback(data.to_json,params[:callback])}
     end
   end

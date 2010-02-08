@@ -9,6 +9,7 @@ RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
+require File.join([RAILS_ROOT, 'vendor', 'libs', 'ruby-uuid', 'uuid'])
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
@@ -70,19 +71,19 @@ Rails::Initializer.run do |config|
   
 
 end  
-#version info is substituted by deployment tag
+
 unless defined? ENV_CONSTANTS_ARE_DEFINED
-  APP_VERSION = "N/A"
+  ENV_CONSTANTS_ARE_DEFINED = true
+  APP_VERSION = "N/A" #version info is changed to deployment tag by capistrano script
   SCHEMA_VERSION = "0.1"
   PER_PAGE_MAX = 1000
   PROGRAM_NAME = "Global Names Index"
-  ENV_CONSTANTS_ARE_DEFINED = true
   GOOGLE_ANALYTICS = '' 
   NOREPLY_EMAIL = "noreply@example.org"
   FEEDBACK_EMAIL = 'customer_service@example.com'
+  LSID_PREFIX = "urn:lsid:globalnames.org:index:"
+  GNA_NAMESPACE = UUID.create_v5("globalnames.org", UUID::NameSpace_DNS)
 end
 
 #load GNI namespace
 require 'gni'
-require File.join([RAILS_ROOT, 'vendor', 'libs', 'ruby-uuid', 'uuid'])
-$GNA_NAMESPACE = UUID.create_v5("globalnames.org", UUID::NameSpace_DNS)

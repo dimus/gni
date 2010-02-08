@@ -10,8 +10,8 @@ class NameString < ActiveRecord::Base
   
   validates_presence_of :name
   validates_uniqueness_of :name
-  attr_accessor :resource_uri
-  attr_accessible :resource_uri
+  attr_accessor :resource_uri, :uuid_hex, :lsid
+  attr_accessible :resource_uri, :uuid_hex, :lsid
   
   unless defined? CONSTANTS_DEFINED
     LATIN_CHARACTERS =  ('A'..'Z')
@@ -21,8 +21,12 @@ class NameString < ActiveRecord::Base
     CONSTANTS_DEFINED = true
   end
 
-  def guid
-    UUID.parse(self.uuid.unpack("H*")[0]).guid
+  def uuid_hex
+    UUID.parse(self.uuid.unpack("H*")[0]).guid rescue nil
+  end
+
+  def lsid
+    uuid_hex ? LSID_PREFIX + uuid_hex : nil
   end
   
   def self.prepare_search_term(search_term)
@@ -70,7 +74,7 @@ class NameString < ActiveRecord::Base
       select, where = query_with_user_and_data_source(select, where, user_id, data_source_id)
       q = "SELECT #{select} WHERE #{where} #{suffix}"
     else
-      q = "SELECT id, name from name_strings where 1=2"
+      q = "SELECT id, name, uuid from name_strings where 1=2"
     end  
 
     self.paginate_by_sql(q, :page => page_number, :per_page => items_per_page)
@@ -91,14 +95,14 @@ private
   def self.prepare_special_case_query(ns_id, name_string_term, canonical_term)
     suffix = 'ORDER BY ns.name'
     if ns_id
-      select = "ns.id, ns.name from name_strings ns"
+      select = "ns.id, ns.name, ns.uuid from name_strings ns"
       where = "ns.id = %s" % ns_id.to_i
       suffix = ''
     elsif name_string_term
-      select = "ns.id, ns.name from name_strings ns"
+      select = "ns.id, ns.name, ns.uuid from name_strings ns"
       where = ActiveRecord::Base.gni_sanitize_sql([" ns.normalized like ?", name_string_term])
     elsif canonical_term
-      select = "ns.id, ns.name from name_strings ns join canonical_forms cf on (cf.id = ns.canonical_form_id)"
+      select = "ns.id, ns.name, ns.uuid from name_strings ns join canonical_forms cf on (cf.id = ns.canonical_form_id)"
       where = ActiveRecord::Base.gni_sanitize_sql([" cf.name like ?", canonical_term])
     end
     [select, where, suffix]
@@ -122,7 +126,7 @@ private
       end
     end
 
-    select = "distinct ns.id, ns.name from name_strings ns join name_word_semantics nws on (ns.id=nws.name_string_id) join name_words nw on (nws.name_word_id=nw.id)"    
+    select = "distinct ns.id, ns.name, ns.uuid from name_strings ns join name_word_semantics nws on (ns.id=nws.name_string_id) join name_words nw on (nws.name_word_id=nw.id)"    
     select += " left join (semantic_meanings sm) ON (nws.semantic_meaning_id=sm.id)" unless qualified_words.blank?
     where = "(1=2"
   

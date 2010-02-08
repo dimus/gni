@@ -16,4 +16,7 @@ end
 
 # A namesplace to keep project-specific data
 module GNI  
+  def self.uuid(name_string)
+    UUID.create_v5(name_string, GNA_NAMESPACE).guid
+  end
 end
