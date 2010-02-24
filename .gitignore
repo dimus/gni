@@ -19,6 +19,7 @@ tmp/pids/*
 tmp/sessions/*
 tmp/sockets/*
 tmp/war
+tmp/metric_fu/*
 log/*
 repositories/*
 public/images/logos/*
