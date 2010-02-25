@@ -56,7 +56,11 @@ class NameStringsController < ApplicationController
   # GET /name_strings/1
   # GET /name_strings/1.xml
   def show
-    @name_string = NameString.find(params[:id])
+    if params[:id].match(/^[\d]+$/) 
+      @name_string = NameString.find(params[:id])
+    else
+      @name_string = NameString.find_by_uuid(NameString.uuid2bytes(params[:id]))
+    end
     @show_records = (params[:all_records] && params[:all_records] != '0') ? true : false
     @parsed_name = Parser.new.parse(@name_string.name)
     @data_sources_data = @name_string.name_indices.map do |ni| 
@@ -69,6 +73,7 @@ class NameStringsController < ApplicationController
       format.html
       format.xml {render :xml => data.to_xml(:except => [:uuid], :methods => [:uuid_hex, :lsid, :resource_uri])}
       format.json {render :json => json_callback(data.to_json,params[:callback])}
+      format.rdf
     end
   end
   

@@ -21,6 +21,10 @@ class NameString < ActiveRecord::Base
     CONSTANTS_DEFINED = true
   end
 
+  def self.uuid2bytes(uuid)
+    UUID.parse(uuid).raw_bytes
+  end
+  
   def uuid_hex
     UUID.parse(self.uuid.unpack("H*")[0]).guid rescue nil
   end
