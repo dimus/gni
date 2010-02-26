@@ -1,0 +1,661 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY void "http://rdfs.org/ns/void#" >
+    <!ENTITY foaf "http://xmlns.com/foaf/0.1/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY dc "http://purl.org/dc/elements/1.1/" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY owl2xml "http://www.w3.org/2006/12/owl2-xml#" >
+    <!ENTITY skos "http://www.w3.org/2004/02/skos/core#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY txn_demo "http://rdf.taxonconcept.org/ont/txn_demo.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://rdf.taxonconcept.org/ont/txn_demo.owl#"
+     xml:base="http://rdf.taxonconcept.org/ont/txn.owl"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:void="http://rdfs.org/ns/void#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:txn_demo="http://rdf.taxonconcept.org/ont/txn_demo.owl#">
+    <owl:Ontology rdf:about="">
+        <rdfs:seeAlso
+            >http://rdf.taxonconcept.org/ses/v6n7p.rdf</rdfs:seeAlso>
+        <rdfs:seeAlso
+            >http://rdf.taxonconcept.org/ont/txn_demo_doc/index.html</rdfs:seeAlso>
+        <dc:date>2010-01-10</dc:date>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:AnnotationProperty rdf:about="&dc;date"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#hasLexicalVariant -->
+
+    <owl:ObjectProperty rdf:about="&txn_demo;hasLexicalVariant">
+        <rdfs:label
+            >hasLexicalVariantID</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;LexicalMap"/>
+        <rdfs:range rdf:resource="&txn_demo;LexicalVariant"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#individualHasIndividualTag -->
+
+    <owl:ObjectProperty rdf:about="&txn_demo;individualHasIndividualTag">
+        <rdfs:label>hasIndividual</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;IndividualOrganism"/>
+        <rdfs:range rdf:resource="&txn_demo;IndividualTag"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#isIndividualTagOfIndividual -->
+
+    <owl:ObjectProperty rdf:about="&txn_demo;isIndividualTagOfIndividual">
+        <rdfs:label>isOneOf</rdfs:label>
+        <rdfs:range rdf:resource="&txn_demo;IndividualOrganism"/>
+        <rdfs:domain rdf:resource="&txn_demo;IndividualTag"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#isIndividualTagOfSpecies -->
+
+    <owl:ObjectProperty rdf:about="&txn_demo;isIndividualTagOfSpecies">
+        <rdfs:label
+            >isIndividualTagOfSpecies</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;IndividualTag"/>
+        <rdfs:range rdf:resource="&txn_demo;SpeciesConcept"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#isLexicalMapOfSpecies -->
+
+    <owl:ObjectProperty rdf:about="&txn_demo;isLexicalMapOfSpecies">
+        <rdfs:label
+            >isLexicalMapOfSpecies</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;LexicalMap"/>
+        <rdfs:range rdf:resource="&txn_demo;SpeciesConcept"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#isOccurrenceTagOfOccurrence -->
+
+    <owl:ObjectProperty rdf:about="&txn_demo;isOccurrenceTagOfOccurrence">
+        <rdfs:label
+            >isOccurrenceTagOfOccurrence</rdfs:label>
+        <rdfs:range rdf:resource="&txn_demo;Occurrence"/>
+        <rdfs:domain rdf:resource="&txn_demo;OccurrenceTag"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#isOccurrenceTagOfSpecies -->
+
+    <owl:ObjectProperty rdf:about="&txn_demo;isOccurrenceTagOfSpecies">
+        <rdfs:label
+            >isOccurrenceTagOf</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;OccurrenceTag"/>
+        <rdfs:range rdf:resource="&txn_demo;SpeciesConcept"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#isOneLexicalVariantIn -->
+
+    <owl:ObjectProperty rdf:about="&txn_demo;isOneLexicalVariantIn">
+        <rdfs:label
+            >isLexicalVariantOf</rdfs:label>
+        <rdfs:range rdf:resource="&txn_demo;LexicalMap"/>
+        <rdfs:domain rdf:resource="&txn_demo;LexicalVariant"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#isTaxonomicDescriptionOfSpecies -->
+
+    <owl:ObjectProperty rdf:about="&txn_demo;isTaxonomicDescriptionOfSpecies">
+        <rdfs:label
+            >isTaxonomicDescriptionOf</rdfs:label>
+        <rdfs:range rdf:resource="&txn_demo;SpeciesConcept"/>
+        <rdfs:domain rdf:resource="&txn_demo;TaxonomicDescription"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#isTopicTagOfSpecies -->
+
+    <owl:ObjectProperty rdf:about="&txn_demo;isTopicTagOfSpecies">
+        <rdfs:label
+            >isTopicTagOfSpecies</rdfs:label>
+        <rdfs:range rdf:resource="&txn_demo;SpeciesConcept"/>
+        <rdfs:domain rdf:resource="&txn_demo;SpeciesTopicTag"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#occurrenceHasOccurrenceTag -->
+
+    <owl:ObjectProperty rdf:about="&txn_demo;occurrenceHasOccurrenceTag">
+        <rdfs:label>isRecordOf</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;Occurrence"/>
+        <rdfs:range rdf:resource="&txn_demo;OccurrenceTag"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#speciesAsDocumentedBy -->
+
+    <owl:ObjectProperty rdf:about="&txn_demo;speciesAsDocumentedBy">
+        <rdfs:label
+            >asDocumentedByOntology</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;SpeciesConcept"/>
+        <rdfs:range rdf:resource="&txn_demo;TaxonOntology"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#speciesHasIndividualTag -->
+
+    <owl:ObjectProperty rdf:about="&txn_demo;speciesHasIndividualTag">
+        <rdfs:label
+            >hasIndividualTag</rdfs:label>
+        <rdfs:range rdf:resource="&txn_demo;IndividualTag"/>
+        <rdfs:domain rdf:resource="&txn_demo;SpeciesConcept"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#speciesHasLexicalMap -->
+
+    <owl:ObjectProperty rdf:about="&txn_demo;speciesHasLexicalMap">
+        <rdfs:label>hasLexicalMap</rdfs:label>
+        <rdfs:range rdf:resource="&txn_demo;LexicalMap"/>
+        <rdfs:domain rdf:resource="&txn_demo;SpeciesConcept"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#speciesHasOccurrenceTag -->
+
+    <owl:ObjectProperty rdf:about="&txn_demo;speciesHasOccurrenceTag">
+        <rdfs:label
+            >hasOccurrenceTag</rdfs:label>
+        <rdfs:range rdf:resource="&txn_demo;OccurrenceTag"/>
+        <rdfs:domain rdf:resource="&txn_demo;SpeciesConcept"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#speciesHasTaxonomicDescription -->
+
+    <owl:ObjectProperty rdf:about="&txn_demo;speciesHasTaxonomicDescription">
+        <rdfs:label
+            >hasTaxonomicDescription</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;SpeciesConcept"/>
+        <rdfs:range rdf:resource="&txn_demo;TaxonomicDescription"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#speciesHasTopicTag -->
+
+    <owl:ObjectProperty rdf:about="&txn_demo;speciesHasTopicTag">
+        <rdfs:label>hasTopicType</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;SpeciesConcept"/>
+        <rdfs:range rdf:resource="&txn_demo;SpeciesTopicTag"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#cannonical -->
+
+    <owl:DatatypeProperty rdf:about="&txn_demo;cannonical">
+        <rdfs:label>cannonical</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;LexicalVariant"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#genus_epitheton -->
+
+    <owl:DatatypeProperty rdf:about="&txn_demo;genus_epitheton">
+        <rdfs:label>genus_epitheton</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;LexicalVariant"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#hasSpeciesConceptID -->
+
+    <owl:DatatypeProperty rdf:about="&txn_demo;hasSpeciesConceptID">
+        <rdfs:label
+            >hasSpeciesConceptID</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#hybrid -->
+
+    <owl:DatatypeProperty rdf:about="&txn_demo;hybrid">
+        <rdfs:label>hybrid</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;LexicalVariant"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#lexicalGroupMemberID -->
+
+    <owl:DatatypeProperty rdf:about="&txn_demo;lexicalGroupMemberID">
+        <rdfs:label
+            >lexicalGroupMemberID</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;LexicalVariant"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#name_string_id -->
+
+    <owl:DatatypeProperty rdf:about="&txn_demo;name_string_id">
+        <rdfs:label>name_string_id</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;LexicalVariant"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#normalized -->
+
+    <owl:DatatypeProperty rdf:about="&txn_demo;normalized">
+        <rdfs:label>normalized</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;LexicalVariant"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#species_author -->
+
+    <owl:DatatypeProperty rdf:about="&txn_demo;species_author">
+        <rdfs:label>species_author</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;LexicalVariant"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#species_authorTeam -->
+
+    <owl:DatatypeProperty rdf:about="&txn_demo;species_authorTeam">
+        <rdfs:label
+            >species_authorTeam</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;LexicalVariant"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#species_authorship -->
+
+    <owl:DatatypeProperty rdf:about="&txn_demo;species_authorship">
+        <rdfs:label
+            >species_authorship</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;LexicalVariant"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#species_basionym_year -->
+
+    <owl:DatatypeProperty rdf:about="&txn_demo;species_basionym_year">
+        <rdfs:label
+            >species_basionym_year</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;LexicalVariant"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#species_epitheton -->
+
+    <owl:DatatypeProperty rdf:about="&txn_demo;species_epitheton">
+        <rdfs:label
+            >species_epitheton</rdfs:label>
+        <rdfs:domain rdf:resource="&txn_demo;LexicalVariant"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#Bio2RDFTaxon -->
+
+    <owl:Class rdf:about="&txn_demo;Bio2RDFTaxon">
+        <rdfs:label>Bio2RDFTaxon</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#CoL2009Taxon -->
+
+    <owl:Class rdf:about="&txn_demo;CoL2009Taxon">
+        <rdfs:label>CoL2009Taxon</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#DBpediaTaxon -->
+
+    <owl:Class rdf:about="&txn_demo;DBpediaTaxon">
+        <rdfs:label>DBpediaTaxon</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#FreebaseTaxon -->
+
+    <owl:Class rdf:about="&txn_demo;FreebaseTaxon">
+        <rdfs:label>FreebaseTaxon</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#GeoSpeciesTaxon -->
+
+    <owl:Class rdf:about="&txn_demo;GeoSpeciesTaxon">
+        <rdfs:label>GeoSpeciesTaxon</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#IndividualOrganism -->
+
+    <owl:Class rdf:about="&txn_demo;IndividualOrganism">
+        <rdfs:label
+            >IndividualOrganism</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#IndividualTag -->
+
+    <owl:Class rdf:about="&txn_demo;IndividualTag">
+        <rdfs:label>IndividualTag</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#LexicalMap -->
+
+    <owl:Class rdf:about="&txn_demo;LexicalMap">
+        <rdfs:label>LexicalMap</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#LexicalVariant -->
+
+    <owl:Class rdf:about="&txn_demo;LexicalVariant">
+        <rdfs:label
+            >GNI_Lexical_Variant</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#Occurrence -->
+
+    <owl:Class rdf:about="&txn_demo;Occurrence">
+        <rdfs:label>Occurrence</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#OccurrenceTag -->
+
+    <owl:Class rdf:about="&txn_demo;OccurrenceTag">
+        <rdfs:label>OccurrenceTag</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#OpenCycTaxon -->
+
+    <owl:Class rdf:about="&txn_demo;OpenCycTaxon">
+        <rdfs:label>OpenCycTaxon</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#SpeciesConcept -->
+
+    <owl:Class rdf:about="&txn_demo;SpeciesConcept">
+        <rdfs:label>SpeciesConcept</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&txn_demo;TaxonConcept"/>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#SpeciesTopicTag -->
+
+    <owl:Class rdf:about="&txn_demo;SpeciesTopicTag">
+        <rdfs:label>SpeciesTopic</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&skos;Concept"/>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#TaxonConcept -->
+
+    <owl:Class rdf:about="&txn_demo;TaxonConcept">
+        <rdfs:label>TaxonConcept</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#TaxonOntology -->
+
+    <owl:Class rdf:about="&txn_demo;TaxonOntology">
+        <rdfs:label>TaxonOntology</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#TaxonomicDescription -->
+
+    <owl:Class rdf:about="&txn_demo;TaxonomicDescription">
+        <rdfs:label
+            >TaxonomicDescription</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&foaf;Document"/>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#UbioTaxon -->
+
+    <owl:Class rdf:about="&txn_demo;UbioTaxon">
+        <rdfs:label>UbioTaxon</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#UniprotTaxon -->
+
+    <owl:Class rdf:about="&txn_demo;UniprotTaxon">
+        <rdfs:label>UniprotTaxon</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://rdfs.org/ns/void#Dataset -->
+
+    <owl:Class rdf:about="&void;Dataset">
+        <rdfs:label>Dataset</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://rdfs.org/ns/void#Linkset -->
+
+    <owl:Class rdf:about="&void;Linkset">
+        <rdfs:label>Linkset</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#Thing -->
+
+    <owl:Class rdf:about="&owl;Thing"/>
+    
+
+
+    <!-- http://www.w3.org/2004/02/skos/core#Concept -->
+
+    <owl:Class rdf:about="&skos;Concept">
+        <rdfs:label>Concept</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://xmlns.com/foaf/0.1/Document -->
+
+    <owl:Class rdf:about="&foaf;Document">
+        <rdfs:label>Document</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#Bio2RDF -->
+
+    <owl:Thing rdf:about="&txn_demo;Bio2RDF">
+        <rdf:type rdf:resource="&void;Dataset"/>
+        <rdfs:label>Bio2RDFTaxon</rdfs:label>
+    </owl:Thing>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#DBpedia -->
+
+    <void:Dataset rdf:about="&txn_demo;DBpedia">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <rdfs:label>DBpediaTaxon</rdfs:label>
+    </void:Dataset>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#Freebase -->
+
+    <owl:Thing rdf:about="&txn_demo;Freebase">
+        <rdf:type rdf:resource="&void;Dataset"/>
+        <rdfs:label>FreebaseTaxon</rdfs:label>
+    </owl:Thing>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#GeoSpecies -->
+
+    <void:Dataset rdf:about="&txn_demo;GeoSpecies">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <rdfs:label>GeoSpeciesTaxon</rdfs:label>
+    </void:Dataset>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#Ontology -->
+
+    <owl:Thing rdf:about="&txn_demo;Ontology">
+        <rdfs:label>Ontology</rdfs:label>
+    </owl:Thing>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#OpenCyc -->
+
+    <void:Dataset rdf:about="&txn_demo;OpenCyc">
+        <rdf:type rdf:resource="&owl;Thing"/>
+        <rdfs:label>OpenCycTaxon</rdfs:label>
+    </void:Dataset>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#SpeciesOntology -->
+
+    <owl:Thing rdf:about="&txn_demo;SpeciesOntology"/>
+    
+
+
+    <!-- http://rdf.taxonconcept.org/ont/txn_demo.owl#Uniprot -->
+
+    <owl:Thing rdf:about="&txn_demo;Uniprot">
+        <rdf:type rdf:resource="&void;Dataset"/>
+        <rdfs:label>UniprotTaxon</rdfs:label>
+    </owl:Thing>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 2.2.1.1138) http://owlapi.sourceforge.net -->
+
