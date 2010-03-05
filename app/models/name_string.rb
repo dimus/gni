@@ -21,6 +21,11 @@ class NameString < ActiveRecord::Base
     CONSTANTS_DEFINED = true
   end
 
+  def uuid
+    res = super
+    res ? res : UUID.create_v5(NameString.normalize_name_string(name), GNA_NAMESPACE).raw_bytes
+  end
+
   def self.uuid2bytes(uuid)
     UUID.parse(uuid).raw_bytes
   end

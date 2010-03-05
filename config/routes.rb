@@ -15,6 +15,8 @@ ActionController::Routing::Routes.draw do |map|
   map.forgotten_password '/forgotten_password', :controller => 'users', :action => 'forgotten_password'
   
   map.resources :parsers
+
+  map.resources :uuids
   
   map.resources :users, :has_many => [:data_source_contributors, :data_sources]
 

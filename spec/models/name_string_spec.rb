@@ -218,6 +218,29 @@ describe NameString do
     name_strings.should_not be_nil
     name_strings.size.should > 0
   end
+
+  describe "UUID handling" do
+    before(:all) do
+      @name_string = NameString.last
+    end
+
+    it "should convert uuid to bytes" do
+      NameString.uuid2bytes(@name_string.uuid_hex).should == UUID.parse("bcd01c45-ded8-59db-a913-a5a8a43b8a40").raw_bytes
+    end
+
+    it "#uuid_hex" do
+      @name_string.uuid_hex.should == 'bcd01c45-ded8-59db-a913-a5a8a43b8a40'
+    end
+
+    it "#lsid" do
+      @name_string.lsid.should == 'urn:lsid:globalnames.org:index:bcd01c45-ded8-59db-a913-a5a8a43b8a40'
+    end
+
+    it "should return bytes with #uuid" do
+      @name_string.uuid.should == UUID.parse("bcd01c45-ded8-59db-a913-a5a8a43b8a40").raw_bytes
+    end
+  
+  end
   
 end
 
