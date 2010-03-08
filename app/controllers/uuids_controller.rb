@@ -2,7 +2,7 @@ class UuidsController < ApplicationController
 
   # GET /parsers
   def index
-    names = params[:names] ? params[:names].split(/[;|]/) : []
+    names = params[:names] ? params[:names].split(/[|]/) : []
     names_uuid(names)
   end
 
@@ -26,7 +26,7 @@ private
     elsif format == 'yaml'
       render :text => YAML.dump(uuids)
     elsif format == 'json'
-      render :json => json_callback(uuids, params[:callback])
+      render :json => json_callback(uuids.to_json, params[:callback])
     # else
     #   @uuids = uuids
     #   render :action => :uuids
