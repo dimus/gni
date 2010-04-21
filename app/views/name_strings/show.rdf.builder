@@ -1,4 +1,5 @@
 xml = Builder::XmlMarkup.new(:indent => 2)
+gni_url = "http://globalnames.org/name_strings/#{@name_string.uuid_hex}"
 xml.instruct!
 xml.rdf(:RDF,
   "xmlns:rdfs"                    =>  "http://www.w3.org/2000/01/rdf-schema",
@@ -10,13 +11,13 @@ xml.rdf(:RDF,
   "xmlns:dcterms"                 =>  "http://purl.org/dc/terms/",
   "xmlns:cc"                      =>  "http://creativecommons.org/ns#") do
   
-  xml.rdf(:Description, "rdf:about" => "http://globalnames.org/something") do
+  xml.rdf(:Description, "rdf:about" => gni_url) do
     xml.dcterms(:title, "About: " + @name_string.name)
     # xml.dcterms(:publisher, "rdf:resource" => PUBLISHER_URI)
     # xml.dcterms(:creator, "rdf:resource"   => CREATOR1_URI)
     # xml.dcterms(:creator, "rdf:resource"   => CREATOR2_URI)
     xml.dcterms(:description, "A RDF document describing Global Name Index Name String: #{@name_string.name}")
-    xml.dcterms(:identifier, @name_string.uuid_hex)
+    xml.dcterms(:identifier, gni_url)
     xml.dwc(:ScientificName, @name_string.name)
     # xml.dcterms(:language, 'en')
     # xml.dcterms(:isPartOf, "rdf:resource" => DATASET_URI )
