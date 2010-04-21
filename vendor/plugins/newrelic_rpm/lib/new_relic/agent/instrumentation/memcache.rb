@@ -1,18 +1,29 @@
 # NOTE there are multiple implementations of the MemCache client in Ruby,
 # each with slightly different API's and semantics.  
-# Currently we only cover memcache-client.  Need to cover Ruby-MemCache.
 # See:
 #     http://www.deveiate.org/code/Ruby-MemCache/ (Gem: Ruby-MemCache)
-#     http://dev.robotcoop.com/Libraries/memcache-client/ (Gem: memcache-client)
-MemCache.class_eval do
-  add_method_tracer :get, 'MemCache/read' if self.method_defined? :get  
-  add_method_tracer :set, 'MemCache/write' if self.method_defined? :set
-  add_method_tracer :get_multi, 'MemCache/read' if self.method_defined? :get_multi
-end if defined? MemCache
+#     http://seattlerb.rubyforge.org/memcache-client/ (Gem: memcache-client)
+unless NewRelic::Control.instance['disable_memcache_instrumentation']
+  
+  def self.instrument_method(the_class, method_name)
+    return unless the_class.method_defined? method_name.to_sym
+    the_class.class_eval <<-EOD
+        def #{method_name}_with_newrelic_trace(*args)
+          metrics = ["MemCache/#{method_name}", 
+                     (NewRelic::Agent::Instrumentation::MetricFrame.recording_web_transaction? ? 'MemCache/allWeb' : 'MemCache/allOther')]
+          self.class.trace_execution_scoped(metrics) do
+            #{method_name}_without_newrelic_trace(*args)
+          end
+        end
+        alias #{method_name}_without_newrelic_trace #{method_name}
+        alias #{method_name} #{method_name}_with_newrelic_trace
+    EOD
+  end
+  # Support for libmemcached through Evan Weaver's memcached wrapper
+  # http://blog.evanweaver.com/files/doc/fauna/memcached/classes/Memcached.html    
+  %w[get get_multi set add incr decr delete replace append prepand cas].each do | method_name |
+    instrument_method(::MemCache, method_name) if defined? ::MemCache  
+    instrument_method(::Memcached, method_name) if defined? ::Memcached  
+  end
 
-# Support for libmemcached through Evan Weaver's memcached wrapper
-# http://blog.evanweaver.com/files/doc/fauna/memcached/classes/Memcached.html    
-Memcached.class_eval do
-  add_method_tracer :get, 'Memcached/read' if self.method_defined? :get
-  add_method_tracer :set, 'Memcached/write' if self.method_defined? :set
-end if defined? Memcached
+end

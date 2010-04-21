@@ -65,9 +65,10 @@ Rails::Initializer.run do |config|
   config.gem 'json'
   config.gem "rspec", :lib => false, :version => ">= 1.2.0" 
   config.gem "rspec-rails", :lib => false, :version => ">= 1.2.0" 
+  config.gem "newrelic_rpm"
   
-  config.gem 'dimus-biodiversity', :version => '>= 0.5.0', :lib => 'biodiversity', :source => 'http://gems.github.com/'
-  config.gem 'dimus-taxamatch_rb', :lib => 'taxamatch_rb', :source => 'http://gems.github.com'
+  config.gem 'biodiversity', :version => '>= 0.5.16', :lib => 'biodiversity'
+  config.gem 'taxamatch_rb', :lib => 'taxamatch_rb', :version => '>= 0.6.4'
   
 
 end  

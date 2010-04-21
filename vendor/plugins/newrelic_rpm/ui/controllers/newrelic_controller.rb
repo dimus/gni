@@ -1,8 +1,6 @@
-##require 'new_relic/agent'
-require 'google_pie_chart'
-
 class NewrelicController < ActionController::Base
   include NewrelicHelper
+  helper NewrelicHelper
   
   # See http://wiki.rubyonrails.org/rails/pages/Safe+ERB:
   # We don't need to worry about checking taintedness
@@ -30,9 +28,9 @@ class NewrelicController < ActionController::Base
   # for this controller, the views are located in a different directory from
   # the application's views.
   view_path = File.join(File.dirname(__FILE__), '..', 'views')
-  if public_methods.include? 'append_view_path' # rails 2.1+
+  if respond_to? :append_view_path # rails 2.1+
     self.append_view_path view_path
-  elsif public_methods.include? "view_paths"   # rails 2.0+
+  elsif respond_to? :view_paths   # rails 2.0+
     self.view_paths << view_path
   else                                      # rails <2.0
     self.template_root = view_path
@@ -42,24 +40,41 @@ class NewrelicController < ActionController::Base
   
   write_inheritable_attribute('do_not_trace', true)
   
-  def css
-    forward_to_file '/newrelic/stylesheets/', 'text/css'
+  def profile
+    NewRelic::Control.instance.profiling = params['start'] == 'true'
+    get_samples
+    redirect_to :action => 'index'
   end
   
-  def image
-    forward_to_file '/newrelic/images/', params[:content_type]
+  def file
+    file_name=Array(params[:file]).join
+    file_name=~/^.*[.]([^.]*)$/
+    ext=$1
+    case ext
+      when 'css' then
+        forward_to_file '/newrelic/stylesheets/', 'text/css'
+      when 'gif','jpg','png' then
+        forward_to_file '/newrelic/images/', "image/#{ext}"
+      when 'js' then
+        forward_to_file '/newrelic/javascript/', 'text/javascript'
+      else
+        raise "Unknown type '#{ext}' (#{file_name})"
+    end
   end
-  
-  def javascript
-    forward_to_file '/newrelic/javascript/', 'text/javascript'
-  end
-  
-  
-  
+
   def index
     get_samples
   end
   
+  def threads
+    
+  end
+  
+  def reset
+    NewRelic::Agent.instance.transaction_sampler.reset!
+    redirect_to :action => 'index'
+  end
+
   def show_sample_detail
     show_sample_data
   end
@@ -162,6 +177,8 @@ class NewrelicController < ActionController::Base
     render :action => "sample_not_found" and return unless @sample 
     
     @request_params = @sample.params[:request_params] || {}
+    @custom_params = @sample.params[:custom_params] || {}
+
     controller_metric = @sample.root_segment.called_segments.first.metric_name
     
     controller_segments = controller_metric.split('/')
@@ -172,10 +189,13 @@ class NewrelicController < ActionController::Base
   end
   
   def get_samples
-    @samples = NewRelic::Agent.instance.transaction_sampler.get_samples.select do |sample|
+    @samples = NewRelic::Agent.instance.transaction_sampler.samples.select do |sample|
       sample.params[:path] != nil
     end
     
+    return @samples = @samples.sort{|x,y| y.omit_segments_with('(Rails/Application Code Loading)|(Database/.*/.+ Columns)').duration <=>
+        x.omit_segments_with('(Rails/Application Code Loading)|(Database/.*/.+ Columns)').duration} if params[:h]
+    return @samples = @samples.sort{|x,y| x.params[:uri] <=> y.params[:uri]} if params[:u]
     @samples = @samples.reverse
   end
   

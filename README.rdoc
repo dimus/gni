@@ -29,7 +29,7 @@ To setup testing for GNI you have to do the following:
 
 == Parser and Fuzzy Matcher
 
-	sudo gem install dimus-biodivesity --source http://gems.github.com
-  sudo gem install dimus-taxamatch_rb --source http://gems.github.com
+	sudo gem install biodivesity
+  sudo gem install taxamatch_rb
 
 
