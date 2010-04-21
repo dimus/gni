@@ -31,3 +31,4 @@ config/deploy
 vendor/gni_deploy
 script/gni/batch_scripts/*
 script/gni/experiment/
+restart.txt
