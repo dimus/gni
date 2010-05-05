@@ -1,5 +1,5 @@
 xml = Builder::XmlMarkup.new(:indent => 2)
-gni_url = "http://globalnames.org/name_strings/#{@name_string.uuid_hex}"
+gni_url = "http://gni.globalnames.org/name_strings/#{@name_string.uuid_hex}"
 xml.instruct!
 xml.rdf(:RDF,
   "xmlns:rdfs"                    =>  "http://www.w3.org/2000/01/rdf-schema",
@@ -30,20 +30,20 @@ xml.rdf(:RDF,
   end
 
 
-  #   Description rdf:about="http://www.globalnames.org/lvs/e720aafd-d049-4ad1-b5ce-a9a6d81c60b6.rdf">
+  #   Description rdf:about="http://gni.globalnames.org/lvs/e720aafd-d049-4ad1-b5ce-a9a6d81c60b6.rdf">
   #   <dcterms:title>Lexical Variant $Name</dcterms:title>
   #   <dcterms:publisher rdf:resource="http://rdf.taxonconcept.org/ont/txn_demo.owl#TaxonConceptCommunity"/>
   #   <dcterms:creator rdf:resource="http://rdf.geospecies.org/ont/people.owl#Peter_J_DeVries"/>
   #   <dcterms:description>A RDF document that maps the various concepts identifiers for the species Puma concolor</dcterms:description>
   #   <skos:scopeNote>Provides metadata about this document.</skos:scopeNote>
-  #   <dcterms:identifier>http://www.globalnames.org/lvs/e720aafd-d049-4ad1-b5ce-a9a6d81c60b6.rdf</dcterms:identifier>
+  #   <dcterms:identifier>http://gni.globalnames.org/lvs/e720aafd-d049-4ad1-b5ce-a9a6d81c60b6.rdf</dcterms:identifier>
   #   <dcterms:language>en</dcterms:language>
   #   <dcterms:isPartOf rdf:resource="http://rdf.taxonconcept.org/ont/void#this"/>
   #   <dcterms:created>2009-11-20T15:56:04-0600</dcterms:created>
   #   <dcterms:modified>2009-01-10T12:18:04-0600</dcterms:modified>
   #   <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
   #   <!-- Foaf Topic's for "http://rdf.taxonconcept.org/ses/v6n7p.rdf" -->
-  #   <foaf:primaryTopic rdf:resource="http://www.globalnames.org/lvs/e720aafd-d049-4ad1-b5ce-a9a6d81c60b6"/>
+  #   <foaf:primaryTopic rdf:resource="http://gni.globalnames.org/lvs/e720aafd-d049-4ad1-b5ce-a9a6d81c60b6"/>
   # </rdf:Description>
 
 end
