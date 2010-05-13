@@ -65,7 +65,7 @@ def generate_words
   nwp.generate_words
 end
 
-cleanup_orphans
+#cleanup_orphans
 update_unique_names
 update_cached_counts
 generate_words
