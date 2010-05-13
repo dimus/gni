@@ -18,6 +18,7 @@ tmp/cache/*
 tmp/pids/*
 tmp/sessions/*
 tmp/sockets/*
+tmp/sass-cache/*
 tmp/war
 tmp/metric_fu/*
 log/*

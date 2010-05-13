@@ -55,8 +55,8 @@ $(function() {
   $("table.data tbody tr:nth-child(even)").addClass("even");
 
   // Set info/error messages dissapear after 5 seconds
-  //$("div#flash").fadeIn("slow").animate({opacity: 1.0}, 10000).fadeOut("slow");
-  $("div#flash").show(1500);
+  $("div#flash").fadeIn("slow").animate({opacity: 1.0}, 10000).fadeOut("slow");
+  /* $("div#flash").show(1500); */
   
   $("#submit_import_data").confirm({
     msg:'Import new and delete old data? ',
