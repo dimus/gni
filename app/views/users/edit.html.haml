@@ -1,7 +1,0 @@
-%h1 
-  Edit Settings for user 
-  = in_quotes(@user.login)
-
-= error_messages_for :user
-
-= render :partial => 'user', :locals => { :user => @user, :button => "Save"}
